@@ -2,9 +2,18 @@
 
 Service description with the intended platform like LXC container or Proxmox VM or docker container.
 
-## Before deploying
+## Preview
 
-Description or variables to set in .env before deploying
+![preview image]()
+
+## Installation
+
+1. Installation
+2. Instructions
+
+---
+
+Extra notes
 
 ## Contributing
 
