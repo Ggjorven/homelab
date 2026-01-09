@@ -2,12 +2,12 @@
   - " ":
     label: ""
     href: {{PROXMOX_URL}}
-      widget:
-        type: proxmox
-        fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
-        url: {{PROXMOX_URL}}
-        username: {{PROXMOX_USERNAME}}
-        password: {{PROXMOX_SECRET}}
+    widget:
+      type: proxmox
+      fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
+      url: {{PROXMOX_URL}}
+      username: {{PROXMOX_USERNAME}}
+      password: {{PROXMOX_SECRET}}
 
 - Media:
   - TrueNAS:
