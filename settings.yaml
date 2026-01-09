@@ -1,0 +1,20 @@
+title: JHome Dashboard
+favicon: https://img.icons8.com/?size=100&id=iPqKoSmxmAyJ&format=png&color=000000
+statusStyle: "dot"
+language: en
+
+layout:
+  Topbar:
+    style: row
+    columns: 12
+
+    header: false
+
+  Media:
+    columns: 6
+
+  Networking:
+    columns: 6
+
+headerStyle: boxedWidgets
+disableCollapse: true

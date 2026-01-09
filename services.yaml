@@ -1,0 +1,37 @@
+- Topbar:
+  - " ":
+    label: ""
+    href: https://{{PROXMOX_IP}}:{{PROXMOX_PORT}}
+      widget:
+        type: proxmox
+        fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
+        url: https://{{PROXMOX_IP}}:{{PROXMOX_PORT}}
+        username: {{PROXMOX_USERNAME}}
+        password: {{PROXMOX_SECRET}}
+
+- Media:
+  - TrueNAS:
+    icon: truenas
+    href: https://{{TRUENAS_IP}}
+    description: NAS
+    ping: {{TRUENAS_IP}}
+    widget:
+      type: truenas
+      fields: ["load", "uptime", "alerts"]
+      url: https://{{TRUENAS_IP}}
+      username: {{TRUENAS_USERNAME}}
+      password: {{TRUENAS_PASSWORD}}
+      nasType: scale
+
+- Networking:
+  - PiHole:
+    icon: pi-hole
+    href: https://{{PIHOLE_IP}}/admin
+    description: Network-wide adblocker/custom DNS server.
+    ping: {{PIHOLE_IP}}
+    widget:
+      type: pihole
+      fields: ["queries", "blocked", "blocked_percent", "gravity"]
+      url: {{PIHOLE_IP}}
+      version: 6
+      key: {{PIHOLE_PASSWORD}}
