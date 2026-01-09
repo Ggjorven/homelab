@@ -1,10 +1,10 @@
 # Homepage
 
-Homepage is a dashboard service run as an **LXC container**, this branch contains the /config folder of the /opt/homepage/ folder.
+Homepage is a dashboard service run as an **LXC container**, this branch contains the `/config` folder of the `/opt/homepage/` folder.
 
 ## Before deploying
 
-Before you can deploy the homepage with this configuration you must create a .env file in the /opt/homepage/ folder with these contents:
+Before you can deploy the homepage with this configuration you must create a .env file in the `/opt/homepage/` folder with these contents:
 
 ```env
 HOMEPAGE_ALLOWED_HOSTS=192.168.x.x:3000
@@ -23,6 +23,20 @@ HOMEPAGE_VAR_PIHOLE_IP=192.168.x.x
 HOMEPAGE_VAR_PIHOLE_URL=https://192.168.x.x
 HOMEPAGE_VAR_PIHOLE_PASSWORD=
 ```
+
+---
+
+Sometimes it's also required to set:
+```
+EnvironmentFile=/opt/homepage/.env
+```
+
+under
+```
+[Service]
+```
+
+in `/etc/systemd/system/homepage.service`.
 
 ## Contributing
 
