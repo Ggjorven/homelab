@@ -10,15 +10,17 @@ Before you can deploy the homepage with this configuration you must create a .en
 HOMEPAGE_ALLOWED_HOSTS=192.168.x.x:3000
 
 PROXMOX_IP=192.168.x.x
-PROXMOX_PORT=8006
+PROXMOX_URL=https://192.168.x.x:8006
 PROXMOX_USERNAME=xxxxx@pam!xxxxx
 PROXMOX_SECRET=
 
 TRUENAS_IP=192.168.x.x
+TRUENAS_URL=https://192.168.x.x
 TRUENAS_USERNAME=
 TRUENAS_PASSWORD=
 
 PIHOLE_IP=192.168.x.x
+PIHOLE_URL=https://192.168.x.x
 PIHOLE_PASSWORD=
 ```
 
