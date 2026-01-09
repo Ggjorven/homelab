@@ -2,6 +2,10 @@
 
 Homepage is a dashboard service run as an **LXC container**, this branch contains the `/config` folder of the `/opt/homepage/` folder.
 
+## Preview
+
+![Preview of Dashboard](docs/images/preview.png)
+
 ## Before deploying
 
 Before you can deploy the homepage with this configuration you must create a .env file in the `/opt/homepage/` folder with these contents:
