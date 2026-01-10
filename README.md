@@ -84,7 +84,15 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
 
 4. To be able to create the media libraries we need to mount our network share from [truenas](https://github.com/Ggjorven/homelab/tree/truenas). To do so we need to install the following packages:
    ```
-   TODO
+   apt install cifs-utils smbclient
+   ```
+
+5. First we create a folder where to mount the share to:
+   ```
+   mkdir /mnt/media
+   ```
+   Then we mount the share to it:
+   ```
    ```
 
 ## Contributing
