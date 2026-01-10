@@ -9,17 +9,61 @@ Jellyfin is a media streaming solution for streaming from any device, this branc
 ## Preparation
 
 Before you can get started you must ensure NVIDIA drivers are installed on the host system:
-This is done using the following steps:
+This is done using the following steps:  
+These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia-drivers-instalation-proxmox-and-ct.156421/).
 
-1. Updating your entire node's system using the following commands  
-   (Make sure your proxmox's node's repositories are set to no-subscription if you don't have a license):
+1. Blacklist the nouveau drivers (this will create a new file):
    ```
-   apt update && apt full-upgrade -y
+   nano /etc/modprobe.d/blacklist-nouveau.conf
+   ```
+   Paste this inside:
+   ```
+   blacklist nouveau
+   options nouveau modeset=0
    ```
 
-2. Now reboot your machine and run the following commands:
+2. Update initramfs:
    ```
-   TODO
+   update-initramfs -u
+   ```
+
+3. Check if nouveau is enabled
+   ```
+   lsmod | grep nouveau
+   ```
+   If it gives output, disable it with the following command:
+   ```
+   rmmod nouveau
+   ```
+   Afterwards go back and verify it's actually disabled by running the following command again:
+   ```
+   lsmod | grep nouveau
+   ```
+
+4. Make sure your system can find your NVIDIA GPU:
+   ```
+   lspci | grep NVIDIA
+   ```
+
+5. Download the latest nvidia driver for your GPU [link](https://www.nvidia.com/en-us/drivers/) where the OS is **Linux 64-bit**. Make sure the drivers are compatible with nvidia-utils-xxx-server. Example:
+   ```
+   wget https://us.download.nvidia.com/XFree86/Linux-x86_64/550.90.07/NVIDIA-Linux-x86_64-550.90.07.run
+   chmod +x NVIDIA-Linux-x86_64-550.90.07.run
+   ```
+
+6. Install the required build packages:
+   ```
+   apt install build-essential pve-headers-$(uname -r)
+   ```
+
+7. Run the installation:
+   ```
+   ./NVIDIA-Linux-x86_64-550.90.07.run
+   ```
+
+8. Verify the drivers installed succesfully and continue to the [Installation](#Installation)
+   ```
+   nvidia-smi
    ```
 
 ## Installation
