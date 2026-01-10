@@ -29,4 +29,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [Jellyfin]([https://github.com/Ggjorven](https://jellyfin.org/)) - Media streaming solution
+- [Jellyfin](https://jellyfin.org/) - Media streaming solution
