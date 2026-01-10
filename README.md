@@ -1,19 +1,26 @@
-# Service name
+# Jellyfin
 
-Service description with the intended platform like LXC container or Proxmox VM or docker container.
+Jellyfin is a media streaming solution for streaming from any device, this branch contains the installation instructions for installing **Jellyfin** as an **LXC Container**.
 
 ## Preview
 
 ![preview image]()
 
+## Preparation
+
+Before you can get started you must ensure NVIDIA drivers are installed on the host system:
+This is done using the following steps:
+
+1. Updating your entire node's system using the following commands:
+```
+
+```
+
 ## Installation
 
 1. Installation
+   
 2. Instructions
-
----
-
-Extra notes
 
 ## Contributing
 
@@ -22,4 +29,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [More references](https://github.com/Ggjorven) - ...
+- [Jellyfin]([https://github.com/Ggjorven](https://jellyfin.org/)) - Media streaming solution
