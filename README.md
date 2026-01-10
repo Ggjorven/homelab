@@ -30,6 +30,10 @@ Pi-hole is a custom DNS server and used as a network wide adblocker in my case, 
 
 8. Now start enjoying your ad-free browsing experience by setting your **Pi 2 W**'s ip-address as a DNS server in your router.
 
+## Extra notes
+
+The reason these are instructions and not easily deployable files is because alongside all the settings in pi-hole's files there are password hashes and ip-addresses I don't want to risk uploading.
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
