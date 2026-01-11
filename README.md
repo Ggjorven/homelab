@@ -114,9 +114,9 @@ And before the LXC container can access our SMB share we need to mount it to the
 
 6. Now we need to enable this service with:
     ```
-    sudo systemctl daemon-reload
-    sudo systemctl enable mount-smb
-    sudo systemctl start mount-smb
+    systemctl daemon-reload
+    systemctl enable mount-smb
+    systemctl start mount-smb
     ```
 
 ## Installation
