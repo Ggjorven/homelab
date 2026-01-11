@@ -112,7 +112,12 @@ And before the LXC container can access our SMB share we need to mount it to the
     nano /root/scripts/mount-smb.sh
     ```
 
-6. Now we need to enable this service with:
+6. Now make sure your mount point set in the `/root/scripts/mount-smb.sh` actually exists with:
+    ```
+    mkdir /mnt/nas
+    ```
+
+7. Now we need to enable this service with:
     ```
     systemctl daemon-reload
     systemctl enable mount-smb
