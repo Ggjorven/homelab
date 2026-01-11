@@ -68,14 +68,15 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
 
 9. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service /etc/systemd/system/nvidia-persistenced.service 
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service
     ```
 
 10. Lastly we need to enable this service with:
     ```
-    sudo systemctl daemon-reload
-    sudo systemctl enable nvidia-persistence
-    sudo systemctl start nvidia-persistence
+    systemctl daemon-reload
+    systemctl enable nvidia-persistence
+    systemctl start nvidia-persistence
     ```
 
 And before the LXC container can access our SMB share we need to mount it to the root node and pass it through with these steps:
@@ -98,9 +99,11 @@ And before the LXC container can access our SMB share we need to mount it to the
 
 4. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/mount-smb.service /etc/systemd/system/mount-smb.service
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/mount-smb.service
     mkdir /root/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/mount-smb.sh /root/scripts/mount-smb.sh
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/mount-smb.sh 
     chmod +x /root/scripts/mount-smb.sh
     ```
 
