@@ -61,10 +61,54 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ./NVIDIA-Linux-x86_64-550.90.07.run
    ```
 
-8. Verify the drivers installed succesfully and continue to the [Installation](#Installation)
+8. Verify the drivers installed succesfully:
    ```
    nvidia-smi
    ```
+
+9. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
+    ```
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service /etc/systemd/system/nvidia-persistenced.service 
+    ```
+
+10. Lastly we need to enable this service with:
+    ```
+    sudo systemctl daemon-reload
+    sudo systemctl enable nvidia-persistence
+    sudo systemctl start nvidia-persistence
+    ```
+
+And before the LXC container can access our SMB share we need to mount it to the root node and pass it through with these steps:
+
+1. Install the following packages to help with mounting:
+    ```
+    apt install cifs-utils smbclient
+    ```
+
+2. Next we need to setup our credentials for our SMB share. We do this in the file `/root/.smbcred`.
+    ```
+    nano /root/.smbcred 
+    ```
+
+3. Paste in the following content and replace the placeholders with your actual `username` and `password`.
+    ```
+    username=<YOUR USERNAME FOR SMB>
+    password=<YOUR PASSWORD FOR SMB>
+    ```
+
+4. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
+    ```
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/mount-smb.service /etc/systemd/system/mount-smb.service
+    mkdir /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/mount-smb.sh /root/scripts/mount-smb.sh
+    ```
+
+5. Now we need to enable this service with:
+    ```
+    sudo systemctl daemon-reload
+    sudo systemctl enable mount-smb
+    sudo systemctl start mount-smb
+    ```
 
 ## Installation
 
@@ -80,20 +124,19 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ./NVIDIA-Linux-x86_64-550.90.07.run --no-kernel-module
    ```
 
-3. Now go through the Jellyfin's setup from the web UI, but don't create any media libraries yet.
+3. Now go through the **Jellyfin**'s setup from the web UI, but don't create any media libraries yet.
 
-4. To be able to create the media libraries we need to mount our network share from [truenas](https://github.com/Ggjorven/homelab/tree/truenas). To do so we need to install the following packages:
+4. To be able to create the media libraries we need to mount our network share from [truenas](https://github.com/Ggjorven/homelab/tree/truenas). To do so we need to ensure a proper boot order between Jellyfin and TrueNAS. Make sure that TrueNAS is booted before Jellyfin and has enough time to finish setting up the network share before booting Jellyfin.  
+    This can be done in the **Promox UI** by setting a bootorder and timeouts.
+
+5. Now we need to passthrough the mounted network share from the root node to the **LXC Container** with **Jellyfin** installed. We do so by editing the `/etc/pve/lxc/<CTID>.conf` file from the root container and adding this line:
    ```
-   apt install cifs-utils smbclient
+   mp0: /mnt/nas,mp=/mnt/nas
    ```
 
-5. First we create a folder where to mount the share to:
-   ```
-   mkdir /mnt/media
-   ```
-   Then we mount the share to it:
-   ```
-   ```
+6. Now when we restart the **LXC Container** with **Jellyfin** the **SMB Share** should be mounted and visible at `/mnt/nas`.
+
+7. You can now setup your Movie and Series libraries.
 
 ## Contributing
 
