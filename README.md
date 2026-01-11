@@ -101,6 +101,7 @@ And before the LXC container can access our SMB share we need to mount it to the
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/mount-smb.service /etc/systemd/system/mount-smb.service
     mkdir /root/scripts
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/mount-smb.sh /root/scripts/mount-smb.sh
+    chmod +x /root/scripts/mount-smb.sh
     ```
 
 5. Now we need to enable this service with:
