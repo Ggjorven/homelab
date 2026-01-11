@@ -104,7 +104,12 @@ And before the LXC container can access our SMB share we need to mount it to the
     chmod +x /root/scripts/mount-smb.sh
     ```
 
-5. Now we need to enable this service with:
+5. Edit the `/root/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP. 
+    ```
+    nano /root/scripts/mount-smb.sh
+    ```
+
+6. Now we need to enable this service with:
     ```
     sudo systemctl daemon-reload
     sudo systemctl enable mount-smb
