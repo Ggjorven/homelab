@@ -1,6 +1,7 @@
-# Service name
+# *Arr Stack
 
-Service description with the intended platform like LXC container or Proxmox VM or docker container.
+An *arr stack is collection of services that automate the management of personal media, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
+These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
 ## Preview
 
@@ -8,12 +9,9 @@ Service description with the intended platform like LXC container or Proxmox VM 
 
 ## Installation
 
-1. Installation
-2. Instructions
+1. From the **Proxmox** Node's shell install a **Docker VM** as a **Proxmox VM** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker-vm).
 
----
-
-Extra notes
+2. TODO
 
 ## Contributing
 
@@ -22,4 +20,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [More references](https://github.com/Ggjorven) - ...
+- [Docker](https://github.com/Ggjorven) - Container ecosystem
