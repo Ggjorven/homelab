@@ -26,16 +26,23 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     password=<YOUR PASSWORD FOR SMB>
     ```
 
-4. To make the mount persistent we need to modify `/etc/fstab`:
+4. Before we can mount the network share we need to know which user on the host to give the permissions to. Check your `PUID` and `PGID` with the following command *(your user is probably `root`)*:
+    ```
+    id <YOUR USER>
+    ```
+
+5. To make the mount persistent we need to modify `/etc/fstab`:
     ```
     nano /etc/fstab
     ```
     And paste this *(Replace the IP and SMB share name)*:
     ```
-    //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,vers=3.0,sec=ntlmssp 
+    //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,uid=<YOUR UID>,gid=<YOUR GID>,file_mode=0777,dir_mode=0777,vers=3.0
     ```
 
-5. Before we can actually mount it we need to actually create the `/mnt/nas` folder.
+    TODO: ME UID GID instructions
+
+6. Before we can actually mount it we need to actually create the `/mnt/nas` folder.
     ```
     mkdir /mnt/nas
     ```
@@ -44,12 +51,12 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     mount -a
     ```
 
-6. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+7. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker/arrstack
     ```
 
-7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). But before we can do so we need to install `wget`.
+8. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -60,17 +67,23 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/.env
     ```
 
-8. Now modify your `.env` file to reflect your actual `username` and `password`.
+9. Now modify your `.env` file to reflect your actual `username` and `password`.
     ```
     nano .env
     ```
 
-9. We are now finally ready to start our docker stack.
+9. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+    ```
+    id <YOUR USER>
+    ```
+    If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
+
+10. We are now finally ready to start our docker stack.
     ```
     docker compose up -d
     ```
 
-10. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
+11. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
 
 ## Configuring 
 
@@ -84,6 +97,10 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     - Set `Default Save Path` to a path in your NAS.
     - Do the same for `Keep incomplete torrents`
     - And `Copy .torrent files`
+
+### NZBGet
+
+TODO:
 
 ## Contributing
 
