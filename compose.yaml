@@ -45,7 +45,7 @@ services:
       - WEBUI_PORT=8080 # must match "qbittorrent web interface" port number in gluetun's service above
     volumes:
       - ./qbittorrent:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     depends_on:
       gluetun:
         condition: service_healthy
@@ -81,7 +81,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./nzbget:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     depends_on:
       gluetun:
         condition: service_healthy
@@ -117,7 +117,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./sonarr:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     ports:
       - 8989:8989
     networks:
@@ -135,7 +135,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./radarr:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     ports:
       - 7878:7878
     networks:
@@ -149,7 +149,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./lidarr:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -171,28 +171,28 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./bazarr:/config
-      - /data:/data
+      - /mnt/nas:/mnt/nas
     ports:
       - 6767:6767
     networks:
       servarrnetwork:
         ipv4_address: 172.39.0.6
 
-  ytdl-sub:
-    image: ghcr.io/jmbannon/ytdl-sub:latest
-    container_name: ytdl-sub
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - DOCKER_MODS=linuxserver/mods:universal-cron
-    volumes:
-      - ./ytdl-sub:/config
-      - /data/youtube:/youtube
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.39.0.8
-    restart: unless-stopped
+#  ytdl-sub:
+#    image: ghcr.io/jmbannon/ytdl-sub:latest
+#    container_name: ytdl-sub
+#    environment:
+#      - PUID=${PUID}
+#      - PGID=${PGID}
+#      - TZ=${TZ}
+#      - DOCKER_MODS=linuxserver/mods:universal-cron
+#    volumes:
+#      - ./ytdl-sub:/config
+#      - /mnt/nas/youtube:/youtube
+#    networks:
+#      servarrnetwork:
+#        ipv4_address: 172.39.0.8
+#    restart: unless-stopped
 
   jellyseerr:
     container_name: jellyseerr
