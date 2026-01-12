@@ -1,6 +1,6 @@
 [Unit]
 Description=NVIDIA Persistence service
-After=multi-user.target
+After=systemd-modules-load.service
 
 [Service]
 Type=oneshot
