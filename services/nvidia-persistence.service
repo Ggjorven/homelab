@@ -1,13 +1,11 @@
 [Unit]
-Description=NVIDIA Persistence Daemon
+Description=NVIDIA Persistence service
 After=multi-user.target
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/nvidia-persistenced --verbose
-ExecStop=/bin/kill -s SIGTERM $MAINPID
-PIDFile=/var/run/nvidia-persistenced/nvidia-persistenced.pid
-Restart=always
+Type=oneshot
+ExecStart=/root/scripts/nvidia-persistence.sh
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
