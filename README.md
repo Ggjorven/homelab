@@ -44,7 +44,29 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     mount -a
     ```
 
-6. 
+6. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+    ```
+    mkdir -p /docker/arrstack
+    ```
+
+7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml).
+    ```
+    cd /docker/arrstack
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/.env
+    ```
+
+8. Now modify your `.env` file to reflect your actual `username` and `password`.
+    ```
+    nano .env
+    ```
+
+9. We are now finally ready to start our docker stack.
+    ```
+    docker compose up -d
+    ```
+
+10. TODO
 
 ## Contributing
 
