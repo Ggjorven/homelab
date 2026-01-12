@@ -73,6 +73,7 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
     mkdir /root/scripts
     cd /root/scripts
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/nvidia-persistence.sh
+    chmod +x nvidia-persistence.sh
     ```
 
 10. Lastly we need to enable this service with:
