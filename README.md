@@ -54,3 +54,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
+- [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV).
