@@ -30,9 +30,9 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     ```
     nano /etc/fstab
     ```
-    And paste this (Replace the IP and SMB share name):
+    And paste this *(Replace the IP and SMB share name)*:
     ```
-    //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,iocharset=utf8,uid=1000,gid=1000,vers=3.0
+    //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,vers=3.0,sec=ntlmssp 
     ```
 
 5. Before we can actually mount it we need to actually create the `/mnt/nas` folder.
@@ -49,7 +49,11 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     mkdir -p /docker/arrstack
     ```
 
-7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml).
+7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). But before we can do so we need to install `wget`.
+    ```
+    apt install wget
+    ```
+    Now we can run:
     ```
     cd /docker/arrstack
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/compose.yaml
@@ -66,7 +70,20 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     docker compose up -d
     ```
 
-10. TODO
+10. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
+
+## Configuring 
+
+### QBitTorrent
+
+1. First login to QBitTorrent using the password from `docker logs qbittorrent`, then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
+
+2. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
+
+3. Lastly we need to our directories under `downloads`.
+    - Set `Default Save Path` to a path in your NAS.
+    - Do the same for `Keep incomplete torrents`
+    - And `Copy .torrent files`
 
 ## Contributing
 
