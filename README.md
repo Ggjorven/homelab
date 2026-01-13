@@ -89,6 +89,8 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 ### QBitTorrent
 
+To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox VM**.
+
 1. First login to QBitTorrent using the password from `docker logs qbittorrent`, then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
 
 2. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
@@ -100,7 +102,30 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 ### NZBGet
 
-TODO:
+To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox VM**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.
+
+1. The first thing you'll want to do is change the `ControlUsername` and `ControlPassword` under `Settings` -> `Security` to something you can remember.
+
+2. TODO
+
+## Final step
+
+Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox VM**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Installing it is done with these commands:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/services/arrstack-boot.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/scripts/arrstack-boot.sh
+    chmod +x arrstack-boot.sh
+    ```
+    To enable this service we run these commands:
+    ```
+    systemctl daemon-reload
+    systemctl enable arrstack-boot
+    systemctl start arrstack-boot
+    ```
+    Now you're all set.
 
 ## Contributing
 
@@ -110,4 +135,8 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
-- [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV).
+- [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
+- [QBitTorrent](https://www.qbittorrent.org/) - Torrenting client
+- [NZBGet](https://nzbget.com/) - NZB downloader
+- [Radarr](https://radarr.video/) - Movie organizer/manager
+- [Sonarr](https://sonarr.tv/) - Series organizer/manager

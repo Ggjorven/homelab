@@ -1,0 +1,12 @@
+[Unit]
+Description=Booting docker compose stack for *arr
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/root/scripts/arrstack-boot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
