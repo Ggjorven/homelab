@@ -32,6 +32,20 @@ services:
       retries: 5
     restart: unless-stopped
 
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - TZ=${TZ}
+    restart: unless-stopped
+    network_mode: service:gluetun
+    healthcheck:
+      test: curl -s http://localhost:8191 || exit 1
+      interval: 30s
+      retries: 3
+      timeout: 10s
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
