@@ -117,11 +117,19 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
 
-1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.69.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
+1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
 
-2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.69.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
+2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now you can indexes from TODO
+3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And give it the tag `FlareSolverr`. 
+
+4. Now you can add indexes in **Prowlarr**. My current setup is:
+    - **1337x** (using **FlareSolverr**)
+
+    Now synchronize.
+
+Make sure to add the proper tags to the indexers and applications you're adding.
+Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr* etc...
 
 ---
 
@@ -133,7 +141,13 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 ### Radarr
 
-1. TODO
+To configure **Radarr** you need to go to port `7878` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+
+1. First we're gonna start by importing existing movies.
+
+2. Now go to `Settings` -> `Media Management` and enable `Rename Movies` ans set it to `{Movie Title} ({Release Year})`.
+
+3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
 
 ## Final step
 
