@@ -113,6 +113,28 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
     - `DestDir` is something like `${MainDir}/completed`
     - `InterDir` is something like `${MainDir}/intermediate`
 
+### Prowlarr
+
+To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+
+1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.69.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
+
+2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.69.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
+
+3. Now you can indexes from TODO
+
+---
+
+After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. These steps are pretty much the same for all of them so there is only 1 explanation:
+
+1. Go to the application you want to add to **Prowlarr** and go to `Settings` -> `General` and copy your **API Key**.
+
+2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Do the same for the *Arr application you're setting up. The IP can also be found in the compose file.
+
+### Radarr
+
+1. TODO
+
 ## Final step
 
 Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox VM**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Installing it is done with these commands:
@@ -143,5 +165,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
 - [QBitTorrent](https://www.qbittorrent.org/) - Torrenting client
 - [NZBGet](https://nzbget.com/) - NZB downloader
+- [Prowlarr](https://prowlarr.com/) - Indexer
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
