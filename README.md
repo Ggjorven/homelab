@@ -106,7 +106,12 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 1. The first thing you'll want to do is change the `ControlUsername` and `ControlPassword` under `Settings` -> `Security` to something you can remember.
 
-2. TODO
+2. Now go to `Settings` -> `Incoming NZBS` and change `AppendCategoryDir` from `Yes` to `No`.
+
+3. And finally under `Settings` -> `Paths` change the directories to your preferred directory.
+    - `MainDir` is something like `/downloads`
+    - `DestDir` is something like `${MainDir}/completed`
+    - `InterDir` is something like `${MainDir}/intermediate`
 
 ## Final step
 
