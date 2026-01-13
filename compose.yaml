@@ -39,6 +39,10 @@ services:
       - LOG_LEVEL=info
       - TZ=${TZ}
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
     network_mode: service:gluetun
     healthcheck:
       test: curl -s http://localhost:8191 || exit 1
