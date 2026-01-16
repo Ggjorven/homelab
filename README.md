@@ -158,6 +158,63 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
 
+### Sonarr
+
+To configure **Sonarr** you need to go to port `8989` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+
+1. First we're gonna start by importing existing series.
+
+2. Now go to `Settings` -> `Media Management` and enable `Rename Episodes` ans set:
+   - **Standard Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
+   - **Daily Episode Format** to `{Series Title} - {Air-Date} - {Episode Title}`
+   - **Anime Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
+
+3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
+
+### Lidarr
+
+To configure **Lidarr** you need to go to port `8686` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+
+1. First we're gonna start by setting the **Root Folder**.
+
+2. Now go to `Settings` -> `Media Management` and enable `Rename Tracks`.
+   
+3. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
+
+### Bazarr
+
+To configure **Bazarr** you need to go to port `6767` of the ip address of the **Proxmox VM**.
+
+1. First we're gonna start by setting the **Root Folder**.
+
+2. Now go to `Settings` -> `Languages` and set **Languages Filter** and add:
+   - English
+   - Dutch
+
+3. Now we need to add **Language Profiles**. Add:
+   - Name = "Nederlands", Tag = "dutch", Language = Dutch
+   - Name = "English", Tag = "english", Language = English
+     
+4. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Nederlands`.
+
+5. Now go to `Settings` -> `Providers` and add **OpenSubtitles.com**.
+
+6. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
+
+7. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+
+8. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+
+9. Hit **Test** and save your changes.
+
+10. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+
+11. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+
+12. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+
+13. Finally hit **Test** and save your changes.
+
 ## Final step
 
 Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox VM**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Installing it is done with these commands:
