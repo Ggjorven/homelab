@@ -121,10 +121,21 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 
 2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And give it the tag `FlareSolverr`. 
+3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And give it the tag `flaresolverr`. 
 
 4. Now you can add indexes in **Prowlarr**. My current setup is:
-    - **1337x** (using **FlareSolverr**)
+    - **1337x** tags = (movies, series, music, flaresolverr), priority = 1
+   - **1337x (backup)** tags = (movies, series, music, flaresolverr), priority = 1
+     - **1337x (backup 2)** tags = (movies, series, music, flaresolverr), priority = 1
+     - **RuTracker.RU** tags = (movies, series, music), priority = 2
+     - **LimeTorrents** tags = (movies, series, music), priority = 3
+     - **BitSearch** tags = (movies, series, music), priority = 4
+     - **EZTV** tags = (series), priority = 25 (default)
+     - **Nyaa.si** tags = (movies, series, music), priority = 25 (default)
+     - **The Pirate Bay** tags = (movies, series, music), priority = 25 (default)
+     - **showRSS** tags = (series), priority = 25 (default)
+     - **TorrentGalaxyClone** tags = (movies, series, music), priority = 25 (default)
+     - **YTS** tags = (series), priority = 25 (default)
 
     Now synchronize.
 
