@@ -35,12 +35,10 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     ```
     nano /etc/fstab
     ```
-    And paste this *(Replace the IP and SMB share name)*:
+    And paste this *(Replace the IP, SMB share name and UID & GID)*:
     ```
     //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,uid=<YOUR UID>,gid=<YOUR GID>,file_mode=0777,dir_mode=0777,vers=3.0
     ```
-
-    TODO: ME UID GID instructions
 
 6. Before we can actually mount it we need to actually create the `/mnt/nas` folder.
     ```
