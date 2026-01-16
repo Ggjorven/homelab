@@ -123,17 +123,17 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 
 4. Now you can add indexes in **Prowlarr**. My current setup is:
     - **1337x** tags = (movies, series, music, flaresolverr), priority = 1
-   - **1337x (backup)** tags = (movies, series, music, flaresolverr), priority = 1
-     - **1337x (backup 2)** tags = (movies, series, music, flaresolverr), priority = 1
-     - **RuTracker.RU** tags = (movies, series, music), priority = 2
-     - **LimeTorrents** tags = (movies, series, music), priority = 3
-     - **BitSearch** tags = (movies, series, music), priority = 4
-     - **EZTV** tags = (series), priority = 25 (default)
-     - **Nyaa.si** tags = (movies, series, music), priority = 25 (default)
-     - **The Pirate Bay** tags = (movies, series, music), priority = 25 (default)
-     - **showRSS** tags = (series), priority = 25 (default)
-     - **TorrentGalaxyClone** tags = (movies, series, music), priority = 25 (default)
-     - **YTS** tags = (series), priority = 25 (default)
+    - **1337x (backup)** tags = (movies, series, music, flaresolverr), priority = 1
+    - **1337x (backup 2)** tags = (movies, series, music, flaresolverr), priority = 2
+    - **RuTracker.RU** tags = (movies, series, music), priority = 2
+    - **LimeTorrents** tags = (movies, series, music), priority = 3
+    - **BitSearch** tags = (movies, series, music), priority = 4
+    - **EZTV** tags = (series), priority = 25 (default)
+    - **Nyaa.si** tags = (movies, series, music), priority = 25 (default)
+    - **The Pirate Bay** tags = (movies, series, music), priority = 25 (default)
+    - **showRSS** tags = (series), priority = 25 (default)
+    - **TorrentGalaxyClone** tags = (movies, series, music), priority = 25 (default)
+    - **YTS** tags = (series), priority = 25 (default)
 
     Now synchronize.
 
