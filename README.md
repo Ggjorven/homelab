@@ -13,17 +13,17 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 
 ## Devices
 
-- **Main server** "nas" (i5-6xxx, 8gb ddr3, nvidia gtx 7xx, 128gb ssd, 2tb hdd)
+- **Main server** "nas" (i5-6402P, 8GB DDR3, NVIDIA GTX 750, 128GB SSD, 2TB HDD)
 - **Pi 2 w** "pi2w-jorben-1"
 - ~~**Pi 5 8gb** "pi5-jorben"~~
 
 ## Deployments
 
-- [`truenas`](https://github.com/Ggjorven/homelab/tree/truenas) is deployed as a **Proxmox VM** on **Main server**.
-- [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed as an **LXC container** on **Main server**.
+- [`truenas`](https://github.com/Ggjorven/homelab/tree/truenas) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 8GB RAM, 32GB Disk (should be 16GB)).
+- [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed as an **LXC container** on **Main server** (2vCPUs, 4GB RAM, 6GB Disk).
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w**.
-- [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server**.
-- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server**.
+- [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server** (2vCPUs, 2GB RAM, 16GB Disk).
+- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 32GB Disk).
 
 ## License
 
