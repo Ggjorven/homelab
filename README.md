@@ -215,6 +215,22 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 13. Finally hit **Test** and save your changes.
 
+### Jellyseer
+
+To configure **Jellyseer** we need to tell it what platform we use for streaming our media. In my case **Jellyfin**.
+
+1. Start up **Jellyseer** on port `5055` of your **Proxmox VM**'s IP address. Select **Jellyfin** as the media server type.
+
+2. Now set the URL of **Jellyfin** to the `192.168.xxx.xxx` address. Leave `URL Base` empty. Set `Email Address` to something random. And choose an appropriate `Username` and `Password`.
+
+3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
+
+4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to the `192.168.xxx.xxx` address. Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+
+5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to the `192.168.xxx.xxx` address. Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+
+6. And finish your setup!
+
 ## Final step
 
 Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox VM**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Installing it is done with these commands:
