@@ -10,6 +10,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is the network wide adblocker running on my home network.
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
+- [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
 
 ## Devices
 
@@ -24,6 +25,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w**.
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server** (~~2vCPUs~~ 4vCPUs (for 4K), 2GB RAM, 16GB Disk, GPU Passthrough).
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 32GB Disk).
+- [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 4GB RAM, 20GB Disk).
 
 ## License
 
@@ -40,3 +42,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Homepage](https://gethomepage.dev) - Dashboard for all running services
 - [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
 - [Jellyfin](https://jellyfin.org) - Media player
+- [Immich](https://immich.app/) - Photo/video backup
