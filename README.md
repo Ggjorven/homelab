@@ -192,10 +192,11 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
    - Dutch
 
 3. Now we need to add **Language Profiles**. Add:
-   - Name = "Nederlands", Tag = "dutch", Language = Dutch
-   - Name = "English", Tag = "english", Language = English
+   - Name = "Nederlands", Tag = "dutch", Languages = (Dutch)
+   - Name = "English", Tag = "english", Languages = (English)
+   - Name = "Combined", Tag = "english_dutch", Languages = (English, Dutch)
      
-4. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Nederlands`.
+4. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
 
 5. Now go to `Settings` -> `Providers` and add **OpenSubtitles.com**.
 
