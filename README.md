@@ -198,23 +198,27 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
      
 4. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
 
-5. Now go to `Settings` -> `Providers` and add **OpenSubtitles.com**.
+5. Now go to `Settings` -> `Providers` and add:
+   - **OpenSubtitles.com**
+   - **SuperSubtitles**
+   - **TVSubtitles**
+   - **YIFY Subtitles**
 
-6. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
+7. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-7. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+8. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
 
-8. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+9. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
-9. Hit **Test** and save your changes.
+10. Hit **Test** and save your changes.
 
-10. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+11. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-11. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+12. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
 
-12. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+13. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
-13. Finally hit **Test** and save your changes.
+14. Finally hit **Test** and save your changes.
 
 ### Jellyseer
 
