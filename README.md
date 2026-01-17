@@ -23,7 +23,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed as an **LXC container** on **Main server** (2vCPUs, 4GB RAM, 6GB Disk).
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w**.
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server** (2vCPUs, 2GB RAM, 16GB Disk).
-- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 32GB Disk).
+- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (~~2vCPUs~~ 4vCPUs, 4GB RAM, 32GB Disk).
 
 ## License
 
