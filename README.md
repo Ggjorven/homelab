@@ -5,7 +5,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 ## Preview
 
-![preview image]()
+![jellyseer](docs/images/jellyseer.png)
 
 ## Installation
 
