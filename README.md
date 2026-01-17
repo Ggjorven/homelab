@@ -4,7 +4,7 @@ Jellyfin is a media streaming solution for streaming from any device, this branc
 
 ## Preview
 
-![preview image]()
+![homepage](docs/images/jellyfin-homepage.png)
 
 ## Preparation
 
