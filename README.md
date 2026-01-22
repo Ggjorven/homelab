@@ -1,19 +1,11 @@
-# Service name
+# PiVPN
 
-Service description with the intended platform like LXC container or Proxmox VM or docker container.
-
-## Preview
-
-![preview image]()
+PiVPN is a VPN service that allows you to connect to your home network from anywhere, this branch contains the installation instructions for installing **PiVPN** on a **Pi 2 W**.
 
 ## Installation
 
 1. Installation
 2. Instructions
-
----
-
-Extra notes
 
 ## Contributing
 
@@ -22,4 +14,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [More references](https://github.com/Ggjorven) - ...
+- [PiVPN]([https://github.com/Ggjorven](https://www.pivpn.io/)) - VPN Service
