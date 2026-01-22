@@ -14,4 +14,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [PiVPN]([https://github.com/Ggjorven](https://www.pivpn.io/)) - VPN Service
+- [PiVPN](https://www.pivpn.io/) - VPN Service
