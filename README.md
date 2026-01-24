@@ -15,7 +15,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 
 ## Devices
 
-- **Main server** "nas" (i5-6402P, 8GB DDR3, NVIDIA GTX 750, 128GB SSD, 2TB HDD)
+- ~~**Main server** "nas" (i5-6402P, 8GB DDR3, NVIDIA GTX 750, 128GB SSD, 2TB HDD)~~
+- **Main server** "main" (Ryzen 5 3600, 16GB DDR4, NVIDIA GTX 750, 500GB SSD, 128GB SSD, 3x2TB HDD)
 - **Pi 2 w (1)** "pi2w-jorben-1"
 - **Pi 2 w (2)** "pi2w-jorben-2"
 - ~~**Pi 5 8gb** "pi5-jorben"~~
