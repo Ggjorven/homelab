@@ -43,6 +43,8 @@ TrueNAS is a NAS operating system run as a **Proxmox VM**, this branch contains 
         scsi1: /dev/disk/by-id/ata-WDCXXXXXXX-XXXXXX_WD-XXXXXXXX,backup=0,size=12345678910K,serial=WD-XXXXXXXXXX
         ```
 
+    In recent proxmox versions `qemu` imposes a max length of 36 chars on a serial number. If your VM fails to start, truncate your serial number in the /etc/pve/qemu-server/<VMID>.conf file to 36 characters.
+
 3. Create a pool in TrueNAS using the disks and the desired data layout.
 
 4. Now create a **Dataset** of type **SMB** with that pool.
