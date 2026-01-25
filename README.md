@@ -53,7 +53,16 @@ TrueNAS is a NAS operating system run as a **Proxmox VM**, this branch contains 
 
 6. Add these groups and users to the **Permissions** of the **Dataset**.
 
-7. Enjoy! (If you can't find it under **Network** type in the **IP** manually)
+7. To prevent ZFS from using too much RAM we need to edit `/etc/modprobe.d/zfs.conf`:
+   ```
+   nano /etc/modprobe.d/zfs.conf
+   ```
+   And paste this to set max ZFS cache size to 2GiB.
+   ```
+   options zfs zfs_arc_max=2147483648
+   ```
+
+8. Enjoy! (If you can't find it under **Network** type in the **IP** manually)
 
 ## Contributing
 
