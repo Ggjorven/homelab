@@ -185,40 +185,38 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 To configure **Bazarr** you need to go to port `6767` of the ip address of the **Proxmox VM**.
 
-1. First we're gonna start by setting the **Root Folder**.
-
-2. Now go to `Settings` -> `Languages` and set **Languages Filter** and add:
+1. Now go to `Settings` -> `Languages` and set **Languages Filter** and add:
    - English
    - Dutch
 
-3. Now we need to add **Language Profiles**. Add:
+2. Now we need to add **Language Profiles**. Add:
    - Name = "Nederlands", Tag = "dutch", Languages = (Dutch)
    - Name = "English", Tag = "english", Languages = (English)
    - Name = "Combined", Tag = "english_dutch", Languages = (English, Dutch)
      
-4. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
+3. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
 
-5. Now go to `Settings` -> `Providers` and add:
+4. Now go to `Settings` -> `Providers` and add:
    - **OpenSubtitles.com**
    - **SuperSubtitles**
    - **TVSubtitles**
    - **YIFY Subtitles**
 
-7. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
+5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-8. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+6. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
 
-9. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+7. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
-10. Hit **Test** and save your changes.
+8. Hit **Test** and save your changes.
 
-11. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-12. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+10. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
 
-13. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+11. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
-14. Finally hit **Test** and save your changes.
+12. Finally hit **Test** and save your changes.
 
 ### Jellyseer
 
