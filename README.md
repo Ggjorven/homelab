@@ -185,7 +185,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 To configure **Bazarr** you need to go to port `6767` of the ip address of the **Proxmox VM**.
 
-1. Now go to `Settings` -> `Languages` and set **Languages Filter** and add:
+1. Go to `Settings` -> `Languages` and set **Languages Filter** and add:
    - English
    - Dutch
 
