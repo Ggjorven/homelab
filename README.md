@@ -156,6 +156,30 @@ And before the LXC container can access our SMB share we need to mount it to the
 
 7. You can now setup your Movie and Series libraries.
 
+### Optional (Live TV)
+
+An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using an **XStream IPTV Code**.
+
+1. To make sure our *totally legitimate* **Live TV** library is kept hidden we'll need to use a VPN. I use [private internet access](https://www.privateinternetaccess.com/). So we'll need to install this on our **Proxmox LXC**. The download link can be found [here](https://www.privateinternetaccess.com/download/linux-vpn), copy the link address for the .run file. And run this command with the link:
+   ```
+   wget <link>
+   ```
+   Example:
+   ```
+   wget https://installers.privateinternetaccess.com/download/pia-linux-3.7-08412.run
+   ```
+
+3. Now we need to install it. This can be done with these commands:
+   ```
+   chmod +x ./pia-linux-3.7-08412.run
+   ./pia-linux-3.7-08412.run
+   ```
+
+4. To login via the terminal we can run these commands:
+   ```
+   TODO
+   ```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
