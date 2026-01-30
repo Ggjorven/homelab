@@ -11,7 +11,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
-- [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever. 
+- [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
+- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
 
 ## Devices
 
@@ -30,6 +31,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 40GB Disk).
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 4GB RAM, 20GB Disk).
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
+- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 32GB Disk).
 
 ## License
 
@@ -48,3 +50,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Jellyfin](https://jellyfin.org) - Media player
 - [Immich](https://immich.app/) - Photo/video backup
 - [PiVPN](https://www.pivpn.io/) - VPN Service
+- [Home Assistant](https://www.home-assistant.io) - Home Assistant 
