@@ -17,6 +17,15 @@
 
 3. If you have any smart devices already they should show up in the final to auto show.
 
+## Configuring
+
+To add more functionality to **Home Assistant** we can use **Home Assistant**'s addons. The addons can be found in the addon store.
+This is located under `Settings` -> `Add-ons` -> `Add-on Store`.
+
+### ESP Home
+
+1. 
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
