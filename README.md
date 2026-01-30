@@ -45,9 +45,11 @@
 
     In recent proxmox versions `qemu` imposes a max length of 36 chars on a serial number. If your VM fails to start, truncate your serial number in the /etc/pve/qemu-server/<VMID>.conf file to 36 characters.
 
-3. Create a pool in OMV using the disks and the desired data layout.
+3. Login to **OMV** with username `admin` and password `openmediavault`.
 
-4. TODO
+4. Add a new user under `Users` -> `Users`.
+
+5. TODO.
 
 ## Contributing
 
