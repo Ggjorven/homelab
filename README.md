@@ -51,9 +51,11 @@
 
 5. Now we need to install plugins. `Plugins` are located under `System` -> `Plugins`. We'll be installing the: `openmediavault-md` plugin.
 
-6. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`.
+6. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`. When asked which method to use just select `Quick`.
 
-7. TODO
+7. Now we can head to `Storage` -> `Multiple Devices`. Create your pool with your desired layout.
+
+8. 
 
 ## Contributing
 
