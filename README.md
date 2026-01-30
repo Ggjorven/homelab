@@ -46,7 +46,8 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [TrueNAS](https://www.truenas.com) - NAS operating system
+- ~~[TrueNAS](https://www.truenas.com) - NAS operating system~~
+- [Open Media Vault](https://www.openmediavault.org/) - NAS operating system
 - [Homepage](https://gethomepage.dev) - Dashboard for all running services
 - [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
 - [Jellyfin](https://jellyfin.org) - Media player
