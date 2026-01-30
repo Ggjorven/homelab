@@ -49,7 +49,11 @@
 
 4. Add a new user under `Users` -> `Users`.
 
-5. Now we need to install plugins. We'll be installing: `openmediavault-md` plugin.
+5. Now we need to install plugins. `Plugins` are located under `System` -> `Plugins`. We'll be installing the: `openmediavault-md` plugin.
+
+6. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`.
+
+7. TODO
 
 ## Contributing
 
