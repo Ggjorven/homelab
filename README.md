@@ -13,7 +13,9 @@
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/haos-vm.sh)"
   ```
    
-2. TODO
+2. Now create your account.
+
+3. If you have any smart devices already they should show up in the final to auto show.
 
 ## Contributing
 
