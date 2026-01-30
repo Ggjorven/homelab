@@ -49,7 +49,7 @@
 
 4. Add a new user under `Users` -> `Users`.
 
-5. TODO.
+5. Now we need to install plugins. We'll be installing: `openmediavault-md` plugin.
 
 ## Contributing
 
