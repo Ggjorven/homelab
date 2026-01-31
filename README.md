@@ -63,6 +63,8 @@
 
 11. To make this shared folder visible on the network we need to create an SMB Share under `Services` -> `SMB/CIFS` -> `Shares`. And create a new share and use the just created shared folder.
 
+12. To enable it go to `Services` -> `SMB/CIFS` -> `Settings` and enable it. Optional: You can also set the SMB version to 3.0.
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
