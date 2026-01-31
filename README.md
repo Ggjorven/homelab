@@ -57,7 +57,11 @@
 
 8. Now we can head to `Storage` -> `Multiple Devices`. Create your pool with your desired layout. Now it will clean and resync. This can take a WHILE.
 
-9. 
+9. After that's finally finished we need create a filesystem on this large pool. This can be found under `Storage` -> `File Systems`.
+
+10. Now we can create a shader folder under `Storage` -> `Shared Folders`. Choose the filesystem you just created.
+
+11. To make this shared folder visible on the network we need to create an SMB Share under `Services` -> `SMB/CIFS` -> `Shares`. And create a new share and use the just created shared folder.
 
 ## Contributing
 
