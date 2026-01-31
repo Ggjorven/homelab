@@ -47,15 +47,17 @@
 
 3. Login to **OMV** with username `admin` and password `openmediavault`.
 
-4. Add a new user under `Users` -> `Users`.
+4. Click your profile in the top-right and change the `admin` password.
 
-5. Now we need to install plugins. `Plugins` are located under `System` -> `Plugins`. We'll be installing the: `openmediavault-md` plugin.
+5. Add a new user under `Users` -> `Users`.
 
-6. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`. When asked which method to use just select `Quick`.
+6. Now we need to install plugins. `Plugins` are located under `System` -> `Plugins`. We'll be installing the: `openmediavault-md` plugin.
 
-7. Now we can head to `Storage` -> `Multiple Devices`. Create your pool with your desired layout.
+7. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`. When asked which method to use just select `Quick`.
 
-8. 
+8. Now we can head to `Storage` -> `Multiple Devices`. Create your pool with your desired layout. Now it will clean and resync. This can take a WHILE.
+
+9. 
 
 ## Contributing
 
