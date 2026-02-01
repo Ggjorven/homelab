@@ -35,7 +35,54 @@
 
 6. Choose `Basic Install`.
 
-7. TODO
+7. Install a minimal X desktop:
+   ```
+   apt install lxde -y
+   ```
+
+8. Install a display manager (optional):
+   ```
+   apt install lightdm -y
+   systemctl enable lightdm
+   ```
+
+9. Install X11 and basic GUI support:
+   ```
+   apt install xorg xserver-xorg-video-all -y
+   ```
+
+10. Reboot
+
+11. Install a virtual display buffer:
+    ```
+    apt install xfce4 xfce4-goodies tightvncserver -y
+    ```
+
+12. Configure the display buffer with a new password:
+   ```
+   vncserver :1
+   ```
+   Kill the vncserver for configuring:
+   ```
+   vncserver -kill :1
+   ```
+
+13. Edit the startup file:
+    ```
+    nano ~/.vnc/xstartup
+    ```
+    And replace the contents with:
+    ```
+    #!/bin/bash
+    xrdb $HOME/.Xresources
+    startxfce4 &
+    ```
+    Make it executable:
+    ```
+    chmod +x ~/.vnc/xstartup
+    ```
+
+15. 
 
 ## Contributing
 
