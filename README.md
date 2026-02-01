@@ -175,10 +175,33 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
    ./pia-linux-3.7-08412.run
    ```
 
-4. To login via the terminal we can run these commands:
+4. Before we can use PIA we need to give the LXC more permissions and more. We do this by editing `/etc/pve/lxc/<VMID>.conf`:
    ```
-   TODO
+   nano /etc/pve/lxc/CTID.conf
    ```
+   Add this:
+   ```
+   lxc.cgroup2.devices.allow: c 10:200 rwm
+   lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+   ```
+   And make sure that `features: nesting=1` is present in the file.
+
+5. Now restart your LXC and we can login. To login via the terminal we create a temporary `login.txt` with our credentials in this format:
+   ```
+   p00000000
+   PASSWORD
+   ```
+   Now run:
+   ```
+   piactl login login.txt
+   ```
+   
+6. To allow **PIA** to connect without a graphical application we must enable `background` mode:
+   ```
+   piactl background enable
+   ```
+
+7. TODO
 
 ## Contributing
 
