@@ -21,7 +21,7 @@
 
 3. Now go the `Options` tab and enable `Qemu Guest Agent`.
    
-4. Now we can start setting up **Open Media Vault**. First create your account.
+4. Now we can start setting up **Open Media Vault**. First create your account. The webpage can be found at the **Proxmox VM**'s IP address on port `8123`.
 
 5. If you have any smart devices already they should show up in the final to auto show.
 
