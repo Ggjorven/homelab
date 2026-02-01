@@ -33,7 +33,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 40GB Disk).
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 6GB RAM, 32GB Disk, GPU Passthrough).
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
-- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 32GB Disk).
+- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## License
 
