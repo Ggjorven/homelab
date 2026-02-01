@@ -208,6 +208,11 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
    piactl connect
    piactl get connectionstate
    ```
+   Double check with:
+   ```
+   curl https://ipinfo.io
+   ```
+   If this isn't working try rebooting your LXC.
 
 9. To make it so the VPN boots up every time our LXC start we need to create an LXC service:
     ```
