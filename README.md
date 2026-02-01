@@ -12,19 +12,25 @@
   ```
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/haos-vm.sh)"
   ```
-   
-2. Now create your account.
 
-3. If you have any smart devices already they should show up in the final to auto show.
+2. Now go to the `Console` of the **Home Assistant VM**. We need to install `qemu-guest-agent` to give proxmox control over the VM. This is done with these commands:
+  ```
+  apt install qemu-guest-agent
+  systemctl enable qemu-guest-agent
+  ```
+
+3. Now go the `Options` tab and enable `Qemu Guest Agent`.
+   
+4. Now we can start setting up **Open Media Vault**. First create your account.
+
+5. If you have any smart devices already they should show up in the final to auto show.
 
 ## Configuring
 
 To add more functionality to **Home Assistant** we can use **Home Assistant**'s addons. The addons can be found in the addon store.
 This is located under `Settings` -> `Add-ons` -> `Add-on Store`.
 
-### ESP Home
-
-1. 
+1. Install **ESP Home**
 
 ## Contributing
 
