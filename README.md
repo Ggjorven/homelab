@@ -56,4 +56,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Immich](https://immich.app/) - Photo/video backup
 - [PiVPN](https://www.pivpn.io/) - VPN Service
 - [Home Assistant](https://www.home-assistant.io) - Home Assistant
-- [RetroPie](https://retropie.org.uk/) - Hardware emulator
+- ~~[RetroPie](https://retropie.org.uk/) - Hardware emulator~~
