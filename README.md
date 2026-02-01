@@ -232,3 +232,5 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
+- [Private Internet Access](https://www.privateinternetaccess.com/) - VPN
+- [Private Internet Access Docs](https://helpdesk.privateinternetaccess.com/guides/linux/linux-installing-the-pia-app#linux-installing-the-pia-app_step-2-run-installer) - Documentation for PIA
