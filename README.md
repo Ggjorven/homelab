@@ -14,6 +14,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
+- [`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.
 
 ## Devices
 
@@ -34,6 +35,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 6GB RAM, 32GB Disk, GPU Passthrough).
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
+- [`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## License
 
