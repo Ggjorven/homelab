@@ -4,7 +4,7 @@
 
 ## Preview
 
-![preview image]()
+![preview image](docs/images/preview.png)
 
 ## Installation
 
