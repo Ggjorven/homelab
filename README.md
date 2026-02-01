@@ -201,7 +201,23 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
    piactl background enable
    ```
 
-7. TODO
+7. Now we need to enable killswitch.
+
+8. Test if you can connect with:
+   ```
+   piactl connect
+   piactl get connectionstate
+   ```
+
+9. To make it so the VPN boots up every time our LXC start we need to create an LXC service:
+    ```
+    TODO
+    ```
+
+10. Now we need to make it so **Jellyfin** isn't started before the VPN has properly connected. We do this by editing the **Jellyfin** systemctl service.
+    ```
+    TODO
+    ```
 
 ## Contributing
 
