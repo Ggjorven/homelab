@@ -55,4 +55,5 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Jellyfin](https://jellyfin.org) - Media player
 - [Immich](https://immich.app/) - Photo/video backup
 - [PiVPN](https://www.pivpn.io/) - VPN Service
-- [Home Assistant](https://www.home-assistant.io) - Home Assistant 
+- [Home Assistant](https://www.home-assistant.io) - Home Assistant
+- [RetroPie](https://retropie.org.uk/) - Hardware emulator
