@@ -15,6 +15,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
+- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
 
 ## Devices
 
@@ -36,6 +37,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).~~
+- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
 
 ## License
 
@@ -57,3 +59,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [PiVPN](https://www.pivpn.io/) - VPN Service
 - [Home Assistant](https://www.home-assistant.io) - Home Assistant
 - ~~[RetroPie](https://retropie.org.uk/) - Hardware emulator~~
+- [Nginx](https://nginx.org/) - Proxy manager
