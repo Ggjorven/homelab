@@ -226,7 +226,17 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
 
 10. Now we need to make it so **Jellyfin** isn't started before the VPN has properly connected. We do this by editing the **Jellyfin** systemctl service.
     ```
-    nano AAAAA
+    nano /lib/systemd/system/jellyfin.service 
+    ```
+    And replace:
+    ```
+    After = network-online.target
+    ```
+    With:
+    ```
+    After=vpn-connect.service
+    Wants=vpn-connect.service
+    Requires=vpn-connect.service
     ```
 
 11. Now we need to enable these services with:
@@ -239,6 +249,27 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
 12. The easiest way to check if everything is working is to reboot.
     ```
     reboot now
+    ```
+
+*Additional safeguards:*
+
+To prevent **Jellyfin** from streaming if **PIA** ever disconnects we can also deploy a watchdog service that checks we're still connected and if not it kills **Jellyfin**.
+
+13. To make it so the VPN boots up every time our LXC start we need to create an LXC service. I have also created a service script for this purpose:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/vpn-watchdog.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/vpn-watchdog.sh 
+    chmod +x /root/scripts/vpn-watchdog.sh
+    ```
+
+14. Now we need to enable this service with:
+    ```
+    systemctl daemon-reload
+    systemctl enable vpn-watchdog
+    systemctl start vpn-watchdog
     ```
 
 ## Configuration
