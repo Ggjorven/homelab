@@ -226,15 +226,79 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
 
 ## Configuration
 
-**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
 
-1. **Auto Collections** - https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
-2. **Jellyfin Enhanced** - https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
-3. **Intro Skipper** - https://intro-skipper.org/manifest.json
-4. **InPlayerEpisodePreview** - https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
-5. **Custom Tabs** - https://www.iamparadox.dev/jellyfin/plugins/manifest.json
-6. **Jellyfin Tweaks** - https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
-7. TODO: ...
+### Auto Collections
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
+```
+
+### Jellyfin Enhanced
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+### Intro Skipper
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://intro-skipper.org/manifest.json
+```
+
+### InPlayerEpisodePreview
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
+```
+
+### Custom Tabs
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
+### Jellyfin Tweaks
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+### Extract Subtitles
+
+Configuration steps:
+
+1. TODO: ...
 
 ## Contributing
 
@@ -246,3 +310,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
 - [Private Internet Access](https://www.privateinternetaccess.com/) - VPN
 - [Private Internet Access Docs](https://helpdesk.privateinternetaccess.com/guides/linux/linux-installing-the-pia-app#linux-installing-the-pia-app_step-2-run-installer) - Documentation for PIA
+- [Awesome Jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin) - Collection of awesome Jellyfin plugins
