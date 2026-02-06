@@ -214,14 +214,31 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
    ```
    If this isn't working try rebooting your LXC.
 
-9. To make it so the VPN boots up every time our LXC start we need to create an LXC service:
+9. To make it so the VPN boots up every time our LXC start we need to create an LXC service. I have also created a service script for this purpose:
     ```
-    TODO
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/vpn-connect.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/vpn-connect.sh 
+    chmod +x /root/scripts/vpn-connect.sh
     ```
 
 10. Now we need to make it so **Jellyfin** isn't started before the VPN has properly connected. We do this by editing the **Jellyfin** systemctl service.
     ```
-    TODO
+    nano AAAAA
+    ```
+
+11. Now we need to enable these services with:
+    ```
+    systemctl daemon-reload
+    systemctl enable vpn-connect
+    systemctl enable jellyfin
+    ```
+
+12. The easiest way to check if everything is working is to reboot.
+    ```
+    reboot now
     ```
 
 ## Configuration
@@ -305,7 +322,7 @@ Configuration steps:
 https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
 ```
 
-### Extract Subtitles
+### Subtitles Extract
 
 Configuration steps:
 
