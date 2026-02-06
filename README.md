@@ -156,6 +156,209 @@ And before the LXC container can access our SMB share we need to mount it to the
 
 7. You can now setup your Movie and Series libraries.
 
+### Optional (Live TV)
+
+An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using an **XStream IPTV Code**.
+
+1. To make sure our *totally legitimate* **Live TV** library is kept hidden we'll need to use a VPN. I use [private internet access](https://www.privateinternetaccess.com/). So we'll need to install this on our **Proxmox LXC**. The download link can be found [here](https://www.privateinternetaccess.com/download/linux-vpn), copy the link address for the .run file. And run this command with the link:
+   ```
+   wget <link>
+   ```
+   Example:
+   ```
+   wget https://installers.privateinternetaccess.com/download/pia-linux-3.7-08412.run
+   ```
+
+3. Now we need to install it. This can be done with these commands:
+   ```
+   chmod +x ./pia-linux-3.7-08412.run
+   ./pia-linux-3.7-08412.run
+   ```
+
+4. Before we can use PIA we need to give the LXC more permissions and more. We do this by editing `/etc/pve/lxc/<VMID>.conf`:
+   ```
+   nano /etc/pve/lxc/CTID.conf
+   ```
+   Add this:
+   ```
+   lxc.cgroup2.devices.allow: c 10:200 rwm
+   lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+   ```
+   And make sure that `features: nesting=1` is present in the file.
+
+5. Now restart your LXC and we can login. To login via the terminal we create a temporary `login.txt` with our credentials in this format:
+   ```
+   p00000000
+   PASSWORD
+   ```
+   Now run:
+   ```
+   piactl login login.txt
+   ```
+   
+6. To allow **PIA** to connect without a graphical application we must enable `background` mode:
+   ```
+   piactl background enable
+   ```
+
+7. Now we need to enable killswitch.
+
+8. Test if you can connect with:
+   ```
+   piactl connect
+   piactl get connectionstate
+   ```
+   Double check with:
+   ```
+   curl https://ipinfo.io
+   ```
+   If this isn't working try rebooting your LXC.
+
+9. To make it so the VPN boots up every time our LXC start we need to create an LXC service. I have also created a service script for this purpose:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/vpn-connect.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/vpn-connect.sh 
+    chmod +x /root/scripts/vpn-connect.sh
+    ```
+
+10. Now we need to make it so **Jellyfin** isn't started before the VPN has properly connected. We do this by editing the **Jellyfin** systemctl service.
+    ```
+    nano /lib/systemd/system/jellyfin.service 
+    ```
+    And replace:
+    ```
+    After = network-online.target
+    ```
+    With:
+    ```
+    After=vpn-connect.service
+    Wants=vpn-connect.service
+    Requires=vpn-connect.service
+    ```
+
+11. Now we need to enable these services with:
+    ```
+    systemctl daemon-reload
+    systemctl enable vpn-connect
+    systemctl enable jellyfin
+    ```
+
+12. The easiest way to check if everything is working is to reboot.
+    ```
+    reboot now
+    ```
+
+*Additional safeguards:*
+
+To prevent **Jellyfin** from streaming if **PIA** ever disconnects we can also deploy a watchdog service that checks we're still connected and if not it kills **Jellyfin**.
+
+13. To make it so the VPN boots up every time our LXC start we need to create an LXC service. I have also created a service script for this purpose:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/vpn-watchdog.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/vpn-watchdog.sh 
+    chmod +x /root/scripts/vpn-watchdog.sh
+    ```
+
+14. Now we need to enable this service with:
+    ```
+    systemctl daemon-reload
+    systemctl enable vpn-watchdog
+    systemctl start vpn-watchdog
+    ```
+
+## Configuration
+
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
+
+### File Tranformation
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
+### Auto Collections
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
+```
+
+### Jellyfin Enhanced
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+### Intro Skipper
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://intro-skipper.org/manifest.json
+```
+
+### InPlayerEpisodePreview
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
+```
+
+### Custom Tabs
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
+### Jellyfin Tweaks
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+### Subtitles Extract
+
+Configuration steps:
+
+1. TODO: ...
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
@@ -164,3 +367,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
+- [Private Internet Access](https://www.privateinternetaccess.com/) - VPN
+- [Private Internet Access Docs](https://helpdesk.privateinternetaccess.com/guides/linux/linux-installing-the-pia-app#linux-installing-the-pia-app_step-2-run-installer) - Documentation for PIA
+- [Awesome Jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin) - Collection of awesome Jellyfin plugins
