@@ -272,9 +272,22 @@ To prevent **Jellyfin** from streaming if **PIA** ever disconnects we can also d
     systemctl start vpn-watchdog
     ```
 
+15. Now head to: [XStream Codes](https://github.com/Ggjorven/homelab/tree/jellyfin?tab=readme-ov-file#xstream-codes)
+
 ## Configuration
 
 **Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
+
+### Xtream Codes
+
+Configuration steps:
+
+1. Go to **Dashboard** -> **Plugins** -> **Xtream** TODO
+
+#### Manifest:
+```
+https://kevinjil.github.io/Jellyfin.Xtream/repository.json
+```
 
 ### File Tranformation
 
