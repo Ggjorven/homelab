@@ -228,6 +228,17 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
 
 **Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
 
+### File Tranformation
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+#### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
 ### Auto Collections
 
 Configuration steps:
