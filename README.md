@@ -224,6 +224,18 @@ An extra feature we can add to **Jellyfin** is **Live TV**, we do this by using 
     TODO
     ```
 
+## Configuration
+
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
+
+1. **Auto Collections** - https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
+2. **Jellyfin Enhanced** - https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+3. **Intro Skipper** - https://intro-skipper.org/manifest.json
+4. **InPlayerEpisodePreview** - https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
+5. **Custom Tabs** - https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+6. **Jellyfin Tweaks** - https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+7. TODO: ...
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
