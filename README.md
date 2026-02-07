@@ -372,6 +372,13 @@ Configuration steps:
 
 1. TODO: ...
 
+## Extra info
+
+If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
+```
+chmod -R 777 /mnt/jellyfin-cache
+```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
