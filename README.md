@@ -16,6 +16,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
 - [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
+- [`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.
 
 ## Devices
 
@@ -38,6 +39,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).~~
 - [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
+- [`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 12GB Disk).
 
 ## License
 
@@ -51,12 +53,13 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - ~~[TrueNAS](https://www.truenas.com) - NAS operating system~~
-- [Open Media Vault](https://www.openmediavault.org/) - NAS operating system
+- [Open Media Vault](https://www.openmediavault.org) - NAS operating system
 - [Homepage](https://gethomepage.dev) - Dashboard for all running services
 - [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
 - [Jellyfin](https://jellyfin.org) - Media player
-- [Immich](https://immich.app/) - Photo/video backup
-- [PiVPN](https://www.pivpn.io/) - VPN Service
+- [Immich](https://immich.app) - Photo/video backup
+- [PiVPN](https://www.pivpn.io) - VPN Service
 - [Home Assistant](https://www.home-assistant.io) - Home Assistant
-- ~~[RetroPie](https://retropie.org.uk/) - Hardware emulator~~
-- [Nginx](https://nginx.org/) - Proxy manager
+- ~~[RetroPie](https://retropie.org.uk) - Hardware emulator~~
+- [Nginx](https://nginx.org) - Proxy manager
+- [Tunarr](https://tunarr.com) - TV Channel simulator
