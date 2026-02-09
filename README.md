@@ -1,19 +1,16 @@
-# Service name
+# Jellystack
 
-Service description with the intended platform like LXC container or Proxmox VM or docker container.
+**Jellystack** is a collection of media streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Jellyfin** using **Docker Compose**.
 
 ## Preview
 
-![preview image]()
+![preview image](docs/images/jellyfin.png)
 
 ## Installation
 
 1. Installation
+
 2. Instructions
-
----
-
-Extra notes
 
 ## Contributing
 
@@ -22,4 +19,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [More references](https://github.com/Ggjorven) - ...
+- [Jellyfin](https://jellyfin.org/) - Media streaming solution
+- [Jellyseer](https://docs.seerr.dev/) - Media discovery
+- [Threadfin](https://github.com/Ggjorven) - M3U Proxy
