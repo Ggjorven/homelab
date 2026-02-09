@@ -1,0 +1,30 @@
+networks:
+  jellystacknetwork:
+    name: jellystacknetwork
+    ipam:
+      config:
+        - subnet: 172.39.0.0/24
+
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
+    networks:
+      jellystacknetwork:
+        ipv4_address: 172.39.0.2
+    # ports:
+    # TODO: PORTS
+    volumes:
+      - ./gluetun:/gluetun
+    env_file:
+      - .env
+    healthcheck:
+      test: ping -c 1 www.google.com || exit 1
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
