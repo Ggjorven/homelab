@@ -1,6 +1,6 @@
 # Jellystack
 
-**Jellystack** is a collection of media streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Jellyfin** using **Docker Compose**.
+**Jellystack** is a collection of media streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Jellyfin & More** using **Docker Compose**.
 
 ## Preview
 
