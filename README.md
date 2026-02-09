@@ -16,7 +16,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
 - [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
-- [`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.
+- ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.~~
+- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is a combination of jellyfin related services for ease of streaming media.
 
 ## Devices
 
@@ -39,7 +40,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).~~
 - [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
-- [`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 12GB Disk).
+- ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 12GB Disk).~~
+- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker**.
 
 ## License
 
@@ -62,4 +64,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Home Assistant](https://www.home-assistant.io) - Home Assistant
 - ~~[RetroPie](https://retropie.org.uk) - Hardware emulator~~
 - [Nginx](https://nginx.org) - Proxy manager
-- [Tunarr](https://tunarr.com) - TV Channel simulator
+- ~~[Tunarr](https://tunarr.com) - TV Channel simulator~~
