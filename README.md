@@ -1,6 +1,6 @@
-# Service name
+# Tunarr
 
-Service description with the intended platform like LXC container or Proxmox VM or docker container.
+**Tunarr** is a Live TV channel streaming solution for emulating Live TV channels, this branch contains the installation instructions for installing **Tunarr** as an LXC Container.
 
 ## Preview
 
@@ -8,12 +8,12 @@ Service description with the intended platform like LXC container or Proxmox VM 
 
 ## Installation
 
-1. Installation
-2. Instructions
-
----
-
-Extra notes
+1. From the **Proxmox Node**'s shell install **Tunarr** as an **LXC Container** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=tunarr). Make sure to pass through the GPU.
+   ```
+   bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/tunarr.sh)"
+   ```
+   
+2. TODO
 
 ## Contributing
 
@@ -22,4 +22,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [More references](https://github.com/Ggjorven) - ...
+- [Tunarr](https://tunarr.com/) - Custom Live TV Channel hosting
