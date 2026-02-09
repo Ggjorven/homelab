@@ -1,0 +1,12 @@
+[Unit]
+Description=Booting docker compose stack for jellyfin and additionals
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/root/scripts/jellystack-boot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
