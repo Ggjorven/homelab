@@ -10,6 +10,7 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is the dashboard for all my services.
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is the network wide adblocker running on my home network.
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.
+- [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is my VPN container.
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
@@ -34,7 +35,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed directly on **Pi 2 w (1)**.
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w (1)**.
 - [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server** (2vCPUs, 2GB RAM, 16GB Disk, 128GB SSD Passthrough, GPU Passthrough).
-- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 4GB RAM, 40GB Disk).
+- [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker**.
+- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker**.
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 6GB RAM, 32GB Disk, GPU Passthrough).
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
@@ -59,6 +61,7 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Homepage](https://gethomepage.dev) - Dashboard for all running services
 - [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
 - [Jellyfin](https://jellyfin.org) - Media player
+- [Gluetun](https://gluetun.com/) - VPN Container
 - [Immich](https://immich.app) - Photo/video backup
 - [PiVPN](https://www.pivpn.io) - VPN Service
 - [Home Assistant](https://www.home-assistant.io) - Home Assistant
