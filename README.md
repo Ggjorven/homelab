@@ -79,15 +79,33 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 3. After a restart your **Docker LXC** should have `/mnt/nas` mounted.
 
-4. To give docker access to our GPU we need to install the nvidia-runtime on docker:
+4. To give docker access to our GPU we need to install the nvidia-runtime, before we can do so we need to add the NVIDIA repository. We'll start by adding the GPG key:
+   ```
+   mkdir -p /usr/share/keyrings
+   curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+   ```
+
+5. Now we'll add the repository:
+   ```
+   distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+   sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+   tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+   ```
+   
+6. Now install the container toolkit:
     ```
-    apt update
-    apt install -y nvidia-container-toolkit
-    nvidia-ctk runtime configure --runtime=docker
-    systemctl restart docker
+    sudo apt update
+    sudo apt install -y nvidia-container-toolkit
     ```
 
-5. Verify its install with:
+7. Configure docker to use the NVIDIA runtime:
+   ```
+   nvidia-ctk runtime configure --runtime=docker
+   systemctl restart docker
+   ```
+
+8. Verify its install with:
    ```
    docker info | grep -i runtime
    ```
@@ -96,12 +114,12 @@ Before LXC container can access our SMB share we need to mount it to the root no
    Runtimes: runc io.containerd.runc.v2 nvidia
    ```
 
-6. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+9. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker/jellystack
     ```
 
-7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/compose.yaml). But before we can do so we need to install `wget`.
+10. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/compose.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -112,18 +130,18 @@ Before LXC container can access our SMB share we need to mount it to the root no
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/.env
     ```
 
-8. Now modify your `.env` file to reflect your actual `username` and `password`.
+11. Now modify your `.env` file to reflect your actual `username` and `password`.
     ```
     nano .env
     ```
 
-9. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+12. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-10. We are now finally ready to start our docker stack.
+13. We are now finally ready to start our docker stack.
     ```
     docker compose up -d
     ```
