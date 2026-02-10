@@ -16,8 +16,8 @@ services:
     networks:
       jellystacknetwork:
         ipv4_address: 172.39.0.2
-    # ports:
-    # TODO: PORTS
+    ports:
+      - 34400:34400
     volumes:
       - ./gluetun:/gluetun
     env_file:
@@ -28,3 +28,85 @@ services:
       timeout: 10s
       retries: 5
     restart: unless-stopped
+
+  threadfin:
+    image: fyb3roptik/threadfin
+    container_name: threadfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./threadfin/conf:/home/threadfin/conf
+      - ./threadfin/temp:/tmp/threadfin:rw
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
+    network_mode: service:gluetun
+    restart: unless-stopped
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./jellyfin:/config
+      - /data:/data
+    ports:
+      - 8096:8096
+      - 7359:7359/udp # Service Discovery
+      - 1900:1900/udp # Client Discovery
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./jellyseerr:/app/config
+    ports:
+      - 5055:5055
+    restart: unless-stopped
+
+  jellystat-db:
+    image: postgres:15.2
+    container_name: jellystat-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - ./jellystat/postgres:/var/lib/postgresql/data
+
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: jellystat
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: "my-secret-jwt-key"
+      TZ: ${TZ}
+    volumes:
+      - ./jellystat/backup-data:/app/backend/backup-data
+    ports:
+      - 3000:3000
+    depends_on:
+      - jellystat-db
