@@ -5,7 +5,7 @@ networks:
         - subnet: 172.39.0.0/24
 
 services:
-    flaresolverr:
+  flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     environment:
