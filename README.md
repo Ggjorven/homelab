@@ -79,12 +79,29 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 3. After a restart your **Docker LXC** should have `/mnt/nas` mounted.
 
-4. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+4. To give docker access to our GPU we need to install the nvidia-runtime on docker:
+    ```
+    apt update
+    apt install -y nvidia-container-toolkit
+    nvidia-ctk runtime configure --runtime=docker
+    systemctl restart docker
+    ```
+
+5. Verify its install with:
+   ```
+   docker info | grep -i runtime
+   ```
+   You should see:
+   ```
+   Runtimes: runc io.containerd.runc.v2 nvidia
+   ```
+
+6. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker/jellystack
     ```
 
-5. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/compose.yaml). But before we can do so we need to install `wget`.
+7. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/compose.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -95,18 +112,18 @@ Before LXC container can access our SMB share we need to mount it to the root no
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/.env
     ```
 
-6. Now modify your `.env` file to reflect your actual `username` and `password`.
+8. Now modify your `.env` file to reflect your actual `username` and `password`.
     ```
     nano .env
     ```
 
-7. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+9. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-8. We are now finally ready to start our docker stack.
+10. We are now finally ready to start our docker stack.
     ```
     docker compose up -d
     ```
