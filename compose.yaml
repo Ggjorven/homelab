@@ -15,7 +15,7 @@ services:
       - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.2
+        ipv4_address: 172.39.0.1
     ports:
       - 34400:34400
     volumes:
@@ -53,6 +53,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      jellystacknetwork:
+        ipv4_address: 172.39.0.2
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -77,6 +80,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      jellystacknetwork:
+        ipv4_address: 172.39.0.3
     volumes:
       - ./jellyseerr:/app/config
     ports:
@@ -86,27 +92,33 @@ services:
   jellystat-db:
     image: postgres:15.2
     container_name: jellystat-db
-    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      jellystacknetwork:
+        ipv4_address: 172.39.0.5
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
 
   jellystat:
     image: cyfershepard/jellystat:latest
     container_name: jellystat
-    restart: unless-stopped
+    networks:
+      jellystacknetwork:
+        ipv4_address: 172.39.0.4
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_IP: jellystat-db
       POSTGRES_PORT: 5432
-      JWT_SECRET: "my-secret-jwt-key"
+      JWT_SECRET: ${JWT_SECRET}
       TZ: ${TZ}
     volumes:
       - ./jellystat/backup-data:/app/backend/backup-data
     ports:
       - 3000:3000
+    restart: unless-stopped
     depends_on:
       - jellystat-db
