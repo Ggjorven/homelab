@@ -1,38 +1,11 @@
 networks:
-  servarrnetwork:
-    name: servarrnetwork
+  arrstacknetwork:
     ipam:
       config:
         - subnet: 172.39.0.0/24
 
 services:
-  gluetun:
-    image: qmcgaw/gluetun
-    container_name: gluetun
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.39.0.2
-    ports:
-      - 8080:8080 # qbittorrent web interface
-      - 6881:6881 # qbittorrent torrent port
-      - 6789:6789 # nzbget
-      - 9696:9696 # prowlarr
-    volumes:
-      - ./gluetun:/gluetun
-    env_file:
-      - .env
-    healthcheck:
-      test: ping -c 1 www.google.com || exit 1
-      interval: 20s
-      timeout: 10s
-      retries: 5
-    restart: unless-stopped
-
-  flaresolverr:
+    flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     environment:
@@ -139,7 +112,7 @@ services:
     ports:
       - 8989:8989
     networks:
-      servarrnetwork:
+      arrstacknetwork:
         ipv4_address: 172.39.0.3
 
   radarr:
@@ -157,7 +130,7 @@ services:
     ports:
       - 7878:7878
     networks:
-      servarrnetwork:
+      arrstacknetwork:
         ipv4_address: 172.39.0.4
 
   lidarr:
@@ -175,7 +148,7 @@ services:
     ports:
       - 8686:8686
     networks:
-      servarrnetwork:
+      arrstacknetwork:
         ipv4_address: 172.39.0.5
 
   bazarr:
@@ -193,7 +166,7 @@ services:
     ports:
       - 6767:6767
     networks:
-      servarrnetwork:
+      arrstacknetwork:
         ipv4_address: 172.39.0.6
 
 #  ytdl-sub:
@@ -208,22 +181,6 @@ services:
 #      - ./ytdl-sub:/config
 #      - /mnt/nas/youtube:/youtube
 #    networks:
-#      servarrnetwork:
+#      arrstacknetwork:
 #        ipv4_address: 172.39.0.8
 #    restart: unless-stopped
-
-  jellyseerr:
-    container_name: jellyseerr
-    image: fallenbagel/jellyseerr:latest
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ./jellyseerr:/app/config
-    ports:
-      - 5055:5055
-    networks:
-      servarrnetwork:
-        ipv4_address: 172.39.0.9
-    restart: unless-stopped
