@@ -3,7 +3,7 @@ networks:
     name: jellystacknetwork
     ipam:
       config:
-        - subnet: 172.39.0.0/24
+        - subnet: 172.40.0.0/24
 
 services:
   gluetun:
@@ -15,7 +15,7 @@ services:
       - /dev/net/tun:/dev/net/tun # If running on an LXC see readme for more info.
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.1
+        ipv4_address: 172.40.0.1
     ports:
       - 34400:34400
     volumes:
@@ -62,7 +62,7 @@ services:
       - TZ=${TZ}
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.2
+        ipv4_address: 172.40.0.2
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -89,7 +89,7 @@ services:
       - TZ=${TZ}
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.3
+        ipv4_address: 172.40.0.3
     volumes:
       - ./jellyseerr:/app/config
     ports:
@@ -104,7 +104,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.5
+        ipv4_address: 172.40.0.5
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
     restart: unless-stopped
@@ -114,7 +114,7 @@ services:
     container_name: jellystat
     networks:
       jellystacknetwork:
-        ipv4_address: 172.39.0.4
+        ipv4_address: 172.40.0.4
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
