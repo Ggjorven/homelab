@@ -28,22 +28,22 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - **Pi 2 w (2)** "pi2w-jorben-2"
 - ~~**Pi 5 8gb** "pi5-jorben"~~
 
-## Deployments
+## Deployment instructions
 
-- ~~[`truenas`](https://github.com/Ggjorven/homelab/tree/truenas) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 6GB RAM, 32GB Disk, 3x2TB HDD Passthrough).~~
-- [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
-- [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed directly on **Pi 2 w (1)**.
-- [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w (1)**.
-- [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is deployed as an **LXC container** on **Main server** (2vCPUs, 2GB RAM, 16GB Disk, 128GB SSD Passthrough, GPU Passthrough).
-- [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker**.
-- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker**.
-- [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as an **LXC container** on **Main server** (4vCPUs, 6GB RAM, 32GB Disk, GPU Passthrough).
-- [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
-- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
-- ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).~~
-- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
-- ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is deployed as an **LXC Container** on **Main server** (2vCPUs, 2GB RAM, 12GB Disk).~~
-- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker**.
+I have deployed these services in this order:
+
+1. [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
+
+2. [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w (1)**.
+3. [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed directly on **Pi 2 w (1)**.
+
+4. [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker**.
+5. [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker**.
+6. [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker**.
+
+7. [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
+
+8. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## License
 
