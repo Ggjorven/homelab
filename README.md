@@ -3,10 +3,6 @@
 An *arr stack is collection of services that automate the management of personal media, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
 These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
-## Preview
-
-![jellyseer](docs/images/jellyseer.png)
-
 ## Installation
 
 1. From the **Proxmox** Node's shell install a **Docker VM** as a **Proxmox VM** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker-vm).
@@ -51,26 +47,32 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 7. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
-    mkdir -p /docker/arrstack
+    mkdir -p /docker
     ```
 
-8. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). But before we can do so we need to install `wget`.
+8. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
     Now we can run:
     ```
-    cd /docker/arrstack
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/compose.yaml
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/.env
+    cd /docker
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/arrstack.yaml
     ```
 
-9. Now modify your `.env` file to reflect your actual `username` and `password`.
+9. Now modify your `.env` file.
     ```
     nano .env
     ```
+    And make sure it contains:
+    ```
+    # General UID/GIU and Timezone
+    TZ=Europe/Amsterdam
+    PUID=1000
+    PGID=1000
+    ```
 
-9. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+10. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
@@ -78,7 +80,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 10. We are now finally ready to start our docker stack.
     ```
-    docker compose up -d
+    docker compose -f gluetun.yaml -f arrstack.yaml up -d
     ```
 
 11. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
@@ -115,11 +117,11 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
 
-1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
+1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
 
-2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
+2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And give it the tag `flaresolverr`. 
+3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And give it the tag `flaresolverr`. 
 
 4. Now you can add indexes in **Prowlarr**. My current setup is:
     - **1337x** tags = (movies, series, music, flaresolverr), priority = 1
@@ -146,7 +148,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 1. Go to the application you want to add to **Prowlarr** and go to `Settings` -> `General` and copy your **API Key**.
 
-2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Do the same for the *Arr application you're setting up. The IP can also be found in the compose file.
+2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Do the same for the *Arr application you're setting up. The IP can also be found in the compose file.
 
 ### Radarr
 
@@ -156,7 +158,7 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 2. Now go to `Settings` -> `Media Management` and enable `Rename Movies` ans set it to `{Movie Title} ({Release Year})`.
 
-3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
+3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Sonarr
 
@@ -169,7 +171,7 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
    - **Daily Episode Format** to `{Series Title} - {Air-Date} - {Episode Title}`
    - **Anime Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
 
-3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
+3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Lidarr
 
@@ -179,7 +181,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 2. Now go to `Settings` -> `Media Management` and enable `Rename Tracks`.
    
-3. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). And set your `Username` and `Password`.
+3. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Bazarr
 
@@ -204,7 +206,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-6. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+6. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
 7. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
@@ -212,7 +214,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-10. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml)
+10. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
 11. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
@@ -228,30 +230,26 @@ To configure **Jellyseer** we need to tell it what platform we use for streaming
 
 3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
 
-4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
-5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
 6. And finish your setup!
 
 ## Final step
 
-Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox VM**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Installing it is done with these commands:
-```
-cd /etc/systemd/system
-wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/services/arrstack-boot.service
-mkdir /root/scripts
-cd /root/scripts
-wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/scripts/arrstack-boot.sh
-chmod +x arrstack-boot.sh
-```
-To enable this service we run these commands:
-```
-systemctl daemon-reload
-systemctl enable arrstack-boot
-systemctl start arrstack-boot
-```
-Now you're all set.
+Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add
+    ```
+    -f arrstack.yaml
+    ```
+    to it.
+    To enable this service we run these commands:
+    ```
+    systemctl daemon-reload
+    systemctl enable compose-boot
+    systemctl start compose-boot
+    ```
+    Now you're all set.
 
 ## Contributing
 
