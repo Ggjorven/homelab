@@ -12,6 +12,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./threadfin/conf:/home/threadfin/conf
       - ./threadfin/temp:/tmp/threadfin:rw
@@ -20,13 +22,7 @@ services:
         condition: service_healthy
         restart: true
     network_mode: service:gluetun
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    gpus: all
     restart: unless-stopped
 
   jellyfin:
@@ -36,6 +32,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
     networks:
       jellystacknetwork:
         ipv4_address: 172.40.0.2
@@ -47,13 +45,7 @@ services:
       - 7359:7359/udp # Service Discovery
       - 1900:1900/udp # Client Discovery
     runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    gpus: all
     restart: unless-stopped
 
   jellyseerr:
