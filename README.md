@@ -84,6 +84,14 @@
     chmod +x compose-boot.sh
     ```
 
+10. To enable this service we run these commands:
+    ```
+    systemctl daemon-reload
+    systemctl enable compose-boot
+    systemctl start compose-boot
+    ```
+    Now you're all set. 
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
