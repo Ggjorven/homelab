@@ -116,23 +116,34 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 9. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
-    mkdir -p /docker/jellystack
+    mkdir -p /docker
     ```
 
-10. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/compose.yaml). But before we can do so we need to install `wget`.
+10. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
     Now we can run:
     ```
     cd /docker/arrstack
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/compose.yaml
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/jellystack.yaml
     ```
 
-11. Now modify your `.env` file to reflect your actual `username` and `password`.
+11. Now modify your `.env` file.
     ```
     nano .env
+    ```
+    And make sure this is present:
+    ```
+    # General UID/GIU and Timezone
+    TZ=Europe/Amsterdam
+    PUID=1000
+    PGID=1000
+
+    # Database credentials
+    POSTGRES_USER=username
+    POSTGRES_PASSWORD=password
+    JWT_SECRET=secret
     ```
 
 12. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
@@ -143,8 +154,24 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 13. We are now finally ready to start our docker stack.
     ```
-    docker compose up -d
+    docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml up-d
     ```
+
+## Final step
+
+
+Finally we need to make it so our **Jelly stack** starts on bootup of the **Proxmox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add:
+```
+-f jellystack.yaml
+```
+to it.
+To enable this service we run these commands:
+```
+systemctl daemon-reload
+systemctl enable compose-boot
+systemctl start compose-boot
+```
+Now you're all set.
 
 ## Contributing
 
