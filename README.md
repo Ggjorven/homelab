@@ -34,14 +34,33 @@
     ```
     Now we can run:
     ```
-    cd /docker/arrstack
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/compose.yaml
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/.env
+    cd /docker
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/gluetun.yaml
     ```
 
-6. Now modify your `.env` file to reflect your actual `username` and `password`.
+6. Now create or modify your `.env` file. 
     ```
     nano .env
+    ```
+    Add this content:
+    ```
+    # General UID/GIU and Timezone
+    TZ=Europe/Amsterdam
+    PUID=1000
+    PGID=1000
+
+    # Input your VPN provider and type here
+    VPN_SERVICE_PROVIDER="private internet access"
+    VPN_TYPE=openvpn
+
+    # Copy all these varibles from your generated configuration file
+    OPENVPN_USER=username
+    OPENVPN_PASSWORD=password
+
+    SERVER_REGIONS=Netherlands
+
+    # Heath check duration
+    HEALTH_VPN_DURATION_INITIAL=120s
     ```
 
 7. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
@@ -52,10 +71,18 @@
 
 8. We are now finally ready to start our docker stack.
     ```
-    docker compose up -d
+    docker compose -f gluetun.yaml up -d
     ```
 
-9. TODO: Automatic boot service
+9. To compose our stack on boot up I have created a simple systemd service: 
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/services/compose-boot.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/scripts/compose-boot.sh
+    chmod +x compose-boot.sh
+    ```
 
 ## Contributing
 

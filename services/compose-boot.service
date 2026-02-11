@@ -1,11 +1,11 @@
 [Unit]
-Description=Booting docker compose stack for gluetun
+Description=Booting docker compose stack
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/root/scripts/gluetun-boot.sh
+ExecStart=/root/scripts/compose-boot.sh
 RemainAfterExit=yes
 
 [Install]
