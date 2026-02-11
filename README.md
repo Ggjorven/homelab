@@ -238,7 +238,7 @@ To configure **Jellyseer** we need to tell it what platform we use for streaming
 
 ## Final step
 
-Finally we need to make it so our ***Arr stack** starts on bootup of the **Promox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add:
+Finally we need to make it so our ***Arr stack** starts on bootup of the **Proxmox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add:
 ```
 -f arrstack.yaml
 ```
