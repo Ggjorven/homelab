@@ -74,23 +74,24 @@
     docker compose -f gluetun.yaml up -d
     ```
 
-9. To compose our stack on boot up I have created a simple systemd service: 
-    ```
-    cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/services/compose-boot.service
-    mkdir /root/scripts
-    cd /root/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/scripts/compose-boot.sh
-    chmod +x compose-boot.sh
-    ```
+## Final step
 
-10. To enable this service we run these commands:
-    ```
-    systemctl daemon-reload
-    systemctl enable compose-boot
-    systemctl start compose-boot
-    ```
-    Now you're all set. 
+Finally we need to make it so our **Gluetun VPN** starts on bootup of the **Proxmox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. Install these files with:
+```
+ cd /etc/systemd/system
+ wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/services/compose-boot.service
+ mkdir /root/scripts
+ cd /root/scripts
+ wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/scripts/compose-boot.sh
+ chmod +x compose-boot.sh
+ ```
+To enable this service we run these commands:
+```
+systemctl daemon-reload
+systemctl enable compose-boot
+systemctl start compose-boot
+```
+Now you're all set.
 
 ## Contributing
 
