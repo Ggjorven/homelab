@@ -5,7 +5,7 @@ networks:
         - subnet: 172.40.0.0/24
 
 services:
-    threadfin:
+  threadfin:
     image: fyb3roptik/threadfin
     container_name: threadfin
     environment:
