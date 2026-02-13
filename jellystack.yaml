@@ -1,9 +1,3 @@
-networks:
-  jellystacknetwork:
-    ipam:
-      config:
-        - subnet: 172.40.0.0/24
-
 services:
   threadfin:
     image: fyb3roptik/threadfin
@@ -35,8 +29,8 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
-      jellystacknetwork:
-        ipv4_address: 172.40.0.2
+      homelabnetwork:
+        ipv4_address: 172.39.0.8
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -56,8 +50,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     networks:
-      jellystacknetwork:
-        ipv4_address: 172.40.0.3
+      homelabnetwork:
+        ipv4_address: 172.39.0.9
     volumes:
       - ./jellyseerr:/app/config
     ports:
@@ -71,8 +65,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
-      jellystacknetwork:
-        ipv4_address: 172.40.0.5
+      homelabnetwork:
+        ipv4_address: 172.39.0.10
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
     restart: unless-stopped
@@ -81,8 +75,8 @@ services:
     image: cyfershepard/jellystat:latest
     container_name: jellystat
     networks:
-      jellystacknetwork:
-        ipv4_address: 172.40.0.4
+      homelabnetwork:
+        ipv4_address: 172.39.0.11
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
