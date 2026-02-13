@@ -11,6 +11,7 @@ services:
     volumes:
       - ./threadfin/conf:/home/threadfin/conf
       - ./threadfin/temp:/tmp/threadfin:rw
+      - /mnt/nas:/mnt/nas
     depends_on:
       gluetun:
         condition: service_healthy
@@ -34,6 +35,7 @@ services:
     volumes:
       - ./jellyfin:/config
       - /data:/data
+      - /mnt/nas:/mnt/nas
     ports:
       - 8096:8096
       - 7359:7359/udp # Service Discovery
@@ -54,6 +56,7 @@ services:
         ipv4_address: 172.39.0.9
     volumes:
       - ./jellyseerr:/app/config
+      - /mnt/nas:/mnt/nas
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -69,6 +72,7 @@ services:
         ipv4_address: 172.39.0.10
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
+      - /mnt/nas:/mnt/nas
     restart: unless-stopped
 
   jellystat:
@@ -86,6 +90,7 @@ services:
       TZ: ${TZ}
     volumes:
       - ./jellystat/backup-data:/app/backend/backup-data
+      - /mnt/nas:/mnt/nas
     ports:
       - 3000:3000
     restart: unless-stopped
