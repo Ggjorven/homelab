@@ -5,7 +5,6 @@ services:
     environment:
       - LOG_LEVEL=info
       - TZ=${TZ}
-    restart: unless-stopped
     depends_on:
       gluetun:
         condition: service_healthy
@@ -16,11 +15,11 @@ services:
       interval: 30s
       retries: 3
       timeout: 10s
+    restart: unless-stopped
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    restart: unless-stopped
     labels:
       - deunhealth.restart.on.unhealthy=true
     environment:
@@ -42,6 +41,7 @@ services:
       retries: 3
       start_period: 20s
       timeout: 10s
+    restart: unless-stopped
 
   deunhealth:
     image: qmcgaw/deunhealth
@@ -51,9 +51,9 @@ services:
       - LOG_LEVEL=info
       - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
       - TZ=${TZ}
-    restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
 
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
@@ -93,7 +93,6 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    restart: unless-stopped
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -107,11 +106,11 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.3
+    restart: unless-stopped
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    restart: unless-stopped
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -125,11 +124,11 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.4
+    restart: unless-stopped
 
   lidarr:
     container_name: lidarr
     image: lscr.io/linuxserver/lidarr:latest
-    restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./lidarr:/config
@@ -143,11 +142,11 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.5
+    restart: unless-stopped
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
-    restart: unless-stopped
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -161,19 +160,21 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.6
+    restart: unless-stopped
 
-#  ytdl-sub:
-#    image: ghcr.io/jmbannon/ytdl-sub:latest
-#    container_name: ytdl-sub
-#    environment:
-#      - PUID=${PUID}
-#      - PGID=${PGID}
-#      - TZ=${TZ}
-#      - DOCKER_MODS=linuxserver/mods:universal-cron
-#    volumes:
-#      - ./ytdl-sub:/config
-#      - /mnt/nas/youtube:/youtube
-#    networks:
-#      homelabnetwork:
-#        ipv4_address: 172.39.0.8
-#    restart: unless-stopped
+  metube:
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 8081:8081
+    volumes:
+      - ./metube:/config
+      - /mnt/nas/Users/Jorben/YT/Downloads:/downloads
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.7
+    restart: unless-stopped
