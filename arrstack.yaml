@@ -1,9 +1,3 @@
-networks:
-  arrstacknetwork:
-    ipam:
-      config:
-        - subnet: 172.39.0.0/24
-
 services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
@@ -33,7 +27,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - WEBUI_PORT=8080 # must match "qbittorrent web interface" port number in gluetun's service above
+      - WEBUI_PORT=8080
     volumes:
       - ./qbittorrent:/config
       - /mnt/nas:/mnt/nas
@@ -49,7 +43,6 @@ services:
       start_period: 20s
       timeout: 10s
 
-  # See the 'qBittorrent Stalls with VPN Timeout' section for more information.
   deunhealth:
     image: qmcgaw/deunhealth
     container_name: deunhealth
@@ -73,12 +66,12 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./nzbget:/config
       - /mnt/nas:/mnt/nas
+    network_mode: service:gluetun
     depends_on:
       gluetun:
         condition: service_healthy
         restart: true
     restart: unless-stopped
-    network_mode: service:gluetun
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -90,12 +83,12 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./prowlarr:/config
-    restart: unless-stopped
+    network_mode: service:gluetun
     depends_on:
       gluetun:
         condition: service_healthy
         restart: true
-    network_mode: service:gluetun
+    restart: unless-stopped
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -112,7 +105,7 @@ services:
     ports:
       - 8989:8989
     networks:
-      arrstacknetwork:
+      homelabnetwork:
         ipv4_address: 172.39.0.3
 
   radarr:
@@ -130,7 +123,7 @@ services:
     ports:
       - 7878:7878
     networks:
-      arrstacknetwork:
+      homelabnetwork:
         ipv4_address: 172.39.0.4
 
   lidarr:
@@ -148,7 +141,7 @@ services:
     ports:
       - 8686:8686
     networks:
-      arrstacknetwork:
+      homelabnetwork:
         ipv4_address: 172.39.0.5
 
   bazarr:
@@ -166,7 +159,7 @@ services:
     ports:
       - 6767:6767
     networks:
-      arrstacknetwork:
+      homelabnetwork:
         ipv4_address: 172.39.0.6
 
 #  ytdl-sub:
@@ -181,6 +174,6 @@ services:
 #      - ./ytdl-sub:/config
 #      - /mnt/nas/youtube:/youtube
 #    networks:
-#      arrstacknetwork:
+#      homelabnetwork:
 #        ipv4_address: 172.39.0.8
 #    restart: unless-stopped
