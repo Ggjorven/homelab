@@ -1,3 +1,9 @@
+networks:
+  homelabnetwork:
+    ipam:
+      config:
+        - subnet: 172.39.0.0/24
+
 services:
   gluetun:
     image: qmcgaw/gluetun
@@ -12,6 +18,9 @@ services:
       - 6789:6789 # nzbget
       - 9696:9696 # prowlarr
       - 34400:34400 # threadfin
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.2
     volumes:
       - ./gluetun:/gluetun
     env_file:
