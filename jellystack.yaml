@@ -1,7 +1,7 @@
 services:
-  threadfin:
-    image: fyb3roptik/threadfin
-    container_name: threadfin
+  xteve:
+    image: dnsforge/xteve
+    container_name: xteve
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -9,8 +9,7 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ./threadfin/conf:/home/threadfin/conf
-      - ./threadfin/temp:/tmp/threadfin:rw
+      - ./xteve:/root/xteve
       - /mnt/nas:/mnt/nas
     depends_on:
       gluetun:
