@@ -12,8 +12,6 @@ services:
       - ./threadfin/conf:/home/threadfin/conf
       - ./threadfin/temp:/tmp/threadfin:rw
       - /mnt/nas:/mnt/nas
-    ports:
-      - 34400:34400
     depends_on:
       gluetun:
         condition: service_healthy
