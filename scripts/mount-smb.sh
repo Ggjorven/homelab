@@ -21,7 +21,7 @@ while true; do
     if [ $? -eq 0 ]; then
         echo "Share found! Mounting..."
         mount -t cifs //$SERVER_IP/$SHARE_NAME "$MOUNT_POINT" \
-            -o credentials="$CREDENTIALS",vers="$SMB_VERSION",sec=ntlmssp
+            -o credentials="$CREDENTIALS",file_mode=0777,dir_mode=0777,vers="$SMB_VERSION",sec=ntlmssp
         
         if [ $? -eq 0 ]; then
             echo "Mounted successfully."
