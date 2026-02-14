@@ -6,7 +6,7 @@
 
 ![preview image](docs/images/jellyfin.png)
 
-## Preperation
+## Preparation
 
 Before LXC container can access our SMB share we need to mount it to the root node and pass it through with these steps:
 *If you have completed these steps from [jellyfin](https://github.com/Ggjorven/homelab/tree/jellyfin) before you can head straight to **Installation**.*
@@ -125,7 +125,7 @@ Before LXC container can access our SMB share we need to mount it to the root no
     ```
     Now we can run:
     ```
-    cd /docker/arrstack
+    cd /docker
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/jellystack.yaml
     ```
 
@@ -154,7 +154,7 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 13. We are now finally ready to start our docker stack.
     ```
-    docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml up-d
+    docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml up -d
     ```
 
 *If you have any issues like*:
@@ -164,8 +164,123 @@ nvidia-container-cli: mount error: failed to add device rules: unable to find an
 ```
 *Checkout [this comment](https://github.com/NVIDIA/nvidia-container-toolkit/issues/1246#issuecomment-3194219487)*
 
-## Final step
+## Configuration
 
+### Jellyfin
+
+To configure **Jellyfin** you need to go to port `8081` of the ip address of the **Proxmox LXC**.  
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
+
+#### Xtream Codes
+
+Configuration steps:
+
+1. Go to **Dashboard** -> **Plugins** -> **Xtream** TODO
+
+##### Manifest:
+```
+https://kevinjil.github.io/Jellyfin.Xtream/repository.json
+```
+
+#### File Tranformation
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
+#### Auto Collections
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
+```
+
+#### Jellyfin Enhanced
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+#### Intro Skipper
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://intro-skipper.org/manifest.json
+```
+
+#### InPlayerEpisodePreview
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
+```
+
+#### Custom Tabs
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://www.iamparadox.dev/jellyfin/plugins/manifest.json
+```
+
+#### Jellyfin Tweaks
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+##### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+#### Subtitles Extract
+
+Configuration steps:
+
+1. TODO: ...
+
+### Jellyseer
+
+// TODO: ...
+
+### xTeVe 
+
+// TODO: ...
+
+## Extra info
+
+If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
+```
+chmod -R 777 /mnt/jellyfin-cache
+```
+
+## Final step    
 
 Finally we need to make it so our **Jelly stack** starts on bootup of the **Proxmox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add:
 ```
@@ -189,4 +304,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
 - [Jellyseer](https://docs.seerr.dev/) - Media discovery
-- [Threadfin](https://github.com/Ggjorven) - M3U Proxy
+- [xTeVe](https://github.com/xteve-project/xTeVe) - M3U Proxy
