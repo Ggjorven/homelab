@@ -5,9 +5,9 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 ## Installation
 
-1. From the **Proxmox** Node's shell install a **Docker VM** as a **Proxmox VM** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker-vm).
+1. From the **Proxmox** Node's shell install a **Docker** as a **Proxmox LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker).
 
-2. Now we need to pass through our network share where we will store the movies, series & more.. To start we need to install some dependencies:
+2. Now we need to pass through our network share where we will store the movies, series & more.. To start we need to install some dependencies (still on **Proxmox Node**):
     ```
     apt install cifs-utils smbclient
     ```
@@ -45,7 +45,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     mount -a
     ```
 
-7. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+7. Now go the **Proxmox LXC**'s shell. We can finally actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker
     ```
@@ -89,7 +89,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
 
 ### QBitTorrent
 
-To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox VM**.
+To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox LXC**.
 
 1. First login to QBitTorrent using the password from `docker logs qbittorrent`, then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
 
@@ -102,7 +102,7 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
 
 ### NZBGet
 
-To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox VM**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.
+To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox LXC**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.
 
 1. The first thing you'll want to do is change the `ControlUsername` and `ControlPassword` under `Settings` -> `Security` to something you can remember.
 
@@ -115,7 +115,7 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 ### Prowlarr
 
-To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
 1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
 
@@ -152,7 +152,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 ### Radarr
 
-To configure **Radarr** you need to go to port `7878` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+To configure **Radarr** you need to go to port `7878` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
 1. First we're gonna start by importing existing movies.
 
@@ -162,7 +162,7 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 ### Sonarr
 
-To configure **Sonarr** you need to go to port `8989` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+To configure **Sonarr** you need to go to port `8989` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
 1. First we're gonna start by importing existing series.
 
@@ -175,7 +175,7 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
 
 ### Lidarr
 
-To configure **Lidarr** you need to go to port `8686` of the ip address of the **Proxmox VM** and setup the authentication *(I use Forms)*.
+To configure **Lidarr** you need to go to port `8686` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
 1. First we're gonna start by setting the **Root Folder**.
 
@@ -185,7 +185,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 ### Bazarr
 
-To configure **Bazarr** you need to go to port `6767` of the ip address of the **Proxmox VM**.
+To configure **Bazarr** you need to go to port `6767` of the ip address of the **Proxmox LXC**.
 
 1. Go to `Settings` -> `Languages` and set **Languages Filter** and add:
    - English
@@ -208,7 +208,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 6. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
-7. Now open another tab and go to your **Proxmox VM**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+7. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
 8. Hit **Test** and save your changes.
 
@@ -216,7 +216,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 10. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
-11. Now open another tab and go to your **Proxmox VM**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
 12. Finally hit **Test** and save your changes.
 
