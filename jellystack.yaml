@@ -16,6 +16,7 @@ services:
         condition: service_healthy
         restart: true
     network_mode: service:gluetun
+    runtime: nvidia
     gpus: all
     restart: unless-stopped
 
