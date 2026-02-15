@@ -1,7 +1,7 @@
 services:
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:latest
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     volumes:
       - ${IMMICH_UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
@@ -25,7 +25,7 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:latest
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     volumes:
       - ./immich-ml-cache:/cache
     environment:
@@ -34,6 +34,7 @@ services:
       - TZ=${TZ}
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
+      - IMMICH_VERSION=${IMMICH_VERSION}
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
       - DB_DATA_LOCATION=./immich-postgres
     gpus: all
