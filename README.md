@@ -9,16 +9,16 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is the NAS operating system running a network share.
 - [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is the dashboard for all my services.
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is the network wide adblocker running on my home network.
-- [`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.
+- ~~[`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.~~
 - [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is my VPN container.
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
+- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is a combination of jellyfin related services for ease of streaming media.
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
+- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
 - [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
-- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
 - ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.~~
-- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is a combination of jellyfin related services for ease of streaming media.
 
 ## Devices
 
@@ -40,10 +40,13 @@ I have deployed these services in this order:
 4. [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker**.
 5. [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker**.
 6. [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker**.
+7. [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as **Docker Compose** on **Main server** -> **docker**.
+   
+8. [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as a **Proxmox LXC** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
 
-7. [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
+9. [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
 
-8. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
+10. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## License
 
