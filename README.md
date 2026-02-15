@@ -141,9 +141,9 @@ Before LXC container can access our SMB share we need to mount it to the root no
     PGID=1000
 
     # Database credentials
-    POSTGRES_USER=username
-    POSTGRES_PASSWORD=password
-    JWT_SECRET=secret
+    JELLYSTAT_POSTGRES_USER=username
+    JELLYSTAT_POSTGRES_PASSWORD=password
+    JELLYSTAT_JWT_SECRET=secret
     ```
 
 12. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
