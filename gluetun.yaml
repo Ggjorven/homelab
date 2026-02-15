@@ -23,8 +23,16 @@ services:
         ipv4_address: 172.39.0.2
     volumes:
       - ./gluetun:/gluetun
-    env_file:
-      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=${VPN_TYPE}
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=${SERVER_REGIONS}
+      - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
       interval: 20s
