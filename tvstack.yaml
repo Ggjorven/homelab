@@ -1,98 +1,32 @@
 services:
-  xteve:
-    image: dnsforge/xteve
-    container_name: xteve
+  tuliprox:
+    container_name: tuliprox
+    image: ghcr.io/euzu/tuliprox:latest
+    working_dir: /app
+    volumes:
+      - /etc/localtime:/etc/localtime:ro 
+      - ./tuliprox/data:/app/data
+      - ./tuliprox/config:/app/config
+      - ./tuliprox/backup:/app/backup
+      - ./tuliprox/downloads:/app/downloads
+      - ./tuliprox/user-config:/app/user-config
     environment:
+      - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      - ./xteve:/root/xteve
-      - /mnt/nas:/mnt/nas
+    ports:
+      - 8901:8901
     depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
+      - gluetun
+    runtime: nvidia
+    gpus: all
     network_mode: service:gluetun
-    runtime: nvidia
-    gpus: all
     restart: unless-stopped
-
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.8
-    volumes:
-      - ./jellyfin:/config
-      - /data:/data
-      - /mnt/nas:/mnt/nas
-    ports:
-      - 8096:8096
-      - 7359:7359/udp # Service Discovery
-      - 1900:1900/udp # Client Discovery
-    runtime: nvidia
-    gpus: all
-    restart: unless-stopped
-
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.9
-    volumes:
-      - ./jellyseerr:/app/config
-      - /mnt/nas:/mnt/nas
-    ports:
-      - 5055:5055
-    restart: unless-stopped
-
-  jellystat-db:
-    image: postgres:15.2
-    container_name: jellystat-db
-    environment:
-      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.10
-    volumes:
-      - ./jellystat/postgres:/var/lib/postgresql/data
-      - /mnt/nas:/mnt/nas
-    restart: unless-stopped
-
-  jellystat:
-    image: cyfershepard/jellystat:latest
-    container_name: jellystat
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.11
-    environment:
-      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
-      POSTGRES_IP: jellystat-db
-      POSTGRES_PORT: 5432
-      JWT_SECRET: ${JELLYSTAT_JWT_SECRET}
-      TZ: ${TZ}
-    volumes:
-      - ./jellystat/backup-data:/app/backend/backup-data
-      - /mnt/nas:/mnt/nas
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    depends_on:
-      - jellystat-db
+    healthcheck:
+      test: ["CMD", "/app", "-p", "/app/config", "--healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s 
