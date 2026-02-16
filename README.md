@@ -120,5 +120,5 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [Tuliprox](https://github.com/euzu/tuliprox) - M3U & Xtream Proxy
+- [Tuliprox]() - M3U & Xtream Proxy
 - [Threadfin](https://github.com/Threadfin/Threadfin) - M3U Proxy
