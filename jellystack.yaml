@@ -1,25 +1,4 @@
 services:
-  xteve:
-    image: dnsforge/xteve
-    container_name: xteve
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      - ./xteve:/root/xteve
-      - /mnt/nas:/mnt/nas
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
-    network_mode: service:gluetun
-    runtime: nvidia
-    gpus: all
-    restart: unless-stopped
-
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
