@@ -267,11 +267,19 @@ Configuration steps:
 
 ### Jellyseer
 
-// TODO: ...
+To configure **Jellyseer** we need to tell it what platform we use for streaming our media. In my case **Jellyfin**.
 
-### xTeVe 
+1. Start up **Jellyseer** on port `5055` of your **Proxmox VM**'s IP address. Select **Jellyfin** as the media server type.
 
-// TODO: ...
+2. Now set the URL of **Jellyfin** to the `192.168.xxx.xxx` address. Leave `URL Base` empty. Set `Email Address` to something random. And choose an appropriate `Username` and `Password`.
+
+3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
+
+4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+
+5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+
+6. And finish your setup!
 
 ## Extra info
 
