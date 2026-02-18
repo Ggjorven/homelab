@@ -65,6 +65,7 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ```
    nvidia-smi
    ```
+   If not restart your LXC and try again.
 
 9. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
     ```
