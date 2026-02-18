@@ -25,7 +25,7 @@
 
 4. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
-    mkdir -p /docker/gluetun
+    mkdir -p /docker
     ```
 
 5. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/gluetun/compose.yaml). But before we can do so we need to install `wget`.
