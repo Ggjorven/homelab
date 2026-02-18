@@ -3,54 +3,70 @@
 An *arr stack is collection of services that automate the management of personal media, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
 These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
-## Installation
+## Preperation
 
-1. From the **Proxmox** Node's shell install a **Docker** as a **Proxmox LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker).
+Before LXC container can access our SMB share we need to mount it to the root node and pass it through with these steps:
+*If you have completed these steps from [jellyfin](https://github.com/Ggjorven/homelab/tree/jellyfin) before you can head straight to **Installation**.*
 
-2. Now we need to pass through our network share where we will store the movies, series & more.. To start we need to install some dependencies (still on **Proxmox Node**):
+1. Install the following packages to help with mounting:
     ```
     apt install cifs-utils smbclient
     ```
 
-3. Now we need to store our credentials in `/root/.smbcred` so we can use them when mounting:
+2. Next we need to setup our credentials for our SMB share. We do this in the file `/root/.smbcred`.
     ```
-    nano /root/.smbcred
+    nano /root/.smbcred 
     ```
-    And paste:
+
+3. Paste in the following content and replace the placeholders with your actual `username` and `password`.
     ```
     username=<YOUR USERNAME FOR SMB>
     password=<YOUR PASSWORD FOR SMB>
     ```
 
-4. Before we can mount the network share we need to know which user on the host to give the permissions to. Check your `PUID` and `PGID` with the following command *(your user is probably `root`)*:
+4. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
     ```
-    id <YOUR USER>
-    ```
-
-5. To make the mount persistent we need to modify `/etc/fstab`:
-    ```
-    nano /etc/fstab
-    ```
-    And paste this *(Replace the IP, SMB share name and UID & GID)*:
-    ```
-    //<IP ADDRESS>/<SHARENAME> /mnt/nas cifs credentials=/root/.smbcred,uid=<YOUR UID>,gid=<YOUR GID>,file_mode=0777,dir_mode=0777,vers=3.0
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/mount-smb.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/mount-smb.sh 
+    chmod +x /root/scripts/mount-smb.sh
     ```
 
-6. Before we can actually mount it we need to actually create the `/mnt/nas` folder.
+5. Edit the `/root/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP. 
+    ```
+    nano /root/scripts/mount-smb.sh
+    ```
+
+6. Now make sure your mount point set in the `/root/scripts/mount-smb.sh` actually exists with:
     ```
     mkdir /mnt/nas
     ```
-    Now we can mount:
+
+7. Now we need to enable this service with:
     ```
-    mount -a
+    systemctl daemon-reload
+    systemctl enable mount-smb
+    systemctl start mount-smb
     ```
 
-7. Now go the **Proxmox LXC**'s shell. We can finally actually start setting up the docker stack. We first need to create a nice place to work in:
+8. To check if the mounting script succeeded run:
+   ```
+   journalctl -xeu mount-smb.service
+   ```
+   You should see the output from the script saying that the SMB was successfully mounted.
+
+## Installation
+
+1. From the **Proxmox** Node's shell install **Docker** as a **Proxmox LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker).
+
+2. Now go the **Proxmox LXC**'s shell. We can start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker
     ```
 
-8. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). But before we can do so we need to install `wget`.
+3. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -60,7 +76,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/arrstack.yaml
     ```
 
-9. Now modify your `.env` file.
+4. Now modify your `.env` file.
     ```
     nano .env
     ```
@@ -72,18 +88,18 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     PGID=1000
     ```
 
-10. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+5. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-10. We are now finally ready to start our docker stack.
+6. We are now finally ready to start our docker stack.
     ```
     docker compose -f gluetun.yaml -f arrstack.yaml up -d
     ```
 
-11. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
+7. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
 
 ## Configuring 
 
