@@ -8,6 +8,82 @@
 
 ## Preparation
 
+Before you can get started you must ensure NVIDIA drivers are installed on the host system:
+This is done using the following steps:  
+These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia-drivers-instalation-proxmox-and-ct.156421/).
+
+1. Blacklist the nouveau drivers (this will create a new file):
+   ```
+   nano /etc/modprobe.d/blacklist-nouveau.conf
+   ```
+   Paste this inside:
+   ```
+   blacklist nouveau
+   options nouveau modeset=0
+   ```
+
+2. Update initramfs:
+   ```
+   update-initramfs -u
+   ```
+
+3. Check if nouveau is enabled
+   ```
+   lsmod | grep nouveau
+   ```
+   If it gives output, disable it with the following command:
+   ```
+   rmmod nouveau
+   ```
+   Afterwards go back and verify it's actually disabled by running the following command again:
+   ```
+   lsmod | grep nouveau
+   ```
+
+4. Make sure your system can find your NVIDIA GPU:
+   ```
+   lspci | grep NVIDIA
+   ```
+
+5. Download the latest nvidia driver for your GPU [link](https://www.nvidia.com/en-us/drivers/) where the OS is **Linux 64-bit**. Example:
+   ```
+   wget https://us.download.nvidia.com/XFree86/Linux-x86_64/550.90.07/NVIDIA-Linux-x86_64-550.90.07.run
+   chmod +x NVIDIA-Linux-x86_64-550.90.07.run
+   ```
+
+6. Install the required build packages:
+   ```
+   apt install build-essential pve-headers-$(uname -r)
+   ```
+
+7. Run the installation:
+   ```
+   ./NVIDIA-Linux-x86_64-550.90.07.run
+   ```
+
+8. Verify the drivers installed succesfully:
+   ```
+   nvidia-smi
+   ```
+   If not restart your LXC and try again.
+
+9. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service
+    mkdir /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/nvidia-persistence.sh
+    chmod +x nvidia-persistence.sh
+    ```
+
+10. Lastly we need to enable this service with:
+    ```
+    systemctl daemon-reload
+    systemctl enable nvidia-persistence
+    systemctl start nvidia-persistence
+    ```
+
 Before LXC container can access our SMB share we need to mount it to the root node and pass it through with these steps:
 *If you have completed these steps from [jellyfin](https://github.com/Ggjorven/homelab/tree/jellyfin) before you can head straight to **Installation**.*
 
@@ -54,6 +130,12 @@ Before LXC container can access our SMB share we need to mount it to the root no
     systemctl start mount-smb
     ```
 
+8. To check if the mounting script succeeded run:
+   ```
+   journalctl -xeu mount-smb.service
+   ```
+   You should see the output from the script saying that the SMB was successfully mounted.
+
 ## Installation
 
 1. From the **Proxmox Node**'s shell install a **Docker LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker):
@@ -77,7 +159,11 @@ Before LXC container can access our SMB share we need to mount it to the root no
    ```
    *Note: Also make sure nesting=1 and keyctl=1*
 
-3. After a restart your **Docker LXC** should have `/mnt/nas` mounted.
+3. After a restart your **Docker LXC** should have `/mnt/nas` mounted. You can check with:
+    ```
+    ls /mnt
+    ```
+    You should see `nas` in the output.
 
 4. To give docker access to our GPU we need to install the nvidia-runtime, before we can do so we need to add the NVIDIA repository. We'll start by adding the GPG key:
    ```
