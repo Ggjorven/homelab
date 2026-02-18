@@ -165,13 +165,35 @@ Before LXC container can access our SMB share we need to mount it to the root no
     ```
     You should see `nas` in the output.
 
-4. To give docker access to our GPU we need to install the nvidia-runtime, before we can do so we need to add the NVIDIA repository. We'll start by adding the GPG key:
+4. Before our GPU is actually visible in the LXC we need to also install GPU drivers in the LXC. Make sure you download the exact same drivers as before. This requires `wget`.
+   ```
+   apt install wget
+   ```
+   
+5. Now install the exact same drivers as before:
+   ```
+   wget https://us.download.nvidia.com/XFree86/Linux-x86_64/550.90.07/NVIDIA-Linux-x86_64-550.90.07.run
+   chmod +x NVIDIA-Linux-x86_64-550.90.07.run
+   ```
+
+6. But now we need to install it with a different command, make sure to add the `--no-kernel-module` flag:
+   ```
+   ./NVIDIA-Linux-x86_64-550.90.07.run --no-kernel-module
+   ```
+   
+7. Make sure your LXC sees the drivers with:
+   ```
+   nvidia-smi
+   ```
+   You should see your GPU listed.
+
+8. Now we have to give docker access to our GPU. To do this we need to install the nvidia-runtime, before we can do so we need to add the NVIDIA repository. We'll start by adding the GPG key:
    ```
    mkdir -p /usr/share/keyrings
    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
    ```
 
-5. Now we'll add the repository:
+9. Now we'll add the repository:
    ```
    distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
    curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
@@ -179,19 +201,19 @@ Before LXC container can access our SMB share we need to mount it to the root no
    tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
    ```
    
-6. Now install the container toolkit:
+10. Now install the container toolkit:
     ```
     sudo apt update
     sudo apt install -y nvidia-container-toolkit
     ```
 
-7. Configure docker to use the NVIDIA runtime:
+11. Configure docker to use the NVIDIA runtime:
    ```
    nvidia-ctk runtime configure --runtime=docker
    systemctl restart docker
    ```
 
-8. Verify its install with:
+11. Verify its install with:
    ```
    docker info | grep -i runtime
    ```
@@ -200,12 +222,12 @@ Before LXC container can access our SMB share we need to mount it to the root no
    Runtimes: runc io.containerd.runc.v2 nvidia
    ```
 
-9. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+11. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker
     ```
 
-10. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml). But before we can do so we need to install `wget`.
+12. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -215,7 +237,7 @@ Before LXC container can access our SMB share we need to mount it to the root no
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/jellystack.yaml
     ```
 
-11. Now modify your `.env` file.
+13. Now modify your `.env` file.
     ```
     nano .env
     ```
@@ -232,13 +254,13 @@ Before LXC container can access our SMB share we need to mount it to the root no
     JELLYSTAT_JWT_SECRET=secret
     ```
 
-12. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+14. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-13. We are now finally ready to start our docker stack.
+15. We are now finally ready to start our docker stack.
     ```
     docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml up -d
     ```
