@@ -50,6 +50,10 @@ I have deployed these services in this order:
 
 11. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
+## Architecture
+
+// TODO: Architecture diagram
+
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
