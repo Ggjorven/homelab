@@ -94,7 +94,7 @@ nvidia-container-cli: mount error: failed to add device rules: unable to find an
 
 ## Configuration
 
-### Tuliprox
+### Dispatcharr
 
 // TODO: ...
 
@@ -120,5 +120,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [Tuliprox]() - M3U & Xtream Proxy
-- [Threadfin](https://github.com/Threadfin/Threadfin) - M3U Proxy
+- [Dispatcharr](https://github.com/Dispatcharr/Dispatcharr) - M3U & Xtream Proxy
