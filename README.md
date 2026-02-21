@@ -61,12 +61,34 @@ Before LXC container can access our SMB share we need to mount it to the root no
 
 1. From the **Proxmox** Node's shell install **Docker** as a **Proxmox LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker).
 
-2. Now go the **Proxmox LXC**'s shell. We can start setting up the docker stack. We first need to create a nice place to work in:
+2. To give our **LXC** access to our network share we need to add this line to `/etc/pve/lxc/<CTID>.conf`:
+   ```
+   nano /etc/pve/lxc/<CTID>.conf
+   ```
+   Add:
+   ```
+   mp0: /mnt/nas,mp=/mnt/nas
+   ```
+   And:
+   ```
+   lxc.cgroup2.devices.allow: c 10:200 rwm
+   lxc.mount.entry: /dev/net dev/net none bind,create=dir
+   lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+   ```
+   *Note: Also make sure nesting=1 and keyctl=1*
+
+3. After a restart your **Docker LXC** should have `/mnt/nas` mounted. You can check with:
+    ```
+    ls /mnt
+    ```
+    You should see `nas` in the output.
+
+4. Now go the **Proxmox LXC**'s shell. We can start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker
     ```
 
-3. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). But before we can do so we need to install `wget`.
+5. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -76,7 +98,7 @@ Before LXC container can access our SMB share we need to mount it to the root no
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/arrstack.yaml
     ```
 
-4. Now modify your `.env` file.
+6. Now modify your `.env` file.
     ```
     nano .env
     ```
@@ -88,18 +110,18 @@ Before LXC container can access our SMB share we need to mount it to the root no
     PGID=1000
     ```
 
-5. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+7. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-6. We are now finally ready to start our docker stack.
+8. We are now finally ready to start our docker stack.
     ```
     docker compose -f gluetun.yaml -f arrstack.yaml up -d
     ```
 
-7. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
+9. Once everything was pulled and everything started properly and `gluetun` is healthy we can start configuring.
 
 ## Configuring 
 
