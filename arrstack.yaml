@@ -170,11 +170,16 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - STATE_DIR="/config"
+      - DOWNLOAD_DIR="/downloads"
+      - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
+      - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
     ports:
       - 8081:8081
     volumes:
       - ./metube:/config
-      - /mnt/nas/Users/Jorben/YT/Downloads:/downloads
+      - /mnt/nas:/mnt/nas
+      - /mnt/nas:/downloads # Temporary, you should really change the directory in metube when dowloading
+      
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.7
