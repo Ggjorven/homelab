@@ -84,6 +84,8 @@ Finally we need to make it so our **Gluetun VPN** starts on bootup of the **Prox
  cd /root/scripts
  wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/scripts/compose-boot.sh
  chmod +x compose-boot.sh
+ wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/gluetun/scripts/compose-update.sh
+ chmod +x compose-update.sh
  ```
 To enable this service we run these commands:
 ```
