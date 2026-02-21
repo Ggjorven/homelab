@@ -247,7 +247,9 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 ### MeTube
 
-**MeTube** on port `8081` doesn't require any configuration.
+To configure **MeTube** you need to go to port `8081` of the ip address of the **Proxmox LXC**.
+
+1. Change the download folder to a directory of your choosing. Under **Advanced Options**.
 
 ## Final step
 
@@ -278,4 +280,5 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Prowlarr](https://prowlarr.com/) - Indexer
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
+- [Lidarr](https://lidarr.audio/) - Music organizer/manager
 - [MeTube](https://github.com/alexta69/metube) - YouTube downloader
