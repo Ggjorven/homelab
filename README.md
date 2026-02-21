@@ -85,12 +85,14 @@
     docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml -f tvstack.yaml up -d
     ```
 
-*If you have any issues like*:
-```
+---
+
+If you have any issues like:  
+`
 Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running prestart hook #0: exit status 1, stdout: , stderr: Auto-detected mode as 'legacy'
 nvidia-container-cli: mount error: failed to add device rules: unable to find any existing device filters attached to the cgroup: bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted
-```
-*Checkout [this comment](https://github.com/NVIDIA/nvidia-container-toolkit/issues/1246#issuecomment-3194219487)*
+`  
+*Check out [this comment](https://github.com/NVIDIA/nvidia-container-toolkit/issues/1246#issuecomment-3194219487)*
 
 ## Configuration
 
