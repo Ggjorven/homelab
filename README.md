@@ -438,4 +438,5 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
+- [Jellystat](https://github.com/CyferShepard/Jellystat) - Jellyfin statistics
 - [Jellyseer](https://docs.seerr.dev/) - Media discovery
