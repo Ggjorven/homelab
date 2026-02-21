@@ -169,7 +169,11 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 1. Go to the application you want to add to **Prowlarr** and go to `Settings` -> `General` and copy your **API Key**.
 
-2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Do the same for the *Arr application you're setting up. The IP can also be found in the compose file.
+2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). 
+
+3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml), but I'll list them here as well. **Radarr** = `172.39.0.4` on port `7878`, **Sonarr** = `172.39.0.3` on port `8989` & **Lidarr** = `172.39.0.5` on port `8686`.
+
+4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
 
 ### Radarr
 
@@ -221,9 +225,9 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 4. Now go to `Settings` -> `Providers` and add:
    - **OpenSubtitles.com**
-   - **SuperSubtitles**
-   - **TVSubtitles**
-   - **YIFY Subtitles**
+   - ~~**SuperSubtitles**~~
+   - ~~**TVSubtitles**~~
+   - ~~**YIFY Subtitles**~~
 
 5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
@@ -243,7 +247,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 ### MeTube
 
-**MeTube** on port **8081** doesn't require any configuration.
+**MeTube** on port `8081` doesn't require any configuration.
 
 ## Final step
 
