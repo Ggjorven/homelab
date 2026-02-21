@@ -104,7 +104,7 @@ Finally we need to make it so our **TV stack** starts on bootup of the **Proxmox
 ```
 -f tvstack.yaml
 ```
-to it.
+to it. Do the same to the `compose-update.sh` script.
 To enable this service we run these commands:
 ```
 systemctl daemon-reload
