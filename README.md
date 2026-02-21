@@ -208,26 +208,26 @@ Before LXC container can access our SMB share we need to mount it to the root no
     ```
 
 11. Configure docker to use the NVIDIA runtime:
-   ```
-   nvidia-ctk runtime configure --runtime=docker
-   systemctl restart docker
-   ```
+    ```
+    nvidia-ctk runtime configure --runtime=docker
+    systemctl restart docker
+    ```
 
-11. Verify its install with:
-   ```
-   docker info | grep -i runtime
-   ```
-   You should see:
-   ```
-   Runtimes: runc io.containerd.runc.v2 nvidia
-   ```
+12. Verify its install with:
+    ```
+    docker info | grep -i runtime
+    ```
+    You should see:
+    ```
+    Runtimes: runc io.containerd.runc.v2 nvidia
+    ```
 
-11. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
+13. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
     ```
     mkdir -p /docker
     ```
 
-12. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml). But before we can do so we need to install `wget`.
+14. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml). But before we can do so we need to install `wget`.
     ```
     apt install wget
     ```
@@ -237,7 +237,7 @@ Before LXC container can access our SMB share we need to mount it to the root no
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellystack/jellystack.yaml
     ```
 
-13. Now modify your `.env` file.
+15. Now modify your `.env` file.
     ```
     nano .env
     ```
@@ -254,13 +254,13 @@ Before LXC container can access our SMB share we need to mount it to the root no
     JELLYSTAT_JWT_SECRET=secret
     ```
 
-14. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
+16. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
     ```
     id <YOUR USER>
     ```
     If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
-15. We are now finally ready to start our docker stack.
+17. We are now finally ready to start our docker stack.
     ```
     docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml up -d
     ```
@@ -276,91 +276,90 @@ nvidia-container-cli: mount error: failed to add device rules: unable to find an
 
 ### Jellyfin
 
-To configure **Jellyfin** you need to go to port `8096` of the ip address of the **Proxmox LXC**.  
-**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below.
+To configure **Jellyfin** you need to go to port `8096` of the ip address of the **Proxmox LXC**.
 
-#### File Tranformation
+#### Settings
+
+// TODO: Settings instructions
+
+If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
+```
+chmod -R 777 /mnt/jellyfin-cache
+```
+
+#### Plugins
+
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
+
+##### File Tranformation
 
 Configuration steps:
 
 1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
 
-##### Manifest:
+###### Manifest:
 ```
 https://www.iamparadox.dev/jellyfin/plugins/manifest.json
 ```
 
-#### Auto Collections
+##### Jellyfin Enhanced
 
 Configuration steps:
 
 1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
 
-##### Manifest:
-```
-https://raw.githubusercontent.com/KeksBombe/jellyfin-plugin-auto-collections/refs/heads/main/manifest.json
-```
-
-#### Jellyfin Enhanced
-
-Configuration steps:
-
-1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
-
-##### Manifest:
+###### Manifest:
 ```
 https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
 ```
 
-#### Intro Skipper
+##### Jellyfin Tweaks
 
 Configuration steps:
 
 1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
 
-##### Manifest:
+###### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
+##### Intro Skipper
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+###### Manifest:
 ```
 https://intro-skipper.org/manifest.json
 ```
 
-#### InPlayerEpisodePreview
+##### InPlayerEpisodePreview
 
 Configuration steps:
 
 1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
 
-##### Manifest:
+###### Manifest:
 ```
 https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json
 ```
 
-#### Custom Tabs
+##### Custom Tabs
 
 Configuration steps:
 
 1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
 
-##### Manifest:
+###### Manifest:
 ```
 https://www.iamparadox.dev/jellyfin/plugins/manifest.json
 ```
 
-#### Jellyfin Tweaks
+##### Subtitles Extract
 
-Configuration steps:
-
-1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
-
-##### Manifest:
-```
-https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
-```
-
-#### Subtitles Extract
-
-Configuration steps:
-
-1. TODO: ...
+Subtitles Extract is located in the default **Stable Jellyfin** repository.
 
 ### Jellyseer
 
@@ -377,13 +376,6 @@ To configure **Jellyseer** we need to go to port `5055` of your **Proxmox LXC**'
 5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
 6. And finish your setup!
-
-## Extra info
-
-If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
-```
-chmod -R 777 /mnt/jellyfin-cache
-```
 
 ## Final step    
 
