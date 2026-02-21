@@ -74,6 +74,7 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Prowlarr](https://prowlarr.com/) - Indexer
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
+- [Lidarr](https://lidarr.audio/) - Music organizer/manager
 - [MeTube](https://github.com/alexta69/metube) - YouTube downloader
 - [Jellyfin](https://jellyfin.org) - Media player
 - [Jellystat](https://github.com/CyferShepard/Jellystat) - Jellyfin Statistics
