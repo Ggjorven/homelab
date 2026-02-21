@@ -282,7 +282,43 @@ To configure **Jellyfin** you need to go to port `8096` of the ip address of the
 
 #### Settings
 
-// TODO: Settings instructions
+To change **Jellyfin**'s settings go to the hamburger menu in the top left and go to **Dashboard**.
+
+##### General
+
+1. Change `cache` path if you use a seperate drive (ex. `/mnt/jellyfin-cache/cache`)
+   
+2. Change `metadata` path if you use a seperate drive (ex. `/mnt/jellyfin-cache/metadata`)
+
+3. Scroll to the bottom and hit **Save**.
+
+##### Transcoding
+
+1. Set **Hardware Acceleration** to **NVIDIA NVENC**.
+
+2. Enable hardware decoding for:
+- H264
+- HEVC
+- VC1
+- AV1
+- HEVC 10bit
+- VP9 10bit
+
+3. Enable **enhanced NVDEC decoder**.
+
+4. Enable hardware encoding and set **Allow encoding in HEVC format**.
+
+5. Change `trancode` path if you use a seperate drive (ex. `/mnt/jellyfin-cache/transcode`)
+
+6. Scroll to the bottom and hit **Save**.
+
+##### Trickplay
+
+1. Enable **hardware decoding**.
+
+2. Scroll to the bottom and hit **Save**.
+
+---
 
 If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
 ```
