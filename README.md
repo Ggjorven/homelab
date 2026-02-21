@@ -1,6 +1,6 @@
 # TV Stack
 
-**TV Stack** is a collection of Live TV streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Tuliprox & More** using **Docker Compose**.
+**TV Stack** is a collection of Live TV streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Dispatcharr & More** using **Docker Compose**.
 
 ## Installation
 
