@@ -259,7 +259,8 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 3. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
 
 4. Now go to `Settings` -> `Providers` and add:
-   - **OpenSubtitles.com**
+   - **OpenSubtitles.com** (requires login details from [https://www.opensubtitles.com/](https://www.opensubtitles.com/))
+   - **Subdl** (requires **API Key** from [https://subdl.com/](https://subdl.com/))
    - ~~**SuperSubtitles**~~
    - ~~**TVSubtitles**~~
    - ~~**YIFY Subtitles**~~
