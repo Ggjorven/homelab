@@ -399,9 +399,9 @@ https://www.iamparadox.dev/jellyfin/plugins/manifest.json
 
 Subtitles Extract is located in the default **Stable Jellyfin** repository.
 
-### Jellyseer
+### Seerr
 
-To configure **Jellyseer** we need to go to port `5055` of your **Proxmox LXC**'s IP address.
+To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP address.
 
 1.Select **Jellyfin** as the media server type.
 
@@ -439,4 +439,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Jellyfin](https://jellyfin.org/) - Media streaming solution
 - [Jellystat](https://github.com/CyferShepard/Jellystat) - Jellyfin statistics
-- [Jellyseer](https://docs.seerr.dev/) - Media discovery
+- [Seerr](https://docs.seerr.dev/) - Media discovery
