@@ -64,21 +64,21 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    If you don't get any output. Restart your LXC
 
 10. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
-    ```
-    cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service
-    mkdir /root/scripts
-    cd /root/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/nvidia-persistence.sh
-    chmod +x nvidia-persistence.sh
-    ```
+   ```
+   cd /etc/systemd/system
+   wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/services/nvidia-persistence.service
+   mkdir /root/scripts
+   cd /root/scripts
+   wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/jellyfin/scripts/nvidia-persistence.sh
+   chmod +x nvidia-persistence.sh
+   ```
 
 11. Lastly we need to enable this service with:
-    ```
-    systemctl daemon-reload
-    systemctl enable nvidia-persistence
-    systemctl start nvidia-persistence
-    ```
+   ```
+   systemctl daemon-reload
+   systemctl enable nvidia-persistence
+   systemctl start nvidia-persistence
+   ```
 
 ## Installation
 
@@ -124,10 +124,10 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ```
    
 8. Now install the container toolkit:
-    ```
-    sudo apt update
-    sudo apt install -y nvidia-container-toolkit
-    ```
+   ```
+   sudo apt update
+   sudo apt install -y nvidia-container-toolkit
+   ```
 
 9. Configure docker to use the NVIDIA runtime:
    ```
@@ -145,46 +145,46 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ```
 
 11. Now we can actually start setting up the docker stack. We first need to create a nice place to work in:
-    ```
-    mkdir -p /docker
-    ```
+   ```
+   mkdir -p /docker
+   ```
 
 12. To create the docker stack we use our premade [compose file](https://github.com/Ggjorven/homelab/blob/tvstack/tvstack.yaml). But before we can do so we need to install `wget`.
-    ```
-    apt install wget
-    ```
-    Now we can run:
-    ```
-    cd /docker
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/tvstack/tvstack.yaml
-    ```
+   ```
+   apt install wget
+   ```
+   Now we can run:
+   ```
+   cd /docker
+   wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/tvstack/tvstack.yaml
+   ```
 
 13. Now modify your `.env` file.
-    ```
-    nano .env
-    ```
-    And make sure this is present:
-    ```
-    # General UID/GIU and Timezone
-    TZ=Europe/Amsterdam
-    PUID=1000
-    PGID=1000
-
-    # Dispatcharr settings
-    DISPATCHARR_STREAMING_PRIORITY=0 # -20 (highest) to 19 (lowest)
-    DISPATCHARR_EPG_PRIORITY=5
-    ```
+   ```
+   nano .env
+   ```
+   And make sure this is present:
+   ```
+   # General UID/GIU and Timezone
+   TZ=Europe/Amsterdam
+   PUID=1000
+   PGID=1000
+   
+   # Dispatcharr settings
+   DISPATCHARR_STREAMING_PRIORITY=0 # -20 (highest) to 19 (lowest)
+   DISPATCHARR_EPG_PRIORITY=5
+   ```
 
 14. Also make sure the `PUID` and `PGID` are set to your actual IDs in `.env` you can check this with this command *(your user is probably `root`)*:
-    ```
-    id <YOUR USER>
-    ```
-    If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
+   ```
+   id <YOUR USER>
+   ```
+   If you run into errors also check [this](https://github.com/TechHutTV/homelab/tree/main/media#user-permissions).
 
 15. We are now finally ready to start our docker stack.
-    ```
-    docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml -f tvstack.yaml up -d
-    ```
+   ```
+   docker compose -f gluetun.yaml -f arrstack.yaml -f jellystack.yaml -f tvstack.yaml up -d
+   ```
 
 ---
 
