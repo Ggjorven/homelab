@@ -294,6 +294,41 @@ systemctl start compose-boot
 ```
 Now you're all set.
 
+## Extra
+
+I have personally noticed that sometimes even though indexers in **Prowlarr** are available **Prowlarr** doesn't report them properly until you run a **Test All Indexers**.
+This can build up over time and cause all indexers to not be reported as available.
+To prevent this from happening and requiring manual **Test All Indexers** I have written a **systemctl** service and script to do this using **Prowlarr**, **Radarr**, **Sonarr** & **Lidarr**'s API.
+
+```
+cd /etc/systemd/system
+wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/services/test-indexers.service
+mkdir -p /root/scripts
+cd /root/scripts
+wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/arrstack/scripts/test-indexers.sh
+chmod +x test-indexers.sh
+```
+
+We need to modify the script and replace all these values:
+
+```
+SERVER_IP="192.168.x.x"
+PROWLARR_API=""
+RADARR_API=""
+SONARR_API=""
+LIDARR_API=""
+```
+
+Replace `SERVER_IP` with the **Proxmox LXC**'s address.
+Replace the `XXX_API` with the **API Key**'s that can be found under **General** -> **Settings** for each of these services.
+
+Finally we need to enable this service:
+```
+systemctl daemon-reload
+systemctl enable test-indexers
+systemctl start test-indexers
+```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
