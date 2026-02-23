@@ -36,7 +36,7 @@
     ```
     To reflect your actual PIA login details.
 
-7. We are now finally ready to start our docker stack.
+6. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
