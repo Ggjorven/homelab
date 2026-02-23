@@ -1,10 +1,10 @@
-# Homelab Central Repository
+# Service name
 
-This repository acts as a central hub for my Homelab configuration.
-Each service or stack lives in its own **dedicated branch**, keeping configurations organized, modular, and easy to manage.
+Service description with the intended platform like LXC container or Proxmox VM or docker container.
 
-## Overview
+## Preview
 
+![preview image]()
 - [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is the NAS operating system running a network share.
 - [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is the dashboard for all my services.
 - [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is the network wide adblocker running on my home network.
@@ -22,8 +22,14 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
 - ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.~~
 
-## Devices
+## Installation
 
+1. Installation
+2. Instructions
+
+---
+
+Extra notes
 - ~~**Main server** "nas" (i5-6402P, 8GB DDR3, NVIDIA GTX 750, 128GB SSD, 2TB HDD)~~
 - **Main server** "main" (Ryzen 5 3600, 16GB DDR4, NVIDIA RTX 3050 6GB, 500GB SSD, 128GB SSD, 3x2TB HDD)
 - **Pi 2 w (1)** "pi2w-jorben-1"
@@ -66,6 +72,7 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
+- [More references](https://github.com/Ggjorven) - ...
 - [Open Media Vault](https://www.openmediavault.org) - NAS operating system
 - [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
 - [Homepage](https://gethomepage.dev) - Dashboard for all running services
