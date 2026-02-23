@@ -9,6 +9,7 @@ These instructions are heavily inspired by [this youtube video](https://www.yout
     ```
     cd docker
     mkdir -p arrstack
+    cd arrstack
     ```
 
 2. Retrieve the compose file and .env file:

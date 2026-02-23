@@ -11,7 +11,8 @@
 1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
     ```
     cd docker
-    mkdir -p gluetun
+    mkdir -p jellystack
+    cd jellystack
     ```
 
 2. Retrieve the compose file and .env file:

@@ -8,6 +8,7 @@
     ```
     cd docker
     mkdir -p gluetun
+    cd gluetun
     ```
 
 2. Retrieve the compose file and .env file:
