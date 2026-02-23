@@ -415,6 +415,20 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 6. And finish your setup!
 
+### Jellystat
+
+To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
+
+1. Create a new user for **Jellystat**.
+
+2. Paste the **Jellyfin** address in the address bar with `http://`. It's `172.39.0.8` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/jellystack/jellystack.yaml).
+
+3. Now go to **Jellyfin** on port `8096` of **Proxmox LXC**'s IP address. Go to hamburger menu in the top left -> **Dashboard** -> **API Keys** and create a new **API Key** for **Jellystat**.
+
+4. Now go back and paste your **API Key**.
+
+5. And you're finished!
+
 ## Final step    
 
 Finally we need to make it so our **Jelly stack** starts on bootup of the **Proxmox LXC**. For ease of use I have created a **systemctl service** and a **bash script** to help with this. You should have installed these when creating the `gluetun` stack. Now modify the script and add:
