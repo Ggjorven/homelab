@@ -16,8 +16,8 @@
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/gluetun/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/gluetun/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/jellystack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/jellystack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
