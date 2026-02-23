@@ -12,7 +12,8 @@ Each service or stack lives in its own **dedicated branch**, keeping configurati
 - [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is my VPN container.
 - [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
 - [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is a combination of jellyfin related services for ease of streaming media.
-- [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is a combination of Live TV services for ease of streaming TV._
+- [`navistack`](https://github.com/Ggjorven/homelab/tree/navistack) is a combination of services related to streaming Music.
+- [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is a combination of Live TV services for ease of streaming TV.
 - [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
 - [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
 - [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
@@ -42,12 +43,13 @@ I have deployed these services in this order:
 5. [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
 6. [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
 7. [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-8. [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-9. [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
+8. [`navistack`](https://github.com/Ggjorven/homelab/tree/navistack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
+9. [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
+10. [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
    
-10. [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as a **Proxmox LXC** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
+11. [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as a **Proxmox LXC** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
 
-11. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
+12. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## Architecture
 
