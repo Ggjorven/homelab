@@ -1,0 +1,14 @@
+[Unit]
+Description=Startup homepage dashboard 
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/homepage
+EnvironmentFile=/opt/homepage/.env
+ExecStart=/usr/local/bin/pnpm start
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
