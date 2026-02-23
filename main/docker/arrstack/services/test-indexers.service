@@ -1,0 +1,19 @@
+[Unit]
+Description=Test Indexers Service
+After=compose-boot.service
+Wants=compose-boot.service
+# Ensure the service restarts if the script fails
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/root/scripts/test-indexers.sh
+Restart=always
+RestartSec=5
+User=root
+# Optional: ensure logs are captured in journalctl
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
