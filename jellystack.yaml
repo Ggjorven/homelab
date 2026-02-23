@@ -35,7 +35,7 @@ services:
       homelabnetwork:
         ipv4_address: 172.39.0.9
     volumes:
-      - ./jellyseerr:/app/config
+      - ./seerr:/app/config
       - /mnt/nas:/mnt/nas
     ports:
       - 5055:5055
