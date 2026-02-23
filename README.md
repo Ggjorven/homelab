@@ -241,9 +241,25 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 - Set **Standard Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{track:00} - {Track Title}`
 - Set **Multi Disc Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{Medium Format} {medium:00}/{track:00} - {Track Title}`
 
-3. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+3. We also want to modify the **Standard** music profile. Go to `Settings` -> `Profiles`.
 
-4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+4. Under **Primary Types** enable:
+- Album
+- Single
+- EP
+
+5. Under **Secondary Types** enable:
+- Studio
+- Live
+- Demo
+- Compilation
+
+6. Under **Release Statuses** enable:
+- Official
+
+7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+
+8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Bazarr
 
