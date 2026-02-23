@@ -1,0 +1,27 @@
+services:
+  dispatcharr:
+    image: ghcr.io/dispatcharr/dispatcharr:latest
+    container_name: dispatcharr
+    volumes:
+      - ./dispatcharr:/data
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DISPATCHARR_ENV=aio
+      - REDIS_HOST=localhost
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - DISPATCHARR_LOG_LEVEL=info
+      - UWSGI_NICE_LEVEL=${DISPATCHARR_STREAMING_PRIORITY}
+      - CELERY_NICE_LEVEL=${DISPATCHARR_EPG_PRIORITY}
+    cap_add:
+      - SYS_NICE
+    depends_on:
+      - gluetun
+    runtime: nvidia
+    gpus: all
+    network_mode: service:gluetun
+    restart: unless-stopped
+
