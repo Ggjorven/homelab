@@ -1,0 +1,9 @@
+.env
+**/.env
+
+logs
+logs/
+logs/**
+**/logs
+**/logs/
+**/logs/**
