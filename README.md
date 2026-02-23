@@ -237,8 +237,10 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 1. First we're gonna start by setting the **Root Folder**.
 
-2. Now go to `Settings` -> `Media Management` and enable `Rename Tracks`.
-   
+2. Now go to `Settings` -> `Media Management` and enable `Rename Tracks`.  
+- Set **Standard Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{track:00} - {Track Title}`
+- Set **Multi Disc Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{Medium Format} {medium:00}/{track:00} - {Track Title}`
+
 3. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
