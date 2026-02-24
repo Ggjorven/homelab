@@ -1,3 +1,7 @@
+networks:
+  homelabnetwork:
+    external: true
+
 services:
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:latest
@@ -18,10 +22,8 @@ services:
       - CELERY_NICE_LEVEL=${DISPATCHARR_EPG_PRIORITY}
     cap_add:
       - SYS_NICE
-    depends_on:
-      - gluetun
     runtime: nvidia
     gpus: all
-    network_mode: service:gluetun
+    network_mode: container:gluetun
     restart: unless-stopped
 

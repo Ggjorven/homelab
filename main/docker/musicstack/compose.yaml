@@ -1,3 +1,7 @@
+networks:
+  homelabnetwork:
+    external: true
+
 services:
   navidrome:
     image: deluan/navidrome:latest
