@@ -4,7 +4,7 @@
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `tvstack`:
     ```
     cd docker
     mkdir -p tvstack

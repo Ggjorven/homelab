@@ -1,6 +1,6 @@
-# Jellystack
+# Media Stack
 
-**Jellystack** is a collection of media streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Jellyfin & More** using **Docker Compose**.
+**Media Stack** is a collection of media streaming tools for streaming my content from any device, this branch contains the installation instructions for installing **Jellyfin & More** using **Docker Compose**.
 
 ## Preview
 
@@ -8,17 +8,17 @@
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `mediastack`:
     ```
     cd docker
-    mkdir -p jellystack
-    cd jellystack
+    mkdir -p mediastack
+    cd mediastack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/jellystack/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/jellystack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/mediastack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/mediastack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:

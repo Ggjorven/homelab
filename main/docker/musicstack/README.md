@@ -1,20 +1,20 @@
-# TV Stack
+# Music Stack
 
-**Navi Stack** is a collection of Music streaming tools for streaming my music from any device, this branch contains the installation instructions for installing **Navidrome & More** using **Docker Compose**.
+**Music Stack** is a collection of Music streaming tools for streaming my music from any device, this branch contains the installation instructions for installing **Navidrome & More** using **Docker Compose**.
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `musicstack`:
     ```
     cd docker
-    mkdir -p navistack
-    cd navistack
+    mkdir -p musicstack
+    cd musicstack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/navistack/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/navistack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/musicstack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/musicstack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
