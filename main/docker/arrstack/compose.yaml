@@ -1,3 +1,7 @@
+networks:
+  homelabnetwork:
+    external: true
+
 services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
@@ -5,11 +9,7 @@ services:
     environment:
       - LOG_LEVEL=info
       - TZ=${TZ}
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
-    network_mode: service:gluetun
+    network_mode: container:gluetun
     healthcheck:
       test: curl -s http://localhost:8191 || exit 1
       interval: 30s
@@ -30,11 +30,7 @@ services:
     volumes:
       - ./qbittorrent:/config
       - /mnt/nas:/mnt/nas
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
-    network_mode: service:gluetun
+    network_mode: container:gluetun
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
       interval: 60s
@@ -66,11 +62,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./nzbget:/config
       - /mnt/nas:/mnt/nas
-    network_mode: service:gluetun
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
+    network_mode: container:gluetun
     restart: unless-stopped
 
   prowlarr:
@@ -83,11 +75,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./prowlarr:/config
-    network_mode: service:gluetun
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
+    network_mode: container:gluetun
     restart: unless-stopped
 
   sonarr:
@@ -179,7 +167,6 @@ services:
       - ./metube:/config
       - /mnt/nas:/mnt/nas
       - /mnt/nas:/downloads # Temporary, you should really change the directory in metube when dowloading
-      
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.7
