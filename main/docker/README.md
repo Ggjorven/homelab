@@ -66,3 +66,15 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     - [`musicstack`](musicstack/README.md)
     - [`tvstack`](tvstack/README.md)
     - [`immich`](immich/README.md)
+
+## Extra 
+
+To update a compose stack just run:
+```
+docker compose down
+docker compose pull
+docker compose up -d
+docker image prune -f 
+docker compose down
+```
+In the stack's directory
