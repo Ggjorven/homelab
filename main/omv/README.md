@@ -28,6 +28,61 @@
 
 12. To enable it go to `Services` -> `SMB/CIFS` -> `Settings` and enable it. Optional: You can also set the SMB version to 3.0.
 
+## Useful extras
+
+You have now succesfully completed all the necessary steps. Another useful step is to make it so the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
+
+1. Install the following packages to help with mounting:
+    ```
+    apt install cifs-utils smbclient
+    ```
+
+2. Next we need to setup our credentials for our SMB share. We do this in the file `/root/.smbcred`.
+    ```
+    nano /root/.smbcred 
+    ```
+
+3. Paste in the following content and replace the placeholders with your actual `username` and `password`.
+    ```
+    username=<YOUR USERNAME FOR SMB>
+    password=<YOUR PASSWORD FOR SMB>
+    ```
+
+4. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/services/mount-smb.service
+    mkdir -p /root/scripts
+    cd /root/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/scripts/mount-smb.sh 
+    chmod +x /root/scripts/mount-smb.sh
+    ```
+
+5. Edit the `/root/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
+    ```
+    nano /root/scripts/mount-smb.sh
+    ```
+
+6. Now make sure the mount point set in the `/root/scripts/mount-smb.sh` actually exists with:
+    ```
+    mkdir -p /mnt/nas
+    ```
+
+7. Now we need to enable this service with:
+    ```
+    systemctl daemon-reload
+    systemctl enable mount-smb
+    systemctl start mount-smb
+    ```
+
+8. To check if the mounting script succeeded run:
+   ```
+   journalctl -xeu mount-smb.service
+   ```
+   You should see the output from the script saying that the SMB was successfully mounted.
+
+Having followed these extra instructions will help with `docker` related services later on.
+
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
