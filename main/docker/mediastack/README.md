@@ -14,6 +14,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 - [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-NODE.md)
 - [`NVIDIA Driver LXC`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
 - [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
+- [`gluetun`](https://github.com/Ggjorven/homelab/tree/main/docker/gluetun/README.md)
 
 ## Installation
 
