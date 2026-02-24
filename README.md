@@ -76,9 +76,13 @@ To quickly navigate this repository I have this list of services below:
         - [`immich`](main/docker/immich/README.md)
     - [`home-assistant`](main/home-assistant/README.md)
 
+---
+
 - [`pi2w-1`](pi2w-1/README.md)
     - [`pi-hole`](pi2w-1/pihole/README.md)
     - [`homepage`](pi2w-1/homepage/README.md)
+
+---
 
 - [`pi2w-2`](pi2w-2/README.md)
     - [`pivpn`](pi2w-2/pivpn/README.md)
