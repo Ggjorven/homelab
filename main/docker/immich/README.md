@@ -14,17 +14,17 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `immich`:
     ```
     cd docker
-    mkdir -p tvstack
-    cd tvstack
+    mkdir -p immich
+    cd immich
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/tvstack/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/tvstack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/immich/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/immich/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
@@ -40,9 +40,19 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-6. Modify // TODO: Upload location & Postgres credentials
+6. Modify the **immich** upload location where you wish to store your photos and videos.
+    ```
+    IMMICH_UPLOAD_LOCATION=/mnt/nas
+    ```
 
-7. We are now ready to start our docker stack.
+7. Also change your Postgres credentials to something more secure.
+    ```
+    # Database credentials
+    IMMICH_POSTGRES_USER=username
+    IMMICH_POSTGRES_PASSWORD=password
+    ```
+
+8. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
