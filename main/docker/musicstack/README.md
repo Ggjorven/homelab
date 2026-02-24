@@ -2,6 +2,13 @@
 
 **Music Stack** is a collection of Music streaming tools for streaming my music from any device, this branch contains the installation instructions for installing **Navidrome & More** using **Docker Compose**.
 
+## Prerequisites
+
+Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+
+- [`omv`](https://github.com/Ggjorven/homelab/tree/main/main/omv/README.md) + extras.
+- [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
+
 ## Installation
 
 1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `musicstack`:

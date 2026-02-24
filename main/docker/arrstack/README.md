@@ -3,6 +3,13 @@
 An *arr stack is collection of services that automate the management of personal media, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
 These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
+## Prerequisites
+
+Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+
+- [`omv`](https://github.com/Ggjorven/homelab/tree/main/main/omv/README.md) + extras.
+- [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
+
 ## Installation
 
 1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `arrstack`:
