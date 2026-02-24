@@ -38,6 +38,7 @@
     ```
     - /path/to/your/music/folder:/music:ro
     ```
+    // TODO: Replace this with creating a Library in the WebUI
 
 6. We are now ready to start our docker stack.
     ```
