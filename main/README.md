@@ -2,11 +2,11 @@
 
 // TODO: Intro text
 
-# Specifications
+## Specifications
 
 // TODO: Specifications
 
-# Deployments
+## Deployments
 
 - [`omv`](main/omv/README.md)
 - [`docker`](main/docker/README.md)
@@ -18,6 +18,6 @@
     - [`immich`](main/docker/immich/README.md)
 - [`home-assistant`](main/home-assistant/README.md)
 
-# Steps
+## Steps
 
 // TODO: Steps

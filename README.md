@@ -7,7 +7,7 @@ This repository documents the complete setup of my self-hosted environment, incl
 Each top-level directory represents a physical device in the lab.  
 Inside each device folder are detailed instructions, configuration files, compose stacks, and service documentation.
 
-# Architecture Overview
+## Architecture Overview
 
 My homelab consists of three primary machines:
 
@@ -19,7 +19,7 @@ My homelab consists of three primary machines:
 
 There is also a `tutorials` directory containing reusable infrastructure documentation.
 
-## main 
+### main 
 
 The `main` machine is the heart of the homelab.
 
@@ -38,7 +38,7 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - Home assistant 
     - ESP Home
 
-## pi2w-1
+### pi2w-1
 
 This Raspberry Pi 2 W handles:
 
@@ -47,21 +47,21 @@ This Raspberry Pi 2 W handles:
 - Service dashboard
     - Homepage
 
-## pi2w-2
+### pi2w-2
 
 This Raspberry Pi 2 W handles:
 
 - Remote connection
     - PiVPN
 
-# How to Use
+## How to Use
 
 1. Start at the device level (`main`, `pi2w-1`, `pi2w-2`)
 2. Follow each device's README
 3. Deploy individual stacks as needed
 4. Use tutorials for reusable infrastructure patterns
 
-# Quick Navigation
+## Quick Navigation
 
 To quickly navigate this repository I have this list of services below:
 
@@ -87,16 +87,16 @@ To quickly navigate this repository I have this list of services below:
 - [`pi2w-2`](pi2w-2/README.md)
     - [`pivpn`](pi2w-2/pivpn/README.md)
 
-# Status
+## Status
 
 This homelab is actively maintained and continuously evolving.
 
 New stacks, improvements, and documentation updates are added almost daily.
 
-# Contributing 
+## Contributing 
 
 This is a personal homelab repository, but ideas, improvements, and suggestions are always welcome.
 
-# License
+## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE.txt) for details.
