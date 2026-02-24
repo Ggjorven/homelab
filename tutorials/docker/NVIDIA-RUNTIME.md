@@ -1,6 +1,6 @@
 # NVIDIA Runtime in docker
 
-This file contains setting up the NVIDIA Runtime for Docker.  
+This file contains setting up the NVIDIA Runtime for **Docker**.  
 This allows us to use our NVIDIA GPU in docker containers. Ex. docker compose:  
 ```
 environment:  
