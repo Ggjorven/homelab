@@ -7,7 +7,7 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/root/scripts/test-indexers.sh
+ExecStart=/lxc/scripts/test-indexers.sh
 Restart=always
 RestartSec=5
 User=root
