@@ -1,9 +1,9 @@
 # pi2w-2
 
 `pi2w-2` is a **Raspberry Pi 2 W** connected via ethernet and used for lightweight network services in my homelab.  
-This branch contains the installation instructions and configuration files used for this device.
+This folder contains the installation instructions and configuration files used for this device.
 
-## Installation // TODO: More detail
+## Steps // TODO: More detail
 
 1. Use the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) to install **Raspberry Pi OS Lite (32-bit)** on your **Pi 2 W**.
 
