@@ -19,8 +19,8 @@ This branch contains the installation instructions and configuration files used 
     ```
 
 4. You can now follow the instructions for 
-    - [`pi-hole`](https://github.com/Ggjorven/homelab/blob/main/pi2w-1/pihole/README.md)  
-    - [`homepage`](https://github.com/Ggjorven/homelab/blob/main/pi2w-1/homepage/README.md)  
+    - [`pi-hole`](pihole/README.md)  
+    - [`homepage`](homepage/README.md)  
     These can be completed in any order and do not require one another.
 
 ## References
