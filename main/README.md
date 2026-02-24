@@ -1,10 +1,13 @@
 # main
 
-// TODO: Intro text
+`main` is a **Proxmox VE** installed on a dedicated PC with a Ryzen 5 3600, 16GB of RAM, a RTX 3050 6GB, a 500GB boot SSD, a 128GB cache SSD and 3x2TB HDD's.  
+This folder contains the installation instructions and configuration files used for this device.
 
 ## Specifications
 
-// TODO: Specifications
+- [`omv`](main/omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
+- [`docker`](main/docker/README.md) (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
+- [`home-assistant`](main/home-assistant/README.md) (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## Deployments
 
@@ -20,4 +23,4 @@
 
 ## Steps
 
-// TODO: Steps
+1. // TODO: Steps
