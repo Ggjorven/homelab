@@ -38,4 +38,4 @@ This is located under `Settings` -> `Add-ons` -> `Add-on Store`.
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
 - [Home Assistant](https://www.home-assistant.io/installation/generic-x86-64) - Smart Home OS Installation Guide
-
+- [ESP Home](https://esphome.io/) - Smart Home OS with ESP's
