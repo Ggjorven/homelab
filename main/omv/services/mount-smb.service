@@ -1,0 +1,13 @@
+[Unit]
+Description=Mount NAS SMB Shares
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 5
+ExecStart=/root/scripts/mount-smb.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,92 @@
+networks:
+  homelabnetwork:
+    external: true
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.8
+    volumes:
+      - ./jellyfin:/config
+      - /data:/data
+      - /mnt/nas:/mnt/nas
+    ports:
+      - 8096:8096
+      - 7359:7359/udp # Service Discovery
+      - 1900:1900/udp # Client Discovery
+    runtime: nvidia
+    gpus: all
+    restart: unless-stopped
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr    
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.9
+    volumes:
+      - ./seerr:/app/config
+      - /mnt/nas:/mnt/nas
+    ports:
+      - 5055:5055
+    depends_on:
+      - jellyfin
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+
+  jellystat-db:
+    image: postgres:15.2
+    container_name: jellystat-db
+    environment:
+      - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.10
+    volumes:
+      - ./jellystat/postgres:/var/lib/postgresql/data
+      - /mnt/nas:/mnt/nas
+    restart: unless-stopped
+
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: jellystat
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.11
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
+      - POSTGRES_IP=jellystat-db
+      - POSTGRES_PORT=5432
+      - JWT_SECRET=${JELLYSTAT_JWT_SECRET}
+    volumes:
+      - ./jellystat/backup-data:/app/backend/backup-data
+      - /mnt/nas:/mnt/nas
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    depends_on:
+      - jellystat-db

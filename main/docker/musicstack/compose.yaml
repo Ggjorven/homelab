@@ -1,0 +1,22 @@
+networks:
+  homelabnetwork:
+    external: true
+
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}    
+      - ND_LOGLEVEL=debug
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.12
+    ports:
+      - 4533:4533
+    volumes:
+      - ./navidrome:/data
+      - /path/to/your/music/folder:/music:ro
+    restart: unless-stopped

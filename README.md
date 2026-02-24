@@ -1,90 +1,102 @@
-# Homelab Central Repository
+# Homelab
 
-This repository acts as a central hub for my Homelab configuration.
-Each service or stack lives in its own **dedicated branch**, keeping configurations organized, modular, and easy to manage.
+Welcome to my homelab infrastructure repository.
 
-## Overview
+This repository documents the complete setup of my self-hosted environment, including infrastructure, services, networking, automation, and supporting documentation.
 
-- [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is the NAS operating system running a network share.
-- [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is the dashboard for all my services.
-- [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is the network wide adblocker running on my home network.
-- [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is a vpn that allows you to connect and route traffic through your home network from wherever.
-- [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is my VPN container.
-- [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is a combination of *arr services for ease of watching media.
-- [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is a combination of jellyfin related services for ease of streaming media.
-- [`navistack`](https://github.com/Ggjorven/homelab/tree/navistack) is a combination of services related to streaming Music.
-- [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is a combination of Live TV services for ease of streaming TV.
-- [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is a simple backup solution for your photos and videos.
-- [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is a proxy manager.
-- [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is the smart home operating system deployed on my home server.
-- ~~[`truenas`](https://github.com/Ggjorven/homelab/tree/truenas) is the NAS operating system running a network share.~~
-- ~~[`jellyfin`](https://github.com/Ggjorven/homelab/tree/jellyfin) is a media player for playing media from my NAS.~~
-- ~~[`retropie`](https://github.com/Ggjorven/homelab/tree/retropie) is an emulator for old retro hardware that is streamed with sunshine to any device.~~
-- ~~[`tunarr`](https://github.com/Ggjorven/homelab/tree/tunarr) is a service for simulating TV channels.~~
+Each top-level directory represents a physical device in the lab.  
+Inside each device folder are detailed instructions, configuration files, compose stacks, and service documentation.
 
-## Devices
+## Architecture Overview
 
-- ~~**Main server** "nas" (i5-6402P, 8GB DDR3, NVIDIA GTX 750, 128GB SSD, 2TB HDD)~~
-- **Main server** "main" (Ryzen 5 3600, 16GB DDR4, NVIDIA RTX 3050 6GB, 500GB SSD, 128GB SSD, 3x2TB HDD)
-- **Pi 2 w (1)** "pi2w-jorben-1"
-- **Pi 2 w (2)** "pi2w-jorben-2"
-- ~~**Pi 5 8gb** "pi5-jorben"~~
+My homelab consists of three primary machines:
 
-## Deployment instructions
+| Device | Role | Description |
+|--------|------|------------|
+| `main` | Core Server | Proxmox host running core infrastructure and application stacks |
+| `pi2w-1` | Network & Dashboard | DNS filtering + Homepage dashboard |
+| `pi2w-2` | Remote Access | VPN gateway |
 
-I have deployed these services in this order:
+There is also a `tutorials` directory containing reusable infrastructure documentation.
 
-1. [`omv`](https://github.com/Ggjorven/homelab/tree/omv) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
+### main 
 
-2. [`pihole`](https://github.com/Ggjorven/homelab/tree/pihole) is deployed directly on **Pi 2 w (1)**.
-3. [`homepage`](https://github.com/Ggjorven/homelab/tree/homepage) is deployed directly on **Pi 2 w (1)**.
-4. [`pivpn`](https://github.com/Ggjorven/homelab/tree/pivpn) is deployed directly on **Pi 2 w (2)**.
+The `main` machine is the heart of the homelab.
 
-5. [`gluetun`](https://github.com/Ggjorven/homelab/tree/gluetun) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-6. [`arrstack`](https://github.com/Ggjorven/homelab/tree/arrstack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-7. [`jellystack`](https://github.com/Ggjorven/homelab/tree/jellystack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-8. [`navistack`](https://github.com/Ggjorven/homelab/tree/navistack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-9. [`tvstack`](https://github.com/Ggjorven/homelab/tree/tvstack) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-10. [`immich`](https://github.com/Ggjorven/homelab/tree/immich) is deployed as **Docker Compose** on **Main server** -> **docker** (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-   
-11. [`nginx`](https://github.com/Ggjorven/homelab/tree/nginx) is deployed as a **Proxmox LXC** on **Main server** (2vCPUs, 2GB RAM, 20GB Disk).
+It runs **Proxmox VE** as the hypervisor and hosts:
 
-12. [`home-assistant`](https://github.com/Ggjorven/homelab/tree/home-assistant) is deployed as a **Proxmox VM** on **Main server** (2vCPUs, 2GB RAM, 32GB Disk).
+- Storage service
+    - Open Media Vault
+- Docker-based application stacks
+    - gluetun
+    - *arr stack
+    - media stack
+    - music stack
+    - tv stack
+    - immich
+- Home automation
+    - Home assistant 
+    - ESP Home
 
-## Architecture
+### pi2w-1
 
-// TODO: Architecture diagram
+This Raspberry Pi 2 W handles:
+
+- Network-wide DNS filtering
+    - Pi-hole
+- Service dashboard
+    - Homepage
+
+### pi2w-2
+
+This Raspberry Pi 2 W handles:
+
+- Remote connection
+    - PiVPN
+
+## How to Use
+
+1. Start at the device level (`main`, `pi2w-1`, `pi2w-2`)
+2. Follow each device's README
+3. Deploy individual stacks as needed
+4. Use tutorials for reusable infrastructure patterns
+
+## Quick Navigation
+
+To quickly navigate this repository I have this list of services below:
+
+- [`main`](main/README.md)
+    - [`omv`](main/omv/README.md)
+    - [`docker`](main/docker/README.md)
+        - [`gluetun`](main/docker/gluetun/README.md)
+        - [`arrstack`](main/docker/arrstack/README.md)
+        - [`mediastack`](main/docker/mediastack/README.md)
+        - [`musicstack`](main/docker/musicstack/README.md)
+        - [`tvstack`](main/docker/tvstack/README.md)
+        - [`immich`](main/docker/immich/README.md)
+    - [`home-assistant`](main/home-assistant/README.md)
+
+---
+
+- [`pi2w-1`](pi2w-1/README.md)
+    - [`pi-hole`](pi2w-1/pihole/README.md)
+    - [`homepage`](pi2w-1/homepage/README.md)
+
+---
+
+- [`pi2w-2`](pi2w-2/README.md)
+    - [`pivpn`](pi2w-2/pivpn/README.md)
+
+## Status
+
+This homelab is actively maintained and continuously evolving.
+
+New stacks, improvements, and documentation updates are added almost daily.
+
+## Contributing 
+
+This is a personal homelab repository, but ideas, improvements, and suggestions are always welcome.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
-
-## References
-
-- [Proxmox](https://www.proxmox.com) - Hypervisor
-- [Open Media Vault](https://www.openmediavault.org) - NAS operating system
-- [Pi-hole](https://www.pi-hole.net) - Network-wide adblocking
-- [Homepage](https://gethomepage.dev) - Dashboard for all running services
-- [PiVPN](https://www.pivpn.io) - VPN Service
-- [Gluetun](https://gluetun.com/) - VPN Container
-- [QBitTorrent](https://www.qbittorrent.org/) - Torrenting client
-- [NZBGet](https://nzbget.com/) - NZB downloader
-- [Prowlarr](https://prowlarr.com/) - Indexer
-- [Radarr](https://radarr.video/) - Movie organizer/manager
-- [Sonarr](https://sonarr.tv/) - Series organizer/manager
-- [Lidarr](https://lidarr.audio/) - Music organizer/manager
-- [MeTube](https://github.com/alexta69/metube) - YouTube downloader
-- [Jellyfin](https://jellyfin.org) - Media player
-- [Jellystat](https://github.com/CyferShepard/Jellystat) - Jellyfin Statistics
-- [Jellyseer](https://docs.seerr.dev/) - Jellyfin discovery
-- [Dispatcharr](https://github.com/Dispatcharr/Dispatcharr) - M3U/XCode Filter & Proxy
-- [Immich](https://immich.app) - Photo/video backup
-- [Nginx](https://nginx.org) - Proxy manager
-- [Home Assistant](https://www.home-assistant.io) - Home Assistant
-- ~~[TrueNAS](https://www.truenas.com) - NAS operating system~~
-- ~~[Tunarr](https://tunarr.com) - TV Channel simulator~~
-- ~~[RetroPie](https://retropie.org.uk) - Hardware emulator~~
+This project is licensed under the MIT License. See [LICENSE](LICENSE.txt) for details.

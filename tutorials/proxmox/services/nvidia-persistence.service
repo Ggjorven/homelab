@@ -1,0 +1,11 @@
+[Unit]
+Description=NVIDIA Persistence service
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/lxc/scripts/nvidia-persistence.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

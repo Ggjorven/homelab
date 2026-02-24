@@ -1,0 +1,68 @@
+# docker
+
+`docker` is a **Proxmox LXC** on the **Proxmox Node** with **docker** and **docker compose** installed.  
+This folder contains the installation instructions and configuration files used for this device.
+
+## Prerequisites
+
+Before we can create our `docker` **Proxmox LXC**. We must have finished these steps:
+
+- [`omv`](https://github.com/Ggjorven/homelab/tree/main/main/omv/README.md) + extras.
+- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-NODE.md)
+
+## Steps
+
+1. From the **Proxmox Node**'s shell install a **Docker LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker):
+    ```
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
+    ```
+
+2. Choose `Advanced Install`. Go through the installation and choose your desired settings and specifications. I have given it `8vCPUs`, `12GB` of RAM and a `160GB` disk.
+
+3. Make sure that when your installing you enable, **keyctl**, **nesting**, **gpu passthrough** and give access to **/dev/net/tun**.
+
+4. To give our **LXC** access to our network share mounted on the **Proxmox Node** we need to add these lines to `/etc/pve/lxc/<CTID>.conf`:
+    ```
+    nano /etc/pve/lxc/<CTID>.conf
+    ```
+    Add:
+    ```
+    mp0: /mnt/nas,mp=/mnt/nas
+    ```
+
+5. To give our **LXC** full access to `/dev/net/tun` for setting up a **VPN** we need to also add this:
+    ```
+    lxc.cgroup2.devices.allow: c 10:200 rwm
+    lxc.mount.entry: /dev/net dev/net none bind,create=dir
+    lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+    ```
+
+6. After a restart your **Docker LXC** should have access to `/mnt/nas` and `/dev/net/tun`.
+
+7. Now we'll create a new user that'll run our **docker compose**'s. Run:
+    ```
+    adduser <username>
+    ```
+    And choose all the default settings.
+
+8. Now we need to give our user the proper permissions:
+   ```
+   usermod <username> -aG sudo
+   usermod <username> -aG docker
+   ``` 
+
+9. Now we can actually start setting up a place to work in:
+    ```
+    cd ~
+    mkdir -p docker
+    ```
+
+10. Now we can install the NVIDIA Drivers on the LXC using [these instructions](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
+
+11. You're now ready to start setting up different compose stacks like:
+    - [`gluetun`](gluetun/README.md)
+    - [`arrstack`](arrstack/README.md)
+    - [`mediastack`](mediastack/README.md)
+    - [`musicstack`](musicstack/README.md)
+    - [`tvstack`](tvstack/README.md)
+    - [`immich`](immich/README.md)
