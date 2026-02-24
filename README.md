@@ -30,8 +30,8 @@ It runs **Proxmox VE** as the hypervisor and hosts:
 - Docker-based application stacks
     - gluetun
     - *arr stack
-    - jelly stack
-    - navi stack
+    - media stack
+    - music stack
     - tv stack
     - immich
 - Home automation
@@ -54,12 +54,34 @@ This Raspberry Pi 2 W handles:
 - Remote connection
     - PiVPN
 
-# How to Use This Repository
+# How to Use
 
 1. Start at the device level (`main`, `pi2w-1`, `pi2w-2`)
 2. Follow each device's README
 3. Deploy individual stacks as needed
 4. Use tutorials for reusable infrastructure patterns
+
+# Quick Navigation
+
+To quickly navigate this repository I have this list of services below:
+
+- [`main`](main/README.md)
+    - [`omv`](main/omv/README.md)
+    - [`docker`](main/docker/README.md)
+        - [`gluetun`](main/docker/gluetun/README.md)
+        - [`arrstack`](main/docker/arrstack/README.md)
+        - [`mediastack`](main/docker/mediastack/README.md)
+        - [`musicstack`](main/docker/musicstack/README.md)
+        - [`tvstack`](main/docker/tvstack/README.md)
+        - [`immich`](main/docker/immich/README.md)
+    - [`home-assistant`](main/home-assistant/README.md)
+
+- [`pi2w-1`](pi2w-1/README.md)
+    - [`pi-hole`](pi2w-1/pihole/README.md)
+    - [`homepage`](pi2w-1/homepage/README.md)
+
+- [`pi2w-2`](pi2w-2/README.md)
+    - [`pivpn`](pi2w-2/pivpn/README.md)
 
 # Status
 
