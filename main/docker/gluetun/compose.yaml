@@ -1,5 +1,6 @@
 networks:
   homelabnetwork:
+    name: homelabnetwork
     ipam:
       config:
         - subnet: 172.39.0.0/24
@@ -11,14 +12,13 @@ services:
     cap_add:
       - NET_ADMIN
     devices:
-      - /dev/net/tun:/dev/net/tun 
+      - /dev/net/tun:/dev/net/tun
     ports:
       - 8080:8080 # qbittorrent web interface
       - 6881:6881 # qbittorrent torrent port
       - 6789:6789 # nzbget
       - 9696:9696 # prowlarr
       - 9191:9191 # dispatcharr
-      - 34400:34400 # threadfin
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.2
