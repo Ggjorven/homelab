@@ -6,8 +6,8 @@
 
 Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
-- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-NODE.md)
-- [`NVIDIA Driver LXC`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
+- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
+- [`NVIDIA Driver LXC`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 - [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
 - [`gluetun`](https://github.com/Ggjorven/homelab/tree/main/docker/gluetun/README.md)
 
@@ -15,6 +15,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `tvstack`:
     ```
+    cd ~
     cd docker
     mkdir -p tvstack
     cd tvstack

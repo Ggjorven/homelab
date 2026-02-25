@@ -12,6 +12,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
     ```
+    cd ~
     cd docker
     mkdir -p gluetun
     cd gluetun
