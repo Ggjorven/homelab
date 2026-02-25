@@ -77,11 +77,11 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
-1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
+1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.10` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
 
-2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.2` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
+2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.10` which is set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.2` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And give it the tag `flaresolverr`. 
+3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And give it the tag `flaresolverr`. 
 
 4. Now you can add indexes in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
@@ -122,7 +122,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.69.0.2` on port `9696` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). 
 
-3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml), but I'll list them here as well. **Radarr** = `172.39.0.4` on port `7878`, **Sonarr** = `172.39.0.3` on port `8989` & **Lidarr** = `172.39.0.5` on port `8686`.
+3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml), but I'll list them here as well. **Radarr** = `172.39.0.21` on port `7878`, **Sonarr** = `172.39.0.20` on port `8989` & **Lidarr** = `172.39.0.22` on port `8686`.
 
 4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
 
@@ -134,9 +134,9 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 2. Now go to `Settings` -> `Media Management` and enable `Rename Movies` ans set it to `{Movie Title} ({Release Year})`.
 
-3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+3. To allow **Radarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
-4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Sonarr
 
@@ -149,9 +149,9 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
    - **Daily Episode Format** to `{Series Title} - {Air-Date} - {Episode Title}`
    - **Anime Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
 
-3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
-4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Lidarr
 
@@ -179,9 +179,9 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 6. Under **Release Statuses** enable:
 - Official
 
-7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
-8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.2` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
+8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). And set your `Username` and `Password`.
 
 ### Bazarr
 
@@ -207,7 +207,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-6. Set the `Address` to `172.39.0.3` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
+6. Set the `Address` to `172.39.0.20` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
 7. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
@@ -215,7 +215,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-10. Set the `Address` to `172.39.0.4` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
+10. Set the `Address` to `172.39.0.21` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml)
 
 11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
