@@ -21,7 +21,7 @@ services:
       - 9191:9191 # dispatcharr
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.2
+        ipv4_address: 172.39.0.10
     volumes:
       - ./gluetun:/gluetun
     environment:

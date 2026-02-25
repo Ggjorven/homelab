@@ -93,7 +93,7 @@ services:
       - 8989:8989
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.3
+        ipv4_address: 172.39.0.20
     restart: unless-stopped
 
   radarr:
@@ -111,7 +111,7 @@ services:
       - 7878:7878
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.4
+        ipv4_address: 172.39.0.21
     restart: unless-stopped
 
   lidarr:
@@ -129,7 +129,7 @@ services:
       - 8686:8686
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.5
+        ipv4_address: 172.39.0.22
     restart: unless-stopped
 
   bazarr:
@@ -147,7 +147,7 @@ services:
       - 6767:6767
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.6
+        ipv4_address: 172.39.0.23
     restart: unless-stopped
 
   metube:
@@ -169,5 +169,5 @@ services:
       - /mnt/nas:/downloads # Temporary, you should really change the directory in metube when dowloading
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.7
+        ipv4_address: 172.39.0.24
     restart: unless-stopped
