@@ -34,6 +34,7 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - music stack
     - tv stack
     - immich
+    - nginx
 - Home automation
     - Home assistant 
     - ESP Home
@@ -74,6 +75,7 @@ To quickly navigate this repository I have this list of services below:
         - [`musicstack`](main/docker/musicstack/README.md)
         - [`tvstack`](main/docker/tvstack/README.md)
         - [`immich`](main/docker/immich/README.md)
+        - [`nginx`](main/docker/nginx/README.md)
     - [`home-assistant`](main/home-assistant/README.md)
 
 ---
