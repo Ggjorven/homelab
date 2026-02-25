@@ -8,7 +8,7 @@ This folder contains the installation instructions and configuration files used 
 Before we can create our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`omv`](https://github.com/Ggjorven/homelab/tree/main/main/omv/README.md) + extras.
-- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-NODE.md)
+- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
 
 ## Steps
 
@@ -62,7 +62,7 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     mkdir -p docker
     ```
 
-11. Now we can install the NVIDIA Drivers on the LXC using [these instructions](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
+11. Now we can install the NVIDIA Drivers on the LXC using [these instructions](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 
 12. You're now ready to start setting up different compose stacks like:
     - [`gluetun`](gluetun/README.md)
