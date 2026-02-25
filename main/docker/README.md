@@ -19,7 +19,7 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 2. Choose `Advanced Install`. Go through the installation and choose your desired settings and specifications. I have given it `8vCPUs`, `12GB` of RAM and a `160GB` disk.
 
-3. Make sure that when your installing you enable, **keyctl**, **nesting**, **gpu passthrough** and give access to **/dev/net/tun**.
+3. Make sure that when your installing you enable, **keyctl**, **nesting**, **gpu passthrough**, **TUN/TAP** and add `ext4` as a filesystem mount.
 
 4. To give our **LXC** access to our network share mounted on the **Proxmox Node** we need to add these lines to `/etc/pve/lxc/<CTID>.conf`:
     ```
@@ -39,7 +39,7 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 6. After a restart your **Docker LXC** should have access to `/mnt/nas` and `/dev/net/tun`.
 
-7. Now we'll create a new user that'll run our **docker compose**'s. Run:
+7. Now we'll create a new user on the **Proxmox LXC** that'll run our **docker compose**'s. Go to the **Shell** of your **LXC** and run:
     ```
     adduser <username>
     ```
