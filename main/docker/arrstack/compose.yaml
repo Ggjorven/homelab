@@ -157,8 +157,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - STATE_DIR="/config"
-      - DOWNLOAD_DIR="/downloads"
+      - STATE_DIR=/config
+      - DOWNLOAD_DIR=/downloads
       - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
       - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
     ports:
