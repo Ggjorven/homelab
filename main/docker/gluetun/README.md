@@ -6,7 +6,7 @@
 
 Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
-- [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
+- [`docker`](../README.md)
 
 ## Installation
 

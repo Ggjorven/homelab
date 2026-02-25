@@ -6,7 +6,7 @@
 
 1. Create a **Proxmox VM** with the [omv iso image](https://www.openmediavault.org/download.html).
 
-2. Pass through all the disks following [these steps](https://github.com/Ggjorven/homelab/blob/main/tutorials/proxmox/DISK-PASSTHROUGH.md).
+2. Pass through all the disks following [these steps](../../tutorials/proxmox/DISK-PASSTHROUGH.md).
 
 3. Login to **OMV** with username `admin` and password `openmediavault`.
 

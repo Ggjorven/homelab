@@ -10,11 +10,11 @@
 
 Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
-- [`omv`](https://github.com/Ggjorven/homelab/tree/main/main/omv/README.md) + extras.
-- [`NVIDIA Driver`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
-- [`NVIDIA Driver LXC`](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
-- [`docker`](https://github.com/Ggjorven/homelab/tree/main/docker/README.md)
-- [`gluetun`](https://github.com/Ggjorven/homelab/tree/main/docker/gluetun/README.md)
+- [`omv`](../../omv/README.md) + extras.
+- [`NVIDIA Driver`](../../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
+- [`NVIDIA Driver LXC`](../../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
+- [`docker`](../README.md)
+- [`gluetun`](../gluetun/README.md)
 
 ## Installation
 
@@ -187,13 +187,13 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 1.Select **Jellyfin** as the media server type.
 
-2. Now set the URL of **Jellyfin** to `172.39.0.30` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/main/main/docker/mediastack/compose.yaml). Leave `URL Base` empty. Set `Email Address` to something random. And choose an appropriate `Username` and `Password`.
+2. Now set the URL of **Jellyfin** to `172.39.0.30` as defined in the [compose file](compose.yaml). Leave `URL Base` empty. Set `Email Address` to something random. And choose an appropriate `Username` and `Password`.
 
 3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
 
-4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.21` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/arrstack/arrstack.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.21` as defined in the [compose file](../arrstack/compose.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
-5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.20` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/main/main/docker/arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.20` as defined in the [compose file](../arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
 6. And finish your setup!
 
@@ -203,7 +203,7 @@ To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'
 
 1. Create a new user for **Jellystat**.
 
-2. Paste the **Jellyfin** address in the address bar with `http://`. It's `172.39.0.30` as defined in the [compose file](https://github.com/Ggjorven/homelab/blob/main/main/docker/mediastack/compose.yaml).
+2. Paste the **Jellyfin** address in the address bar with `http://`. It's `172.39.0.30` as defined in the [compose file](compose.yaml).
 
 3. Now go to **Jellyfin** on port `8096` of **Proxmox LXC**'s IP address. Go to hamburger menu in the top left -> **Dashboard** -> **API Keys** and create a new **API Key** for **Jellystat**.
 
