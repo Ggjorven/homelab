@@ -161,6 +161,7 @@ services:
       - DOWNLOAD_DIR=/downloads
       - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
       - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
+      - MAX_CONCURRENT_DOWNLOADS=5
     ports:
       - 8081:8081
     volumes:
