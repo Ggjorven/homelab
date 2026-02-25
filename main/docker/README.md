@@ -49,17 +49,22 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
    ```
    usermod <username> -aG sudo
    usermod <username> -aG docker
-   ``` 
+   ```
 
-9. Now we can actually start setting up a place to work in:
+9. Now change the shell to your docker user with:
+   ```
+   su <username> 
+   ```
+
+10. Now we can actually start setting up a place to work in:
     ```
     cd ~
     mkdir -p docker
     ```
 
-10. Now we can install the NVIDIA Drivers on the LXC using [these instructions](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
+11. Now we can install the NVIDIA Drivers on the LXC using [these instructions](https://github.com/Ggjorven/homelab/tree/main/tutorials/proxmox/NVIDIA-DRIVER-LXC.md)
 
-11. You're now ready to start setting up different compose stacks like:
+12. You're now ready to start setting up different compose stacks like:
     - [`gluetun`](gluetun/README.md)
     - [`arrstack`](arrstack/README.md)
     - [`mediastack`](mediastack/README.md)
