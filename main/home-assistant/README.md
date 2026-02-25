@@ -6,7 +6,7 @@
 
 ![preview image](docs/images/preview.png)
 
-## Installation
+## Steps
 
 1. From the **Proxmox Node**'s shell install **Home Assistant** as a **Proxmox VM** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=haos-vm).
   ```
