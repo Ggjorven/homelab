@@ -2,7 +2,7 @@
 
 **Open Media Vault** is a NAS operating system run as a **Proxmox VM**, this branch contains the steps to easily redeploy an **Open Media Vault** setup with an SMB network share.
 
-## Installation
+## Steps
 
 1. Create a **Proxmox VM** with the [omv iso image](https://www.openmediavault.org/download.html).
 
