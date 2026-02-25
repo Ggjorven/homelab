@@ -70,19 +70,19 @@ To make `immich` start-up on boot we can set up a **systemd** service. I have cr
 
 1. First make sure we have a folder for our script:
     ```
-    mkdir -p /lxc/scripts
+    sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
     ```
 
 2. Now download my compose-boot script (if you have already downloaded it before, you can skip this):
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/compose-boot.sh
-    chmod +x compose-boot.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/compose-boot.sh
+    sudo chmod +x compose-boot.sh
     ```
 
 3. Modify this script.
     ```
-    nano compose-boot.sh
+    sudo nano compose-boot.sh
     ```
     Either add a `docker compose up -d` for your new stack or replace the existing one.  
     Modify `<username>` to reflect your linux user's username.
@@ -95,12 +95,12 @@ To make `immich` start-up on boot we can set up a **systemd** service. I have cr
 4. If you have already set up the **systemd** service you can skip the next steps. But now we need to create a **systemd** service to run this script on start-up.
     ```
     cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/services/compose-boot.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/services/compose-boot.service
     ```
 
 5. Modify the **systemd** service:
     ```
-    nano compose-boot.service
+    sudo nano compose-boot.service
     ```
     And change `User` and `Group` to reflect your linux user's username:
     ```
@@ -110,9 +110,8 @@ To make `immich` start-up on boot we can set up a **systemd** service. I have cr
 
 6. Now enable this service:
     ```
-    systemctl daemon-reload
-    systemctl enable compose-boot
-    systemctl start compose-boot
+    sudo systemctl daemon-reload
+    sudo systemctl enable compose-boot
     ```
 
 ## References
