@@ -49,6 +49,57 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     docker compose up -d
     ```
 
+## Configuration
+
+`gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also enable port forwarding. I have added some instructions for this here.
+
+1. Go to the `gluetun` folder:
+    ```
+    cd ~/docker/gluetun
+    ```
+
+2. Open the compose file:
+    ```
+    nano compose.yaml
+    ```
+    And under environment add:
+    ```
+    - VPN_PORT_FORWARDING=on
+    - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
+    ```
+
+3. Restart your compose stack:
+    ```
+    docker compose down
+    docker compose up -d
+    ```
+
+4. Check the logs of `gluetun`:
+    ```
+    docker logs gluetun
+    ```
+    You should see something like:
+    ```
+    [ip getter] Public IP address is xxx.xxx.xxx.xxx (Netherlands, North Holland, Amsterdam - source: ipinfo+ifconfig.co+ip2location+cloudflare)
+    ...
+    INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
+    ```
+
+5. To double check the port is actually open run this:
+    ```
+    docker exec -it gluetun /bin/sh
+
+    wget -qO port-checker https://github.com/qdm12/port-checker/releases/download/v0.4.0/port-checker_0.4.0_linux_amd64
+    chmod +x port-checker
+
+    ./port-checker --listening-address=":9999"
+    ```
+    Where you change `9999` to the port you say in the docker logs.
+
+6. Open a browser and go the `gluetun` VPN's IP on port `9999` where `9999` is replaced by your actual listening port.
+
+7. If everything works you will see a small output detailing your browser information.
+
 ## Start on boot-up
 
 To make `gluetun` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
