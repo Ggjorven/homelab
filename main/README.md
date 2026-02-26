@@ -14,13 +14,17 @@ This folder contains the installation instructions and configuration files used 
 - [`omv`](main/omv/README.md)
 - [`docker`](main/docker/README.md)
     - [`gluetun`](main/docker/gluetun/README.md)
+    - [`downloadstack`](main/docker/downloadstack/README.md)
     - [`arrstack`](main/docker/arrstack/README.md)
     - [`mediastack`](main/docker/mediastack/README.md)
     - [`musicstack`](main/docker/musicstack/README.md)
     - [`tvstack`](main/docker/tvstack/README.md)
     - [`immich`](main/docker/immich/README.md)
+    - [`nginx`](main/docker/nginx/README.md)
 - [`home-assistant`](main/home-assistant/README.md)
 
 ## Steps
 
 1. // TODO: Steps
+
+2. // TODO: Disable enterprise repo etc
