@@ -77,6 +77,8 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     ```
     Replace `<APIKEY>` with the API key generated during the `gluetun` instructions.
 
+5. Before we restart and make this work go to the **Proxmox LXC**'s IP address on port `8080`. Navigate to settings and then **WebUI**. Make sure to enable `Bypass authentication for clients on localhost`. To make all previous steps actually able to function.
+
 ### NZBGet
 
 To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox LXC**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.
