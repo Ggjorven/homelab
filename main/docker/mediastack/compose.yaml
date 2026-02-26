@@ -14,7 +14,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.30
+        ipv4_address: 172.39.0.40
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -37,7 +37,7 @@ services:
       - TZ=${TZ}
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.31
+        ipv4_address: 172.39.0.41
     volumes:
       - ./seerr:/app/config
       - /mnt/nas:/mnt/nas
@@ -61,7 +61,7 @@ services:
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.32
+        ipv4_address: 172.39.0.42
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
       - /mnt/nas:/mnt/nas
@@ -72,7 +72,7 @@ services:
     container_name: jellystat
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.33
+        ipv4_address: 172.39.0.43
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

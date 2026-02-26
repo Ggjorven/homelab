@@ -10,6 +10,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 - [`omv`](../../omv/README.md) + extras.
 - [`docker`](../README.md)
 - [`gluetun`](../gluetun/README.md)
+- [`downloadstack`](../downloadstack/README.md)
 
 ## Installation
 
@@ -46,32 +47,6 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     ```
 
 ## Configuring 
-
-### QBitTorrent
-
-To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox LXC**.
-
-1. First login to QBitTorrent using the password from `docker logs qbittorrent`, then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
-
-2. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
-
-3. Lastly we need to our directories under `downloads`.
-    - Set `Default Save Path` to a path in your NAS.
-    - Do the same for `Keep incomplete torrents`
-    - And `Copy .torrent files`
-
-### NZBGet
-
-To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox LXC**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.
-
-1. The first thing you'll want to do is change the `ControlUsername` and `ControlPassword` under `Settings` -> `Security` to something you can remember.
-
-2. Now go to `Settings` -> `Incoming NZBS` and change `AppendCategoryDir` from `Yes` to `No`.
-
-3. And finally under `Settings` -> `Paths` change the directories to your preferred directory.
-    - `MainDir` is something like `/downloads`
-    - `DestDir` is something like `${MainDir}/completed`
-    - `InterDir` is something like `${MainDir}/intermediate`
 
 ### Prowlarr
 
@@ -122,7 +97,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.39.0.10` on port `9696` as defined in the [compose file](../gluetun/compose.yaml). 
 
-3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.21` on port `7878`, **Sonarr** = `172.39.0.20` on port `8989` & **Lidarr** = `172.39.0.22` on port `8686`.
+3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.31` on port `7878`, **Sonarr** = `172.39.0.30` on port `8989` & **Lidarr** = `172.39.0.32` on port `8686`.
 
 4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
 
@@ -207,7 +182,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-6. Set the `Address` to `172.39.0.20` as defined in the [compose file](compose.yaml)
+6. Set the `Address` to `172.39.0.30` as defined in the [compose file](compose.yaml)
 
 7. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
@@ -215,53 +190,11 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-10. Set the `Address` to `172.39.0.21` as defined in the [compose file](compose.yaml)
+10. Set the `Address` to `172.39.0.31` as defined in the [compose file](compose.yaml)
 
 11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
 12. Finally hit **Test** and save your changes.
-
-### MeTube
-
-To configure **MeTube** you need to go to port `8081` of the ip address of the **Proxmox LXC**.
-
-1. Change the download folder to a directory of your choosing. Under **Advanced Options**.
-
-2. (Optional) Some platforms require cookies to be able to download videos. This can be done by retrieving cookies from your browser using these extensions:
-   - [Export Cookies](https://addons.mozilla.org/en-US/firefox/addon/export-cookies-txt/) for Firefox
-   - [Get Cookies](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) for Chrome
-  
-3. Copy the contents of the exported file, likely called `cookies.txt`.
-
-4. Go the **Proxmox LXC**'s shell and go to `arrstack`:
-    ```
-    cd ~/docker/arrstack
-    ```
-
-5. Create a folder under `metube` for the cookies:
-    ```
-    mkdir -p metube/cookies
-    ```
-
-6. Create a `cookies.txt` file and paste your contents inside:
-    ```
-    nano metube/cookies/cookies.txt
-    ```
-
-7. Modify the `compose.yaml` file:
-    ```
-    nano compose.yaml
-    ```
-    And add this line under `volumes`:
-    ```
-    - ./metube/cookies:/cookies
-    ```
-    Now we need to tell yt-dlp to use these cookies, so under `environment` add:
-    ```
-    - YTDL_OPTIONS={"cookiefile":"/cookies/cookies.txt"}
-    ```
-
-8. `metube` will now use your cookies which will help bypass some bot checks.
 
 ## Start on boot-up
 
@@ -352,11 +285,7 @@ sudo systemctl start test-indexers
 
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
-- [QBitTorrent](https://www.qbittorrent.org/) - Torrenting client
-- [NZBGet](https://nzbget.com/) - NZB downloader
 - [Prowlarr](https://prowlarr.com/) - Indexer
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
 - [Lidarr](https://lidarr.audio/) - Music organizer/manager
-- [MeTube](https://github.com/alexta69/metube) - YouTube downloader
-

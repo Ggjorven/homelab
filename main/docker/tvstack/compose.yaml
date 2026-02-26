@@ -27,4 +27,4 @@ services:
     network_mode: container:gluetun
     restart: unless-stopped
 
-# Note: This file will use the .50-.59 range for homelabnetwork ip-addresses
+# Note: This file will use the .60-.69 range for homelabnetwork ip-addresses

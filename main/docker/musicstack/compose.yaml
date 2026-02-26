@@ -13,7 +13,7 @@ services:
       - ND_LOGLEVEL=debug
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.40
+        ipv4_address: 172.39.0.50
     ports:
       - 4533:4533
     volumes:
