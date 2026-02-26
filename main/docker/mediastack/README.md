@@ -78,13 +78,19 @@ To change **Jellyfin**'s settings go to the hamburger menu in the top left and g
 
 1. Set **Hardware Acceleration** to **NVIDIA NVENC**.
 
-2. Enable hardware decoding for:
+2. Enable hardware decoding for (for RTX 3050):
 - H264
 - HEVC
+- MPEG2
 - VC1
+- VP9
 - AV1
 - HEVC 10bit
 - VP9 10bit
+
+You can what your NVIDIA GPU supports [here](https://en.wikipedia.org/wiki/NVDEC).  
+For AMD you can look [here](https://en.wikipedia.org/wiki/Unified_Video_Decoder).  
+And intel [here](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/1-1/overview.html).
 
 3. Enable **enhanced NVDEC decoder**.
 
