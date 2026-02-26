@@ -29,6 +29,7 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - Open Media Vault
 - Docker-based application stacks
     - gluetun
+    - download stack
     - *arr stack
     - media stack
     - music stack
