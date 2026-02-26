@@ -28,3 +28,7 @@ This folder contains the installation instructions and configuration files used 
 1. // TODO: Steps
 
 2. // TODO: Disable enterprise repo etc
+
+## Debugging
+
+If you have any issues setting up `main` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

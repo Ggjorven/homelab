@@ -34,6 +34,10 @@ This is located under `Settings` -> `Add-ons` -> `Add-on Store`.
 
 // TODO: ...
 
+## Debugging
+
+If you have any issues setting up `home-assistant` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor

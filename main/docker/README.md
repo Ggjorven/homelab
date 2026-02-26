@@ -73,6 +73,10 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     - [`immich`](immich/README.md)
     - [`nginx`](nginx/README.md)
 
+## Debugging
+
+If you have any issues setting up `docker` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## Extra 
 
 To update a compose stack just run:

@@ -83,6 +83,10 @@ You have now succesfully completed all the necessary steps. Another useful step 
 
 Having followed these extra instructions will help with `docker` related services later on.
 
+## Debugging
+
+If you have any issues setting up `omv` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor

@@ -281,6 +281,10 @@ sudo systemctl enable test-indexers
 sudo systemctl start test-indexers
 ```
 
+## Debugging
+
+If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Docker](https://github.com/Ggjorven) - Container ecosystem

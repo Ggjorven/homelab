@@ -21,6 +21,10 @@ This folder contains the installation instructions and configuration files used 
 4. You can now follow the instructions for 
     - [`pivpn`](https://github.com/Ggjorven/homelab/blob/main/pi2w-2/pivpn/README.md)
 
+## Debugging
+
+If you have any issues setting up `pi2w-2` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/) - Raspberry Pi Imager

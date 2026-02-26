@@ -85,6 +85,10 @@ Homepage is a dashboard service run directly on the **Pi 2 W**, this branch cont
     systemctl start start-homepage
     ```
 
+## Debugging
+
+If you have any issues setting up `homepage` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Homepage](https://github.com/gethomepage/homepage) - Dashboard

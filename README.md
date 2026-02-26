@@ -59,9 +59,12 @@ This Raspberry Pi 2 W handles:
 ## How to Use
 
 1. Start at the device level (`main`, `pi2w-1`, `pi2w-2`)
-2. Follow each device's README
+2. Follow each device's README.md
 3. Deploy individual stacks as needed
 4. Use tutorials for reusable infrastructure patterns
+
+If you can't figure something out or it is broken checkout the respective DEBUGGING.md file.  
+If you still can't figure it out you can reach out to me personally, I personally want to make this repository near bulletproof.
 
 ## Quick Navigation
 

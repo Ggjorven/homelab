@@ -267,6 +267,10 @@ To make `mediastack` start-up on boot we can set up a **systemd** service. I hav
     sudo systemctl enable compose-boot
     ```
 
+## Debugging
+
+If you have any issues setting up `mediastack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Docker](https://www.docker.com) - Hardware accelerated containers

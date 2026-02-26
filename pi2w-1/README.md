@@ -23,6 +23,10 @@ This folder contains the installation instructions and configuration files used 
     - [`homepage`](homepage/README.md)  
     These can be completed in any order and do not require one another.
 
+## Debugging
+
+If you have any issues setting up `pi2w-1` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+
 ## References
 
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/) - Raspberry Pi Imager
