@@ -74,7 +74,7 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     ```
     - DOCKER_MODS=ghcr.io/techclusterhq/qbt-portchecker:main
     ```
-    This adds a docker mod for portchecking to `qbittorrent`.  
+    This adds a docker mod for portchecking to `qbittorrent` If you want multiple mods add a `|` between them like so: `ghcr.io/techclusterhq/qbt-portchecker:main|ghcr.io/vuetorrent/vuetorrent-lsio-mod:latest`.  
     Now also add these lines:
     ```
     - PORTCHECKER_GLUETUN_API_KEY=<APIKEY>
