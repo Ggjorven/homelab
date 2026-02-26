@@ -59,6 +59,24 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     - Do the same for `Keep incomplete torrents`
     - And `Copy .torrent files`
 
+4. (Optional) if you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the compose file:
+    ```
+    cd ~/docker/downloadstack
+    nano compose.yaml
+    ```
+    And this line under environment:
+    ```
+    - DOCKER_MODS=ghcr.io/techclusterhq/qbt-portchecker:main
+    ```
+    This adds a docker mod for portchecking to `qbittorrent`.  
+    Now also add these lines:
+    ```
+    - PORTCHECKER_GLUETUN_API_KEY=<APIKEY>
+    - PORTCHECKER_SLEEP=120 # The amount of time between port checks
+    - PORTCHECKER_KILL_ON_NOT_CONNECTABLE=true # Restart qbittorrent if it can't connect to the port
+    ```
+    Replace `<APIKEY>` with the API key generated during the `gluetun` instructions.
+
 ### NZBGet
 
 To configure **NZBGet** you need to go to port `6789` of the ip address of the **Proxmox LXC**. The first `username` and `password` are `nzbget` and `tegbzn6789` respectively.

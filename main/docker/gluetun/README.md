@@ -100,6 +100,34 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 7. If everything works you will see a small output detailing your browser information.
 
+8. (Optional) To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an api key:
+    ```
+    docker run --rm -v ./gluetun:/gluetun qmcgaw/gluetun genkey
+    ```
+    Make sure to save this API key for later.
+
+9. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
+    ```
+    mkdir -p gluetun/auth
+    ```
+
+10. Create a config file that sets up a route like so:
+    ```
+    rm gluetun/auth/config.toml
+    nano gluetun/auth/config.toml
+    ```
+    And paste:
+    ```
+    [[roles]]
+    name = "portchecker"
+    routes = ["GET /v1/portforward", "GET /v1/openvpn/portforwarded"]
+    auth = "apikey"
+    apikey = "<APIKEY>"
+    ```
+    Replace `<APIKEY>` with your generated API Key.
+
+If you have any issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
+
 ## Start on boot-up
 
 To make `gluetun` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
