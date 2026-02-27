@@ -8,18 +8,10 @@ This file exists with the purpose of helping you debug your issues with `network
 
 I have noticed that on some machines flaresolverr takes an insanely long time to boot. I have yet to figure this issue out.
 
-But replacing
-
-```
-image: ghcr.io/flaresolverr/flaresolverr:latest
-```
-with
-```
-image: ghcr.io/flaresolverr/flaresolverr:v3.4.5
-```
-
-Worked for me.  
 Related github issues: [#1318](https://github.com/FlareSolverr/FlareSolverr/issues/1318) and [#1610](https://github.com/FlareSolverr/FlareSolverr/issues/1610)
+
+> [!CAUTION]
+> I can't figure this out yet, it doesn't work.
 
 ## Helping others
 
