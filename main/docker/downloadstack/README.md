@@ -59,7 +59,7 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
 
 3. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
 
-4. Thirdly we need to our directories under `downloads`.
+4. Thirdly we need to our directories under `Downloads`.
     - Set `Default Save Path` to a path in your NAS.
     - Do the same for `Keep incomplete torrents`
     - And `Copy .torrent files`
@@ -75,7 +75,7 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     cd ~/docker/downloadstack
     nano compose.yaml
     ```
-    And this line under environment:
+    And this line under `environment` for `qbittorrent`:
     ```
     - DOCKER_MODS=ghcr.io/techclusterhq/qbt-portchecker:main
     ```
