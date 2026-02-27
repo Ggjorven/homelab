@@ -3,20 +3,6 @@ networks:
     external: true
 
 services:
-  flaresolverr:
-    image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
-    environment:
-      - LOG_LEVEL=info
-      - TZ=${TZ}
-    network_mode: container:gluetun
-    healthcheck:
-      test: curl -s http://localhost:8191 || exit 1
-      interval: 30s
-      retries: 3
-      timeout: 10s
-    restart: unless-stopped
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
