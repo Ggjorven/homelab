@@ -56,10 +56,10 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 
 2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.10` which is set in the [compose file](../networkstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now go to `Settings` -> `Indexers` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](../networkstack/compose.yaml). And give it the tag `flaresolverr`. 
+3. Now go to `Settings` -> `Indexers` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](../networkstack/compose.yaml). And give it the tag `flaresolverr`. Enable advanced options and set timeout to `180`.
 
 > [!NOTE]
-> If flaresolverr fails to connect checkout my [debugging guide](../networkstack/DEBUGGING.md#flaresolverr-taking-very-long-to-start-chromium) for `networkstack`.
+> If flaresolverr still fails to connect checkout my [debugging guide](../networkstack/DEBUGGING.md#flaresolverr-taking-very-long-to-start-chromium) for `networkstack`.
 
 4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
