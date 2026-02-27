@@ -10,18 +10,18 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `gluetun`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `networkstack`:
     ```
     cd ~
     cd docker
-    mkdir -p gluetun
-    cd gluetun
+    mkdir -p networkstack
+    cd networkstack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/gluetun/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/gluetun/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
@@ -53,9 +53,9 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 `gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also support port forwarding. I have added some instructions for that here.
 
-1. Go to the `gluetun` folder:
+1. Go to the `networkstack` folder:
     ```
-    cd ~/docker/gluetun
+    cd ~/docker/networkstack
     ```
 
 2. Open the compose file:
