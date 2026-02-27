@@ -98,7 +98,14 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 6. Open a browser and go the `gluetun` VPN's IP on port `9999` where `9999` is replaced by your actual listening port.
 
-7. If everything works you will see a small output detailing your browser information.
+7. If everything works you will see a small output detailing your browser information. Something like:
+    ```
+    Listening address: :9999
+    Client address: xxx.xxx.xxxx.xxx:xxx
+    Browser: Chrome 145
+    Device: Computer
+    OS: Linux 0
+    ```
 
 8. (Optional) To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an api key:
     ```
