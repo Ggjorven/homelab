@@ -38,7 +38,7 @@ services:
       - DNS_UPSTREAM_RESOLVERS=cloudflare,google # Makes the DNS requests snet to random resolvers 
       - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
     healthcheck:
-      test: ping -c 1 www.google.com || exit 1
+      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
       interval: 20s
       timeout: 10s
       retries: 5
