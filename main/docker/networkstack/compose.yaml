@@ -6,6 +6,18 @@ networks:
         - subnet: 172.39.0.0/24
 
 services:
+  deunhealth:
+    image: qmcgaw/deunhealth
+    container_name: deunhealth
+    network_mode: "none"
+    environment:
+      - LOG_LEVEL=info
+      - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
+      - TZ=${TZ}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
@@ -42,4 +54,6 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

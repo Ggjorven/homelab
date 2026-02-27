@@ -28,7 +28,7 @@ It runs **Proxmox VE** as the hypervisor and hosts:
 - Storage service
     - Open Media Vault
 - Docker-based application stacks
-    - gluetun
+    - network stack
     - download stack
     - *arr stack
     - media stack
@@ -73,7 +73,7 @@ To quickly navigate this repository I have this list of services below:
 - [`main`](main/README.md)
     - [`omv`](main/omv/README.md)
     - [`docker`](main/docker/README.md)
-        - [`gluetun`](main/docker/gluetun/README.md)
+        - [`networkstack`](main/docker/networkstack/README.md)
         - [`arrstack`](main/docker/arrstack/README.md)
         - [`mediastack`](main/docker/mediastack/README.md)
         - [`musicstack`](main/docker/musicstack/README.md)

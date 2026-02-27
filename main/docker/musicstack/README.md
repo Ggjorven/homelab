@@ -4,11 +4,11 @@
 
 ## Prerequisites
 
-Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`omv`](../../omv/README.md) + extras.
 - [`docker`](../README.md)
-- [`gluetun`](../gluetun/README.md)
+- [`networkstack`](../networkstack/README.md)
 
 ## Installation
 

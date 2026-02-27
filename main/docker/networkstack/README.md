@@ -1,10 +1,10 @@
-# Gluetun
+# Network Stack
 
-**Gluetun** is a VPN Container for my **Docker Compose** stacks, this branch contains the installation instructions for installing **Gluetun** using **Docker Compose**.
+**Network Stack** is a colletion of network related services for my **Docker Compose** stacks, this branch contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
-Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `network stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`docker`](../README.md)
 

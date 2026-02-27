@@ -4,13 +4,13 @@
 
 ## Prerequisites
 
-Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create `immich` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`omv`](../omv/README.md) + extras.
 - [`NVIDIA Driver`](../../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
 - [`NVIDIA Driver LXC`](../../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 - [`docker`](../README.md)
-- [`gluetun`](../gluetun/README.md)
+- [`networkstack`](../networkstack/README.md)
 
 ## Installation
 

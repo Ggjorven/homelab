@@ -9,7 +9,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 - [`omv`](../../omv/README.md) + extras.
 - [`docker`](../README.md)
-- [`gluetun`](../gluetun/README.md)
+- [`networkstack`](../networkstack/README.md)
 - [`downloadstack`](../downloadstack/README.md)
 
 ## Installation
@@ -52,11 +52,11 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 To configure **Prowlarr** you need to go to port `9696` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
 
-1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.10` which is set in the [compose file](../gluetun/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
+1. Now we can start setting up **Prowlarr**. The first we're gonna do is add the Download Clients. Go to `Settings` -> `Download Clients`. Now add **NZBGet**. And set the **Host** to `172.39.0.10` which is set in the [compose file](../networkstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies`.
 
-2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.10` which is set in the [compose file](../gluetun/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
+2. Now we're gonna add **QBitTorrent**. And set the **Host** to `172.39.0.10` which is set in the [compose file](../networkstack/compose.yaml) under **gluetun**. Set your actual **Username** and **Password** and change the **Default Category** to something like `Movies` or keep it default.
 
-3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](../gluetun/compose.yaml). And give it the tag `flaresolverr`. 
+3. Now go to `Settings` -> `Indexes` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](../networkstack/compose.yaml). And give it the tag `flaresolverr`. 
 
 4. Now you can add indexes in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
@@ -95,7 +95,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 1. Go to the application you want to add to **Prowlarr** and go to `Settings` -> `General` and copy your **API Key**.
 
-2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.39.0.10` on port `9696` as defined in the [compose file](../gluetun/compose.yaml). 
+2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.39.0.10` on port `9696` as defined in the [compose file](../networkstack/compose.yaml). 
 
 3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.31` on port `7878`, **Sonarr** = `172.39.0.30` on port `8989` & **Lidarr** = `172.39.0.32` on port `8686`.
 
@@ -124,9 +124,9 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
    - **Daily Episode Format** to `{Series Title} - {Air-Date} - {Episode Title}`
    - **Anime Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
 
-3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../gluetun/compose.yaml). And set your `Username` and `Password`.
+3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../gluetun/compose.yaml). And set your `Username` and `Password`.
+4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 ### Lidarr
 
@@ -154,9 +154,9 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 6. Under **Release Statuses** enable:
 - Official
 
-7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../gluetun/compose.yaml). And set your `Username` and `Password`.
+7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../gluetun/compose.yaml). And set your `Username` and `Password`.
+8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 ### Bazarr
 
