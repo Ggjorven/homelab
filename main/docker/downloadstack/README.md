@@ -50,22 +50,27 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox LXC**.
 
-1. First login to QBitTorrent using the password from `docker logs qbittorrent`, then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
+1. First login to QBitTorrent using `username` and `password` from:
+    ```
+    docker logs qbittorrent
+    ```
 
-2. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
+2. Then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
 
-3. Thirdly we need to our directories under `downloads`.
+3. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
+
+4. Thirdly we need to our directories under `downloads`.
     - Set `Default Save Path` to a path in your NAS.
     - Do the same for `Keep incomplete torrents`
     - And `Copy .torrent files`
 
-4. Since we are gonna be good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+5. Since we are gonna be good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
-5. Also we want to allow multiple downloads simultaneously, by default only 3 simultaneous download and 2 simultaneous uploads are allowed. Go to **BitTorrent** and set maximum active downloads to something significantly higher. I kept uploads the same though.
+6. Also we want to allow multiple downloads simultaneously, by default only 3 simultaneous download and 2 simultaneous uploads are allowed. Go to **BitTorrent** and set maximum active downloads to something significantly higher. I kept uploads the same though.
 
-6. (Optional) If you really value every ounce of privacy you can also go to **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information. It doesn't do much.
+7. (Optional) If you really value every ounce of privacy you can also go to **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information. It doesn't do much.
 
-7. (Optional) If you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the compose file:
+8. (Optional) If you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the compose file:
     ```
     cd ~/docker/downloadstack
     nano compose.yaml
@@ -83,7 +88,7 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     ```
     Replace `<APIKEY>` with the API key generated during the `gluetun` instructions.
 
-8. Before we restart and make this work go to the **Proxmox LXC**'s IP address on port `8080`. Navigate to settings and then **WebUI**. Make sure to enable `Bypass authentication for clients on localhost`. To make all previous steps actually able to function.
+9. Before we restart and make this work go to the **Proxmox LXC**'s IP address on port `8080`. Navigate to settings and then **WebUI**. Make sure to enable `Bypass authentication for clients on localhost`. To make all previous steps actually able to function.
 
 ### NZBGet
 
