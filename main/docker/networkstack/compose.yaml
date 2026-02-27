@@ -57,3 +57,21 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - LOG_LEVEL=info
+    network_mode: container:gluetun
+    healthcheck:
+      test: curl -s http://localhost:8191 || exit 1
+      interval: 30s
+      retries: 3
+      timeout: 10s
+    labels:
+      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
