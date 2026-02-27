@@ -51,7 +51,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 ## Configuration
 
-`gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also enable port forwarding. I have added some instructions for this here.
+`gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also support port forwarding. I have added some instructions for that here.
 
 1. Go to the `gluetun` folder:
     ```
@@ -108,13 +108,13 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 9. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
     ```
-    mkdir -p gluetun/auth
+    sudo mkdir -p gluetun/auth
     ```
 
 10. Create a config file that sets up a route like so:
     ```
-    rm gluetun/auth/config.toml
-    nano gluetun/auth/config.toml
+    sudo rm gluetun/auth/config.toml
+    sudo nano gluetun/auth/config.toml
     ```
     And paste:
     ```
