@@ -58,6 +58,9 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 
 3. Now go to `Settings` -> `Indexers` and add an `Index Proxy` and click `FlareSolverr` set it's ip to `172.39.0.10` as set in the [compose file](../networkstack/compose.yaml). And give it the tag `flaresolverr`. 
 
+> [!WARNING]
+> Flaresolverr sometimes takes like 5 minutes to fully start. So you can come back to this step later if it currently fails.
+
 4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
     - **1337x (backup)** priority = 1, tags = (movies, series, music, flaresolverr)
