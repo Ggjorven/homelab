@@ -88,3 +88,10 @@ docker image prune -f
 docker compose down
 ```
 In the stack's directory
+
+To remove all docker containers and their remains run:
+```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker network prune
+```
