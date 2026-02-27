@@ -14,7 +14,7 @@ image: ghcr.io/flaresolverr/flaresolverr:latest
 ```
 To:
 ```
-image: ghcr.io/flaresolverr/flaresolverr:v3.4.5
+image: ghcr.io/flaresolverr/flaresolverr:v3.3.0
 ```
 Or some other older version.
 
