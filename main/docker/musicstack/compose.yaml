@@ -11,7 +11,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}    
-      - ND_LOGLEVEL=debug
+      - ND_LOGLEVEL=info
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.50

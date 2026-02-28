@@ -20,7 +20,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -39,7 +39,7 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -58,7 +58,7 @@ services:
   lidarr:
     container_name: lidarr
     image: lscr.io/linuxserver/lidarr:latest
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -77,7 +77,7 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

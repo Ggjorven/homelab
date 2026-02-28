@@ -6,7 +6,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -61,6 +61,9 @@ services:
     container_name: jellystat-db
     user: ${PUID}:${PGID}   
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ} 
       - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
     networks:
