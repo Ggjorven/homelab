@@ -29,7 +29,7 @@ The solution for this issue can also be found at the bottom of **Steps** in [doc
 
 ### Seerr doesn't have permission
 
-If seerr doesn't have the proper permissions to access the `seerr` directory, check the docker logs using:
+If **Seerr** doesn't have the proper permissions to access the `seerr` directory, check the docker logs using:
 ```
 docker logs seerr
 ```
@@ -65,15 +65,16 @@ Error: EACCES: permission denied, mkdir '/app/config/logs/'
    ```
    And your issues will be resolved.
 
-### Jellystat doesn't have permission
+### Jellystat doesn't have permission/Can't create user
 
-If Jellystat doesn't have the proper permissions to access the `jellystat` directory, check the docker logs using:
+If **Jellystat** doesn't have the proper permissions to access the `jellystat` directory or when creating a user in **Jellystat** nothing happens, check the docker logs using:
 ```
 docker logs jellystat
 ```
 You'll see something like:
 ```
-// TODO
+[JELLYSTAT]: Error occurred while executing query: could not open file "base/xxxxx/xxxxx_fsm": Permission denied
+[JELLYSTAT]: Error occurred while executing query: could not open file "global/pg_filenode.map": Permission denied
 ```
 
 1. To fix this go to the `mediastack`.
