@@ -24,7 +24,7 @@ services:
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # This container requires joining another containers network
     cap_add:
       - NET_ADMIN
     devices:
@@ -41,8 +41,8 @@ services:
     volumes:
       - ./gluetun:/gluetun
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=${VPN_TYPE}
@@ -65,10 +65,10 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # This container requires joining another containers network
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - LOG_LEVEL=info
     network_mode: container:gluetun

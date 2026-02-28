@@ -6,13 +6,13 @@ services:
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:latest
     container_name: dispatcharr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # This container requires joining another containers network
     volumes:
       - ./dispatcharr:/data
     environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
       - DISPATCHARR_ENV=aio

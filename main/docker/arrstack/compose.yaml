@@ -6,7 +6,7 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # This container requires joining another containers network
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
