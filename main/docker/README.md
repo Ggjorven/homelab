@@ -95,3 +95,7 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker network prune
 ```
+To also delete cached images run:
+```
+docker image prune
+```
