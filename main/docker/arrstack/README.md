@@ -141,7 +141,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 - Set **Standard Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{track:00} - {Track Title}`
 - Set **Multi Disc Track Format** to: `{Artist Name}/{Album Title} ({Release Year})/{Medium Format} {medium:00}/{track:00} - {Track Title}`
 
-3. We also want to modify the **Standard** music profile. Go to `Settings` -> `Profiles`.
+3. We also want to modify the **Standard** music profile. Go to `Settings` -> `Profiles` -> `Metadata Profiles` -> `Standard`.
 
 4. Under **Primary Types** enable:
 - Album
