@@ -84,6 +84,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     ...
     INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
     ```
+    If you don't see this output checkout the [debugging guide](DEBUGGING.md).
 
 5. To double check the port is actually open run this:
     ```
@@ -133,7 +134,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     ```
     Replace `<APIKEY>` with your generated API Key.
 
-If you have any issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
+If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
 
 ## Start on boot-up
 
