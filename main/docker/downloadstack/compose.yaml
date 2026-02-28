@@ -15,6 +15,7 @@ services:
     volumes:
       - ./qbittorrent:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
@@ -35,9 +36,9 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./nzbget:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     restart: unless-stopped
 
@@ -59,6 +60,7 @@ services:
       - ./metube:/config
       - /mnt/nas:/mnt/nas
       - /mnt/nas:/downloads # Temporary, you should really change the directory in metube when dowloading
+      - /etc/localtime:/etc/localtime:ro
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.20

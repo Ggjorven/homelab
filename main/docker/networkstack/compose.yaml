@@ -18,6 +18,7 @@ services:
       - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     network_mode: "none"
     restart: always
 
@@ -38,8 +39,6 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.10
-    volumes:
-      - ./gluetun:/gluetun
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -53,6 +52,9 @@ services:
       - DNS_SERVER=on
       - DNS_UPSTREAM_RESOLVERS=cloudflare,google # Makes the DNS requests snet to random resolvers 
       - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
+    volumes:
+      - ./gluetun:/gluetun
+      - /etc/localtime:/etc/localtime:ro
     healthcheck:
       test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
       interval: 20s
@@ -71,6 +73,8 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - LOG_LEVEL=info
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     healthcheck:
       test: curl -s http://localhost:8191 || exit 1

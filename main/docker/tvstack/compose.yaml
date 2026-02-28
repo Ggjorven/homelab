@@ -7,8 +7,8 @@ services:
     image: ghcr.io/dispatcharr/dispatcharr:latest
     container_name: dispatcharr
     # user: ${PUID}:${PGID} # This container requires joining another containers network
-    volumes:
-      - ./dispatcharr:/data
+    cap_add:
+      - SYS_NICE
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -21,8 +21,9 @@ services:
       - DISPATCHARR_LOG_LEVEL=info
       - UWSGI_NICE_LEVEL=${DISPATCHARR_STREAMING_PRIORITY}
       - CELERY_NICE_LEVEL=${DISPATCHARR_EPG_PRIORITY}
-    cap_add:
-      - SYS_NICE
+    volumes:
+      - ./dispatcharr:/data
+      - /etc/localtime:/etc/localtime:ro
     runtime: nvidia
     gpus: all
     network_mode: container:gluetun

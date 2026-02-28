@@ -20,4 +20,5 @@ services:
     volumes:
       - ./navidrome:/data
       - /path/to/your/music/folder:/music:ro
+      - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped

@@ -20,6 +20,7 @@ services:
       - ./jellyfin:/config
       - /data:/data
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8096:8096
       - 7359:7359/udp # Service Discovery
@@ -42,7 +43,7 @@ services:
         ipv4_address: 172.39.0.41
     volumes:
       - ./seerr:/app/config
-      - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 5055:5055
     depends_on:
@@ -67,7 +68,6 @@ services:
         ipv4_address: 172.39.0.42
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
-      - /mnt/nas:/mnt/nas
     restart: unless-stopped
 
   jellystat:
@@ -88,7 +88,7 @@ services:
         ipv4_address: 172.39.0.43
     volumes:
       - ./jellystat/backup-data:/app/backend/backup-data
-      - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 3000:3000
     restart: unless-stopped

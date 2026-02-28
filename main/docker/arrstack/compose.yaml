@@ -12,8 +12,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./prowlarr:/config
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     restart: unless-stopped
 
@@ -26,9 +26,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./sonarr:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8989:8989
     networks:
@@ -45,9 +45,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./radarr:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 7878:7878
     networks:
@@ -64,9 +64,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./lidarr:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
     networks:
@@ -83,9 +83,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./bazarr:/config
       - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 6767:6767
     networks:
