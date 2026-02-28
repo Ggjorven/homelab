@@ -66,6 +66,7 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 12. You're now ready to start setting up different compose stacks like:
     - [`networkstack`](networkstack/README.md)
+    - [`downloadstack`](downloadstack/README.md)
     - [`arrstack`](arrstack/README.md)
     - [`mediastack`](mediastack/README.md)
     - [`musicstack`](musicstack/README.md)
