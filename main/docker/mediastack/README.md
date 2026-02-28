@@ -15,6 +15,7 @@ Before we can create our `media stack` on our `docker` **Proxmox LXC**. We must 
 - [`NVIDIA Driver LXC`](../../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 - [`docker`](../README.md)
 - [`networkstack`](../networkstack/README.md)
+- [`docker NVIDIA runtime`](../../../tutorials/docker/NVIDIA-RUNTIME.md)
 
 ## Installation
 

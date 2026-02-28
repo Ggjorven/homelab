@@ -10,6 +10,7 @@ Before we can create our `tv stack` on our `docker` **Proxmox LXC**. We must hav
 - [`NVIDIA Driver LXC`](../../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 - [`docker`](../README.md)
 - [`networkstack`](../networkstack/README.md)
+- [`docker NVIDIA runtime`](../../../tutorials/docker/NVIDIA-RUNTIME.md)
 
 ## Installation
 
