@@ -27,6 +27,33 @@ when starting a container that requires `runtime: nvidia`. You'll find the steps
 
 The solution for this issue can also be found at the bottom of **Steps** in [docker NVIDIA runtime](../../../tutorials/docker/NVIDIA-RUNTIME.md).
 
+### Jellyfin doesn't have permission/Jellyfin doesn't boot
+
+If **Jellyfin** doesn't have the proper permissions to access the `jellyfin` directory, check the docker logs using:
+```
+docker logs jellyfin
+```
+You'll see something like:
+```
+mkdir: cannot create directory ‘/config/log’: Permission denied
+mkdir: cannot create directory ‘/config/data’: Permission denied
+mkdir: cannot create directory ‘/config/data’: Permission denied
+mkdir: cannot create directory ‘/config/cache’: Permission denied
+mkdir: cannot create directory ‘/transcode’: Permission denied
+```
+
+1. To fix this go to the `mediastack`.
+   ```
+   cd ~/docker
+   cd mediastack
+   ```
+
+2. Now change the permissions of the `jellyfin` directory:
+   ```
+   chown -r 1000:1000 jellyfin/
+   ```
+   And your issues will be resolved.
+
 ### Seerr doesn't have permission
 
 If **Seerr** doesn't have the proper permissions to access the `seerr` directory, check the docker logs using:
