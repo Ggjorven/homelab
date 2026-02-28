@@ -264,8 +264,11 @@ sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/mai
 sudo chmod +x test-indexers.sh
 ```
 
-We need to modify the script and replace all these values:
-
+We need to modify the script:
+```
+sudo nano test-indexers.sh
+```
+And replace all these values:
 ```
 SERVER_IP="192.168.x.x"
 PROWLARR_API=""
