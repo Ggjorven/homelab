@@ -9,18 +9,20 @@ services:
   deunhealth:
     image: qmcgaw/deunhealth
     container_name: deunhealth
-    network_mode: "none"
+    user: ${PUID}:${PGID}   
     environment:
       - LOG_LEVEL=info
       - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
       - TZ=${TZ}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: "none"
     restart: always
 
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
+    user: ${PUID}:${PGID}   
     cap_add:
       - NET_ADMIN
     devices:
@@ -61,6 +63,7 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
+    user: ${PUID}:${PGID}   
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

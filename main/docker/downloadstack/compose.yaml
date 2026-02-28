@@ -6,6 +6,7 @@ services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
+    user: ${PUID}:${PGID}   
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -28,6 +29,7 @@ services:
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
+    user: ${PUID}:${PGID}   
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -42,6 +44,7 @@ services:
   metube:
     image: ghcr.io/alexta69/metube
     container_name: metube
+    user: ${PUID}:${PGID}   
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

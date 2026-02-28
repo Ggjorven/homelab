@@ -6,6 +6,7 @@ services:
   navidrome:
     image: deluan/navidrome:latest
     container_name: jellyfin
+    user: ${PUID}:${PGID}   
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

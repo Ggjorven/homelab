@@ -6,6 +6,7 @@ services:
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:latest
     container_name: dispatcharr
+    user: ${PUID}:${PGID}   
     volumes:
       - ./dispatcharr:/data
     environment:
