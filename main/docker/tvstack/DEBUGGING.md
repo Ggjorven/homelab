@@ -27,6 +27,25 @@ when starting a container that requires `runtime: nvidia`. You'll find the steps
 
 The solution for this issue can also be found at the bottom of **Steps** in [docker NVIDIA runtime](../../../tutorials/docker/NVIDIA-RUNTIME.md).
 
+### 502 Bad Gateway
+
+If **Dispatcharr** doesn't have the proper permissions to access the `dispatcharr` directory, check the docker logs using:
+```
+docker logs dispatcharr
+```
+
+1. To fix this go to the `tvstack`.
+   ```
+   cd ~/docker
+   cd tvstack
+   ```
+
+2. Now change the permissions of the `dispatcharr` directory:
+   ```
+   sudo chown -R 1000:1000 dispatcharr/
+   ```
+   And your issues will be resolved.
+
 ## Helping others
 
 If you have found more issues while following the steps and figured it out please create a pull request with your issue and it's debugging steps and resolution.
