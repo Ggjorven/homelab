@@ -11,9 +11,11 @@ services:
     container_name: deunhealth
     user: ${PUID}:${PGID}   
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
       - LOG_LEVEL=info
       - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
-      - TZ=${TZ}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     network_mode: "none"
