@@ -59,14 +59,14 @@ services:
     container_name: lidarr
     image: lscr.io/linuxserver/lidarr:latest
     user: ${PUID}:${PGID}   
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./lidarr:/config
-      - /mnt/nas:/mnt/nas
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./lidarr:/config
+      - /mnt/nas:/mnt/nas
     ports:
       - 8686:8686
     networks:
