@@ -18,7 +18,8 @@ image: ghcr.io/flaresolverr/flaresolverr:v3.3.0
 ```
 Or some other older version.
 
-Related github issues: [#1318](https://github.com/FlareSolverr/FlareSolverr/issues/1318) and [#1610](https://github.com/FlareSolverr/FlareSolverr/issues/1610)
+Related github issues: [#1318](https://github.com/FlareSolverr/FlareSolverr/issues/1318), [#1610](https://github.com/FlareSolverr/FlareSolverr/issues/1610), [#142](https://github.com/FlareSolverr/FlareSolverr/issues/142), [#687](https://github.com/FlareSolverr/FlareSolverr/issues/687), [#1403](https://github.com/FlareSolverr/FlareSolverr/issues/1403), [#1361](https://github.com/FlareSolverr/FlareSolverr/issues/1361), [#1276](https://github.com/FlareSolverr/FlareSolverr/issues/1276), [#1253](https://github.com/FlareSolverr/FlareSolverr/issues/1253) and [#1501](https://github.com/FlareSolverr/FlareSolverr/discussions/1501)  
+Related reddit threads: [1](https://www.reddit.com/r/sonarr/comments/1izl9e6/flaresolverr_broken/)
 
 Do note, that instead of it taking 5 minutes to boot it can still take like 2,5 minutes. But that falls in the range of what **Prowlarr** allows as the timeout, so far now this is the solution.
 
