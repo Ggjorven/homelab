@@ -50,7 +50,7 @@ mkdir: cannot create directory ‘/transcode’: Permission denied
 
 2. Now change the permissions of the `jellyfin` directory:
    ```
-   chown -r 1000:1000 jellyfin/
+   sudo chown -R 1000:1000 jellyfin/
    ```
    And your issues will be resolved.
 
@@ -88,7 +88,7 @@ Error: EACCES: permission denied, mkdir '/app/config/logs/'
 
 2. Now change the permissions of the `seerr` directory:
    ```
-   chown -r 1000:1000 seerr/
+   sudo chown -R 1000:1000 seerr/
    ```
    And your issues will be resolved.
 
@@ -160,7 +160,7 @@ error: could not open file "global/pg_filenode.map": Permission denied
 
 2. Now change the permissions of the `jellystat` directory:
    ```
-   chown -r 1000:1000 jellystat/
+   sudo chown -R 1000:1000 jellystat/
    ```
    And your issues will be resolved.
 
