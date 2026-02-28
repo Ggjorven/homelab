@@ -29,6 +29,10 @@ The solution for this issue can also be found at the bottom of **Steps** in [doc
 
 ### 502 Bad Gateway
 
+Related github issues: [#721](https://github.com/Dispatcharr/Dispatcharr/issues/721)
+
+#### Solution A (Recommended)
+
 If **Dispatcharr** doesn't have the proper permissions to access the `dispatcharr` directory, check the docker logs using:
 ```
 docker logs dispatcharr
@@ -55,7 +59,9 @@ docker logs dispatcharr
     ```
     Or any other older version.
 
-Related github issues: [#721](https://github.com/Dispatcharr/Dispatcharr/issues/721)
+#### Solution B
+
+I don't know why, but waiting half an hour or so fixed it for me.
 
 ## Helping others
 
