@@ -194,7 +194,7 @@ Subtitles Extract is located in the default **Stable Jellyfin** repository.
 
 To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP address.
 
-1.Select **Jellyfin** as the media server type.
+1. Select **Jellyfin** as the media server type.
 
 2. Now set the URL of **Jellyfin** to `172.39.0.40` as defined in the [compose file](compose.yaml). Leave `URL Base` empty. Set `Email Address` to something random. And choose an appropriate `Username` and `Password`.
 
