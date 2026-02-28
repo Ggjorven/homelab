@@ -65,7 +65,7 @@ Error: EACCES: permission denied, mkdir '/app/config/logs/'
    ```
    And your issues will be resolved.
 
-### Jellystat doesn't have permission/Can't create user
+### Jellystat doesn't have permission
 
 If **Jellystat** doesn't have the proper permissions to access the `jellystat` directory, check the docker logs using:
 ```
@@ -137,7 +137,7 @@ error: could not open file "global/pg_filenode.map": Permission denied
    ```
    And your issues will be resolved.
 
-## Jellystat can't create user/Jellystat won't boot
+### Jellystat can't create user/Jellystat won't boot
 
 If **Jellystat** can't create a new user in **Jellystat**, check the docker logs using:
 ```
