@@ -164,6 +164,17 @@ Configuration steps:
 https://intro-skipper.org/manifest.json
 ```
 
+##### Segment Editor
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+###### Manifest:
+```
+https://intro-skipper.org/manifest.json
+```
+
 ##### InPlayerEpisodePreview
 
 Configuration steps:
@@ -187,6 +198,14 @@ https://www.iamparadox.dev/jellyfin/plugins/manifest.json
 ```
 
 ##### Subtitles Extract
+
+Subtitles Extract is located in the default **Stable Jellyfin** repository.
+
+##### Covert Art Archive
+
+Subtitles Extract is located in the default **Stable Jellyfin** repository.
+
+##### TheTVDB
 
 Subtitles Extract is located in the default **Stable Jellyfin** repository.
 
