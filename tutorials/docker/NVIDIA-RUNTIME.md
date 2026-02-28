@@ -12,13 +12,18 @@ gpus: all
 
 ## Steps
 
-1. Before we can install the nvidia-runtime we must add the NVIDIA repository. Before that we must retrieve the GPG key like so:
+1. For ease of installation run these commands as root:
+    ```
+    su root
+    ```
+
+2. Before we can install the nvidia-runtime we must add the NVIDIA repository. Before that we must retrieve the GPG key like so:
     ```
     mkdir -p /usr/share/keyrings
     curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
     ```
 
-2. Now we'll add the repository:
+3. Now we'll add the repository:
     ```
     distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
     curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
@@ -26,19 +31,19 @@ gpus: all
     tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
     ```
    
-3. Now install the container toolkit:
+4. Now install the container toolkit:
     ```
     sudo apt update
     sudo apt install -y nvidia-container-toolkit
     ```
 
-4. Configure docker to use the NVIDIA runtime:
+5. Configure docker to use the NVIDIA runtime:
     ```
     nvidia-ctk runtime configure --runtime=docker
     systemctl restart docker
     ```
 
-5. Verify its install with:
+6. Verify its install with:
     ```
     docker info | grep -i runtime
     ```
