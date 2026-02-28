@@ -84,7 +84,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     ...
     INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
     ```
-    If you don't see this output checkout the [debugging guide](DEBUGGING.md).
+    If you don't see this output checkout the [debugging guide#forwarded-port-not-showing-up](DEBUGGING.md).
 
 5. To double check the port is actually open run this:
     ```
