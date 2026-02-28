@@ -49,7 +49,8 @@ Before we can create our `media stack` on our `docker` **Proxmox LXC**. We must 
     ```
     JELLYSTAT_POSTGRES_USER=username
     JELLYSTAT_POSTGRES_PASSWORD=password
-    JELLYSTAT_JWT_SECRET=secret    ```
+    JELLYSTAT_JWT_SECRET=secret
+    ```
 
 6. We are now ready to start our docker stack.
     ```
