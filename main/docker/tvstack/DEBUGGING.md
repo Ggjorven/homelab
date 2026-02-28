@@ -34,17 +34,28 @@ If **Dispatcharr** doesn't have the proper permissions to access the `dispatchar
 docker logs dispatcharr
 ```
 
-1. To fix this go to the `tvstack`.
-   ```
-   cd ~/docker
-   cd tvstack
-   ```
+1. Roll back the **Dispatcharr** image to and older version. Navigate to the proper directory:
+    ```
+    cd ~/docker
+    cd musicstack
+    ```
+  
+2. Open the compose file:
+    ```
+    nano compose.yaml
+    ```
 
-2. Now change the permissions of the `dispatcharr` directory:
-   ```
-   sudo chown -R 1000:1000 dispatcharr/
-   ```
-   And your issues will be resolved.
+3. Replace:
+    ```
+    image: deluan/navidrome:latest
+    ```
+    With:
+    ```
+    image: deluan/navidrome:0.20.0
+    ```
+    Or any other older version.
+
+Related github issues: [#721](https://github.com/Dispatcharr/Dispatcharr/issues/721)
 
 ## Helping others
 
