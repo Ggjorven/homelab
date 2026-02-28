@@ -67,7 +67,7 @@ Error: EACCES: permission denied, mkdir '/app/config/logs/'
 
 ### Jellystat doesn't have permission/Can't create user
 
-If **Jellystat** doesn't have the proper permissions to access the `jellystat` directory or when creating a user in **Jellystat** nothing happens, check the docker logs using:
+If **Jellystat** doesn't have the proper permissions to access the `jellystat` directory, check the docker logs using:
 ```
 docker logs jellystat
 ```
@@ -75,6 +75,54 @@ You'll see something like:
 ```
 [JELLYSTAT]: Error occurred while executing query: could not open file "base/xxxxx/xxxxx_fsm": Permission denied
 [JELLYSTAT]: Error occurred while executing query: could not open file "global/pg_filenode.map": Permission denied
+```
+or
+```
+error: could not open file "global/pg_filenode.map": Permission denied
+    at Parser.parseErrorMessage (/app/node_modules/pg-protocol/dist/parser.js:285:98)
+    at Parser.handlePacket (/app/node_modules/pg-protocol/dist/parser.js:122:29)
+    at Parser.parse (/app/node_modules/pg-protocol/dist/parser.js:35:38)
+    at Socket.<anonymous> (/app/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[JELLYSTAT] Database exists. Skipping creation
+FS-related option specified for migration configuration. This resets migrationSource to default FsMigrations
+FS-related option specified for migration configuration. This resets migrationSource to default FsMigrations
+/app/node_modules/pg-protocol/dist/parser.js:285
+        const message = name === 'notice' ? new messages_1.NoticeMessage(length, messageValue) : new messages_1.DatabaseError(messageValue, length, name);
+                                                                                                 ^
+
+error: could not open file "global/pg_filenode.map": Permission denied
+    at Parser.parseErrorMessage (/app/node_modules/pg-protocol/dist/parser.js:285:98)
+    at Parser.handlePacket (/app/node_modules/pg-protocol/dist/parser.js:122:29)
+    at Parser.parse (/app/node_modules/pg-protocol/dist/parser.js:35:38)
+    at Socket.<anonymous> (/app/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at TCP.onStreamRead (node:internal/stream_base_commons:189:23) {
+  length: 127,
+  severity: 'FATAL',
+  code: '42501',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'relmapper.c',
+  line: '790',
+  routine: 'read_relmap_file'
+}
 ```
 
 1. To fix this go to the `mediastack`.
@@ -88,6 +136,31 @@ You'll see something like:
    chown -r 1000:1000 jellystat/
    ```
    And your issues will be resolved.
+
+## Jellystat can't create user/Jellystat won't boot
+
+If **Jellystat** can't create a new user in **Jellystat**, check the docker logs using:
+```
+docker logs jellystat
+```
+And:
+```
+docker logs jellystat-db
+```
+
+You'll see something like:
+```
+2026-02-28 18:32:16.164 UTC [1046] FATAL:  could not open file "global/pg_filenode.map": Permission denied
+2026-02-28 18:32:16.172 UTC [1047] FATAL:  could not open file "global/pg_filenode.map": Permission denied
+2026-02-28 18:32:16.700 UTC [27] LOG:  checkpoint starting: time
+2026-02-28 18:32:16.700 UTC [27] ERROR:  could not open directory "pg_logical/snapshots": Permission denied
+```
+
+1. Make sure the user in the docker compose.yaml is set properly
+    ```
+    # Or use the .env arguments
+    user: XXXX:XXXX
+    ```
 
 ## Helping others
 
