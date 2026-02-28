@@ -112,6 +112,7 @@ And intel [here](https://www.intel.com/content/www/us/en/docs/onevpl/developer-r
 
 If you use a seperate drive for transcoding, cache and metadata. Make sure to give it the right permissions like so:
 ```
+chown -R 100000:100000 /mnt/jellyfin-cache
 chmod -R 777 /mnt/jellyfin-cache
 ```
 
