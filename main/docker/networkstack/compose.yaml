@@ -5,6 +5,8 @@ networks:
       config:
         - subnet: 172.39.0.0/24
 
+# TODO: Name the docker compose stacks
+
 services:
   deunhealth:
     image: qmcgaw/deunhealth
