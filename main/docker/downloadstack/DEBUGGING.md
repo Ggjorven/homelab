@@ -23,7 +23,7 @@ PermissionError: [Errno 13] Permission denied: '/config/queue'
 
 2. Now change the permissions of the `metube` directory:
    ```
-   chown -r 1000:1000 metube/
+   sudo chown -R 1000:1000 metube/
    ```
    And your issues will be resolved.
    
