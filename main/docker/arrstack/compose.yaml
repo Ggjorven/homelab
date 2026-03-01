@@ -15,6 +15,13 @@ services:
       - ./prowlarr:/config
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
+    healthcheck:
+      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:9696 || exit 1"
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   sonarr:
@@ -34,6 +41,13 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.30
+    healthcheck:
+      test: curl -s http://localhost:8989 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true 
     restart: unless-stopped
 
   radarr:
@@ -53,6 +67,13 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.31
+    healthcheck:
+      test: curl -s http://localhost:7878 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   lidarr:
@@ -72,6 +93,13 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.32
+    healthcheck:
+      test: curl -s http://localhost:8686 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   bazarr:
@@ -91,4 +119,11 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.33
+    healthcheck:
+      test: curl -s http://localhost:6767 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
