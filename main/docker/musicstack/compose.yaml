@@ -21,4 +21,11 @@ services:
       - ./navidrome:/data
       - /path/to/your/music/folder:/music:ro
       - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: curl -s http://localhost:4533 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
