@@ -27,6 +27,13 @@ services:
       - 1900:1900/udp # Client Discovery
     runtime: nvidia
     gpus: all
+    healthcheck:
+      test: curl -s http://localhost:8096 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   seerr:
@@ -50,10 +57,11 @@ services:
       - jellyfin
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
-      start_period: 20s
-      timeout: 3s
-      interval: 15s
+      timeout: 10
+      interval: 30s
       retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   jellystat-db:
@@ -94,6 +102,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 3000:3000
-    restart: unless-stopped
     depends_on:
       - jellystat-db
+    healthcheck:
+      test: curl -s http://localhost:3000 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
