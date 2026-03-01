@@ -189,6 +189,10 @@ You'll see something like:
     user: XXXX:XXXX
     ```
 
+### Jellyfin TV Show episodes are just "Episode X"
+
+To fix this disable TheTVDB for Episode Fetchers in the Series library.
+
 ## Helping others
 
 If you have found more issues while following the steps and figured it out please create a pull request with your issue and it's debugging steps and resolution.
