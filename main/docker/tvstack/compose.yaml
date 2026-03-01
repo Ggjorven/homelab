@@ -27,6 +27,13 @@ services:
     runtime: nvidia
     gpus: all
     network_mode: container:gluetun
+    healthcheck:
+      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:9191 || exit 1"
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
 # Note: This file will use the .60-.69 range for homelabnetwork ip-addresses
