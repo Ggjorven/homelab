@@ -4,9 +4,30 @@ This file exists with the purpose of helping you debug your issues with `arrstac
 
 ## Issues
 
-### Issue A
+### Prowlarr can't find certain indexers
 
-// TODO: An issue
+Some indexers are removed due to supposed no longer working.  
+They can be gotten back by rolling back to an older version.
+
+1. Open the proper directory:
+  ```
+  cd ~/docker
+  cd arrstack
+  ```
+
+2. Open the compose file:
+  ```
+  nano compose.yaml
+  ```
+
+3. Change:
+  ```
+  image: lscr.io/linuxserver/prowlarr:latest
+  ```
+  To:
+  ```
+  image: lscr.io/linuxserver/prowlarr:2.3.0
+  ```
 
 ## Helping others
 
