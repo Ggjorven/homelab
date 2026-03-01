@@ -1,6 +1,6 @@
 # Network Stack
 
-**Network Stack** is a colletion of network related services for my **Docker Compose** stacks, this branch contains the installation instructions for installing these using **Docker Compose**.
+**Network Stack** is a collection of network related services + the essentials for my **Docker Compose** stacks, this branch contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
