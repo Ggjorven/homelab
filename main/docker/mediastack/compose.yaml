@@ -8,8 +8,8 @@ services:
     container_name: jellyfin
     # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      - PUID=0 # ${PUID} # Jellyfin needs root for GPU access
+      - PGID=0 # ${PGID} # Jellyfin needs root for GPU access 
       - TZ=${TZ}
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
