@@ -18,11 +18,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     healthcheck:
-      test: ping -c 1 www.google.com || exit 1
-      interval: 60s
-      retries: 3
-      start_period: 20s
+      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:8080 || exit 1"
+      interval: 20s
       timeout: 10s
+      retries: 5
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
@@ -40,6 +39,13 @@ services:
       - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
+    healthcheck:
+      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:6789 || exit 1"
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true 
     restart: unless-stopped
 
   metube:
@@ -64,4 +70,11 @@ services:
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.20
+    healthcheck:
+      test: curl -s http://localhost:8081 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
