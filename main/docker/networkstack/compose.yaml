@@ -79,8 +79,8 @@ services:
     healthcheck:
       test: curl -s http://localhost:8191 || exit 1
       interval: 30s
-      retries: 6
+      retries: 3
       timeout: 10s
-    # labels:
-    #   - deunhealth.restart.on.unhealthy=true
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
