@@ -109,6 +109,43 @@ To configure **MeTube** you need to go to port `8081` of the ip address of the *
 
 1. Change the download folder to a directory of your choosing. Under **Advanced Options**.
 
+2. (Optional) Some platforms require cookies to be able to download videos. This can be done by retrieving cookies from your browser using these extensions:
+   - [Export Cookies](https://addons.mozilla.org/en-US/firefox/addon/export-cookies-txt/) for Firefox
+   - [Get Cookies](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) for Chrome
+  
+3. Copy the contents of the exported file, likely called `cookies.txt`.
+
+4. Go the **Proxmox LXC**'s shell and go to `downloadstack`:
+    ```
+    cd ~/docker
+    cd downloadstack
+    ```
+
+5. Create a folder under `metube` for the cookies:
+    ```
+    mkdir -p metube/cookies
+    ```
+
+6. Create a `cookies.txt` file and paste your contents inside:
+    ```
+    nano metube/cookies/cookies.txt
+    ```
+
+7. Modify the `compose.yaml` file:
+    ```
+    nano compose.yaml
+    ```
+    And add this line under `volumes`:
+    ```
+    - ./metube/cookies:/cookies
+    ```
+    Now we need to tell yt-dlp to use these cookies, so under `environment` add:
+    ```
+    - YTDL_OPTIONS={"cookiefile":"/cookies/cookies.txt"}
+    ```
+
+8. `metube` will now use your cookies which will help bypass some bot checks.
+
 ## Start on boot-up
 
 To make `downloadstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
