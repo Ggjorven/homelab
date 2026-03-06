@@ -14,6 +14,7 @@ This folder contains the installation instructions and configuration files used 
 - [`omv`](main/omv/README.md)
 - [`docker`](main/docker/README.md)
     - [`networkstack`](main/docker/networkstack/README.md)
+    - [`monitoringstack`](main/docker/monitoringstack/README.md)
     - [`downloadstack`](main/docker/downloadstack/README.md)
     - [`arrstack`](main/docker/arrstack/README.md)
     - [`mediastack`](main/docker/mediastack/README.md)

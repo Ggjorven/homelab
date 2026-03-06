@@ -15,7 +15,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.40
+        ipv4_address: 172.39.0.50
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -47,7 +47,7 @@ services:
       - TZ=${TZ}
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.41
+        ipv4_address: 172.39.0.51
     volumes:
       - ./seerr:/app/config
       - /etc/localtime:/etc/localtime:ro
@@ -76,7 +76,7 @@ services:
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.42
+        ipv4_address: 172.39.0.52
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
     healthcheck:
@@ -103,7 +103,7 @@ services:
       - JWT_SECRET=${JELLYSTAT_JWT_SECRET}
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.43
+        ipv4_address: 172.39.0.53
     volumes:
       - ./jellystat/backup-data:/app/backend/backup-data
       - /etc/localtime:/etc/localtime:ro

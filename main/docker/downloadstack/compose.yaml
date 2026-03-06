@@ -69,7 +69,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.20
+        ipv4_address: 172.39.0.30
     healthcheck:
       test: curl -s http://localhost:8081 || exit 1
       interval: 30s

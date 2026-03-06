@@ -1,6 +1,6 @@
 # Download Stack
 
-The download stack is collection of services that automate downloading of certain files, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
+The download stack is collection of services that automate downloading of certain files, this folder contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
 
 ## Prerequisites
 

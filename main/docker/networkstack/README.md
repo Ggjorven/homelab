@@ -1,6 +1,6 @@
 # Network Stack
 
-**Network Stack** is a collection of network related services + the essentials for my **Docker Compose** stacks, this branch contains the installation instructions for installing these using **Docker Compose**.
+**Network Stack** is a collection of network related services + the essentials for my **Docker Compose** stacks, this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
@@ -138,13 +138,6 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
 
-### Scrutiny
-
-To check the health of disks I have added a dashboard service to this stack, but have it commented out by default since it doesn't really belong here, but I didn't know where else to put it. To enable it go into the compose file and remove the `#`'s.  
-Below are the instructions for setting it up.
-
-1. // TODO: ...
-
 ## Start on boot-up
 
 To make `networkstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
@@ -203,3 +196,4 @@ If you have any issues setting up `networkstack` checkout my [debugging guide](D
 
 - [Docker](https://www.docker.com/) - Hardware accelerated containers
 - [Gluetun](https://gluetun.com/) - VPN Container
+- [Flaresolverr](https://github.com/FlareSolverr/FlareSolverr) - Cloudfare solver

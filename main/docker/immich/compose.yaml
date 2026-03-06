@@ -25,7 +25,7 @@ services:
       - immich_database
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.70
+        ipv4_address: 172.39.0.80
     gpus: all
     runtime: nvidia
     healthcheck:

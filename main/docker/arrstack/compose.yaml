@@ -38,7 +38,7 @@ services:
       - 8989:8989
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.30
+        ipv4_address: 172.39.0.40
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8989 >/dev/null 2>&1 && curl -s http://localhost:8989/ping"
       interval: 30s
@@ -64,7 +64,7 @@ services:
       - 7878:7878
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.31
+        ipv4_address: 172.39.0.41
     healthcheck:
       test: sh -c "wget -qO- http://localhost:7878 >/dev/null 2>&1 && curl -s http://localhost:7878/ping"
       interval: 30s
@@ -90,7 +90,7 @@ services:
       - 8686:8686
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.32
+        ipv4_address: 172.39.0.42
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8686 >/dev/null 2>&1 && curl -s http://localhost:8686/ping"
       interval: 30s
@@ -118,7 +118,7 @@ services:
       - 6767:6767
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.33
+        ipv4_address: 172.39.0.43
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1
       interval: 30s

@@ -1,29 +1,27 @@
-# Music Stack
+# Monitoring Stack
 
-**Music Stack** is a collection of Music streaming tools for streaming my music from any device, this folder contains the installation instructions for installing **Navidrome & More** using **Docker Compose**.
+**Monitoring Stack** is a collection of monitoring related services, this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
-Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `network stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
-- [`omv`](../../omv/README.md) + extras.
 - [`docker`](../README.md)
-- [`networkstack`](../networkstack/README.md)
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `musicstack`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `networkstack`:
     ```
     cd ~
     cd docker
-    mkdir -p musicstack
-    cd musicstack
+    mkdir -p networkstack
+    cd networkstack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/musicstack/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/musicstack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
@@ -37,34 +35,20 @@ Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must 
     nano .env
     ```
 
-4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
-
-5. Now open the compose file and modify the path pointing to the music:
-    ```
-    nano compose.yaml
-    ```
-    Change this line:
-    ```
-    - /path/to/your/music/folder:/music:ro
-    ```
-    // TODO: Replace this with creating a Library in the WebUI
-
-6. We are now ready to start our docker stack.
-    ```
-    docker compose up -d
-    ```
+4. Modify // TODO: ...
 
 ## Configuration
 
-### Navidrome
+### Scrutiny
 
-To configure **Navidrome** you need to go to port `9191` of the ip address of the **Proxmox LXC**.
+To check the health of disks I have added a dashboard service to this stack, but have it commented out by default since it doesn't really belong here, but I didn't know where else to put it. To enable it go into the compose file and remove the `#`'s.  
+Below are the instructions for setting it up.
 
 1. // TODO: ...
 
 ## Start on boot-up
 
-To make `musicstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
+To make `networkstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
 
 1. First make sure we have a folder for our script:
     ```
@@ -85,7 +69,7 @@ To make `musicstack` start-up on boot we can set up a **systemd** service. I hav
     Either add a `docker compose up -d` for your new stack or replace the existing one.  
     Modify `<username>` to reflect your linux user's username.
     ```
-    cd /home/<username>/docker/musicstack
+    cd /home/<username>/docker/gluetun
     docker compose up -d
     ```
     Eventually this script will contain all the stacks that need to start on start-up.
@@ -114,9 +98,9 @@ To make `musicstack` start-up on boot we can set up a **systemd** service. I hav
 
 ## Debugging
 
-If you have any issues setting up `musicstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `networkstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
 - [Docker](https://www.docker.com/) - Hardware accelerated containers
-- [Navidrome](https://www.navidrome.org/) - Music streaming backend
+- [Scrutiny](https://github.com/AnalogJ/scrutiny) - Disk monitoring 

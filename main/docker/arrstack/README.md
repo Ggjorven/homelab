@@ -1,6 +1,6 @@
 # *Arr Stack
 
-An *arr stack is collection of services that automate the management of personal media, this branch contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
+An *arr stack is collection of services that automate the management of personal media, this folder contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
 These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
 ## Prerequisites
@@ -100,7 +100,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 2. Go back to **Prowlarr** and add an application. Paste in the **API Key** under **API Key**. Set the **Prowlarr** server to your **Prowlarr**'s address. Which most likely is `172.39.0.10` on port `9696` as defined in the [compose file](../networkstack/compose.yaml). 
 
-3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.31` on port `7878`, **Sonarr** = `172.39.0.30` on port `8989` & **Lidarr** = `172.39.0.32` on port `8686`.
+3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.41` on port `7878`, **Sonarr** = `172.39.0.40` on port `8989` & **Lidarr** = `172.39.0.42` on port `8686`.
 
 4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
 
@@ -185,7 +185,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-6. Set the `Address` to `172.39.0.30` as defined in the [compose file](compose.yaml)
+6. Set the `Address` to `172.39.0.40` as defined in the [compose file](compose.yaml)
 
 7. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 
@@ -193,7 +193,7 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-10. Set the `Address` to `172.39.0.31` as defined in the [compose file](compose.yaml)
+10. Set the `Address` to `172.39.0.41` as defined in the [compose file](compose.yaml)
 
 11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
 

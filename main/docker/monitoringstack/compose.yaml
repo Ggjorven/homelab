@@ -1,0 +1,54 @@
+networks:
+  homelabnetwork:
+    external: true
+
+services:
+  # TODO: Add notification app
+  # TODO: Add check updates app
+
+  scrutiny-db:
+    image: influxdb:2.8
+    container_name: scrutiny-db
+    ports:
+      - 8083:8086
+    environement:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./scrutiny-db:/var/lib/influxdb2
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.20
+    healthcheck:
+      test: curl -s http://localhost:8086/health
+      interval: 5s
+      timeout: 10s
+      retries: 20
+    restart: unless-stopped
+
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-web
+    container_name: scrutiny
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SCRUTINY_WEB_INFLUXDB_HOST=172.39.0.20
+    volumes:
+      - ./scrutiny:/opt/scrutiny/config
+    ports:
+      - 8082:8080
+    depends_on:
+      scrutiny-db:
+        condition: service_healthy
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.21
+    healthcheck:
+      test: curl -s http://localhost:8080/api/health
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
