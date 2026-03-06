@@ -185,7 +185,9 @@ To configure **Soularr** you need to edit a `config.ini` file under `soularr/con
     nano config.ini
     ```
 
-3. // TODO: ...
+3. Set the `api_key` under `[Lidarr]` to the API key that can be found under **Settings** -> **General** -> **API Key** on the **Proxmox LXC**'s IP on port `8686`.
+
+4. All set!
 
 ### Bazarr
 
