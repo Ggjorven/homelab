@@ -8,8 +8,8 @@ services:
     container_name: navidrome
     user: ${PUID}:${PGID}   
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}    
       - ND_LOGLEVEL=info
     networks:

@@ -7,9 +7,6 @@ services:
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     container_name: immich_server
     user: ${PUID}:${PGID}   
-    volumes:
-      - ${IMMICH_UPLOAD_LOCATION}:/data
-      - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -18,6 +15,9 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
       - DB_DATA_LOCATION=./immich-postgres
+    volumes:
+      - ${IMMICH_UPLOAD_LOCATION}:/data
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 2283:2283
     depends_on:

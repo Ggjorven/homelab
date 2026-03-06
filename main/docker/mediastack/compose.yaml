@@ -42,8 +42,8 @@ services:
     user: ${PUID}:${PGID}   
     init: true
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
     networks:
       homelabnetwork:
@@ -69,8 +69,8 @@ services:
     container_name: jellystat-db
     user: ${PUID}:${PGID}   
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ} 
       - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
@@ -93,8 +93,8 @@ services:
     container_name: jellystat
     user: ${PUID}:${PGID}   
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
