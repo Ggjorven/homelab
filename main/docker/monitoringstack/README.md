@@ -79,8 +79,8 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
 14. Now enable these services using:
     ```
     systemctl daemon-reload
-    systemctl enable scrutiny-timer
-    systemctl start scrutiny-timer
+    systemctl enable scrutiny-timer.timer
+    systemctl start scrutiny-timer.timer
     ```
 
 15. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
