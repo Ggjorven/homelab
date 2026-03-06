@@ -120,6 +120,7 @@ services:
       - ./slskd:/app
       - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
       - ${SOULARR_INCOMPLETE_DIRECTORY}:/incomplete
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     # TODO: Healthcheck
     restart: unless-stopped
@@ -133,10 +134,10 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
-      - DOWNLOAD_DIRECTORY=${SOULARR_DOWNLOAD_DIRECTORY}
     volumes:
       - ./soularr:/data
-      - /mnt/nas:/mnt/nas
+      - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
+      - /etc/localtime:/etc/localtime:ro
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.43
