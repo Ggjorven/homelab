@@ -39,9 +39,11 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     nano .env
     ```
 
-4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-5. We are now ready to start our docker stack.
+6. Change the `SOULARR_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+
+7. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -160,6 +162,27 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+
+### Soularr & Slskd
+
+To configure **Slskd** you need to go to port `5030` of the ip address of the **Proxmox LXC**.
+
+1. // TODO: ...
+
+To configure **Soularr** you need to edit a `config.ini` file under `soularr/config.ini`.
+
+1. Download the template file into `soularr`:
+    ```
+    cd soularr
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/config.ini
+    ```
+
+2. Modify the `config.ini` file:
+    ```
+    nano config.ini
+    ```
+
+3. // TODO: ...
 
 ### Bazarr
 

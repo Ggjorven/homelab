@@ -112,9 +112,7 @@ services:
     volumes:
       - ./slskd:/app
       - /mnt/nas:/mnt/nas
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.43
+    network_mode: container:gluetun
     # TODO: Healthcheck
     restart: unless-stopped
 
@@ -126,13 +124,14 @@ services:
       # - PUID=${PUID}
       # - PGID=${PGID}
       - TZ=${TZ}
-      - SCRIPT_INTERVAL=300
+      - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
+      - DOWNLOAD_DIRECTORY=${SOULARR_DOWNLOAD_DIRECTORY}
     volumes:
       - ./soularr:/data
       - /mnt/nas:/mnt/nas
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.44
+        ipv4_address: 172.39.0.43
     # TODO: Healthcheck
     restart: unless-stopped
 
@@ -152,7 +151,7 @@ services:
       - 6767:6767
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.45
+        ipv4_address: 172.39.0.44
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1
       interval: 30s
