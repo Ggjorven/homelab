@@ -122,7 +122,13 @@ services:
       - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
       - ${SOULARR_INCOMPLETE_DIRECTORY}:/incomplete
       - /etc/localtime:/etc/localtime:ro
-    network_mode: container:gluetun
+    ports:
+      - 5030:5030
+      - 5031:5031
+      - 50300:50300
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.43
     # TODO: Healthcheck
     restart: unless-stopped
 
@@ -141,7 +147,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.43
+        ipv4_address: 172.39.0.44
     # TODO: Healthcheck
     restart: unless-stopped
 
@@ -161,7 +167,7 @@ services:
       - 6767:6767
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.44
+        ipv4_address: 172.39.0.45
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1
       interval: 30s

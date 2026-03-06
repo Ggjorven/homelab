@@ -34,9 +34,6 @@ services:
       - 8080:8080 # qbittorrent web interface
       - 6789:6789 # nzbget web interface
       - 9696:9696 # prowlarr web interface
-      - 5030:5030 # slskd http port
-      - 5031:5031 # slskd https port
-      - 50300:50300 # slskd listening port
       - 9191:9191 # dispatcharr web interface
     networks:
       homelabnetwork:
