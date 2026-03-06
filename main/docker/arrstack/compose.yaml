@@ -100,7 +100,41 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  # TODO: Add soularr and soulseek
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    user: ${PUID}:${PGID}
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - SLSKD_REMOTE_CONFIGURATION=true
+    volumes:
+      - ./slskd:/app
+      - /mnt/nas:/mnt/nas
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.43
+    # TODO: Healthcheck
+    restart: unless-stopped
+
+  soularr:
+    image: mrusse08/soularr:latest
+    container_name: soularr
+    user: ${PUID}:${PGID}
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - SCRIPT_INTERVAL=300
+    volumes:
+      - ./soularr:/data
+      - /mnt/nas:/mnt/nas
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.44
+    # TODO: Healthcheck
+    restart: unless-stopped
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -118,7 +152,7 @@ services:
       - 6767:6767
     networks:
       homelabnetwork:
-        ipv4_address: 172.39.0.43
+        ipv4_address: 172.39.0.45
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1
       interval: 30s
