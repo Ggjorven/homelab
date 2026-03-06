@@ -4,9 +4,13 @@ This file exists with the purpose of helping you debug your issues with `monitor
 
 ## Issues
 
-### Issue A
+### High Command Timeout
 
-// TODO: ...
+Seagate drives currently have an issue with `smartmontools` and more specifically `drivedb`.  
+If you see a number like: `4295032833`. Checkout the resources below to make yourself rest easy again.
+
+Github Issues: [#885](https://github.com/AnalogJ/scrutiny/discussions/885) & [#871](https://github.com/AnalogJ/scrutiny/issues/871)
+Articles: [Big scary Raw S.M.A.R.T. values aren’t always bad news!](https://www.disktuna.com/big-scary-raw-s-m-a-r-t-values-arent-always-bad-news/#21475164165)
 
 ## Helping others
 
