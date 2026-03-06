@@ -1,0 +1,9 @@
+[Unit]
+Description="Scrutiny Collector"
+Requires=scrutiny.timer
+
+[Service]
+Type=simple
+ExecStart=/node/scripts/scrutiny.sh
+User=root
+Group=root

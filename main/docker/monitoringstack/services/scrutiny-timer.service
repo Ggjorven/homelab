@@ -1,0 +1,10 @@
+[Unit]
+Description="Timer for the scrutiny.service"
+
+[Timer]
+Unit=scrutiny.service
+OnBootSec=5min
+OnUnitActiveSec=15min
+
+[Install]
+WantedBy=timers.target

@@ -36,16 +36,67 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     nano .env
     ```
 
-4. Modify // TODO: ...
+5. Modify the `username` and `password` to something more secure.
+
+6. Set a more secure `SCRUTINY_DATABASE_TOKEN`. ([hint](https://randomkeygen.com/jwt-secret))
+
+7. Now we need to install the service that actually tells our **Docker LXC** what state our disks are in. So, navigate to the **Proxmox Node**'s shell.
+
+8. To install **Scrutiny** and its dependencies I have made a [script](scripts/install-scrutiny.sh).
+    ```
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/scripts/install-scrutiny.sh | bash -x
+    ```
+
+9. Now that we've intalled **Scrutiny** we need to setup the script and services that send the data to our **Docker LXC**. Create a folder to work in:
+    ```
+    mkdir -p /node/scripts
+    cd /node/scripts
+    ```
+
+10. Now download the script that sends the data to our **Docker LXC**.
+    ```
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/scripts/scrutiny.sh
+    ```
+
+11. Open up the file and modify the `SCRUTINY_IP`:
+    ```
+    nano scrutiny.sh
+    ```
+    Change `192.168.xxx.xxx` to your **Docker LXC**'s ip.
+
+12. Now make this script executable:
+    ```
+    chmod +x scrutiny.sh
+    ```
+
+13. To make this service run on start-up and on an interval I have created some systemd services. Download these using:
+    ```
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny-timer.service
+    ```
+
+14. Now enable these services using:
+    ```
+    systemctl daemon-reload
+    systemctl enable scrutiny-timer
+    systemctl enable scrutiny
+    systemctl start scrutiny-timer
+    systemctl start scrutiny
+    ```
+
+15. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
+    ```
+    cd ~/docker
+    cd monitoringstack
+    docker compose up -d
+    ```
 
 ## Configuration
 
 ### Scrutiny
 
-To check the health of disks I have added a dashboard service to this stack, but have it commented out by default since it doesn't really belong here, but I didn't know where else to put it. To enable it go into the compose file and remove the `#`'s.  
-Below are the instructions for setting it up.
-
-1. // TODO: ...
+**Scrutiny** doesn't require any more configuration after setting up the `monitoringstack`.
 
 ## Start on boot-up
 
