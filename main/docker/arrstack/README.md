@@ -43,7 +43,9 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 6. Change the `SOULARR_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
 
-7. We are now ready to start our docker stack.
+7. Do the same for `SOULARR_INCOMPLETE_DIRECTORY`, `SOULSEEK_USERNAME` and `SOULSEEK_PASSWORD`. (Note: You can choose a `username` and `password` at random.)
+
+8. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -163,11 +165,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-### Soularr & Slskd
-
-To configure **Slskd** you need to go to port `5030` of the ip address of the **Proxmox LXC**.
-
-1. // TODO: ...
+### Soularr 
 
 To configure **Soularr** you need to edit a `config.ini` file under `soularr/config.ini`.
 

@@ -108,10 +108,18 @@ services:
       # - PUID=${PUID}
       # - PGID=${PGID}
       - TZ=${TZ}
+      - SLSKD_SLSK_USERNAME=${SOULSEEK_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SOULSEEK_PASSWORD}
+      # - SLSKD_SLSK_DESCRIPTION=Cool description about you
+      - SLSKD_DOWNLOADS_DIR=/downloads
+      - SLSKD_INCOMPLETE_DIR=/incomplete
+      - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
+      - SLSKD_SLSK_LISTEN_PORT=50300
       - SLSKD_REMOTE_CONFIGURATION=true
     volumes:
       - ./slskd:/app
-      - /mnt/nas:/mnt/nas
+      - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
+      - ${SOULARR_INCOMPLETE_DIRECTORY}:/incomplete
     network_mode: container:gluetun
     # TODO: Healthcheck
     restart: unless-stopped
