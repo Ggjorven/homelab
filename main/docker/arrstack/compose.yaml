@@ -85,6 +85,7 @@ services:
     volumes:
       - ./lidarr:/config
       - /mnt/nas:/mnt/nas
+      - ${SOULARR_DOWNLOAD_DIRECTORY}:/soularr/downloads
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
