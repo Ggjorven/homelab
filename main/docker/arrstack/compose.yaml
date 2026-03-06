@@ -116,6 +116,7 @@ services:
       - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
       - SLSKD_SLSK_LISTEN_PORT=50300
       - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
     volumes:
       - ./slskd:/app
       - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
