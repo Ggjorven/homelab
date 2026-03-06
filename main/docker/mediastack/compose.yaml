@@ -28,7 +28,7 @@ services:
     runtime: nvidia
     gpus: all
     healthcheck:
-      test: curl -s http://localhost:8096 || exit 1
+      test: curl -s http://localhost:8096/health || exit 1
       interval: 30s
       timeout: 10s
       retries: 3
@@ -79,6 +79,13 @@ services:
         ipv4_address: 172.39.0.42
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: "pg_isready -U ${POSTGRES_USER}"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   jellystat:
@@ -105,7 +112,7 @@ services:
     depends_on:
       - jellystat-db
     healthcheck:
-      test: curl -s http://localhost:3000 || exit 1
+      test: wget -qO- http://localhost:3000 || exit 1
       interval: 30s
       timeout: 10s
       retries: 3

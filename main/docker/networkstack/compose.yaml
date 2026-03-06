@@ -79,7 +79,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:gluetun
     healthcheck:
-      test: curl -s http://localhost:8191 || exit 1
+      test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health || exit 1"
       interval: 30s
       retries: 3
       timeout: 10s
