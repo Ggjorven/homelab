@@ -33,6 +33,8 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
 # Note: This file will use the .70-.79 range for homelabnetwork ip-addresses
