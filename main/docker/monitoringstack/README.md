@@ -80,9 +80,7 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     ```
     systemctl daemon-reload
     systemctl enable scrutiny-timer
-    systemctl enable scrutiny
     systemctl start scrutiny-timer
-    systemctl start scrutiny
     ```
 
 15. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
