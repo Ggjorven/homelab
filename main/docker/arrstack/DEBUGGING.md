@@ -47,6 +47,10 @@ Filesystem exception: Directory /app is not writeable: Access to the path '/app/
 Filesystem exception: Directory /app is not writeable: Access to the path '/app/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' is denied.
 Filesystem exception: Directory /app is not writeable: Access to the path '/app/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' is denied.
 ```
+Or:
+```
+PermissionError: [Errno 13] Permission denied: '/data/.current_page.txt'
+```
 
 1. To fix this go to the `arrstack`.
    ```
