@@ -4,24 +4,25 @@
 
 ## Prerequisites
 
-Before we can create our `network stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`docker`](../README.md)
+- [`networkstack`](../networkstack/README.md)
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `networkstack`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `monitoringstack`:
     ```
     cd ~
     cd docker
-    mkdir -p networkstack
-    cd networkstack
+    mkdir -p monitoringstack
+    cd monitoringstack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
@@ -69,7 +70,7 @@ To make `networkstack` start-up on boot we can set up a **systemd** service. I h
     Either add a `docker compose up -d` for your new stack or replace the existing one.  
     Modify `<username>` to reflect your linux user's username.
     ```
-    cd /home/<username>/docker/gluetun
+    cd /home/<username>/docker/monitoringstack
     docker compose up -d
     ```
     Eventually this script will contain all the stacks that need to start on start-up.

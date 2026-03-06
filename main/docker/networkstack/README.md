@@ -161,7 +161,7 @@ To make `networkstack` start-up on boot we can set up a **systemd** service. I h
     Either add a `docker compose up -d` for your new stack or replace the existing one.  
     Modify `<username>` to reflect your linux user's username.
     ```
-    cd /home/<username>/docker/gluetun
+    cd /home/<username>/docker/networkstack
     docker compose up -d
     ```
     Eventually this script will contain all the stacks that need to start on start-up.
