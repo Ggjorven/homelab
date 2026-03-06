@@ -11,7 +11,7 @@ services:
     container_name: scrutiny-db
     ports:
       - 8083:8086
-    environement:
+    environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
