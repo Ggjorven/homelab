@@ -73,14 +73,14 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.service
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny-timer.timer
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.timer
     ```
 
 14. Now enable these services using:
     ```
     systemctl daemon-reload
-    systemctl enable scrutiny-timer.timer
-    systemctl start scrutiny-timer.timer
+    systemctl enable scrutiny.timer
+    systemctl start scrutiny.timer
     ```
 
 15. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
