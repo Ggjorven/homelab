@@ -177,12 +177,12 @@ To configure **Soularr** you need to edit a `config.ini` file under `soularr/con
 1. Download the template file into `soularr`:
     ```
     cd soularr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/config.ini
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/config.ini
     ```
 
 2. Modify the `config.ini` file:
     ```
-    nano config.ini
+    sudo nano config.ini
     ```
 
 3. Set the `api_key` under `[Lidarr]` to the API key that can be found under **Settings** -> **General** -> **API Key** on the **Proxmox LXC**'s IP on port `8686`.
