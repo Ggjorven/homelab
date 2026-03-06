@@ -19,7 +19,8 @@ services:
       - 4533:4533
     volumes:
       - ./navidrome:/data
-      - /path/to/your/music/folder:/music:ro
+      - ${MUSIC_FOLDER}:/music:ro
+      # - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
     healthcheck:
       test: wget -qO- http://localhost:4533 || exit 1
