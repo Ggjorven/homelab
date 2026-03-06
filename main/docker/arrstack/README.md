@@ -322,3 +322,5 @@ If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUG
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
 - [Lidarr](https://lidarr.audio/) - Music organizer/manager
+- [Soularr](https://github.com/mrusse/soularr) - Interface between Lidarr and Slskd
+- [Slskd](https://github.com/slskd/slskd) - Soulseek client
