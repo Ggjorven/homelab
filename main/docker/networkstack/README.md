@@ -51,6 +51,8 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 ## Configuration
 
+### Gluetun
+
 `gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also support port forwarding. I have added some instructions for that here.
 
 1. Go to the `networkstack` folder:
@@ -136,9 +138,16 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
 
+### Scrutiny
+
+To check the health of disks I have added a dashboard service to this stack, but have it commented out by default since it doesn't really belong here, but I didn't know where else to put it. To enable it go into the compose file and remove the `#`'s.  
+Below are the instructions for setting it up.
+
+1. // TODO: ...
+
 ## Start on boot-up
 
-To make `gluetun` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
+To make `networkstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
 
 1. First make sure we have a folder for our script:
     ```
