@@ -12,11 +12,18 @@ services:
     ports:
       - 8083:8086
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${SCRUTINY_DATABASE_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${SCRUTINY_DATABASE_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=homelab
+      - DOCKER_INFLUXDB_INIT_BUCKET=scrutiny
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${SCRUTINY_DATABASE_TOKEN} 
     volumes:
-      - ./scrutiny-db:/var/lib/influxdb2
+      - ./scrutiny-db/database:/var/lib/influxdb2
+      - ./scrutiny-db/config:/etc/influxdb2
     networks:
       homelabnetwork:
         ipv4_address: 172.39.0.20
@@ -31,10 +38,16 @@ services:
     image: ghcr.io/analogj/scrutiny:master-web
     container_name: scrutiny
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - SCRUTINY_WEB_INFLUXDB_HOST=172.39.0.20
+      - SCRUTINY_WEB_INFLUXDB_TOKEN=${SCRUTINY_DATABASE_TOKEN}
+      - SCRUTINY_WEB_INFLUXDB_ORG=homelab
+      - SCRUTINY_WEB_INFLUXDB_BUCKET=scrutiny
+      # Optional but highly recommended to notify you in case of a problem; space-separated list of shoutrrr uri's
+      # https://github.com/AnalogJ/scrutiny/blob/master/docs/TROUBLESHOOTING_NOTIFICATIONS.md
+      # - SCRUTINY_NOTIFY_URLS=http://gotify:80/message?token=a-gotify-token ntfy://username:password@host:port/topic
     volumes:
       - ./scrutiny:/opt/scrutiny/config
     ports:
