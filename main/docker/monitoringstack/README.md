@@ -73,7 +73,7 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.service
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny-timer.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny-timer.timer
     ```
 
 14. Now enable these services using:
