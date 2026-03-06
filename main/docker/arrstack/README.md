@@ -187,7 +187,9 @@ To configure **Soularr** you need to edit a `config.ini` file under `soularr/con
 
 3. Set the `api_key` under `[Lidarr]` to the API key that can be found under **Settings** -> **General** -> **API Key** on the **Proxmox LXC**'s IP on port `8686`.
 
-4. All set!
+4. Also set the `api_key` under `[Slskd]` to the one defined in the `.env` file as `SLSKD_API_KEY`.
+
+5. All set! **Soularr** will now download monitored items automatically every 300 seconds using **Soulseek** or on another interval if you changed it.
 
 ### Bazarr
 
