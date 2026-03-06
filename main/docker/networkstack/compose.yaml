@@ -5,8 +5,6 @@ networks:
       config:
         - subnet: 172.39.0.0/24
 
-# TODO: Name the docker compose stacks
-
 services:
   deunhealth:
     image: qmcgaw/deunhealth
@@ -86,3 +84,43 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
+
+  #scrutiny-db:
+  #  image: influxdb:2.8
+  #  container_name: scrutiny-db
+  #  ports:
+  #    - 8083:8086
+  #  volumes:
+  #    - ./scrutiny-db:/var/lib/influxdb2
+  #  networks:
+  #    homelabnetwork:
+  #      ipv4_address: 172.39.0.18
+  #  healthcheck:
+  #    test: curl -s http://localhost:8086/health
+  #    interval: 5s
+  #    timeout: 10s
+  #    retries: 20
+  #  restart: unless-stopped
+
+  #scrutiny:
+  #  image: ghcr.io/analogj/scrutiny:master-web
+  #  container_name: scrutiny
+  #  ports:
+  #    - 8082:8080
+  #  volumes:
+  #    - ./scrutiny:/opt/scrutiny/config
+  #  environment:
+  #    - SCRUTINY_WEB_INFLUXDB_HOST=172.39.0.18
+  #  depends_on:
+  #    scrutiny-db:
+  #      condition: service_healthy
+  #  networks:
+  #    homelabnetwork:
+  #      ipv4_address: 172.39.0.19
+  #  healthcheck:
+  #    test: curl -s http://localhost:8080/api/health
+  #    interval: 5s
+  #    timeout: 10s
+  #    retries: 20
+  #    start_period: 10s
+  #  restart: unless-stopped
