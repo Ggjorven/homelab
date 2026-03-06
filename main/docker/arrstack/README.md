@@ -43,9 +43,14 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 6. Change the `SOULARR_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
 
-7. Do the same for `SOULARR_INCOMPLETE_DIRECTORY`, `SOULSEEK_USERNAME` and `SOULSEEK_PASSWORD`. (Note: You can choose a `username` and `password` at random.)
 
-8. We are now ready to start our docker stack.
+7. Do the same for `SOULARR_INCOMPLETE_DIRECTORY`.
+
+8. Set a **Soulseek** `username` and `password` under `SOULSEEK_USERNAME`/`SOULSEEK_PASSWORD`, you can choose these at will as long as no one else has that `username`.
+
+9. Create an API key for **slskd** and set it under `SLSKD_API_KEY`. ([hint](https://randomkeygen.com/jwt-secret))
+
+10. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```

@@ -134,6 +134,7 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
     volumes:
       - ./soularr:/data
       - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
