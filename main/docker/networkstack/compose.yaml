@@ -83,3 +83,5 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
+
+  # TODO: Nginx proxy manager

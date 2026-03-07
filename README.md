@@ -36,7 +36,6 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - music stack
     - tv stack
     - immich
-    - nginx
 - Home automation
     - Home assistant 
     - ESP Home

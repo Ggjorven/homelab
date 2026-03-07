@@ -21,7 +21,6 @@ This folder contains the installation instructions and configuration files used 
     - [`musicstack`](main/docker/musicstack/README.md)
     - [`tvstack`](main/docker/tvstack/README.md)
     - [`immich`](main/docker/immich/README.md)
-    - [`nginx`](main/docker/nginx/README.md)
 - [`home-assistant`](main/home-assistant/README.md)
 
 ## Steps
