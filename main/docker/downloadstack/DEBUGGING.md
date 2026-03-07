@@ -4,7 +4,7 @@ This file exists with the purpose of helping you debug your issues with `downloa
 
 ## Issues
 
-### Metube keeps restarting
+### MeTube keeps restarting
 
 If metube keeps restarting, check the docker logs using:
 ```
@@ -26,6 +26,12 @@ PermissionError: [Errno 13] Permission denied: '/config/queue'
    sudo chown -R 1000:1000 metube/
    ```
    And your issues will be resolved.
+
+3. If your issues are not resolved restart metube:
+   ```
+   docker compose down metube
+   docker compose up -d metube
+   ```
    
 ## Helping others
 
