@@ -50,16 +50,18 @@ Before we can create our `download stack` on our `docker` **Proxmox LXC**. We mu
 
 To configure **QBitTorrent** you need to go port `8080` of the ip address of the **Proxmox LXC**.
 
-1. First login to QBitTorrent using `username` and `password` from:
+1. First login to QBitTorrent using `username` and `password` from this command:
     ```
     docker logs qbittorrent
     ```
+    You'll see a message saying that a temporary password has been generated.  
+    Your temporary `username` will most likely be `admin` and the password is the one generated.
 
 2. Then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
 
-3. Secondly we need to change the `network interface` in `Advanced` to `tun0`.
+3. Secondly we need to change the `network interface` in the setting under `Advanced` to `tun0`.
 
-4. Thirdly we need to our directories under `Downloads`.
+4. Thirdly we need to set our directories. Go back to setting and then `Downloads`.
     - Set `Default Save Path` to a path in your NAS.
     - Do the same for `Keep incomplete torrents`
     - And `Copy .torrent files`
