@@ -53,7 +53,7 @@ Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must 
 
 ### Navidrome
 
-To configure **Navidrome** you need to go to port `9191` of the ip address of the **Proxmox LXC**.
+To configure **Navidrome** you need to go to port `4533` of the ip address of the **Proxmox LXC**.
 
 1. // TODO: ...
 
