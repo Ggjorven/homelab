@@ -5,23 +5,23 @@ This folder contains the installation instructions and configuration files used 
 
 ## Specifications
 
-- [`omv`](main/omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
-- [`docker`](main/docker/README.md) (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-- [`home-assistant`](main/home-assistant/README.md) (2vCPUs, 2GB RAM, 32GB Disk).
+- [`omv`](omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
+- [`docker`](docker/README.md) (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
+- [`home-assistant`](home-assistant/README.md) (2vCPUs, 2GB RAM, 32GB Disk).
 
 ## Deployments
 
-- [`omv`](main/omv/README.md)
-- [`docker`](main/docker/README.md)
-    - [`networkstack`](main/docker/networkstack/README.md)
-    - [`monitoringstack`](main/docker/monitoringstack/README.md)
-    - [`downloadstack`](main/docker/downloadstack/README.md)
-    - [`arrstack`](main/docker/arrstack/README.md)
-    - [`mediastack`](main/docker/mediastack/README.md)
-    - [`musicstack`](main/docker/musicstack/README.md)
-    - [`tvstack`](main/docker/tvstack/README.md)
-    - [`immich`](main/docker/immich/README.md)
-- [`home-assistant`](main/home-assistant/README.md)
+- [`omv`](omv/README.md)
+- [`docker`](docker/README.md)
+    - [`networkstack`](docker/networkstack/README.md)
+    - [`monitoringstack`](docker/monitoringstack/README.md)
+    - [`downloadstack`](docker/downloadstack/README.md)
+    - [`arrstack`](docker/arrstack/README.md)
+    - [`mediastack`](docker/mediastack/README.md)
+    - [`musicstack`](docker/musicstack/README.md)
+    - [`tvstack`](docker/tvstack/README.md)
+    - [`immich`](docker/immich/README.md)
+- [`home-assistant`](home-assistant/README.md)
 
 ## Steps
 
