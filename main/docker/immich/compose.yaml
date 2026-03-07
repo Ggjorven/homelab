@@ -14,9 +14,9 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_DATA_LOCATION=./immich-postgres
+      - DB_DATA_LOCATION=./../immich-postgres
     volumes:
-      - ${IMMICH_UPLOAD_LOCATION}:/data
+      - ${IMMICH_UPLOAD_LOCATION}:${IMMICH_UPLOAD_LOCATION}
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 2283:2283
