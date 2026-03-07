@@ -79,6 +79,55 @@ To configure **Dispatcharr** you need to go to port `9191` of the ip address of 
 
 8. Now we can use the `http://192.168.xxx.xxx:9191` IP and the `username` and `password` as **Xtream Code** credentials which allows both regular channels and VODs.
 
+#### Plugins
+
+To improve the functionality of **Dispatcharr** I have added some plugins.
+
+##### IPTV Checker
+
+Configuration steps for **IPTV Checker** can be found below:
+
+1. // TODO: ...
+
+Github repo: [IPTV Checker](https://github.com/PiratesIRC/Dispatcharr-IPTV-Checker-Plugin)  
+ZIP download: [IPTV Checker](https://github.com/PiratesIRC/Dispatcharr-IPTV-Checker-Plugin/releases/latest/download/iptv_checker.zip)
+
+##### Timeshift
+
+Configuration steps for **Timeshift** can be found below:
+
+1. // TODO: ...
+
+Github repo: [Timeshift](https://github.com/cedric-marcoux/dispatcharr_timeshift)  
+ZIP download: [Timeshift](https://github.com/cedric-marcoux/dispatcharr_timeshift/releases/latest/download/dispatcharr_timeshift.zip)
+
+##### Too Many Streams
+
+Configuration steps for **Too Many Streams** can be found below:
+
+1. // TODO: ...
+
+Github repo: [Too Many Streams](https://github.com/JamesWRC/Dispatcharr_Too_Many_Streams)  
+ZIP download: [Too Many Streams](https://github.com/JamesWRC/Dispatcharr_Too_Many_Streams/releases/latest/download/too_many_streams.zip)
+
+##### Local Catchup
+
+Configuration steps for **Local Catchup** can be found below:
+
+1. // TODO: ...
+
+Github repo: [Local Catchup](https://github.com/helenclarko/dispatcharr_local_catchup)  
+ZIP download: [Local Catchup](https://github.com/helenclarko/dispatcharr_local_catchup/raw/refs/heads/main/dispatcharr_local_catchup.zip)
+
+##### VOD Fix
+
+Configuration steps for **VOD Fix** can be found below:
+
+1. // TODO: ...
+
+Github repo: [VOD Fix](https://github.com/cedric-marcoux/dispatcharr_vod_fix)  
+ZIP download: [VOD Fix](https://github.com/cedric-marcoux/dispatcharr_vod_fix/archive/refs/heads/main.zip) (rename to `dispatcharr_vod_fix.zip`)
+
 ## Start on boot-up
 
 To make `tvstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
