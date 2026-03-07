@@ -14,9 +14,14 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
+      - DB_HOSTNAME=immich_database
+      - REDIS_HOSTNAME=immich_redis
+      - DB_DATABASE_NAME=immich_database
+      - DB_USERNAME=${IMMICH_POSTGRES_USER}
+      - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
     volumes:
-      - ${IMMICH_UPLOAD_LOCATION}:${IMMICH_UPLOAD_LOCATION}
+      - ${IMMICH_UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 2283:2283
@@ -45,7 +50,15 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - IMMICH_VERSION=${IMMICH_VERSION}
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
+      - DB_HOSTNAME=immich_database
+      - REDIS_HOSTNAME=immich_redis
+      - DB_DATABASE_NAME=immich_database
+      - DB_USERNAME=${IMMICH_POSTGRES_USER}
+      - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.81
     runtime: nvidia
     gpus: all
     # TODO: Healthcheck 
@@ -59,6 +72,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.82
     healthcheck:
       test: redis-cli ping || exit 1
       # TODO: Improve healthcheck
@@ -76,5 +92,8 @@ services:
     volumes:
       - ./immich-postgres:/var/lib/postgresql/data
     shm_size: 128mb
+    networks:
+      homelabnetwork:
+        ipv4_address: 172.39.0.83
     # TODO: Healthcheck
     restart: always
