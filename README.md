@@ -74,6 +74,8 @@ To quickly navigate this repository I have this list of services below:
     - [`omv`](main/omv/README.md)
     - [`docker`](main/docker/README.md)
         - [`networkstack`](main/docker/networkstack/README.md)
+        - [`downloadstack`](main/docker/downloadstack/README.md)
+        - [`monitoringstack`](main/docker/monitoringstack/README.md)
         - [`arrstack`](main/docker/arrstack/README.md)
         - [`mediastack`](main/docker/mediastack/README.md)
         - [`musicstack`](main/docker/musicstack/README.md)
