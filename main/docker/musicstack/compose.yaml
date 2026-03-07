@@ -31,29 +31,29 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  beets:
-    image: lscr.io/linuxserver/beets:latest
-    container_name: beets
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ./beets:/config
-      - ${MUSIC_FOLDER}:/music
-      - ./beets/downloads:/downloads # A temporary folder, since we don't use beets for ingesting
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 8337:8337
-    networks:
-      homelabnetwork:
-        ipv4_address: 172.39.0.61
-    # TODO: Healtcheck
-    # healthcheck:
-    #   test: wget -qO- http://localhost:4533 || exit 1
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    # labels:
-    #   - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped
+  # beets:
+  #   image: lscr.io/linuxserver/beets:latest
+  #   container_name: beets
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ./beets:/config
+  #     - ${MUSIC_FOLDER}:/music
+  #     - ./beets/downloads:/downloads # A temporary folder, since we don't use beets for ingesting
+  #     - /etc/localtime:/etc/localtime:ro
+  #   ports:
+  #     - 8337:8337
+  #   networks:
+  #     homelabnetwork:
+  #       ipv4_address: 172.39.0.61
+  #   # TODO: Healtcheck
+  #   # healthcheck:
+  #   #   test: wget -qO- http://localhost:4533 || exit 1
+  #   #   interval: 30s
+  #   #   timeout: 10s
+  #   #   retries: 3
+  #   # labels:
+  #   #   - deunhealth.restart.on.unhealthy=true
+  #   restart: unless-stopped
