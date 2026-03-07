@@ -43,7 +43,7 @@ Before we can create `immich` on our `docker` **Proxmox LXC**. We must have fini
 
 6. Modify the **immich** upload location where you wish to store your photos and videos.
     ```
-    IMMICH_UPLOAD_LOCATION=/mnt/nas
+    IMMICH_UPLOAD_LOCATION=/mnt/nas/path/to/your/images
     ```
 
 7. Also change your Postgres credentials to something more secure.
