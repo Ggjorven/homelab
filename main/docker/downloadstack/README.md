@@ -66,11 +66,11 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
     - Set `Keep incomplete torrents` to a path in your NAS (ex. `/mnt/nas/QBitTorrent/Incomplete`)
     - And `Copy .torrent files`  (ex. `/mnt/nas/QBitTorrent/Torrents`)
 
-5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under settings go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
-6. Also we want to allow multiple downloads simultaneously, by default only 3 simultaneous download and 2 simultaneous uploads are allowed. Go to **BitTorrent** and set maximum active downloads to something significantly higher. I kept uploads the same though.
+6. Also we want to allow multiple downloads simultaneously, by default only 3 simultaneous download and 2 simultaneous uploads are allowed. Go to settings and under **BitTorrent** set maximum active downloads to something significantly higher. I kept the uploads the same though.
 
-7. (Optional) If you really value every ounce of privacy you can also go to **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information. It doesn't do much.
+7. (Optional) If you really value every ounce of privacy you can also go to settings and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information. It doesn't do much.
 
 8. (Optional) If you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the compose file:
     ```
