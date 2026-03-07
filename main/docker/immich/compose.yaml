@@ -14,7 +14,7 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_DATA_LOCATION=./../immich-postgres
+      - DB_DATA_LOCATION=./immich-postgres
     volumes:
       - ${IMMICH_UPLOAD_LOCATION}:${IMMICH_UPLOAD_LOCATION}
       - /etc/localtime:/etc/localtime:ro
@@ -45,7 +45,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - IMMICH_VERSION=${IMMICH_VERSION}
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_DATA_LOCATION=./../immich-postgres
+      - DB_DATA_LOCATION=./immich-postgres
     runtime: nvidia
     gpus: all
     # TODO: Healthcheck 
