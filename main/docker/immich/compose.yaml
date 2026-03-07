@@ -28,8 +28,7 @@ services:
         ipv4_address: 172.39.0.80
     gpus: all
     runtime: nvidia
-    healthcheck:
-      disable: false
+    # TODO: Healthcheck
     restart: always
 
   immich-machine-learning:
@@ -46,11 +45,10 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - IMMICH_VERSION=${IMMICH_VERSION}
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_DATA_LOCATION=./immich-postgres
+      - DB_DATA_LOCATION=./../immich-postgres
     runtime: nvidia
     gpus: all
-    healthcheck:
-      disable: false
+    # TODO: Healthcheck 
     restart: always
 
   immich_redis:
@@ -63,6 +61,7 @@ services:
       - TZ=${TZ}
     healthcheck:
       test: redis-cli ping || exit 1
+      # TODO: Improve healthcheck
     restart: always
 
   immich_database:
@@ -77,6 +76,5 @@ services:
     volumes:
       - ./immich-postgres:/var/lib/postgresql/data
     shm_size: 128mb
-    healthcheck:
-      disable: false
+    # TODO: Healthcheck
     restart: always
