@@ -149,7 +149,7 @@ To make `networkstack` start-up on boot we can set up a **systemd** service. I h
 
 ## Debugging
 
-If you have any issues setting up `networkstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `monitoringstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
