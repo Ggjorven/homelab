@@ -62,11 +62,11 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
 3. Secondly we need to change the `network interface` in the setting under `Advanced` to `tun0`.
 
 4. Thirdly we need to set our directories. Go back to setting and then `Downloads`.
-    - Set `Default Save Path` to a path in your NAS.
-    - Do the same for `Keep incomplete torrents`
-    - And `Copy .torrent files`
+    - Set `Default Save Path` to a path in your NAS (ex. `/mnt/nas/QBitTorrent/Downloads`).
+    - Set `Keep incomplete torrents` to a path in your NAS (ex. `/mnt/nas/QBitTorrent/Incomplete`)
+    - And `Copy .torrent files`  (ex. `/mnt/nas/QBitTorrent/Torrents`)
 
-5. Since we are gonna be good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
 6. Also we want to allow multiple downloads simultaneously, by default only 3 simultaneous download and 2 simultaneous uploads are allowed. Go to **BitTorrent** and set maximum active downloads to something significantly higher. I kept uploads the same though.
 
