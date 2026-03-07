@@ -14,8 +14,8 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_HOSTNAME=immich_database
-      - REDIS_HOSTNAME=immich_redis
+      - DB_HOSTNAME=172.39.0.83
+      - REDIS_HOSTNAME=172.39.0.82
       - DB_DATABASE_NAME=immich_database
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
@@ -50,8 +50,8 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - IMMICH_VERSION=${IMMICH_VERSION}
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
-      - DB_HOSTNAME=immich_database
-      - REDIS_HOSTNAME=immich_redis
+      - DB_HOSTNAME=172.39.0.83
+      - REDIS_HOSTNAME=172.39.0.82
       - DB_DATABASE_NAME=immich_database
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
@@ -85,10 +85,10 @@ services:
     container_name: immich_database
     user: ${PUID}:${PGID}   
     environment:
-      - POSTGRES_DB="immich_database"
+      - POSTGRES_DB=immich_database
       - POSTGRES_USER=${IMMICH_POSTGRES_USER}
       - POSTGRES_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
-      - POSTGRES_INITDB_ARGS="--data-checksums"
+      - POSTGRES_INITDB_ARGS=--data-checksums
     volumes:
       - ./immich-postgres:/var/lib/postgresql/data
     shm_size: 128mb
