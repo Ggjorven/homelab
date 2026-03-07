@@ -95,7 +95,7 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
 ### Scrutiny
 
 **Scrutiny** doesn't require any more configuration after setting up the `monitoringstack`.  
-To access the dashboard go to port `8081` of the **Proxmox LXC**'s IP.
+To access the dashboard go to port `8082` of the **Proxmox LXC**'s IP.
 
 ## Start on boot-up
 
