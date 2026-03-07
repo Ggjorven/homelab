@@ -39,15 +39,10 @@ Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must 
 
 4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-5. Now open the `.env` and modify the path pointing to the music:
-    ```
-    nano compose.yaml
-    ```
-    Change this line:
+5. Now also modify the `MUSIC_FOLDER` to the actual folder containing your music:
     ```
     MUSIC_FOLDER=/mnt/nas/path/to/your/music/folder
     ```
-    To the folder containg your music.
 
 6. We are now ready to start our docker stack.
     ```
