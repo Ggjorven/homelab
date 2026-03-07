@@ -4,7 +4,7 @@ The download stack is collection of services that automate downloading of certai
 
 ## Prerequisites
 
-Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `download stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
 - [`omv`](../../omv/README.md) + extras.
 - [`docker`](../README.md)
