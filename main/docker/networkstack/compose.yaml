@@ -102,4 +102,4 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.19
       externalnetwork:
-        ipv4_address: 172.39.0.19
+        ipv4_address: 172.40.0.19
