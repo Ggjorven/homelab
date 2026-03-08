@@ -6,7 +6,7 @@ After=network-online.target
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sleep 5
-ExecStart=/root/scripts/mount-smb.sh
+ExecStart=/node/scripts/mount-smb.sh
 RemainAfterExit=yes
 
 [Install]

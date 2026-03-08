@@ -37,9 +37,10 @@ You have now succesfully completed all the necessary steps. Another useful step 
     apt install cifs-utils smbclient
     ```
 
-2. Next we need to setup our credentials for our SMB share. We do this in the file `/root/.smbcred`.
+2. Next we need to setup our credentials for our SMB share. We do this in the file `/node/.smbcred`.
     ```
-    nano /root/.smbcred 
+    mkdir -p /node
+    nano /node/.smbcred 
     ```
 
 3. Paste in the following content and replace the placeholders with your actual `username` and `password`.
@@ -52,18 +53,18 @@ You have now succesfully completed all the necessary steps. Another useful step 
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/services/mount-smb.service
-    mkdir -p /root/scripts
-    cd /root/scripts
+    mkdir -p /node/scripts
+    cd /node/scripts
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/scripts/mount-smb.sh 
-    chmod +x /root/scripts/mount-smb.sh
+    chmod +x mount-smb.sh
     ```
 
-5. Edit the `/root/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
+5. Edit the `/node/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
     ```
-    nano /root/scripts/mount-smb.sh
+    nano /node/scripts/mount-smb.sh
     ```
 
-6. Now make sure the mount point set in the `/root/scripts/mount-smb.sh` actually exists with:
+6. Now make sure the mount point set in the `/node/scripts/mount-smb.sh` actually exists with:
     ```
     mkdir -p /mnt/nas
     ```
