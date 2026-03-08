@@ -3,4 +3,9 @@ networks:
     external: true
 
 services:
+  # Cloudflared
+  # Nginx
+  # Fail2ban
+  # ...
+  
   # Note: This file will use the .240-.249 range for homelabnetwork ip-addresses
