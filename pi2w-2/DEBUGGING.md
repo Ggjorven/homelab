@@ -2,6 +2,12 @@
 
 This file exists with the purpose of helping you debug your issues on the `pi2w-2`. This is not a foolproof file, it may miss certain issues and steps.
 
+## Debugging steps
+
+To debug any issues with `pi2w-2` use the following steps:
+
+1. // TODO: ...
+
 ## Issues
 
 ### Issue A
