@@ -53,21 +53,24 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 ### Gluetun
 
-`gluetun` doesn't require any configuration. Though `gluetun` with `pia` can also support port forwarding. I have added some instructions for that here.
+`gluetun` doesn't require any configuration. 
+
+#### Port forwarding
+
+Optionally you can enable port forwarding in `gluetun`
 
 1. Go to the `networkstack` folder:
     ```
     cd ~/docker/networkstack
     ```
 
-2. Open the compose file:
+2. Open the .env file:
     ```
-    nano compose.yaml
+    nano .env
     ```
-    And under environment add:
+    And uncomment:
     ```
-    - VPN_PORT_FORWARDING=on
-    - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
+    # VPN_PORT_FORWARDING=on
     ```
 
 3. Restart your compose stack:

@@ -58,6 +58,8 @@ services:
       - DNS_SERVER=on
       - DNS_UPSTREAM_RESOLVERS=cloudflare,google # Makes the DNS requests snet to random resolvers 
       - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
+      - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING:-off}
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
     volumes:
       - ./gluetun:/gluetun
       - /etc/localtime:/etc/localtime:ro
