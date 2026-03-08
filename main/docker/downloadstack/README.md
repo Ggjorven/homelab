@@ -72,23 +72,19 @@ To configure **QBitTorrent** you need to go port `8080` of the ip address of the
 
 7. (Optional) If you really value every ounce of privacy you can also go to settings and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information. It doesn't do much.
 
-8. (Optional) If you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the compose file:
+8. (Optional) If you enabled port forwarding in `gluetun` and you wish to use this port as the torrenting port you can install a docker mod for `qbittorrent`. Below are instructions to help with that. Open the .env file:
     ```
     cd ~/docker/downloadstack
-    nano compose.yaml
+    nano .env
     ```
-    And this line under `environment` for `qbittorrent`:
+    Uncomment:
     ```
-    - DOCKER_MODS=ghcr.io/techclusterhq/qbt-portchecker:main
+    DOCKER_MODS=ghcr.io/techclusterhq/qbt-portchecker:main
     ```
-    This adds a docker mod for portchecking to `qbittorrent` If you want multiple mods add a `|` between them like so: `ghcr.io/techclusterhq/qbt-portchecker:main|ghcr.io/vuetorrent/vuetorrent-lsio-mod:latest`.  
-    Now also add these lines:
+    And uncomment + modify `<APIKEY>` to the one created in `networkstack` for `gluetun`:
     ```
-    - PORTCHECKER_GLUETUN_API_KEY=<APIKEY>
-    - PORTCHECKER_SLEEP=120 # The amount of time between port checks
-    - PORTCHECKER_KILL_ON_NOT_CONNECTABLE=true # Restart qbittorrent if it can't connect to the port
+    PORTCHECKER_GLUETUN_API_KEY=<APIKEY>
     ```
-    Replace `<APIKEY>` with the API key generated during the `gluetun` instructions.
 
 9. Before we restart and make this work go to the **Proxmox LXC**'s IP address on port `8080`. Navigate to settings and then **WebUI**. Make sure to enable `Bypass authentication for clients on localhost`. To make all previous steps actually able to function.
 

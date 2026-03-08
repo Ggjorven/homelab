@@ -15,6 +15,10 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - WEBUI_PORT=8080
+      - DOCKER_MODS=${QBITTORRENT_MODS:-}
+      - PORTCHECKER_GLUETUN_API_KEY=${GLUETUN_PORTCHECKER_API_KEY:-}
+      - PORTCHECKER_SLEEP=120
+      - PORTCHECKER_KILL_ON_NOT_CONNECTABLE=true
     volumes:
       - ./qbittorrent:/config
       - /mnt/nas:/mnt/nas
