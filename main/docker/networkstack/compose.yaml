@@ -1,9 +1,16 @@
 networks:
-  homelabnetwork:
-    name: homelabnetwork
+  internalnetwork:
+    name: internalnetwork
     ipam:
       config:
         - subnet: 172.39.0.0/24
+
+  externalnetwork:
+    name: externalnetwork
+    ipam:
+      config:
+        - subnet: 172.40.0.0/24
+  
 
 services:
   deunhealth:
@@ -36,7 +43,7 @@ services:
       - 9696:9696 # prowlarr web interface
       - 9191:9191 # dispatcharr web interface
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.10
     environment:
       # - PUID=${PUID}
@@ -44,7 +51,7 @@ services:
       - TZ=${TZ}
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=${VPN_TYPE}
-      - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the homelabnetwork, this is needed for some people
+      - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the internalnetwork, this is needed for some people
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - SERVER_REGIONS=${SERVER_REGIONS}
@@ -83,5 +90,3 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
-
-  # TODO: Nginx proxy manager

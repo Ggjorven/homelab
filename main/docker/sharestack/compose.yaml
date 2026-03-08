@@ -1,5 +1,8 @@
 networks:
-  homelabnetwork:
+  internalnetwork:
+    external: true
+
+  externalnetwork:
     external: true
 
 services:
@@ -29,7 +32,7 @@ services:
       - immich_redis
       - immich_database
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.80
     gpus: all
     runtime: nvidia
@@ -57,7 +60,7 @@ services:
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.81
     runtime: nvidia
     gpus: all
@@ -73,7 +76,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.82
     healthcheck:
       test: redis-cli ping || exit 1
@@ -93,7 +96,7 @@ services:
       - ./immich-postgres:/var/lib/postgresql/data
     shm_size: 128mb
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.83
     # TODO: Healthcheck
     restart: always

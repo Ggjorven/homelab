@@ -1,5 +1,8 @@
 networks:
-  homelabnetwork:
+  internalnetwork:
+    external: true
+
+  externalnetwork:
     external: true
 
 services:
@@ -8,4 +11,4 @@ services:
   # Fail2ban
   # ...
   
-  # Note: This file will use the .240-.249 range for homelabnetwork ip-addresses
+  # Note: This file will use the .240-.249 range for internalnetwork ip-addresses

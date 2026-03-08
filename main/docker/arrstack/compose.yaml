@@ -1,5 +1,8 @@
 networks:
-  homelabnetwork:
+  internalnetwork:
+    external: true
+
+  externalnetwork:
     external: true
 
 services:
@@ -37,7 +40,7 @@ services:
     ports:
       - 8989:8989
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.40
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8989 >/dev/null 2>&1 && curl -s http://localhost:8989/ping"
@@ -63,7 +66,7 @@ services:
     ports:
       - 7878:7878
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.41
     healthcheck:
       test: sh -c "wget -qO- http://localhost:7878 >/dev/null 2>&1 && curl -s http://localhost:7878/ping"
@@ -90,7 +93,7 @@ services:
     ports:
       - 8686:8686
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.42
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8686 >/dev/null 2>&1 && curl -s http://localhost:8686/ping"
@@ -128,7 +131,7 @@ services:
       - 5031:5031
       - 50300:50300
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.43
     healthcheck:
       test: wget -qO- http://localhost:5030/healthcheck
@@ -153,7 +156,7 @@ services:
       - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
       - /etc/localtime:/etc/localtime:ro
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.44
     depends_on:
       lidarr:
@@ -182,7 +185,7 @@ services:
     ports:
       - 6767:6767
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.45
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1

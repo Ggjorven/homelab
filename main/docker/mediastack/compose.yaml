@@ -1,5 +1,8 @@
 networks:
-  homelabnetwork:
+  internalnetwork:
+    external: true
+
+  externalnetwork:
     external: true
 
 services:
@@ -14,8 +17,10 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.50
+      externalnetwork:
+        ipv4_address: 172.40.0.50
     volumes:
       - ./jellyfin:/config
       - /data:/data
@@ -46,7 +51,7 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.51
     volumes:
       - ./seerr:/app/config
@@ -75,7 +80,7 @@ services:
       - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.52
     volumes:
       - ./jellystat/postgres:/var/lib/postgresql/data
@@ -102,7 +107,7 @@ services:
       - POSTGRES_PORT=5432
       - JWT_SECRET=${JELLYSTAT_JWT_SECRET}
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.53
     volumes:
       - ./jellystat/backup-data:/app/backend/backup-data

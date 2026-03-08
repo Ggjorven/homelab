@@ -1,5 +1,8 @@
 networks:
-  homelabnetwork:
+  internalnetwork:
+    external: true
+
+  externalnetwork:
     external: true
 
 services:
@@ -25,7 +28,7 @@ services:
       - ./scrutiny-db/database:/var/lib/influxdb2
       - ./scrutiny-db/config:/etc/influxdb2
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.20
     healthcheck:
       test: curl -s http://localhost:8086/health
@@ -56,7 +59,7 @@ services:
       scrutiny-db:
         condition: service_healthy
     networks:
-      homelabnetwork:
+      internalnetwork:
         ipv4_address: 172.39.0.21
     healthcheck:
       test: curl -s http://localhost:8080/api/health
