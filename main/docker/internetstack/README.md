@@ -1,31 +1,28 @@
-# Immich
+# Gaming Stack
 
-**Immich** is a photo and video backup solution, this branch contains the installation instructions for installing **Immich** using **Docker Compose**.
+**Gaming Stack** is a collection of gaming related services, this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
-Before we can create `immich` on our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We must have finished these steps:
 
-- [`omv`](../omv/README.md) + extras.
-- [`NVIDIA Driver`](../../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
-- [`NVIDIA Driver LXC`](../../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 - [`docker`](../README.md)
 - [`networkstack`](../networkstack/README.md)
 
 ## Installation
 
-1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `immich`:
+1. Go to your users `home` directory and go to your dedicated docker directory and create a new directory for `internetstack`:
     ```
     cd ~
     cd docker
-    mkdir -p immich
-    cd immich
+    mkdir -p internetstack
+    cd internetstack
     ```
 
 2. Retrieve the compose file and .env file:
     ```
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/immich/compose.yaml 
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/immich/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/compose.yaml 
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/.env
     ```
 
 3. Before we can edit our .env we must identify our user. This is done with:
@@ -39,34 +36,25 @@ Before we can create `immich` on our `docker` **Proxmox LXC**. We must have fini
     nano .env
     ```
 
-5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-6. Modify the **immich** upload location where you wish to store your photos and videos.
+5. Now open the compose file and modify the path pointing to the music:
     ```
-    IMMICH_UPLOAD_LOCATION=/mnt/nas/path/to/your/images
-    ```
-
-7. Also change your Postgres credentials to something more secure.
-    ```
-    # Database credentials
-    IMMICH_POSTGRES_USER=username
-    IMMICH_POSTGRES_PASSWORD=password
+    nano compose.yaml
     ```
 
-8. We are now ready to start our docker stack.
+6. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
 
 ## Configuration
 
-### Immich
-
-// TODO: ...
+### // TODO: ...
 
 ## Start on boot-up
 
-To make `immich` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
+To make `gamingstack` start-up on boot we can set up a **systemd** service. I have created a compose-boot service for this purpose.  
 
 1. First make sure we have a folder for our script:
     ```
@@ -87,7 +75,7 @@ To make `immich` start-up on boot we can set up a **systemd** service. I have cr
     Either add a `docker compose up -d` for your new stack or replace the existing one.  
     Modify `<username>` to reflect your linux user's username.
     ```
-    cd /home/<username>/docker/immich
+    cd /home/<username>/docker/internetstack
     docker compose up -d
     ```
     Eventually this script will contain all the stacks that need to start on start-up.
@@ -116,9 +104,8 @@ To make `immich` start-up on boot we can set up a **systemd** service. I have cr
 
 ## Debugging
 
-If you have any issues setting up `immich` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `tvstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
 - [Docker](https://www.docker.com/) - Hardware accelerated containers 
-- [Immich](https://immich.app/) - Photo and video backup solution

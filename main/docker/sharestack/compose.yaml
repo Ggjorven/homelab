@@ -97,3 +97,5 @@ services:
         ipv4_address: 172.39.0.83
     # TODO: Healthcheck
     restart: always
+
+  # TODO: Nextcloud

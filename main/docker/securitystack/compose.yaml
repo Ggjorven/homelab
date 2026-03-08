@@ -1,0 +1,6 @@
+networks:
+  homelabnetwork:
+    external: true
+
+services:
+  # Note: This file will use the .90-.99 range for homelabnetwork ip-addresses

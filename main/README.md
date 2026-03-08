@@ -20,7 +20,10 @@ This folder contains the installation instructions and configuration files used 
     - [`mediastack`](docker/mediastack/README.md)
     - [`musicstack`](docker/musicstack/README.md)
     - [`tvstack`](docker/tvstack/README.md)
-    - [`immich`](docker/immich/README.md)
+    - [`sharestack`](docker/sharestack/README.md)
+    - [`gamingstack`](docker/gamingstack/README.md)
+    - [`securitystack`](docker/securitystack/README.md)
+    - [`internetstack`](docker/internetstack/README.md)
 - [`home-assistant`](home-assistant/README.md)
 
 ## Steps

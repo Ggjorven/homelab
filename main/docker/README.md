@@ -72,7 +72,10 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     - [`mediastack`](mediastack/README.md)
     - [`musicstack`](musicstack/README.md)
     - [`tvstack`](tvstack/README.md)
-    - [`immich`](immich/README.md)
+    - [`sharestack`](sharestack/README.md)
+    - [`gamingstack`](gamingstack/README.md)
+    - [`securitystack`](securitystack/README.md)
+    - [`internetstack`](internetstack/README.md)
 
 ## Debugging
 
