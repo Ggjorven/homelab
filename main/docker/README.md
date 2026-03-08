@@ -64,7 +64,9 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 11. Now we can install the NVIDIA Drivers on the LXC using [these instructions](../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
 
-12. You're now ready to start setting up different compose stacks like:
+12. To help with starting docker stacks on boot-up of the LXC follow **# Installation** from [these instructions](BOOT-UP.md#installation).
+
+13. You're now ready to start setting up different compose stacks like:
     - [`networkstack`](networkstack/README.md)
     - [`monitoringstack`](monitoringstack/README.md)
     - [`downloadstack`](downloadstack/README.md)
