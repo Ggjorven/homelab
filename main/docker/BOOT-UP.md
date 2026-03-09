@@ -86,6 +86,8 @@ To allow us to easily add stacks to gracefully shutdown at the shutdown of the `
 
 ## Adding a stack
 
+### Boot
+
 To add a new stack to start on boot-up of the `docker` LXC modify the script installed above.
 
 1. Open up the compose-boot script:
@@ -108,6 +110,8 @@ To add a new stack to start on boot-up of the `docker` LXC modify the script ins
 
 3. Change `<username>` to the user you created for `docker`.
 
+### Shutdown
+
 To add a new stack to the graceful shutdown of the `docker` LXC modify the script installed above.
 
 1. Open up the compose-shutdown script:
@@ -129,7 +133,3 @@ To add a new stack to the graceful shutdown of the `docker` LXC modify the scrip
     ```
 
 3. Change `<username>` to the user you created for `docker`.
-
-## Shutdown
-
-(Optional)
