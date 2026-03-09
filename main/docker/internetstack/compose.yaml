@@ -204,7 +204,7 @@ services:
 
   authentik-redis:
     image: redis:alpine
-    container_name: authentik_redis
+    container_name: authentik-redis
     command: --save 60 1 --loglevel warning
     volumes:
       - ./authentik/redis:/data

@@ -17,8 +17,8 @@ server {
     server_name ${JELLYFIN_DOMAIN};
 
     # ---- TLS ----
-    ssl_certificate     /etc/letsencrypt/live/${DOMAIN_AUTH}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN_AUTH}/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/privkey.pem;
 
     # ---- Security headers ----
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
