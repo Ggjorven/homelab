@@ -13,11 +13,12 @@ services:
       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
       - DOMAINS=${AUTHENTIK_DOMAIN},${JELLYFIN_DOMAIN},${NAVIDROME_DOMAIN}
       - PROXIED=true
+      - IP6_PROVIDER=none
     networks:
       externalnetwork:
         ipv4_address: 172.40.0.240
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:8001/healthz | grep -q 'OK' || exit 1"
+      test: sh -c "ping -c1 1.1.1.1 || exit 1"
       interval: 5m
       timeout: 10s
       retries: 3
@@ -83,11 +84,10 @@ services:
       - 80:80
       - 443:443
     depends_on:
-    #  - authentik-server
+    #  authentik-server:
     #    condition: service_healthy
       certbot:
         condition: service_healthy
-
     networks:
       externalnetwork:
         ipv4_address: 172.40.0.241
