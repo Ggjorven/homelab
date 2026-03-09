@@ -1,5 +1,5 @@
 [Unit]
-Description="Timer for the scrutiny.service"
+Description=Timer for the scrutiny.service
 
 [Timer]
 Unit=scrutiny.service

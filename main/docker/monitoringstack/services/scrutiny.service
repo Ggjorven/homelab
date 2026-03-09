@@ -1,5 +1,5 @@
 [Unit]
-Description="Scrutiny Collector"
+Description=Scrutiny Collector
 Requires=scrutiny.timer
 
 [Service]
