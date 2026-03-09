@@ -30,8 +30,8 @@ server {
     limit_req_status 429;
 
     # ---- Only allow needed HTTP methods ----
-    limit_except GET POST {
-        deny all;
+    if ($request_method !~ ^(GET|POST)$) {
+        return 444;
     }
 
     # ---- Proxy to Authentik ----
