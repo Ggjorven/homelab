@@ -1,0 +1,49 @@
+# ============================================================
+# AUTH PORTAL — ${AUTHENTIK_DOMAIN}
+# The only endpoint open without prior authentication
+# ============================================================
+
+server {
+    listen 80;
+    server_name ${AUTHENTIK_DOMAIN};
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name ${AUTHENTIK_DOMAIN};
+
+    # ---- TLS ----
+    ssl_certificate     /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/privkey.pem;
+
+    # ---- Security headers ----
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+    add_header Permissions-Policy "geolocation=(), camera=(), microphone=()" always;
+
+    # ---- Drop empty user agents ----
+    if ($http_user_agent = "") { return 444; }
+
+    # ---- Connection and rate limits ----
+    limit_conn conn_limit 10;
+    limit_req zone=auth_limit burst=5 nodelay;
+    limit_req_status 429;
+
+    # ---- Only allow needed HTTP methods ----
+    limit_except GET POST {
+        deny all;
+    }
+
+    # ---- Proxy to Authentik ----
+    location / {
+        proxy_pass          http://${AUTHENTIK_IP}:9000;
+        proxy_http_version  1.1;
+        proxy_set_header    Host              $host;
+        proxy_set_header    X-Real-IP         $remote_addr;
+        proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto $scheme;
+        proxy_set_header    Upgrade           $http_upgrade;
+        proxy_set_header    Connection        "upgrade";
+        proxy_hide_header   Server;
+    }
+}
