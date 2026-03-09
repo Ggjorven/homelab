@@ -46,7 +46,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 6. We are now ready to start our docker stack.
     ```
-    docker compose up -d
+    docker compose --all-resources up -d
     ```
 
 ## Configuration

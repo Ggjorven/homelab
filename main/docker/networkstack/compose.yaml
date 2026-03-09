@@ -92,14 +92,3 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
-
-  # NOTE: Forces both networks to be created even when unused
-  # It's ugly, but gets the job done
-  networkboot:
-    image: hello-world:latest
-    container_name: networkboot
-    networks: 
-      internalnetwork:
-        ipv4_address: 172.39.0.19
-      externalnetwork:
-        ipv4_address: 172.40.0.19

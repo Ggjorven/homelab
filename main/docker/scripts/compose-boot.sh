@@ -2,7 +2,7 @@
 
 # Compose boot up 1 (networkstack)
 # cd /home/<username>/docker/networkstack
-# docker compose up -d
+# docker compose --all-resources up -d
 
 # Compose boot up 2 (downloadstack)
 # cd /home/<username>/docker/downloadstack
