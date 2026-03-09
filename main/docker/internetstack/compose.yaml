@@ -82,8 +82,12 @@ services:
     ports:
       - 80:80
       - 443:443
-    # depends_on:
+    depends_on:
     #  - authentik-server
+    #    condition: service_healthy
+      certbot:
+        condition: service_healthy
+
     networks:
       externalnetwork:
         ipv4_address: 172.40.0.241
