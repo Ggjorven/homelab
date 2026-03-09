@@ -7,7 +7,7 @@ networks:
 services:
   cloudflare-ddns:
     image: favonia/cloudflare-ddns:latest
-    container_name: cloudflare_ddns
+    container_name: cloudflare-ddns
     environment:
       - TZ=${TZ}
       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
@@ -36,7 +36,7 @@ services:
       - ./nginx/logs:/var/log/nginx
       - ./certs:/etc/letsencrypt:ro
     depends_on:
-      - authentik_server
+      - authentik-server
     networks:
       externalnetwork:
         ipv4_address: 172.40.0.241
@@ -112,7 +112,7 @@ services:
 
   authentik-server:
     image: ghcr.io/goauthentik/server:latest
-    container_name: authentik_server
+    container_name: authentik-server
     command: server
     environment:
       - TZ=${TZ}
@@ -127,8 +127,8 @@ services:
       - ./authentik/media:/media
       - ./authentik/templates:/templates
     depends_on:
-      - authentik_postgres
-      - authentik_redis
+      - authentik-postgres
+      - authentik-redis
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.243
@@ -145,7 +145,7 @@ services:
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:latest
-    container_name: authentik_worker
+    container_name: authentik-worker
     command: worker
     environment:
       - TZ=${TZ}
@@ -161,8 +161,8 @@ services:
       - ./authentik/templates:/templates
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - authentik_postgres
-      - authentik_redis
+      - authentik-postgres
+      - authentik-redis
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.244
@@ -178,7 +178,7 @@ services:
 
   authentik-postgres:
     image: postgres:16-alpine
-    container_name: authentik_postgres
+    container_name: authentik-postgres
     environment:
       - TZ=${TZ}
       - POSTGRES_USER=${AUTHENTIK_POSTGRES_USER}
