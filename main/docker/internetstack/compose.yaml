@@ -31,14 +31,14 @@ services:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}
     volumes:
       - ./certs:/etc/letsencrypt
-      - ./certbot/cloudflare.ini:/cloudflare.ini:ro
     entrypoint: >
       sh -c "
-      echo 'dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}' > /cloudflare.ini
+      cd /
+      echo 'dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}' > cloudflare.ini
       &&
       certbot certonly
       --dns-cloudflare
-      --dns-cloudflare-credentials /cloudflare.ini
+      --dns-cloudflare-credentials cloudflare.ini
       --dns-cloudflare-propagation-seconds 30
       -d ${AUTHENTIK_DOMAIN}
       -d ${JELLYFIN_DOMAIN}
