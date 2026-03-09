@@ -6,7 +6,7 @@ networks:
 
 services:
   cloudflare-ddns:
-    image: favonia/cloudflare-ddns:latest
+    image: favonia/cloudflare-ddns:edge-alpine
     container_name: cloudflare-ddns
     environment:
       - TZ=${TZ}
@@ -65,6 +65,8 @@ services:
       - ./certs:/etc/letsencrypt
       - ./certbot/cloudflare.ini:/cloudflare.ini:ro
     entrypoint: >
+      echo "dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}" > /cloudflare.ini
+      &&
       sh -c "
       certbot certonly
       --dns-cloudflare
@@ -130,6 +132,8 @@ services:
     volumes:
       - ./authentik/media:/media
       - ./authentik/templates:/templates
+    ports: 
+      - 9000:9000
     depends_on:
       - authentik-postgres
       - authentik-redis
