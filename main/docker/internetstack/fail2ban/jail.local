@@ -1,0 +1,54 @@
+[DEFAULT]
+# Ban for 24 hours by default
+bantime  = 86400
+findtime = 600
+maxretry = 5
+backend  = auto
+
+# ============================================================
+# Ban IPs hitting the 444 catch-all (port scanners, bots)
+# 2 hits to an unknown host = 1 week ban
+# ============================================================
+[nginx-444]
+enabled  = true
+port     = http,https
+filter   = nginx-444
+logpath  = /var/log/nginx/access.log
+maxretry = 2
+bantime  = 604800
+findtime = 300
+
+# ============================================================
+# Ban IPs getting rate limited on the auth portal
+# 3 rate limit responses = 24h ban
+# ============================================================
+[nginx-auth-ratelimit]
+enabled  = true
+port     = http,https
+filter   = nginx-auth-ratelimit
+logpath  = /var/log/nginx/access.log
+maxretry = 3
+bantime  = 86400
+findtime = 600
+
+# ============================================================
+# Ban known bad bots instantly — 1 week
+# ============================================================
+[nginx-badbots]
+enabled  = true
+port     = http,https
+filter   = apache-badbots
+logpath  = /var/log/nginx/access.log
+maxretry = 1
+bantime  = 604800
+
+# ============================================================
+# Ban IPs probing for scripts/exploits
+# ============================================================
+[nginx-noscript]
+enabled  = true
+port     = http,https
+filter   = nginx-noscript
+logpath  = /var/log/nginx/access.log
+maxretry = 3
+bantime  = 86400
