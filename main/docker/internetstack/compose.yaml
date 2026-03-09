@@ -33,9 +33,8 @@ services:
       - ./certs:/etc/letsencrypt
       - ./certbot/cloudflare.ini:/cloudflare.ini:ro
     entrypoint: >
-      echo "dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}" > /cloudflare.ini
-      &&
       sh -c "
+      echo "dns_cloudflare_api_token = ${CLOUDFLARE_API_TOKEN}" > /cloudflare.ini
       certbot certonly
       --dns-cloudflare
       --dns-cloudflare-credentials /cloudflare.ini
