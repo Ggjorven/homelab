@@ -58,7 +58,7 @@ To make this stack start on the boot-up of the LXC follow [these instructions](.
 
 ## Debugging
 
-If you have any issues setting up `tvstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `securitystack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
