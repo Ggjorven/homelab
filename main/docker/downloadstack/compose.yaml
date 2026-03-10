@@ -64,7 +64,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - STATE_DIR=/config
-      - DOWNLOAD_DIR=/downloads
+      - DOWNLOAD_DIR=${METUBE_PATH_TO_YOUR_DOWNLOAD_DIRECTORY}
       - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
       - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
     ports:
@@ -72,7 +72,6 @@ services:
     volumes:
       - ./metube:/config
       - /mnt/nas:/mnt/nas
-      - /mnt/nas:/downloads # Temporary, you should really change the directory in metube when dowloading
       - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
