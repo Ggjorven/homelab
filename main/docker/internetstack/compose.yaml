@@ -18,7 +18,7 @@ services:
       externalnetwork:
         ipv4_address: 172.40.0.240
     healthcheck:
-      test: sh -c "nslookup google.com || exit 1"
+      test: sh -c "nslookup cloudflare.com || exit 1"
       interval: 5m
       timeout: 10s
       retries: 3
