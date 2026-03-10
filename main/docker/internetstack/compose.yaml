@@ -28,8 +28,6 @@ services:
   certbot:
     image: certbot/dns-cloudflare:latest
     container_name: certbot
-    environment:
-      - CERTBOT_EMAIL=${CERTBOT_EMAIL}
     volumes:
       - ./certs:/etc/letsencrypt
     entrypoint: >
@@ -47,7 +45,7 @@ services:
       -d ${NAVIDROME_DOMAIN}
       --non-interactive
       --agree-tos
-      -m $$CERTBOT_EMAIL
+      -m ${CERTBOT_EMAIL}
       --keep-until-expiring
       && while true; do
         sleep 12h;

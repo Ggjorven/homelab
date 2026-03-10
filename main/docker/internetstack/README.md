@@ -1,6 +1,6 @@
-# Gaming Stack
+# Internet Stack
 
-**Gaming Stack** is a collection of gaming related services, this folder contains the installation instructions for installing these using **Docker Compose**.
+**Internet Stack** is a collection of services related to safely exposing other services to the world wide web, this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
@@ -38,19 +38,129 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
 
 4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-5. Now open the compose file and modify the path pointing to the music:
+5. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+
+6. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
+
+7. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
+
+8. To make our `internetstack` be able to change DNS records for DDNS we need to create an API Key. Go to **Profile** -> **API Tokens**.
+
+9. Click **Create Token**, select **Edit Zone DNS**.
+
+10. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
+
+11. Now go back to the open .env file and paste the API Token under:
     ```
-    nano compose.yaml
+    # Cloudflare settings
+    CLOUDFLARE_API_TOKEN=apitoken
     ```
 
-6. We are now ready to start our docker stack.
+12. Now set an email for certbot to send notifications to when a certificate is about to expire under:
+    ```
+    # Cloudflare settings
+    # ...
+    CERTBOT_EMAIL=your@email.com # For notifications
+    ```
+
+13. Now add your domains under:
+    ```
+    # Domains
+    AUTH_DOMAIN=auth.yourdomain.com
+    JELLYFIN_DOMAIN=jellyfin.yourdomain.com
+    NAVIDROME_DOMAIN=navidrome.yourdomain.com
+    ```
+
+14. Set auth settings in .env // TODO: ...
+
+15. Now we can start setting up our directories and template files + more. We'll start with the directories:
+    ```
+    mkdir -p nginx
+    mkdir -p nginx/templates
+    mkdir -p fail2ban
+    mkdir -p fail2ban/filter.d
+    ```
+
+16. Clone the template files into the proper directories:
+    ```
+    cd nginx
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/nginx/nginx.conf
+    cd templates
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/nginx/templates/default.conf.template
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/nginx/templates/auth.conf.template
+    cd ../..
+    cd fail2ban
+    # TODO: ...
+    cd ../..
+    ```
+
+17. Before we are ready to start this stack though we'll want to set some iptables rules. Start by installing the dependencies:
+    ```
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-dependencies.sh | bash
+    ```
+
+18. Before we are ready to start this stack though we'll want to set some iptables rules. Now download the rule installation script:
+    ```
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-rules.sh
+    ```
+
+19. Before editing the file we must know what our subnet is, check this with:
+    ```
+    ip a
+    ```
+    You should see something like `192.168.0.x/24`, where the `/24` is important.
+
+20. Now modify the script and set `SUBNET` to your actual subnet like `/24` or `/22`, keep the `192.168.0.0` intact.
+    ```
+    nano install-rules.sh
+    ```
+
+21. Now run the script:
+    ```
+    chmod +x install-rules.sh
+    ./install-rules.sh
+    rm install-rules.sh
+    ```
+
+22. To make sure the definition of an IP from cloudflare stays consistent with what cloudflare IP's actually are I have created a **systemd** service. To install this run:
+    ```
+    sudo mkdir -p /lxc/scripts
+    cd /lxc/scripts
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/update-cloudflare-ips.sh
+    cd /etc/systemd/system
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/services/update-cloudflare-ips.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/services/update-cloudflare-ips.timer
+    ```
+
+23. Now enable this service with:
+    ```
+    sudo systemctl daemon-reload
+    sudo systemctl start update-cloudflare-ips.timer
+    sudo systemctl enable update-cloudflare-ips.timer
+    ```
+
+24. After all these steps we are finally ready to start the containers:
     ```
     docker compose up -d
     ```
 
 ## Configuration
 
-### // TODO: ...
+### Cloudflare-DDNS
+
+Cloudflare-DDNS has been preconfigured.
+
+### Nginx
+
+Nginx has been preconfigured.
+
+### Authelia
+
+// TODO: ...
+
+### Fail2ban
+
+// TODO: ...
 
 ## Start on boot-up
 
@@ -58,8 +168,12 @@ To make this stack start on the boot-up of the LXC follow [these instructions](.
 
 ## Debugging
 
-If you have any issues setting up `tvstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `internetstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
-- [Docker](https://www.docker.com/) - Hardware accelerated containers 
+- [Docker](https://www.docker.com/) - Hardware accelerated containers
+- [Cloudflare](https://www.cloudflare.com) - Safe DNS server
+- [Nginx](https://nginx.org/) - Reverse proxy
+- [Authelia](https://www.authelia.com/) - Authentication and Authorization server
+- [Fail2ban](https://www.authelia.com/) - Daemon that bans hosts with multiple auth errors
