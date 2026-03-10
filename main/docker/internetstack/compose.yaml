@@ -11,7 +11,7 @@ services:
     environment:
       - TZ=${TZ}
       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-      - DOMAINS=${AUTHENTIK_DOMAIN},${JELLYFIN_DOMAIN},${NAVIDROME_DOMAIN}
+      - DOMAINS=${AUTH_DOMAIN},${JELLYFIN_DOMAIN},${NAVIDROME_DOMAIN}
       - PROXIED=true
       - IP6_PROVIDER=none
     networks:
@@ -42,7 +42,7 @@ services:
       --dns-cloudflare
       --dns-cloudflare-credentials cloudflare.ini
       --dns-cloudflare-propagation-seconds 30
-      -d ${AUTHENTIK_DOMAIN}
+      -d ${AUTH_DOMAIN}
       -d ${JELLYFIN_DOMAIN}
       -d ${NAVIDROME_DOMAIN}
       --non-interactive
@@ -69,10 +69,10 @@ services:
     image: nginx:alpine
     container_name: nginx
     environment:
-      - AUTHENTIK_DOMAIN=${AUTHENTIK_DOMAIN}
+      - AUTH_DOMAIN=${AUTH_DOMAIN}
       - JELLYFIN_DOMAIN=${JELLYFIN_DOMAIN}
       - NAVIDROME_DOMAIN=${NAVIDROME_DOMAIN}
-      - AUTHENTIK_IP=172.40.0.243
+      - AUTH_IP=172.40.0.243
       - JELLYFIN_IP=172.40.0.50
       - NAVIDROME_IP=172.40.0.60
     volumes:
@@ -84,8 +84,7 @@ services:
       - 80:80
       - 443:443
     depends_on:
-    #  authentik-server:
-    #    condition: service_healthy
+      # auth
       certbot:
         condition: service_healthy
     networks:
@@ -120,111 +119,6 @@ services:
   #     retries: 3
   #     start_period: 30s
   #   restart: unless-stopped
-# 
-  # authentik-server:
-  #   image: ghcr.io/goauthentik/server:latest
-  #   container_name: authentik-server
-  #   command: server
-  #   environment:
-  #     - TZ=${TZ}
-  #     - AUTHENTIK_REDIS__HOST=172.39.0.246
-  #     - AUTHENTIK_POSTGRESQL__HOST=172.39.0.245
-  #     - AUTHENTIK_POSTGRESQL__USER=${AUTHENTIK_POSTGRES_USER}
-  #     - AUTHENTIK_POSTGRESQL__PASSWORD=${AUTHENTIK_POSTGRES_PASSWORD}
-  #     - AUTHENTIK_POSTGRESQL__NAME=authentik
-  #     - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
-  #     - AUTHENTIK_ERROR_REPORTING__ENABLED=false
-  #   volumes:
-  #     - ./authentik/media:/media
-  #     - ./authentik/templates:/templates
-  #   ports: 
-  #     - 9000:9000
-  #   depends_on:
-  #     - authentik-postgres
-  #     - authentik-redis
-  #   networks:
-  #     internalnetwork:
-  #       ipv4_address: 172.39.0.243
-  #     externalnetwork:
-  #       ipv4_address: 172.40.0.243
-  #   healthcheck:
-  #     test: ak healthcheck || exit 1
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
-  #   labels:
-  #     - deunhealth.restart.on.unhealthy=true
-  #   restart: unless-stopped
-# 
-  # authentik-worker:
-  #   image: ghcr.io/goauthentik/server:latest
-  #   container_name: authentik-worker
-  #   command: worker
-  #   environment:
-  #     - TZ=${TZ}
-  #     - AUTHENTIK_REDIS__HOST=172.39.0.246
-  #     - AUTHENTIK_POSTGRESQL__HOST=172.39.0.245
-  #     - AUTHENTIK_POSTGRESQL__USER=${AUTHENTIK_POSTGRES_USER}
-  #     - AUTHENTIK_POSTGRESQL__PASSWORD=${AUTHENTIK_POSTGRES_PASSWORD}
-  #     - AUTHENTIK_POSTGRESQL__NAME=authentik
-  #     - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
-  #     - AUTHENTIK_ERROR_REPORTING__ENABLED=false
-  #   volumes:
-  #     - ./authentik/media:/media
-  #     - ./authentik/templates:/templates
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   depends_on:
-  #     - authentik-postgres
-  #     - authentik-redis
-  #   networks:
-  #     internalnetwork:
-  #       ipv4_address: 172.39.0.244
-  #   healthcheck:
-  #     test: sh -c "ak healthcheck || exit 1"
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
-  #     start_period: 60s
-  #   labels:
-  #     - deunhealth.restart.on.unhealthy=true
-  #   restart: unless-stopped
-# 
-  # authentik-postgres:
-  #   image: postgres:16-alpine
-  #   container_name: authentik-postgres
-  #   environment:
-  #     - TZ=${TZ}
-  #     - POSTGRES_USER=${AUTHENTIK_POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${AUTHENTIK_POSTGRES_PASSWORD}
-  #     - POSTGRES_DB=authentik
-  #   volumes:
-  #     - ./authentik/postgres:/var/lib/postgresql/data
-  #   networks:
-  #     internalnetwork:
-  #       ipv4_address: 172.39.0.245
-  #   healthcheck:
-  #     test: pg_isready -U ${AUTHENTIK_POSTGRES_USER}
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 5
-  #   labels:
-  #     - deunhealth.restart.on.unhealthy=true
-  #   restart: unless-stopped
-# 
-  # authentik-redis:
-  #   image: redis:alpine
-  #   container_name: authentik-redis
-  #   command: --save 60 1 --loglevel warning
-  #   volumes:
-  #     - ./authentik/redis:/data
-  #   networks:
-  #     internalnetwork:
-  #       ipv4_address: 172.39.0.246
-  #   healthcheck:
-  #     test: redis-cli ping | grep PONG
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
-  #   labels:
-  #     - deunhealth.restart.on.unhealthy=true
-  #   restart: unless-stopped
+
+  # TODO: AUTH
+  # TODO: Key generator

@@ -1,21 +1,21 @@
 # ============================================================
-# AUTH PORTAL — ${AUTHENTIK_DOMAIN}
+# AUTH PORTAL — ${AUTH_DOMAIN}
 # The only endpoint open without prior authentication
 # ============================================================
 
 server {
     listen 80;
-    server_name ${AUTHENTIK_DOMAIN};
+    server_name ${AUTH_DOMAIN};
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
-    server_name ${AUTHENTIK_DOMAIN};
+    server_name ${AUTH_DOMAIN};
 
     # ---- TLS ----
-    ssl_certificate     /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${AUTHENTIK_DOMAIN}/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/${AUTH_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${AUTH_DOMAIN}/privkey.pem;
 
     # ---- Security headers ----
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
@@ -34,9 +34,9 @@ server {
         return 444;
     }
 
-    # ---- Proxy to Authentik ----
+    # ---- Proxy to Auth ----
     location / {
-        proxy_pass          http://${AUTHENTIK_IP}:9000;
+        proxy_pass          http://${AUTH_IP}:9091;
         proxy_http_version  1.1;
         proxy_set_header    Host              $host;
         proxy_set_header    X-Real-IP         $remote_addr;
