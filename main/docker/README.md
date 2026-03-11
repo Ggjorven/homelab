@@ -96,6 +96,10 @@ docker compose down
 In the stack's directory
 
 To remove all docker containers and their remains run:
+
+> [!CAUTION]
+> This action is irreversible and will delete docker containers and networks.
+
 ```
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
