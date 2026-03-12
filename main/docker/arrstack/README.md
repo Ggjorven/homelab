@@ -159,6 +159,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 5. Under **Secondary Types** enable:
 - Studio
+- Soundtrack
 - Live
 - Demo
 - Compilation
