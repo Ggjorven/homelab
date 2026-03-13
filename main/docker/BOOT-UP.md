@@ -24,13 +24,18 @@ To allow us to easily add stacks to start a boot-up of the `docker` LXC install 
     sudo chmod +x compose-boot.sh
     ```
 
-3. Now download the accompanying **systemd** service:
+3. Now set the `USERNAME` variable to your linux user's username:
+    ```
+    sudo nano compose-boot.sh
+    ```
+
+4. Now download the accompanying **systemd** service:
     ```
     cd /etc/systemd/system
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/services/compose-boot.service
     ```
 
-4. Modify the **systemd** service:
+5. Modify the **systemd** service:
     ```
     sudo nano compose-boot.service
     ```
@@ -40,7 +45,7 @@ To allow us to easily add stacks to start a boot-up of the `docker` LXC install 
     Group=<username>
     ```
 
-5. Now enable this service:
+6. Now enable this service:
     ```
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
@@ -62,13 +67,18 @@ To allow us to easily add stacks to gracefully shutdown at the shutdown of the `
     sudo chmod +x compose-shutdown.sh
     ```
 
-3. Now download the accompanying **systemd** service:
+3. Now set the `USERNAME` variable to your linux user's username:
+    ```
+    sudo nano compose-shutdown.sh
+    ```
+
+4. Now download the accompanying **systemd** service:
     ```
     cd /etc/systemd/system
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/services/compose-shutdown.service
     ```
 
-4. Modify the **systemd** service:
+5. Modify the **systemd** service:
     ```
     sudo nano compose-shutdown.service
     ```
@@ -78,7 +88,7 @@ To allow us to easily add stacks to gracefully shutdown at the shutdown of the `
     Group=<username>
     ```
 
-5. Now enable this service:
+6. Now enable this service:
     ```
     sudo systemctl daemon-reload
     sudo systemctl enable compose-shutdown
@@ -98,17 +108,15 @@ To add a new stack to start on boot-up of the `docker` LXC modify the script ins
 2. Uncomment the lines for your stack, example:
     ```
     # Compose boot up 1 (networkstack)
-    # cd /home/<username>/docker/networkstack
+    # cd /home/$USERNAME/docker/networkstack
     # docker compose up -d
     ```
     To:
     ```
     # Compose boot up 1 (networkstack)
-    cd /home/<username>/docker/networkstack
+    cd /home/$USERNAME/docker/networkstack
     docker compose up -d
     ```
-
-3. Change `<username>` to the user you created for `docker`.
 
 ### Shutdown
 
@@ -122,14 +130,12 @@ To add a new stack to the graceful shutdown of the `docker` LXC modify the scrip
 2. Uncomment the lines for your stack, example:
     ```
     # Compose boot up 2 (monitoringstack)
-    # cd /home/<username>/docker/monitoringstack
+    # cd /home/$USERNAME/docker/monitoringstack
     # docker compose down
     ```
     To:
     ```
     # Compose boot up 2 (monitoringstack)
-    cd /home/<username>/docker/monitoringstack
+    cd /home/$USERNAME/docker/monitoringstack
     docker compose down
     ```
-
-3. Change `<username>` to the user you created for `docker`.
