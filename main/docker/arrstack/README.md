@@ -125,6 +125,37 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](https://github.com/Ggjorven/homelab/blob/main/main/docker/arrstack/compose.yaml). And set your `Username` and `Password`.
 
+5. Now we'll need to modify **Quality Profiles**. Go to `Settings` -> `Profiles`
+
+6. Delete:
+    - **HD - 720p/1080p**
+    - **SD**
+
+7. Now change these profiles titles:
+    - **HD-720p** to **720p - HD**
+    - **HD-1080p** to **1080p - HD**
+    - **Ultra-HD** to **2160p - 4K**
+
+8. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+
+9. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+    - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
+    - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
+    --
+    - **HDTV-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `35`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `35`, max = `55`  
+    --
+    - **HDVTV-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `85`, max = `135`
+
 ### Sonarr
 
 To configure **Sonarr** you need to go to port `8989` of the ip address of the **Proxmox LXC** and setup the authentication *(I use Forms)*.
@@ -139,6 +170,37 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
 3. To allow **Sonarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 4. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+
+5. Now we'll need to modify **Quality Profiles**. Go to `Settings` -> `Profiles`
+
+6. Delete:
+    - **HD - 720p/1080p**
+    - **SD**
+
+7. Now change these profiles titles:
+    - **HD-720p** to **720p - HD**
+    - **HD-1080p** to **1080p - HD**
+    - **Ultra-HD** to **2160p - 4K**
+
+8. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+
+9. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+    - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
+    - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
+    --
+    - **HDTV-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `35`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `35`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `35`, max = `55`  
+    --
+    - **HDVTV-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `85`, max = `135`
 
 ### Lidarr
 
