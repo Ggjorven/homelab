@@ -127,6 +127,7 @@ To immediately scan your media library when **Radarr** or **Sonarr** adds someth
 3. Add a connection and select **Emby / Jellyfin**.
 
 4. Enable the triggers (radarr/sonarr):  
+  
     **Radarr**:  
     - On File Import
     - On File Upgrade
@@ -134,7 +135,8 @@ To immediately scan your media library when **Radarr** or **Sonarr** adds someth
     - On Movie Delete
     - On Movie File Delete
     - On Movie File Delete For Upgrade
-    - On Application Update    
+    - On Application Update
+  
     **Sonarr**:  
     - On File Import
     - On File Upgrade
