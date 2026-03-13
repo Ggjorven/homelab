@@ -104,7 +104,7 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  slskd:
+  slskd: # TODO: Move to downloadstack
     image: slskd/slskd
     container_name: slskd
     user: ${PUID}:${PGID}
