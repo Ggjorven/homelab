@@ -1,6 +1,5 @@
 # ============================================================
-# AUTH PORTAL — ${AUTH_DOMAIN}
-# The only endpoint open without prior authentication
+# AUTH PORTAL
 # ============================================================
 
 server {
@@ -13,37 +12,69 @@ server {
     listen 443 ssl;
     server_name ${AUTH_DOMAIN};
 
-    # ---- TLS ----
+    # TLS
     ssl_certificate     /etc/letsencrypt/live/${AUTH_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${AUTH_DOMAIN}/privkey.pem;
 
-    # ---- Security headers ----
+    # Security headers
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
     add_header Permissions-Policy "geolocation=(), camera=(), microphone=()" always;
 
-    # ---- Drop empty user agents ----
+    # Drop empty user agents
     if ($http_user_agent = "") { return 444; }
 
-    # ---- Connection and rate limits ----
+    # Connection and rate limits
     limit_conn conn_limit 10;
     limit_req zone=auth_limit burst=5 nodelay;
     limit_req_status 429;
 
-    # ---- Only allow needed HTTP methods ----
+    # Only allow needed HTTP methods
     if ($request_method !~ ^(GET|POST)$) {
         return 444;
     }
 
-    # ---- Proxy to Auth ----
+    # Proxy to Auth
     location / {
-        proxy_pass          http://${AUTH_IP}:9091;
-        proxy_http_version  1.1;
-        proxy_set_header    Host              $host;
-        proxy_set_header    X-Real-IP         $remote_addr;
-        proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header    X-Forwarded-Proto $scheme;
-        proxy_set_header    Upgrade           $http_upgrade;
-        proxy_set_header    Connection        "upgrade";
-        proxy_hide_header   Server;
+        # Headers
+        proxy_set_header Host               $host;
+        proxy_set_header X-Original-URL     $scheme://$http_host$request_uri;
+        proxy_set_header X-Real-IP          $remote_addr;
+        proxy_set_header X-Forwarded-For    $remote_addr;
+        proxy_set_header X-Forwarded-Proto  $scheme;
+        proxy_set_header X-Forwarded-Host   $http_host;
+        proxy_set_header X-Forwarded-URI    $request_uri;
+        proxy_set_header X-Forwarded-Ssl    on;
+
+        # Basic Proxy Configuration
+        client_body_buffer_size             128k;
+        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503; ## Timeout if the real server is dead.
+        proxy_redirect                      http://  $scheme://;
+        proxy_http_version                  1.1;
+        proxy_cache_bypass                  $cookie_session;
+        proxy_no_cache                      $cookie_session;
+        proxy_buffers                       64 256k;
+
+        # Trusted Proxies Configuration
+        real_ip_header                      X-Forwarded-For;
+        real_ip_recursive                   on;
+
+        # Advanced Proxy Configuration
+        send_timeout                        5m;
+        proxy_read_timeout                  360;
+        proxy_send_timeout                  360;
+        proxy_connect_timeout               360;
+
+        # Redirect to
+        proxy_pass                          http://${AUTH_IP}:9091;
+    }
+
+    location = /api/verify {
+        # Redirect to
+        proxy_pass $upstream;
+    }
+
+    location /api/authz/ {
+        # Redirect to
+        proxy_pass $upstream;
     }
 }

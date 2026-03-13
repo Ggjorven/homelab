@@ -97,6 +97,21 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
+  authelia:
+    image: authelia/authelia
+    container_name: authelia
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ./authelia:/config
+      - ./authelia/configuration.yml:/config/configuration.yml:ro
+    ports:
+      - 9091:9091
+    networks:
+      externalnetwork:
+        ipv4_address: 172.40.0.242
+    restart: 'unless-stopped'
+
   # fail2ban:
   #   image: crazymax/fail2ban:latest
   #   container_name: fail2ban
@@ -118,5 +133,4 @@ services:
   #     start_period: 30s
   #   restart: unless-stopped
 
-  # TODO: AUTH
   # TODO: Key generator
