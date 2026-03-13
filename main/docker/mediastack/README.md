@@ -225,6 +225,14 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 6. And finish your setup!
 
+7. Now go to `Users` and **Import Jellyfin Users**.
+
+8. Now you can give each user permissions. Click **Edit** and go to `Permissions`.
+
+9. I like to give each user these permissions + the defaults:
+    - **Advanced Requests** (for quality selection)
+    - **Auto Approve** (for auto approving requests)
+
 ### Jellystat
 
 To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
