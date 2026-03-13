@@ -88,7 +88,6 @@ services:
     volumes:
       - ./lidarr:/config
       - /mnt/nas:/mnt/nas
-      - ${SOULARR_DOWNLOAD_DIRECTORY}:/soularr/downloads
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
@@ -104,44 +103,6 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  slskd: # TODO: Move to downloadstack
-    image: slskd/slskd
-    container_name: slskd
-    user: ${PUID}:${PGID}
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - SLSKD_SLSK_USERNAME=${SOULSEEK_USERNAME}
-      - SLSKD_SLSK_PASSWORD=${SOULSEEK_PASSWORD}
-      # - SLSKD_SLSK_DESCRIPTION=Cool description about you
-      - SLSKD_DOWNLOADS_DIR=/downloads
-      - SLSKD_INCOMPLETE_DIR=/incomplete
-      - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
-      - SLSKD_SLSK_LISTEN_PORT=50300
-      - SLSKD_REMOTE_CONFIGURATION=true
-      - SLSKD_API_KEY=${SLSKD_API_KEY}
-    volumes:
-      - ./slskd:/app
-      - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
-      - ${SOULARR_INCOMPLETE_DIRECTORY}:/incomplete
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 5030:5030
-      - 5031:5031
-      - 50300:50300
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.43
-    healthcheck:
-      test: wget -qO- http://localhost:5030/healthcheck
-      interval: 60s
-      timeout: 3s
-      retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped
-
   soularr:
     image: mrusse08/soularr:latest
     container_name: soularr
@@ -151,20 +112,22 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
+      - SLSKD_DOWNLOAD_DIRECTORY=${SLSKD_DOWNLOAD_DIRECTORY}
     volumes:
       - ./soularr:/data
-      - ${SOULARR_DOWNLOAD_DIRECTORY}:/downloads
+      - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.44
+        ipv4_address: 172.39.0.43
     depends_on:
       lidarr:
         condition: service_healthy
       slskd:
         condition: service_healthy
     healthcheck:
-      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.43:5030 || exit 1"
+      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.31:5030 || exit 1"
       interval: 60s
       timeout: 3s
       retries: 3
@@ -186,7 +149,7 @@ services:
       - 6767:6767
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.45
+        ipv4_address: 172.39.0.44
     healthcheck:
       test: curl -s http://localhost:6767 || exit 1
       interval: 30s

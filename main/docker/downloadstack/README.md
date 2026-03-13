@@ -39,7 +39,17 @@ Before we can create our `download stack` on our `docker` **Proxmox LXC**. We mu
 
 4. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-5. We are now ready to start our docker stack.
+5. Change the `METUBE_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **MeTube**. Something like `/mnt/nas/Users/<USERNAME>/YT/Downloads`.
+
+6. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Slskd**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+
+7. Change the `SLSKD_INCOMPLETE_DIRECTORY` to reflect your actual incomplete directory for **Slskd**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Incomplete`.
+
+8. Set a **Soulseek** `username` and `password` under `SOULSEEK_USERNAME`/`SOULSEEK_PASSWORD`, you can choose these at will as long as no one else has that `username`.
+
+9. Create an API key for **slskd** and set it under `SLSKD_API_KEY`. ([hint](https://randomkeygen.com/jwt-secret))
+
+10. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -103,33 +113,33 @@ To configure **NZBGet** you need to go to port `6789` of the ip address of the *
 
 ### MeTube
 
-To configure **MeTube** you need to go to port `8081` of the ip address of the **Proxmox LXC**.
+MeTube doesn't require any configuration for this current setup.  
+**MeTube** can be found on port `8081` of your **Proxmox LXC**'s IP address.  
+If you have any issues with downloading some sites require cookies, the instructions for these are below:
 
-1. Change the download folder to a directory of your choosing. Under **Advanced Options**.
-
-2. (Optional) Some platforms require cookies to be able to download videos. This can be done by retrieving cookies from your browser using these extensions:
+1. (Optional) Some platforms require cookies to be able to download videos. This can be done by retrieving cookies from your browser using these extensions:
    - [Export Cookies](https://addons.mozilla.org/en-US/firefox/addon/export-cookies-txt/) for Firefox
    - [Get Cookies](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) for Chrome
   
-3. Copy the contents of the exported file, likely called `cookies.txt`.
+2. Copy the contents of the exported file, likely called `cookies.txt`.
 
-4. Go the **Proxmox LXC**'s shell and go to `downloadstack`:
+3. Go the **Proxmox LXC**'s shell and go to `downloadstack`:
     ```
     cd ~/docker
     cd downloadstack
     ```
 
-5. Create a folder under `metube` for the cookies:
+4. Create a folder under `metube` for the cookies:
     ```
     mkdir -p metube/cookies
     ```
 
-6. Create a `cookies.txt` file and paste your contents inside:
+5. Create a `cookies.txt` file and paste your contents inside:
     ```
     nano metube/cookies/cookies.txt
     ```
 
-7. Modify the `compose.yaml` file:
+6. Modify the `compose.yaml` file:
     ```
     nano compose.yaml
     ```
@@ -142,7 +152,12 @@ To configure **MeTube** you need to go to port `8081` of the ip address of the *
     - YTDL_OPTIONS={"cookiefile":"/cookies/cookies.txt"}
     ```
 
-8. `metube` will now use your cookies which will help bypass some bot checks.
+7. `metube` will now use your cookies which will help bypass some bot checks.
+
+### Slskd
+
+**Slskd** currently doesn't require any more configuration.  
+**Slskd** can be accessed on port `5030` of your **Proxmox LXC**'s IP address.
 
 ## Start on boot-up
 

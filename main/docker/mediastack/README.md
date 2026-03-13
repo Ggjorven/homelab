@@ -120,7 +120,7 @@ chmod -R 777 /mnt/jellyfin-cache
 
 To immediately scan your media library when **Radarr** or **Sonarr** adds something I have created some simple instructions. Repeat these instructions for both **Radarr** and **Sonarr**.
 
-1. Go to your ***Arr** app on port `7878`/`8989` of your Proxmox LXC's IP.
+1. Go to your ***Arr** app on port `7878`/`8989` of your **Proxmox LXC**'s IP.
 
 2. Go to `Settings` -> `Connect`.
 
@@ -149,7 +149,7 @@ To immediately scan your media library when **Radarr** or **Sonarr** adds someth
 
 5. Set the host IP to `172.39.0.50` as defined in the [compose file](compose.yaml).
 
-6. Go to **Jellyfin** on port `8096` of your Proxmox LXC's IP.
+6. Go to **Jellyfin** on port `8096` of your **Proxmox LXC**'s IP.
 
 7. Go to `Dashboard` -> `API Keys` and create a key for your ***arr app**. 
 

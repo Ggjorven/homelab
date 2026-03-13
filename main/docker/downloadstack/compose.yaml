@@ -84,3 +84,40 @@ services:
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
+
+  slskd: 
+    image: slskd/slskd
+    container_name: slskd
+    user: ${PUID}:${PGID}
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - SLSKD_SLSK_USERNAME=${SOULSEEK_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SOULSEEK_PASSWORD}
+      # - SLSKD_SLSK_DESCRIPTION=Cool description about you
+      - SLSKD_DOWNLOADS_DIR=${SLSKD_DOWNLOAD_DIRECTORY}
+      - SLSKD_INCOMPLETE_DIR=${SLSKD_INCOMPLETE_DIRECTORY}
+      - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
+      - SLSKD_SLSK_LISTEN_PORT=50300
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
+    volumes:
+      - ./slskd:/app
+      - /mnt/nas:/mnt/nas
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5030:5030
+      - 5031:5031
+      - 50300:50300
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.31
+    healthcheck:
+      test: wget -qO- http://localhost:5030/healthcheck
+      interval: 60s
+      timeout: 3s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
