@@ -158,6 +158,7 @@ If you have any issues with downloading some sites require cookies, the instruct
 
 **Slskd** currently doesn't require any more configuration.  
 **Slskd** can be accessed on port `5030` of your **Proxmox LXC**'s IP address.
+The default credentials are `slskd` & `slskd`.
 
 ## Start on boot-up
 
