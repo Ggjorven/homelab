@@ -116,6 +116,47 @@ chown -R 100000:100000 /mnt/jellyfin-cache
 chmod -R 777 /mnt/jellyfin-cache
 ```
 
+#### *Arr Connection
+
+To immediately scan your media library when **Radarr** or **Sonarr** adds something I have created some simple instructions. Repeat these instructions for both **Radarr** and **Sonarr**.
+
+1. Go to your ***Arr** app on port `7878`/`8989` of your Proxmox LXC's IP.
+
+2. Go to `Settings` -> `Connect`.
+
+3. Add a connection and select **Emby / Jellyfin**.
+
+4. Enable the triggers (radarr/sonarr):  
+    **Radarr**:  
+    - On File Import
+    - On File Upgrade
+    - On Rename
+    - On Movie Delete
+    - On Movie File Delete
+    - On Movie File Delete For Upgrade
+    - On Application Update    
+    **Sonarr**:  
+    - On File Import
+    - On File Upgrade
+    - On Import Complete
+    - On Rename
+    - On Series Delete
+    - On Episode File Delete
+    - On Episode File Delete For Upgrade
+    - On Application Update
+
+5. Set the host IP to `172.39.0.50` as defined in the [compose file](compose.yaml).
+
+6. Go to **Jellyfin** on port `8096` of your Proxmox LXC's IP.
+
+7. Go to `Dashboard` -> `API Keys` and create a key for your ***arr app**. 
+
+8. Paste the key in the **API Key** field.
+
+9. Enable **Update Library**.
+
+10. **Save**!
+
 #### Plugins
 
 **Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
