@@ -64,7 +64,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - STATE_DIR=/config
-      - DOWNLOAD_DIR=${METUBE_PATH_TO_YOUR_DOWNLOAD_DIRECTORY}
+      - DOWNLOAD_DIR=${METUBE_DOWNLOAD_DIRECTORY}
       - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
       - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
     ports:
