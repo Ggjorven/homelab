@@ -228,9 +228,13 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 6. Under **Release Statuses** enable:
 - Official
 
-7. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+7. To automatically add metadata go to `Settings` -> `Metadata`. Set **Tag Audio Files with Metaddata** to **All files; keep in sync with MusicBrainz**.
 
-8. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+8. Enable both **Embed Covert Art In Audio Files** and **Scrub Existing Tags** too.
+
+9. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+
+10. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 ### Soularr 
 
