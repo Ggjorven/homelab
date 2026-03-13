@@ -136,9 +136,11 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
     - **HD-1080p** to **1080p - HD**
     - **Ultra-HD** to **2160p - 4K**
 
-8. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+8. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
 
-9. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+9. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+
+10. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
     - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
@@ -182,9 +184,11 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
     - **HD-1080p** to **1080p - HD**
     - **Ultra-HD** to **2160p - 4K**
 
-8. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+8. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
 
-9. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+9. Now we'll need to set maximum **Quality** sizes. Go to `Settings` -> `Quality`.
+
+10. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
     - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
