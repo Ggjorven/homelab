@@ -93,9 +93,9 @@ To easily migrate your stacks to the newest version of `homelab` use my [script]
 > [!WARNING]
 > This script only updates the compose.yaml files and doesn't take into account the newly required environment variables.
 
-1. Run this command:
+1. Run this command (replace `<username>` with the linux user):
     ```
-    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update-compose-files.sh | sudo bash 
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update-compose-files.sh | sudo bash -s <username>
     ```
 
 ## Extra 

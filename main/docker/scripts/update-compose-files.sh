@@ -1,12 +1,12 @@
 #!/bin/bash
 
-BASE_DIR="$HOME/docker"
-BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
+if [ -z "$1" ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
 
-echo "DEBUG: HOME=$HOME"
-echo "DEBUG: BASE_DIR=$BASE_DIR"
-echo "DEBUG: ls BASE_DIR:"; ls "$BASE_DIR" 2>&1
-echo ""
+BASE_DIR="/home/$1/docker"
+BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
 
 STACKS=(
     "networkstack",
