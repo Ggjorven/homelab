@@ -1,7 +1,12 @@
 #!/bin/bash
 
-BASE_DIR==$HOME/docker
+BASE_DIR="$HOME/docker"
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
+
+echo "DEBUG: HOME=$HOME"
+echo "DEBUG: BASE_DIR=$BASE_DIR"
+echo "DEBUG: ls BASE_DIR:"; ls "$BASE_DIR" 2>&1
+echo ""
 
 STACKS=(
     "networkstack",
