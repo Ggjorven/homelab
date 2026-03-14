@@ -9,7 +9,7 @@ BASE_DIR="/home/$1/docker"
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
 
 STACKS=(
-    "networkstack",
+	"networkstack",
 	"monitoringstack",
 	"downloadstack",
 	"arrstack",
@@ -32,6 +32,7 @@ fi
 echo ""
 
 for STACK in "${STACKS[@]}"; do
+    STACK="${STACK//$'\r'/}"  # Strip carriage returns (CRLF fix)
     STACK_DIR="$BASE_DIR/$STACK"
 
     if [ -d "$STACK_DIR" ]; then
