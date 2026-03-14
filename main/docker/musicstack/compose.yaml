@@ -36,29 +36,25 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  # beets:
-  #   image: lscr.io/linuxserver/beets:latest
-  #   container_name: beets
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ./beets:/config
-  #     - ${MUSIC_FOLDER}:/music
-  #     - ./beets/downloads:/downloads # A temporary folder, since we don't use beets for ingesting
-  #     - /etc/localtime:/etc/localtime:ro
-  #   ports:
-  #     - 8337:8337
-  #   networks:
-  #     internalnetwork:
-  #       ipv4_address: 172.39.0.61
-  #   # TODO: Healtcheck
-  #   # healthcheck:
-  #   #   test: wget -qO- http://localhost:4533 || exit 1
-  #   #   interval: 30s
-  #   #   timeout: 10s
-  #   #   retries: 3
-  #   # labels:
-  #   #   - deunhealth.restart.on.unhealthy=true
-  #   restart: unless-stopped
+  metadata-remote:
+    image: ghcr.io/wow-signal-dev/metadata-remote:latest
+    container_name: metadata-remote
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SHOW_HIDDEN_FILES=true
+    volumes:
+      - ${MUSIC_FOLDER}:/music
+    ports:
+      - 8338:8338
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.61
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8338/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s 
+    restart: unless-stopped
