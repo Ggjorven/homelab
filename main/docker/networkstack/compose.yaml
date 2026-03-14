@@ -29,10 +29,10 @@ services:
     network_mode: "none"
     restart: always
 
-  gluetun:
+  vpn1: # Main VPN, torrenting + the rest
     image: qmcgaw/gluetun
-    container_name: gluetun
-    # user: ${PUID}:${PGID} # This container requires joining another containers network
+    container_name: vpn1
+    # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
     devices:
@@ -54,17 +54,59 @@ services:
       - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the internalnetwork, this is needed for some people
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-      - SERVER_REGIONS=${SERVER_REGIONS}
+      - SERVER_REGIONS=${VPN1_REGIONS}
       - DNS_SERVER=on
-      - DNS_UPSTREAM_RESOLVERS=cloudflare,google # Makes the DNS requests snet to random resolvers 
+      - DNS_UPSTREAM_RESOLVERS=cloudflare,google,quad9 # Makes the DNS requests to random resolvers 
       - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
-      - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING:-off}
+      - VPN_PORT_FORWARDING=${VPN1_PORT_FORWARDING:-off}
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
     volumes:
-      - ./gluetun:/gluetun
+      - ./vpn1:/gluetun
       - /etc/localtime:/etc/localtime:ro
     healthcheck:
-      test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
+      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
+
+  vpn2: # Secondary VPN, soulseek
+    image: qmcgaw/gluetun
+    container_name: vpn1
+    # user: ${PUID}:${PGID} # This container requires to run as root
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 5030:5030 # slskd web interface
+      - 5031:5031 # slskd HTTP
+      - 50300:50300 # slskd HTTPS
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.11
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=openvpn
+      - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the internalnetwork, this is needed for some people
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=${VPN2_REGIONS}
+      - DNS_SERVER=on
+      - DNS_UPSTREAM_RESOLVERS=cloudflare,google,quad9 # Makes the DNS requests to random resolvers 
+      - HEALTH_VPN_DURATION_INITIAL=${HEALTH_VPN_DURATION_INITIAL}
+      - VPN_PORT_FORWARDING=${VPN2_PORT_FORWARDING:-off}
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
+    volumes:
+      - ./vpn2:/gluetun
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
       interval: 20s
       timeout: 10s
       retries: 5
@@ -83,7 +125,7 @@ services:
       - LOG_LEVEL=info
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    network_mode: container:gluetun
+    network_mode: container:vpn1
     healthcheck:
       test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health || exit 1"
       interval: 30s

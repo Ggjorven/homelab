@@ -23,7 +23,7 @@ services:
       - ./qbittorrent:/config
       - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
-    network_mode: container:gluetun
+    network_mode: container:vpn1
     healthcheck:
       test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:8080 || exit 1"
       interval: 20s
@@ -45,7 +45,7 @@ services:
       - ./nzbget:/config
       - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
-    network_mode: container:gluetun
+    network_mode: container:vpn1
     healthcheck:
       test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:6789 || exit 1"
       interval: 20s
@@ -99,20 +99,14 @@ services:
       - SLSKD_DOWNLOADS_DIR=${SLSKD_DOWNLOAD_DIRECTORY}
       - SLSKD_INCOMPLETE_DIR=${SLSKD_INCOMPLETE_DIRECTORY}
       - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
-      - SLSKD_SLSK_LISTEN_PORT=50300
+      - SLSKD_SLSK_LISTEN_PORT=50300 # TODO: From vpn2
       - SLSKD_REMOTE_CONFIGURATION=true
       - SLSKD_API_KEY=${SLSKD_API_KEY}
     volumes:
       - ./slskd:/app
       - /mnt/nas:/mnt/nas
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 5030:5030
-      - 5031:5031
-      - 50300:50300
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.31
+    network_mode: container:vpn2
     healthcheck:
       test: wget -qO- http://localhost:5030/healthcheck
       interval: 60s

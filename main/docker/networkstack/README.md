@@ -57,7 +57,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 
 #### Port forwarding
 
-Optionally you can enable port forwarding in `gluetun`
+Optionally you can enable port forwarding for a vpn.
 
 1. Go to the `networkstack` folder:
     ```
@@ -70,7 +70,7 @@ Optionally you can enable port forwarding in `gluetun`
     ```
     And uncomment:
     ```
-    # VPN_PORT_FORWARDING=on
+    # VPNX_PORT_FORWARDING=on
     ```
 
 3. Restart your compose stack:
@@ -81,7 +81,7 @@ Optionally you can enable port forwarding in `gluetun`
 
 4. Check the logs of `gluetun`:
     ```
-    docker logs gluetun
+    docker logs vpnX
     ```
     You should see something like:
     ```
@@ -93,7 +93,7 @@ Optionally you can enable port forwarding in `gluetun`
 
 5. To double check the port is actually open run this:
     ```
-    docker exec -it gluetun /bin/sh
+    docker exec -it vpnX /bin/sh
 
     wget -qO port-checker https://github.com/qdm12/port-checker/releases/download/v0.4.0/port-checker_0.4.0_linux_amd64
     chmod +x port-checker
@@ -115,19 +115,19 @@ Optionally you can enable port forwarding in `gluetun`
 
 8. (Optional) To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an api key:
     ```
-    docker run --rm -v ./gluetun:/gluetun qmcgaw/gluetun genkey
+    docker run --rm -v ./vpnX:/gluetun qmcgaw/gluetun genkey
     ```
     Make sure to save this API key for later.
 
 9. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
     ```
-    sudo mkdir -p gluetun/auth
+    sudo mkdir -p vpnX/auth
     ```
 
 10. Create a config file that sets up a route like so:
     ```
-    sudo rm gluetun/auth/config.toml
-    sudo nano gluetun/auth/config.toml
+    sudo rm vpnX/auth/config.toml
+    sudo nano vpnX/auth/config.toml
     ```
     And paste:
     ```

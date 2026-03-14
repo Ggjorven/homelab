@@ -17,7 +17,7 @@ services:
     volumes:
       - ./prowlarr:/config
       - /etc/localtime:/etc/localtime:ro
-    network_mode: container:gluetun
+    network_mode: container:vpn1
     healthcheck:
       test: sh -c "ping -c1 8.8.8.8 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && wget -qO- http://localhost:9696 >/dev/null 2>&1 && curl -s http://localhost:9696/ping || exit 1"
       interval: 20s

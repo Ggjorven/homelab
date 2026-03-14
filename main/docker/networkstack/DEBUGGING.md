@@ -46,11 +46,11 @@ Related reddit threads: [1](https://www.reddit.com/r/sonarr/comments/1izl9e6/fla
 
 If your forwarded port is not visible with:
 ```
-docker logs gluetun
+docker logs vpnX
 ```
-Look in the `gluetun/piaportforward.json` file.
+Look in the `vpnX/piaportforward.json` file.
 ```
-cat gluetun/piaportforward.json
+cat vpnX/piaportforward.json
 ```
 You'll see
 ```
