@@ -9,16 +9,16 @@ BASE_DIR="/home/$1/docker"
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
 
 STACKS=(
-	"networkstack",
-	"monitoringstack",
-	"downloadstack",
-	"arrstack",
-	"mediastack",
-	"musicstack",
-	"tvstack",
-	"sharestack",
-	"gamingstack",
-	"securitystack",
+	"networkstack"
+	"monitoringstack"
+	"downloadstack"
+	"arrstack"
+	"mediastack"
+	"musicstack"
+	"tvstack"
+	"sharestack"
+	"gamingstack"
+	"securitystack"
 	"internetstack"
 )
 
