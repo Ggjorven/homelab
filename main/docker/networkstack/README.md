@@ -133,7 +133,7 @@ Optionally you can enable port forwarding for a vpn.
     ```
     [[roles]]
     name = "portchecker"
-    routes = ["GET /v1/portforward", "GET /v1/openvpn/portforwarded"]
+    routes = ["GET /v1/portforward", "GET /v1/openvpn/portforwarded", "GET /v1/publicip/ip"]
     auth = "apikey"
     apikey = "<APIKEY>"
     ```
