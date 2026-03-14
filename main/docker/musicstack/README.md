@@ -61,6 +61,16 @@ To configure **Navidrome** you need to go to port `4533` of the ip address of th
 
 2. Paste the generated token during step 6 in there.
 
+### Metadata Remote
+
+**Metadata Remote** doesn't require any configuration. It can be accessed on port `8338` of the **Proxmox LXC**'s IP address.
+
+### Multi-Scrobbler
+
+To configure **Multi-Scrobbler** you need to go to port `9078` of the ip address of the **Proxmox LXC**.
+
+1. // TODO: ...
+
 ## Start on boot-up
 
 To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
