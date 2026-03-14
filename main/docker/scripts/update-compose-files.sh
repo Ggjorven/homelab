@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_DIR=~/docker
+BASE_DIR==$HOME/docker
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
 
 STACKS=(
