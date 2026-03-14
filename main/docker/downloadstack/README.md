@@ -45,11 +45,15 @@ Before we can create our `download stack` on our `docker` **Proxmox LXC**. We mu
 
 7. Change the `SLSKD_INCOMPLETE_DIRECTORY` to reflect your actual incomplete directory for **Slskd**. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Incomplete`.
 
+8. (Optional) if you want to share your music folder change `SLSKD_SHARED_DIRECTORY` to your music folder. Something like `/mnt/nas/Users/<USERNAME>/Media/Music`.
+
 8. Set a **Soulseek** `username` and `password` under `SOULSEEK_USERNAME`/`SOULSEEK_PASSWORD`, you can choose these at will as long as no one else has that `username`.
 
 9. Create an API key for **slskd** and set it under `SLSKD_API_KEY`. ([hint](https://randomkeygen.com/jwt-secret))
 
-10. We are now ready to start our docker stack.
+10. (Optional) if you enabled port forwarding for `vpn2` in `networkstack` uncomment `VPN_PORT_FORWARDING` and set the `VPN_API_KEY` to the generated API key to allow file sharing.
+
+11. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
