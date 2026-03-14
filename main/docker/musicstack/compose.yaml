@@ -15,6 +15,7 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
       - ND_LOGLEVEL=info
+      - ND_LISTENBRAINZ_BASEURL=http://172.39.0.62:9078/1/ # Scrobbles to multi-scrobbler
     volumes:
       - ./navidrome:/data
       - ${MUSIC_FOLDER}:/music:ro
@@ -66,6 +67,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID} 
       - TZ=${TZ}
+      - LZE_TOKEN=${NAVIDROME_LB_TOKEN}
     volumes:
       - ./multi-scrobbler:/config
     ports:

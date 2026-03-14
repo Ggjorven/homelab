@@ -44,7 +44,9 @@ Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must 
     MUSIC_FOLDER=/mnt/nas/path/to/your/music/folder
     ```
 
-6. We are now ready to start our docker stack.
+6. Now generate a token to use for scrobbling your music history locally. Set `NAVIDROME_LB_TOKEN` to this token. ([hint](https://randomkeygen.com/jwt-secret))
+
+7. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -55,7 +57,9 @@ Before we can create our `music stack` on our `docker` **Proxmox LXC**. We must 
 
 To configure **Navidrome** you need to go to port `4533` of the ip address of the **Proxmox LXC**.
 
-1. // TODO: ...
+1. Go to `Settings` -> `Personal` and enable **Scrobble to ListenBrainz**.
+
+2. Paste the generated token during step 6 in there.
 
 ## Start on boot-up
 
