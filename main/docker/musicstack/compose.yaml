@@ -58,3 +58,19 @@ services:
       retries: 3
       start_period: 40s 
     restart: unless-stopped
+
+  multi-scrobbler:
+    image: foxxmd/multi-scrobbler
+    container_name: multi-scrobbler
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID} 
+      - TZ=${TZ}
+    volumes:
+      - ./multi-scrobbler:/config
+    ports:
+      - 9078:9078
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.62
+    restart: unless-stopped
