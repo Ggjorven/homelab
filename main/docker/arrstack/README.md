@@ -228,7 +228,7 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 6. Under **Release Statuses** enable:
 - Official
 
-7. To automatically add metadata go to `Settings` -> `Metadata`. Set **Tag Audio Files with Metaddata** to **All files; keep in sync with MusicBrainz**.
+7. To automatically add metadata go to `Settings` -> `Metadata`. Set **Tag Audio Files with Metadata** to **All files; initial import only**.
 
 8. Enable both **Embed Covert Art In Audio Files** and **Scrub Existing Tags** too.
 
