@@ -74,7 +74,7 @@ services:
 
   vpn2: # Secondary VPN, soulseek
     image: qmcgaw/gluetun
-    container_name: vpn1
+    container_name: vpn2
     # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
