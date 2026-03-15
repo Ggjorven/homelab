@@ -6,8 +6,62 @@ networks:
     external: true
 
 services:
-  # TODO: Add notification app
-  # TODO: Add check updates app
+  gotify:
+    image: gotify/server:latest
+    container_name: gotify
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - GOTIFY_DEFAULTUSER_NAME=${GOTIFY_USERNAME}
+      - GOTIFY_DEFAULTUSER_PASS=${GOTIFY_PASSWORD}
+    volumes:
+      - ./gotify:/app/data
+    ports:
+      - 8070:80
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.20
+    healthcheck:
+      test: wget --spider -q http://localhost:80/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
+
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    command: serve
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - LOG_LEVEL=info
+      - LOG_JSON=false
+      - DIUN_WATCH_WORKERS=20
+      - DIUN_WATCH_SCHEDULE="0 */6 * * *"
+      - DIUN_WATCH_JITTER=30s
+      - DIUN_PROVIDERS_DOCKER=true
+      - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true
+      - DIUN_NOTIF_GOTIFY_ENDPOINT=http://172.39.0.20:8070
+      - DIUN_NOTIF_GOTIFY_TOKEN=${DIUN_GOTIFY_TOKEN}
+      - DIUN_NOTIF_GOTIFY_PRIORITY=1
+      - DIUN_NOTIF_GOTIFY_TIMEOUT=10s
+      - DIUN_NOTIF_GOTIFY_TLSSKIPVERIFY=true
+      - DIUN_NOTIF_GOTIFY_TEMPLATETITLE="{{ .Entry.Image }} released"
+      - DIUN_NOTIF_GOTIFY_TEMPLATEBODY="Docker tag {{ .Entry.Image }} which you subscribed to through {{ .Entry.Provider }} provider has been released."
+    volumes:
+      - ./diun:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.21
+    restart: always
+  
+  # TODO: Dashboard (pulse)
 
   scrutiny-db:
     image: influxdb:2.8
@@ -29,7 +83,7 @@ services:
       - ./scrutiny-db/config:/etc/influxdb2
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.20
+        ipv4_address: 172.39.0.23
     healthcheck:
       test: curl -s http://localhost:8086/health
       interval: 5s
@@ -44,7 +98,7 @@ services:
       # - PUID=${PUID}
       # - PGID=${PGID}
       - TZ=${TZ}
-      - SCRUTINY_WEB_INFLUXDB_HOST=172.39.0.20
+      - SCRUTINY_WEB_INFLUXDB_HOST=172.39.0.23
       - SCRUTINY_WEB_INFLUXDB_TOKEN=${SCRUTINY_DATABASE_TOKEN}
       - SCRUTINY_WEB_INFLUXDB_ORG=homelab
       - SCRUTINY_WEB_INFLUXDB_BUCKET=scrutiny
@@ -60,11 +114,13 @@ services:
         condition: service_healthy
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.21
+        ipv4_address: 172.39.0.24
     healthcheck:
       test: curl -s http://localhost:8080/api/health
       interval: 5s
       timeout: 10s
       retries: 20
       start_period: 10s
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
