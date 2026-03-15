@@ -36,54 +36,56 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     nano .env
     ```
 
-5. Modify the `username` and `password` to something more secure.
+5. Change `GOTIFY_USERNAME` and `GOTIFY_PASSWORD` to a more username and password.
 
-6. Set a more secure `SCRUTINY_DATABASE_TOKEN`. ([hint](https://randomkeygen.com/jwt-secret))
+6. Now do the same for `SCRUTINY_DATABASE_USERNAME` and `SCRUTINY_DATABASE_PASSWORD`.
 
-7. Now we need to install the service that actually tells our **Docker LXC** what state our disks are in. So, navigate to the **Proxmox Node**'s shell.
+7. Set a more secure `SCRUTINY_DATABASE_TOKEN`. ([hint](https://randomkeygen.com/jwt-secret))
 
-8. To install **Scrutiny** and its dependencies I have made a [script](scripts/install-scrutiny.sh).
+8. Now we need to install the service that actually tells our **Docker LXC** what state our disks are in. So, navigate to the **Proxmox Node**'s shell.
+
+9. To install **Scrutiny** and its dependencies I have made a [script](scripts/install-scrutiny.sh).
     ```
     wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/scripts/install-scrutiny.sh | bash -x
     ```
 
-9. Now that we've intalled **Scrutiny** we need to setup the script and services that send the data to our **Docker LXC**. Create a folder to work in:
+10. Now that we've intalled **Scrutiny** we need to setup the script and services that send the data to our **Docker LXC**. Create a folder to work in:
     ```
     mkdir -p /node/scripts
     cd /node/scripts
     ```
 
-10. Now download the script that sends the data to our **Docker LXC**.
+11. Now download the script that sends the data to our **Docker LXC**.
     ```
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/scripts/scrutiny.sh
     ```
 
-11. Open up the file and modify the `SCRUTINY_IP`:
+12. Open up the file and modify the `SCRUTINY_IP`:
     ```
     nano scrutiny.sh
     ```
     Change `192.168.xxx.xxx` to your **Docker LXC**'s ip.
 
-12. Now make this script executable:
+13. Now make this script executable:
     ```
     chmod +x scrutiny.sh
     ```
 
-13. To make this service run on start-up and on an interval I have created some systemd services. Download these using:
+14. To make this service run on start-up and on an interval I have created some systemd services. Download these using:
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.service
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/monitoringstack/services/scrutiny.timer
     ```
 
-14. Now enable these services using:
+15. Now enable these services using:
     ```
     systemctl daemon-reload
     systemctl enable scrutiny.timer
     systemctl start scrutiny.timer
     ```
 
-15. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
+16. Now we can head back to our **Proxmox LXC** and start the `monitoringstack`.
     ```
     cd ~/docker
     cd monitoringstack
@@ -91,6 +93,29 @@ Before we can create our `monitoring stack` on our `docker` **Proxmox LXC**. We 
     ```
 
 ## Configuration
+
+### Gotify 
+
+**Gotify** doesn't require any more configuration.  
+To access the dashboard go to port `8070` of the **Proxmox LXC**'s IP.  
+You can login with the credentials set in the .env file.
+
+### Diun
+
+1. Go to the **Proxmox LXC**'s IP address on port `8070`.
+
+2. Login with the `username` and `password` set in the .env for **Gotify**.
+
+3. Go to `Apps` and **Create an Application**.
+
+4. Copy the token.
+
+5. Open the .env file:
+    ```
+    nano .env
+    ```
+
+6. Replace `DIUN_GOTIFY_TOKEN` with the token.
 
 ### Scrutiny
 
