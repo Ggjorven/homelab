@@ -102,7 +102,9 @@ You can login with the credentials set in the .env file.
 
 ### Diun
 
-1. Go to the **Proxmox LXC**'s IP address on port `8070`.
+To configure **Diun** you need to follow these steps:
+
+1. First we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
 2. Login with the `username` and `password` set in the .env for **Gotify**.
 
@@ -119,8 +121,22 @@ You can login with the credentials set in the .env file.
 
 ### Scrutiny
 
-**Scrutiny** doesn't require any more configuration after setting up the `monitoringstack`.  
-To access the dashboard go to port `8082` of the **Proxmox LXC**'s IP.
+To configure **Scrutiny** you need to go to port `8082` of the ip address of the **Proxmox LXC**.
+
+1. First we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+
+2. Login with the `username` and `password` set in the .env for **Gotify**.
+
+3. Go to `Apps` and **Create an Application**.
+
+4. Copy the token.
+
+5. Open the .env file:
+    ```
+    nano .env
+    ```
+
+6. Replace `SCRUTINY_GOTIFY_TOKEN` with the token.
 
 ## Start on boot-up
 
