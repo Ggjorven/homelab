@@ -42,7 +42,7 @@ services:
       - LOG_LEVEL=info
       - LOG_JSON=false
       - DIUN_WATCH_WORKERS=20
-      - DIUN_WATCH_SCHEDULE="0 */6 * * *"
+      - DIUN_WATCH_SCHEDULE=0 */6 * * *
       - DIUN_WATCH_JITTER=30s
       - DIUN_PROVIDERS_DOCKER=true
       - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true
@@ -51,14 +51,15 @@ services:
       - DIUN_NOTIF_GOTIFY_PRIORITY=1
       - DIUN_NOTIF_GOTIFY_TIMEOUT=10s
       - DIUN_NOTIF_GOTIFY_TLSSKIPVERIFY=true
-      - DIUN_NOTIF_GOTIFY_TEMPLATETITLE="{{ .Entry.Image }} released"
-      - DIUN_NOTIF_GOTIFY_TEMPLATEBODY="Docker tag {{ .Entry.Image }} which you subscribed to through {{ .Entry.Provider }} provider has been released."
+      - DIUN_NOTIF_GOTIFY_TEMPLATETITLE={{ .Entry.Image }} released
+      - DIUN_NOTIF_GOTIFY_TEMPLATEBODY=Docker tag {{ .Entry.Image }} which you subscribed to through {{ .Entry.Provider }} provider has been released.
     volumes:
       - ./diun:/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.21
+    # TODO: Healthcheck
     restart: always
   
   # TODO: Dashboard (pulse)
