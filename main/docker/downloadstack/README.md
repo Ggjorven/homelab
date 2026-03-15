@@ -53,7 +53,9 @@ Before we can create our `download stack` on our `docker` **Proxmox LXC**. We mu
 
 10. (Optional) if you enabled port forwarding for `vpn2` in `networkstack` uncomment `VPN_PORT_FORWARDING` and set the `VPN_API_KEY` to the generated API key to allow file sharing.
 
-11. We are now ready to start our docker stack.
+11. (Optional) if you want you can set upload slot and speed limits under `SLSKD_UPLOAD_SLOTS` and `SLSKD_UPLOAD_SPEED_LIMIT`.
+
+12. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
