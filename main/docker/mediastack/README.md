@@ -1,3 +1,7 @@
+# Media Stack
+
+**Media Stack** is a collection of media streaming tools for streaming my content from any device, this folder contains the installation instructions for installing **Jellyfin & More** using **Docker Compose**.
+
 ## Preview
 
 ![preview image](docs/images/jellyfin.png)

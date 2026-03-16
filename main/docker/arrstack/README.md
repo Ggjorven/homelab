@@ -1,6 +1,6 @@
 # *Arr Stack
 
-An *arr stack is collection of services that automate the management of personal media, this folder contains the instructions for installing all services on a **Proxmox VM** with **Docker**.
+An *arr stack is collection of services that automate the management of personal media, this folder contains the instructions for installing these services using **Docker Compose**.
 These instructions are heavily inspired by [this youtube video](https://www.youtube.com/watch?v=twJDyoj0tDc) and [this guide](https://wiki.servarr.com/docker-guide). For more details look at those instructions, since this is my personal setup.
 
 ## Prerequisites

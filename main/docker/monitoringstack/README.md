@@ -1,6 +1,6 @@
 # Monitoring Stack
 
-**Monitoring Stack** is a collection of monitoring related services, this folder contains the installation instructions for installing these using **Docker Compose**.
+**Monitoring Stack** is a collection of monitoring related services like: **Scrutiny** (disk monitoring) & **Diun** (image monitoring), this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 

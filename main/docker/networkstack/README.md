@@ -1,6 +1,6 @@
 # Network Stack
 
-**Network Stack** is a collection of network related services + the essentials for my **Docker Compose** stacks, this folder contains the installation instructions for installing these using **Docker Compose**.
+**Network Stack** is a collection of network related services like: **Gluetun** (VPN) & **FlareSolverr** (cloudflare bypass), this folder contains the installation instructions for installing these using **Docker Compose**.
 
 ## Prerequisites
 
