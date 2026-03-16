@@ -251,6 +251,17 @@ Configuration steps:
 https://www.iamparadox.dev/jellyfin/plugins/manifest.json
 ```
 
+##### Streamyfin Companion
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+###### Manifest:
+```
+https://raw.githubusercontent.com/streamyfin/jellyfin-plugin-streamyfin/main/manifest.json
+```
+
 ##### Subtitles Extract
 
 Subtitles Extract is located in the default **Stable Jellyfin** repository.
