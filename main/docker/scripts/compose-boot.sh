@@ -5,17 +5,17 @@ USERNAME="<username>"
 BASE_DIR="/home/$USERNAME/docker"
 
 STACKS=(
+    "networkstack"
+    "monitoringstack"
+    "downloadstack"
+    "arrstack"
+    "mediastack"
+    "musicstack"
+    "tvstack"
+    "sharestack"
+    "gamingstack"
+    "securitystack"
     "internetstack"
-	"securitystack"
-	"gamingstack"
-	"sharestack"
-	"tvstack"
-	"musicstack"
-	"mediastack"
-	"arrstack"
-	"downloadstack"
-	"monitoringstack"
-	"networkstack"
 )
 
 if [ ! -d "$BASE_DIR" ]; then
@@ -23,7 +23,7 @@ if [ ! -d "$BASE_DIR" ]; then
     exit 1
 fi
 
-echo "Shutting down stacks for user: $USERNAME"
+echo "Starting stacks for user: $USERNAME"
 echo ""
 
 for STACK in "${STACKS[@]}"; do
@@ -34,10 +34,15 @@ for STACK in "${STACKS[@]}"; do
         echo "Starting $STACK..."
         cd "$STACK_DIR" || continue
 
-        docker compose down
+        # networkstack uses --all-resources flag to initialize networks even when unused
+        if [ "$STACK" = "networkstack" ]; then
+            docker compose --all-resources up -d
+        else
+            docker compose up -d
+        fi
 
         if [ $? -eq 0 ]; then
-            echo "  ✓ $STACK shutdown successfully"
+            echo "  ✓ $STACK started successfully"
         else
             echo "  ✗ Failed to start $STACK"
         fi
@@ -49,3 +54,4 @@ for STACK in "${STACKS[@]}"; do
 done
 
 echo "Done."
+
