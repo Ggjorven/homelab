@@ -103,6 +103,10 @@ This homelab is actively maintained and continuously evolving.
 
 New stacks, improvements, and documentation updates are added almost daily.
 
+## Disclaimer
+
+This project is intended for legal use only. You are solely responsible for ensuring your use complies with all applicable local laws and regulations, including copyright and intellectual property law. The author accepts no responsibility or liability for any misuse of this software or any legal consequences arising from its use. Do not use this stack to download or distribute content you do not have the rights to.
+
 ## Contributing 
 
 This is a personal homelab repository, but ideas, improvements, and suggestions are always welcome.
