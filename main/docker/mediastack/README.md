@@ -258,6 +258,20 @@ Configuration steps:
 https://raw.githubusercontent.com/streamyfin/jellyfin-plugin-streamyfin/main/manifest.json
 ```
 
+##### KefinTweaks
+
+Configuration steps:
+
+1. Go to the **JavaScript Injector** plugin and create a new script and paste:
+    ```
+    const script = document.createElement("script");
+    script.src = `https://cdn.jsdelivr.net/gh/ranaldsgift/KefinTweaks@latest/kefinTweaks-plugin.js`;
+    script.async = true;
+    document.head.appendChild(script); 
+    ```
+
+2. Go to the **Plugins** page and select **KefinTweaks** and select a version and **Install**.
+
 ##### Subtitles Extract
 
 Subtitles Extract is located in the default **Stable Jellyfin** repository.
