@@ -280,9 +280,9 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
 
-4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.41` as defined in the [compose file](../arrstack/compose.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+4. Continue and set up your **Radarr** server. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.41` as defined in the [compose file](../arrstack/compose.yaml). Go to **Radarr** and under `Settings` -> `General` you can find your API key. Finally set `Enable Scan` & `Enable Automatic Search`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
-5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.40` as defined in the [compose file](../arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan`, `Enable Automatic Search` & `Tag Requests`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
+5. Continue go to **Sonarr**. Make it the `Default Server` and set the `Name` to something like "Radarr". Set the IP address to `172.39.0.40` as defined in the [compose file](../arrstack/compose.yaml). Go to **Sonarr** and under `Settings` -> `General` you can find your API key. Set `Season Folders`, `Enable Scan` & `Enable Automatic Search`. Now hit **Test**. And set your desired `Quality Profile` and `Root Folder`.
 
 6. And finish your setup!
 

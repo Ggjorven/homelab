@@ -21,9 +21,6 @@ This folder contains the installation instructions and configuration files used 
     - [`musicstack`](docker/musicstack/README.md)
     - [`tvstack`](docker/tvstack/README.md)
     - [`sharestack`](docker/sharestack/README.md)
-    - [`gamingstack`](docker/gamingstack/README.md)
-    - [`securitystack`](docker/securitystack/README.md)
-    - [`internetstack`](docker/internetstack/README.md)
 - [`home-assistant`](home-assistant/README.md)
 
 ## Steps

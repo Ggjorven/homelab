@@ -1,9 +1,0 @@
-networks:
-  internalnetwork:
-    external: true
-
-  externalnetwork:
-    external: true
-
-services:
-  # Note: This file will use the .90-.99 range for network ip-addresses
