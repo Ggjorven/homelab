@@ -383,6 +383,12 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 12. Finally hit **Test** and save your changes.
 
+### AutoSubSync
+
+To configure **AutoSubSync** you need to go to port `6080` of the ip address of the **Proxmox LXC**.
+
+1. // TODO: ...
+
 ## Start on boot-up
 
 To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
