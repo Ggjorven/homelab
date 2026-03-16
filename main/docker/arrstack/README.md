@@ -383,10 +383,6 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 12. Finally hit **Test** and save your changes.
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Extra
 
 I have personally noticed that sometimes even though indexers in **Prowlarr** are available **Prowlarr** doesn't report them properly until you run a **Test All Indexers**.

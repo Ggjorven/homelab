@@ -71,10 +71,6 @@ To configure **Multi-Scrobbler** you need to go to port `9078` of the ip address
 
 1. // TODO: ...
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Debugging
 
 If you have any issues setting up `musicstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

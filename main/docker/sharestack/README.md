@@ -64,10 +64,6 @@ Before we can create `sharestack` on our `docker` **Proxmox LXC**. We must have 
 
 // TODO: ...
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Debugging
 
 If you have any issues setting up `sharestack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

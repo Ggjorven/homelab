@@ -128,10 +128,6 @@ Configuration steps for **VOD Fix** can be found below:
 Github repo: [VOD Fix](https://github.com/cedric-marcoux/dispatcharr_vod_fix)  
 ZIP download: [VOD Fix](https://github.com/cedric-marcoux/dispatcharr_vod_fix/archive/refs/heads/main.zip) (rename to `dispatcharr_vod_fix.zip`)
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Debugging
 
 If you have any issues setting up `tvstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

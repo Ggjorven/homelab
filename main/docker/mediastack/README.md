@@ -360,10 +360,6 @@ To configure **Streamystats** we need to go to port `3000` of your **Proxmox LXC
 
 7. You're done!
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Debugging
 
 If you have any issues setting up `mediastack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

@@ -166,11 +166,6 @@ If you have any issues with downloading some sites require cookies, the instruct
 **Slskd** can be accessed on port `5030` of your **Proxmox LXC**'s IP address.
 The default credentials are `slskd` & `slskd`.
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
-
 ## Debugging
 
 If you have any issues setting up `downloadstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

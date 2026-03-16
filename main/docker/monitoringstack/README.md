@@ -138,10 +138,6 @@ To configure **Scrutiny** you need to go to port `8082` of the ip address of the
 
 6. Replace `SCRUTINY_GOTIFY_TOKEN` with the token.
 
-## Start on boot-up
-
-To make this stack start on the boot-up of the LXC follow [these instructions](../BOOT-UP.md#adding-a-stack).
-
 ## Debugging
 
 If you have any issues setting up `monitoringstack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.

@@ -2,42 +2,55 @@
 
 USERNAME="<username>"
 
-# Compose boot up 10 (internetstack)
-# cd /home/$USERNAME/docker/internetstack
-# docker compose down
+BASE_DIR="/home/$USERNAME/docker"
 
-# Compose boot up 9 (securitystack)
-# cd /home/$USERNAME/docker/securitystack
-# docker compose down
+STACKS=(
+    "networkstack"
+    "monitoringstack"
+    "downloadstack"
+    "arrstack"
+    "mediastack"
+    "musicstack"
+    "tvstack"
+    "sharestack"
+    "gamingstack"
+    "securitystack"
+    "internetstack"
+)
 
-# Compose boot up 8 (gamingstack)
-# cd /home/$USERNAME/docker/gamingstack
-# docker compose down
+if [ ! -d "$BASE_DIR" ]; then
+    echo "Error: Base directory $BASE_DIR not found."
+    exit 1
+fi
 
-# Compose boot up 7 (tvstack)
-# cd /home/$USERNAME/docker/tvstack
-# docker compose down
+echo "Starting stacks for user: $USERNAME"
+echo ""
 
-# Compose boot up 6 (musicstack)
-# cd /home/$USERNAME/docker/musicstack
-# docker compose down
+for STACK in "${STACKS[@]}"; do
+    STACK="${STACK//$'\r'/}"
+    STACK_DIR="$BASE_DIR/$STACK"
 
-# Compose boot up 5 (mediastack)
-# cd /home/$USERNAME/docker/mediastack
-# docker compose down
+    if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
+        echo "Starting $STACK..."
+        cd "$STACK_DIR" || continue
 
-# Compose boot up 4 (arrstack)
-# cd /home/$USERNAME/docker/arrstack
-# docker compose down
+        # networkstack uses --all-resources flag to initialize networks even when unused
+        if [ "$STACK" = "networkstack" ]; then
+            docker compose --all-resources up -d
+        else
+            docker compose up -d
+        fi
 
-# Compose boot up 3 (monitoringstack)
-# cd /home/$USERNAME/docker/monitoringstack
-# docker compose down
+        if [ $? -eq 0 ]; then
+            echo "  ✓ $STACK started successfully"
+        else
+            echo "  ✗ Failed to start $STACK"
+        fi
+    else
+        echo "  Skipping $STACK (directory or compose.yaml not found)"
+    fi
 
-# Compose boot up 2 (downloadstack)
-# cd /home/$USERNAME/docker/downloadstack
-# docker compose down
+    echo ""
+done
 
-# Compose boot up 1 (networkstack)
-# cd /home/$USERNAME/docker/networkstack
-# docker compose down
+echo "Done."
