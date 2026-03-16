@@ -28,24 +28,29 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/.env
     ```
 
-3. Before we can edit our .env we must identify our user. This is done with:
+3. Retrieve the `AutoSubSync` repository:
+    ```
+    git clone --recursive https://github.com/denizsafak/AutoSubSync -b main autosubsync
+    ```
+
+4. Before we can edit our .env we must identify our user. This is done with:
     ```
     id <yourusername>
     ```
     Take note of `uid` and `gid`.
 
-4. Now open up your .env file:
+5. Now open up your .env file:
     ```
     nano .env
     ```
 
-5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+6. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-6. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+7. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
 
-7. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
+8. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
 
-8. We are now ready to start our docker stack.
+9. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
