@@ -185,6 +185,17 @@ Configuration steps:
 https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
 ```
 
+##### JavaScript Injector
+
+Configuration steps:
+
+1. Add the manifest listed below these steps to the repositories under **Dashboard** -> **Plugins** -> **Manage Repositories** -> **New Repository**.
+
+###### Manifest:
+```
+https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json
+```
+
 ##### Jellyfin Tweaks
 
 Configuration steps:
