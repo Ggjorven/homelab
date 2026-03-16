@@ -5,7 +5,7 @@ USERNAME="<username>"
 BASE_DIR="/home/$USERNAME/docker"
 
 STACKS=(
-    "internetstack"
+	"internetstack"
 	"securitystack"
 	"gamingstack"
 	"sharestack"
@@ -31,7 +31,7 @@ for STACK in "${STACKS[@]}"; do
     STACK_DIR="$BASE_DIR/$STACK"
 
     if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
-        echo "Starting $STACK..."
+        echo "Stopping $STACK..."
         cd "$STACK_DIR" || continue
 
         docker compose down

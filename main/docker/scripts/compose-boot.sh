@@ -5,17 +5,17 @@ USERNAME="<username>"
 BASE_DIR="/home/$USERNAME/docker"
 
 STACKS=(
-    "networkstack"
-    "monitoringstack"
-    "downloadstack"
-    "arrstack"
-    "mediastack"
-    "musicstack"
-    "tvstack"
-    "sharestack"
-    "gamingstack"
-    "securitystack"
-    "internetstack"
+	"networkstack"
+	"monitoringstack"
+	"downloadstack"
+	"arrstack"
+	"mediastack"
+	"musicstack"
+	"tvstack"
+	"sharestack"
+	"gamingstack"
+	"securitystack"
+	"internetstack"
 )
 
 if [ ! -d "$BASE_DIR" ]; then
