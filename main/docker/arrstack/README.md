@@ -141,17 +141,17 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
     - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
     - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
     --
-    - **HDTV-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **WEBDL-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **WEBRip-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **Bluray-1080p**: min = `0`, preferred = `35`, max = `55`  
-    - **Remux-1080p**: min = `0`, preferred = `35`, max = `55`  
+    - **HDTV-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `25`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `25`, max = `55`  
     --
-    - **HDVTV-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **WEBDL-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **WEBRip-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **Bluray-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **Remux-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **HDVTV-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `65`, max = `135`
 
 11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
@@ -219,17 +219,17 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
     - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
     - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
     --
-    - **HDTV-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **WEBDL-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **WEBRip-1080p**: min = `0`, preferred = `35`, max = `55`
-    - **Bluray-1080p**: min = `0`, preferred = `35`, max = `55`  
-    - **Remux-1080p**: min = `0`, preferred = `35`, max = `55`  
+    - **HDTV-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `25`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `25`, max = `55`  
     --
-    - **HDVTV-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **WEBDL-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **WEBRip-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **Bluray-2160p**: min = `0`, preferred = `85`, max = `135`
-    - **Remux-2160p**: min = `0`, preferred = `85`, max = `135`
+    - **HDVTV-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `65`, max = `135`
 
 11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
