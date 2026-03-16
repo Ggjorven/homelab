@@ -276,6 +276,36 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
     - **Advanced Requests** (for quality selection)
     - **Auto Approve** (for auto approving requests)
 
+10. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+
+11. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+
+12. Go to `Apps` and **Create an Application**.
+
+13. Copy the token.
+
+14. Now head back to **Seerr**. Go to `Settings` -> `Notifications` and select **Gotify**.
+
+15. Enable the agent.
+
+16. Set **Server URL** to `http://172.39.0.20:81`
+
+17. Now paste the copied token in **Application Token**.
+
+18. Enable these notification types:
+    - **Request Pending Approval**
+    - **Request Automatically Approved**
+    - **Request Approved**
+    - **Request Declined**
+    - **Request Available**
+    - **Request Processing Failed**
+    - **Issue Reported**
+    - **Issue Comment**
+    - **Issue Resolved**
+    - **Issue Reopened**
+
+19. Save changes!
+
 ### Jellystat
 
 To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
