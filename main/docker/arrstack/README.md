@@ -181,7 +181,7 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
 
 19. Now paste the copied token in **App Token**.
 
-20. Enable **Include Movie Poster**. And set **Metadata Links** to **TMDb**.
+20. Enable **Include Movie Poster**. And set **Metadata Links** to **TMDb**. And Save!
 
 ### Sonarr
 
@@ -259,7 +259,7 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
 
 19. Now paste the copied token in **App Token**.
 
-20. Enable **Include Series Poster**. And set **Metadata Links** to **TVDb**.
+20. Enable **Include Series Poster**. And set **Metadata Links** to **TVDb**. And Save!
 
 ### Lidarr
 
@@ -295,6 +295,36 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 9. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
 10. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+
+11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+
+12. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+
+13. Go to `Apps` and **Create an Application**.
+
+14. Copy the token.
+
+15. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+
+16. Select **Gotify**.
+
+17. Enable:
+    - **On Grab**
+    - **On Release Import**
+    - **On Upgrade**
+    - **On Download Failure**
+    - **On Import Failure**
+    - **On Artist Add**
+    - **On Artist Delete**
+    - **On Album Delete**
+    - **On Health Issue**
+    - **On Health Restored**
+
+18. Set **Gotify Server** to `http://172.39.0.20:81`
+
+19. Now paste the copied token in **App Token**.
+
+20. Enable **Include Artist Poster**. And Save!
 
 ### Soularr 
 
