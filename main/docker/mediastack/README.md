@@ -326,18 +326,21 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 ### Streamystats
 
-// TODO: ..
-To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
+To configure **Streamystats** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
 
 1. Create a new user for **Jellystat**.
 
-2. Paste the **Jellyfin** address in the address bar: `http://172.39.0.50:8096` as defined in the [compose file](compose.yaml).
+2. Paste the **Jellyfin** address in **Jellyfin URL**: `http://172.39.0.50:8096` as defined in the [compose file](compose.yaml).
 
 3. Now go to **Jellyfin** on port `8096` of **Proxmox LXC**'s IP address. Go to hamburger menu in the top left -> **Dashboard** -> **API Keys** and create a new **API Key** for **Jellystat**.
 
 4. Now go back and paste your **API Key**.
 
-5. And you're finished!
+5. Now continue.
+
+6. Login using an administrator account.
+
+7. You're done!
 
 ## Start on boot-up
 
