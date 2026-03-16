@@ -19,6 +19,10 @@ My homelab consists of three primary machines:
 
 There is also a `tutorials` directory containing reusable infrastructure documentation.
 
+### Image overview
+
+// TODO: ...
+
 ### main 
 
 The `main` machine is the heart of the homelab.
