@@ -1,7 +1,3 @@
-# Media Stack
-
-**Media Stack** is a collection of media streaming tools for streaming my content from any device, this folder contains the installation instructions for installing **Jellyfin & More** using **Docker Compose**.
-
 ## Preview
 
 ![preview image](docs/images/jellyfin.png)
@@ -328,8 +324,9 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
 
 19. Save changes!
 
-### Jellystat
+### Streamystats
 
+// TODO: ..
 To configure **Jellystat** we need to go to port `3000` of your **Proxmox LXC**'s IP address.
 
 1. Create a new user for **Jellystat**.

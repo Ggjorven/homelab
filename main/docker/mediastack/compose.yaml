@@ -69,58 +69,42 @@ services:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
-  jellystat-db:
-    image: postgres:15.2
-    container_name: jellystat-db
-    user: ${PUID}:${PGID}   
+  streamystats:
+    image: ghcr.io/fredrikburmester/streamystats-aio:${VERSION:-latest}
+    container_name: streamystats
     environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ} 
-      - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
+      - POSTGRES_DB=streamystats
+      - POSTGRES_USER=${STREAMYSTATS_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${STREAMYSTATS_POSTGRES_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+      - DATABASE_URL=postgresql://${STREAMYSTATS_POSTGRES_USER}:${STREAMYSTATS_POSTGRES_PASSWORD}@localhost:5432/streamystats
+      - SESSION_SECRET=${STREAMYSTATS_JWT_SECRET}
+      # Stable encryption key for server action closures (prevents session breakage on redeploy)
+      - NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=${STREAMYSTATS_SERVER_KEY}
+      - NODE_ENV=production
+      # Job server cron configuration (optional)
+      - SESSION_POLL_INTERVAL_MS=5000
+      - CRON_ACTIVITY_SYNC=*/1 * * * *
+      - CRON_RECENT_ITEMS_SYNC=*/1 * * * *
+      - CRON_USER_SYNC=*/1 * * * *
+      - CRON_PEOPLE_SYNC=*/15 * * * *
+      - CRON_EMBEDDINGS_SYNC=*/15 * * * *
+      - CRON_GEOLOCATION_SYNC=*/5 * * * *
+      - CRON_FINGERPRINT_SYNC=0 4 * * *
+      - CRON_JOB_CLEANUP=*/1 * * * *
+      - CRON_OLD_JOB_CLEANUP=0 3 * * *
+      - CRON_FULL_SYNC=0 2 * * *
+      - CRON_DELETED_ITEMS_CLEANUP=0 * * * *
+      - SKIP_STARTUP_FULL_SYNC=false
+    volumes:
+      - ./streamystats:/var/lib/postgresql/data
+    ports:
+      - 3000:3000
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.52
-    volumes:
-      - ./jellystat/postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: "pg_isready -U ${JELLYSTAT_POSTGRES_USER}"
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    # TODO: Healthcheck
     labels:
       - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped
-
-  jellystat:
-    image: cyfershepard/jellystat:latest
-    container_name: jellystat
-    user: ${PUID}:${PGID}   
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - POSTGRES_USER=${JELLYSTAT_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${JELLYSTAT_POSTGRES_PASSWORD}
-      - POSTGRES_IP=172.39.0.52
-      - POSTGRES_PORT=5432
-      - JWT_SECRET=${JELLYSTAT_JWT_SECRET}
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.53
-    volumes:
-      - ./jellystat/backup-data:/app/backend/backup-data
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 3000:3000
-    depends_on:
-      - jellystat-db
-    healthcheck:
-      test: wget -qO- http://localhost:3000 || exit 1
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped
+    restart: unless-stopped 
