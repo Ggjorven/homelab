@@ -170,7 +170,7 @@ To configure **Radarr** you need to go to port `7878` of the ip address of the *
     - **On File Import**
     - **On File Upgrade**
     - **On Movie Added**
-    - **On Movide Delete**
+    - **On Movie Delete**
     - **On Movie File Delete**
     - **On Movie File Delete For Upgrade**
     - **On Health Issue**
@@ -230,6 +230,36 @@ To configure **Sonarr** you need to go to port `8989` of the ip address of the *
     - **WEBRip-2160p**: min = `0`, preferred = `85`, max = `135`
     - **Bluray-2160p**: min = `0`, preferred = `85`, max = `135`
     - **Remux-2160p**: min = `0`, preferred = `85`, max = `135`
+
+11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+
+12. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+
+13. Go to `Apps` and **Create an Application**.
+
+14. Copy the token.
+
+15. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+
+16. Select **Gotify**.
+
+17. Enable:
+    - **On Grab**
+    - **On File Import**
+    - **On File Upgrade**
+    - **On Series Add**
+    - **On Series Delete**
+    - **On Episode File Delete**
+    - **On Episode File Delete For Upgrade**
+    - **On Health Issue**
+    - **On Health Restored**
+    - **On Manual Interaction Required**
+
+18. Set **Gotify Server** to `http://172.39.0.20:81`
+
+19. Now paste the copied token in **App Token**.
+
+20. Enable **Include Series Poster**. And set **Metadata Links** to **TVDb**.
 
 ### Lidarr
 
