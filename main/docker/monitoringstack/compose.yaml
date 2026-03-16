@@ -15,10 +15,12 @@ services:
       - TZ=${TZ}
       - GOTIFY_DEFAULTUSER_NAME=${GOTIFY_USERNAME}
       - GOTIFY_DEFAULTUSER_PASS=${GOTIFY_PASSWORD}
+      - GOTIFY_SERVER_PORT=81
+      - GOTIFY_SERVER_SSL_PORT=444
     volumes:
       - ./gotify:/app/data
     ports:
-      - 8070:80
+      - 8070:81
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.20
@@ -46,7 +48,7 @@ services:
       - DIUN_WATCH_JITTER=30s
       - DIUN_PROVIDERS_DOCKER=true
       - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true
-      - DIUN_NOTIF_GOTIFY_ENDPOINT=http://172.39.0.20:80
+      - DIUN_NOTIF_GOTIFY_ENDPOINT=http://172.39.0.20:81
       - DIUN_NOTIF_GOTIFY_TOKEN=${DIUN_GOTIFY_TOKEN}
       - DIUN_NOTIF_GOTIFY_PRIORITY=1
       - DIUN_NOTIF_GOTIFY_TIMEOUT=10s
@@ -103,7 +105,7 @@ services:
       - SCRUTINY_WEB_INFLUXDB_TOKEN=${SCRUTINY_DATABASE_TOKEN}
       - SCRUTINY_WEB_INFLUXDB_ORG=homelab
       - SCRUTINY_WEB_INFLUXDB_BUCKET=scrutiny
-      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:80/message?token${SCRUTINY_GOTIFY_TOKEN}
+      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token${SCRUTINY_GOTIFY_TOKEN}
     volumes:
       - ./scrutiny:/opt/scrutiny/config
     ports:
