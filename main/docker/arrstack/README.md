@@ -28,24 +28,29 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/.env
     ```
 
-3. Before we can edit our .env we must identify our user. This is done with:
+3. Retrieve the `AutoSubSync` repository:
+    ```
+    git clone --recursive https://github.com/denizsafak/AutoSubSync -b main autosubsync
+    ```
+
+4. Before we can edit our .env we must identify our user. This is done with:
     ```
     id <yourusername>
     ```
     Take note of `uid` and `gid`.
 
-4. Now open up your .env file:
+5. Now open up your .env file:
     ```
     nano .env
     ```
 
-5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+6. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-6. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+7. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
 
-7. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
+8. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
 
-8. We are now ready to start our docker stack.
+9. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -367,21 +372,34 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
    - ~~**TVSubtitles**~~
    - ~~**YIFY Subtitles**~~
 
-5. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
+5. To make sure our subtitles are up to our standard of quality we need to go to `Settings` -> `Subtitles`.
 
-6. Set the `Address` to `172.39.0.40` as defined in the [compose file](compose.yaml)
+6. Under **Sub-Zero Subtitle Content Modifications** enable:
+    - Remove Tags
+    - Remove Emoji
+    - OCR Fixes
+    - Common Fixes
+    - Fix Uppercase
 
-7. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+7. Now under **Audio Synchronization / Alignment** enable **Automatic Subtitles Audio Synchronization**.
 
-8. Hit **Test** and save your changes.
+8. Set **Series Score Threshold For Audio Sync** to `96` and **Movies Score Threshold For Audio Sync** to `86`. And save!
 
-9. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+9. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
 
-10. Set the `Address` to `172.39.0.41` as defined in the [compose file](compose.yaml)
+10. Set the `Address` to `172.39.0.40` as defined in the [compose file](compose.yaml)
 
-11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key`.
+11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key` and hit **Test**.
 
-12. Finally hit **Test** and save your changes.
+12. Now under **Options** set **Minimum Score For Episodes** to `90`. And save!
+
+13. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+
+14. Set the `Address` to `172.39.0.41` as defined in the [compose file](compose.yaml)
+
+15. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key` and hit **Test**.
+
+16. Now under **Options** set **Minimum Score For Movies** to `80`. And save!
 
 ## Extra
 
@@ -429,7 +447,9 @@ If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUG
 
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
-- [Prowlarr](https://prowlarr.com/) - Indexer
+- [Servarr](https://wiki.servarr.com/) - *Arr documentation
+- [TRaSH Guide](https://trash-guides.info/) - *Arr Settings
+- [Prowlarr](https://prowlarr.com/) - Indexers manager
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
 - [Lidarr](https://lidarr.audio/) - Music organizer/manager
