@@ -27,6 +27,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
     network_mode: "none"
+    healthcheck:
+      test: /app healthcheck
+      interval: 30s
+      timeout: 5s
+      retries: 3
     restart: always
 
   vpn1: # Main VPN, torrenting + the rest
