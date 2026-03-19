@@ -19,7 +19,7 @@ services:
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
       - DB_HOSTNAME=172.39.0.83
       - REDIS_HOSTNAME=172.39.0.82
-      - DB_DATABASE_NAME=immich_database
+      - DB_DATABASE_NAME=immich-database
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
@@ -55,7 +55,7 @@ services:
       - UPLOAD_LOCATION=${IMMICH_UPLOAD_LOCATION}
       - DB_HOSTNAME=172.39.0.83
       - REDIS_HOSTNAME=172.39.0.82
-      - DB_DATABASE_NAME=immich_database
+      - DB_DATABASE_NAME=immich-database
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
