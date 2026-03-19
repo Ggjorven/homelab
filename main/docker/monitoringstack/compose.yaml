@@ -91,7 +91,7 @@ services:
         ipv4_address: 172.39.0.23
     healthcheck:
       test: curl -s http://localhost:8086/health
-      interval: 5s
+      interval: 30s
       timeout: 10s
       retries: 5
     labels:
@@ -122,7 +122,7 @@ services:
         ipv4_address: 172.39.0.24
     healthcheck:
       test: curl -s http://localhost:8080/api/health
-      interval: 5s
+      interval: 30s
       timeout: 10s
       retries: 20
       start_period: 10s
