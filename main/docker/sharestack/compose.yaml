@@ -36,7 +36,13 @@ services:
         ipv4_address: 172.39.0.80
     gpus: all
     runtime: nvidia
-    # TODO: Healthcheck
+    healthcheck:
+      test: immich-healthcheck
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true  
     restart: always
 
   immich-machine-learning:
@@ -64,7 +70,13 @@ services:
         ipv4_address: 172.39.0.81
     runtime: nvidia
     gpus: all
-    # TODO: Healthcheck 
+    healthcheck:
+      test: python3 healthcheck.py
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   immich-redis:
@@ -79,8 +91,12 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.82
     healthcheck:
-      test: redis-cli ping || exit 1
-      # TODO: Improve healthcheck
+      test: redis-cli ping
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   immich-database:
@@ -98,7 +114,13 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.83
-    # TODO: Healthcheck
+    healthcheck:
+      test: /usr/local/bin/healthcheck.sh
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   # TODO: Nextcloud
