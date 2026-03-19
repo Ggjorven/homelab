@@ -33,7 +33,7 @@ services:
     runtime: nvidia
     gpus: all
     healthcheck:
-      test: curl -s http://localhost:8096/health || exit 1
+      test: curl -s http://localhost:8096/health
       interval: 30s
       timeout: 10s
       retries: 3
@@ -61,7 +61,7 @@ services:
     depends_on:
       - jellyfin
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      test: wget -qO- http://localhost:5055/api/v1/status
       timeout: 10s
       interval: 30s
       retries: 3
@@ -104,7 +104,11 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.52
-    # TODO: Healthcheck
+    healthcheck:
+      test: sh -c "pg_isready -h localhost >/dev/null 2>&1 && curl -f http://127.0.0.1:3000/api/health >/dev/null 2>&1 && curl -f http://127.0.0.1:3005/health"
+      timeout: 5s
+      interval: 30s
+      retries: 3
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped 

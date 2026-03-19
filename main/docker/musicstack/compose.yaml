@@ -29,7 +29,7 @@ services:
       externalnetwork:
         ipv4_address: 172.40.0.60
     healthcheck:
-      test: wget -qO- http://localhost:4533 || exit 1
+      test: wget -qO- http://localhost:4533
       interval: 30s
       timeout: 10s
       retries: 3
@@ -53,11 +53,10 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.61
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:8338/health
+      test: wget -qO- http://localhost:8338/health
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s 
     restart: unless-stopped
 
   multi-scrobbler:
@@ -75,4 +74,5 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.62
+    # TODO: Healthcheck
     restart: unless-stopped
