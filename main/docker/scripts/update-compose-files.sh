@@ -1,12 +1,13 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 <username>"
+    echo "Usage: $0 <username> [branch]"
     exit 1
 fi
 
 BASE_DIR="/home/$1/docker"
-BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker"
+BRANCH="${2:-main}"
+BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/docker"
 
 STACKS=(
 	"networkstack"
