@@ -57,6 +57,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   multi-scrobbler:
@@ -79,4 +81,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

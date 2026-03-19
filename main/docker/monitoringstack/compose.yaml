@@ -62,6 +62,8 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.21
     # TODO: Healthcheck
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -92,6 +94,8 @@ services:
       interval: 5s
       timeout: 10s
       retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   scrutiny:
