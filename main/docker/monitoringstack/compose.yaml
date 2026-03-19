@@ -61,7 +61,11 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.21
-    # TODO: Healthcheck
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 && ping -c1 $$DIUN_NOTIF_GOTIFY_ENDPOINT"
+      interval: 30s
+      timeout: 10s
+      retries: 5
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: always
