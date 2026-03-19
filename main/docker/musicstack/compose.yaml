@@ -74,5 +74,9 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.62
-    # TODO: Healthcheck
+    healthcheck:
+      test: curl http://localhost:9078/api/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped
