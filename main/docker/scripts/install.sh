@@ -3,7 +3,7 @@
 # =========================
 # Initial configuration
 # =========================
-read -rp "Linux user's username': " USERNAME
+read -rp "Linux user's username': " USERNAME </dev/tty 
 
 BRANCH="${1:-main}"
 BASE_DIR="/home/$USERNAME/docker"
