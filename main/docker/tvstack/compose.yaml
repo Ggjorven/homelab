@@ -31,7 +31,7 @@ services:
     gpus: all
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:9191"
+      test: wget -qO- http://localhost:9191
       interval: 30s
       timeout: 10s
       retries: 5
