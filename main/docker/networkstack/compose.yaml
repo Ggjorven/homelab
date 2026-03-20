@@ -10,7 +10,6 @@ networks:
     ipam:
       config:
         - subnet: 172.40.0.0/24
-  
 
 services:
   deunhealth:
@@ -28,7 +27,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: "none"
     healthcheck:
-      test: /app healthcheck
+      test: ["CMD", "/app", "healthcheck"]
       interval: 30s
       timeout: 5s
       retries: 3

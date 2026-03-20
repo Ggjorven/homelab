@@ -25,7 +25,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.20
     healthcheck:
-      test: curl http://localhost:80/health
+      test: curl http://localhost:81/health
       interval: 30s
       timeout: 5s
       retries: 3
@@ -62,7 +62,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.21
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 && ping -c1 $$DIUN_NOTIF_GOTIFY_ENDPOINT"
+      test: sh -c "ping -c1 1.1.1.1 && ping -c1 172.39.0.20"
       interval: 30s
       timeout: 10s
       retries: 5
