@@ -61,7 +61,7 @@ for STACK in "${STACKS[@]}"; do
     # Handle already-installed stacks
     if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
         while true; do
-            read -rp "$STACK already installed. Overwrite? [y/n]: " ANSWER
+            read -rp "$STACK already installed. Overwrite? [y/n]: " ANSWER </dev/tty
             case "$ANSWER" in
                 [Yy]) break ;;
                 [Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); continue 2 ;;
