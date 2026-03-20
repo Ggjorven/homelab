@@ -59,24 +59,26 @@ for STACK in "${STACKS[@]}"; do
     STACK_DIR="$BASE_DIR/$STACK"
 
     # Handle already-installed stacks
-    if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
-        while true; do
-            read -rp "$STACK already installed. Overwrite? [y/n]: " ANSWER </dev/tty
-            case "$ANSWER" in
-                [Yy]) break ;;
-                [Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); continue 2 ;;
-                *) echo "  Please enter y or n." ;;
-            esac
-        done
-    fi
+    ANSWER=""
+	if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
+		while true; do
+			read -rp "$STACK already installed. Overwrite? [y/n]: " ANSWER </dev/tty
+			case "$ANSWER" in
+				[Yy]) break ;;
+				[Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); continue 2 ;;
+				*) echo "  Please enter y or n." ;;
+			esac
+		done
+	fi
 
-    read -rp "Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
-    if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
-        echo "  ~ Skipping $STACK"
-        ((SKIPPED++))
-        continue
-    fi
-
+	if [ -z "$ANSWER" ]; then
+		read -rp "Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
+		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
+			echo "  ~ Skipping $STACK"
+			((SKIPPED++))
+			continue
+		fi
+	fi
     echo "Installing $STACK..."
     mkdir -p "$STACK_DIR"
 
