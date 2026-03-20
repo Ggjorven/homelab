@@ -52,11 +52,11 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.61
-    healthcheck:
-      test: wget -qO- http://localhost:8338/health
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    # healthcheck:
+    #   test: wget -qO- http://localhost:8338/health
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
