@@ -127,7 +127,7 @@ services:
       lidarr:
         condition: service_healthy
     healthcheck:
-      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.31:5030"
+      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.11:5030"
       interval: 300s
       timeout: 10s
       retries: 3
