@@ -80,21 +80,6 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 If you have any issues setting up `docker` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
-## Migrating to new version
-
-To easily migrate your stacks to the newest version of `homelab` use my [script](scripts/update-compose-files.sh).  
-
-> [!CAUTION]
-> This action is irreversible. Make sure you know what you're doing and have a backup.
-
-> [!WARNING]
-> This script only updates the compose.yaml files and doesn't take into account the newly required environment variables.
-
-1. Run this command (replace `<username>` with the linux user):
-    ```
-    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update-compose-files.sh | sudo bash -s <username>
-    ```
-
 ## Extra 
 
 To update a compose stack's images just run:
