@@ -25,7 +25,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.20
     healthcheck:
-      test: wget --spider -q http://localhost:80/health
+      test: curl http://localhost:80/health
       interval: 30s
       timeout: 5s
       retries: 3
@@ -61,7 +61,13 @@ services:
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.21
-    # TODO: Healthcheck
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 && ping -c1 $$DIUN_NOTIF_GOTIFY_ENDPOINT"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -89,9 +95,11 @@ services:
         ipv4_address: 172.39.0.23
     healthcheck:
       test: curl -s http://localhost:8086/health
-      interval: 5s
+      interval: 30s
       timeout: 10s
-      retries: 20
+      retries: 5
+    labels:
+      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   scrutiny:
@@ -118,7 +126,7 @@ services:
         ipv4_address: 172.39.0.24
     healthcheck:
       test: curl -s http://localhost:8080/api/health
-      interval: 5s
+      interval: 30s
       timeout: 10s
       retries: 20
       start_period: 10s

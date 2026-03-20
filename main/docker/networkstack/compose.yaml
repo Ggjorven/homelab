@@ -27,6 +27,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
     network_mode: "none"
+    healthcheck:
+      test: /app healthcheck
+      interval: 30s
+      timeout: 5s
+      retries: 3
     restart: always
 
   vpn1: # Main VPN, torrenting + the rest
@@ -64,8 +69,8 @@ services:
       - ./vpn1:/gluetun
       - /etc/localtime:/etc/localtime:ro
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
-      interval: 20s
+      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      interval: 30s
       timeout: 10s
       retries: 5
     labels:
@@ -106,8 +111,8 @@ services:
       - ./vpn2:/gluetun
       - /etc/localtime:/etc/localtime:ro
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 || exit 1"
-      interval: 20s
+      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      interval: 30s
       timeout: 10s
       retries: 5
     labels:
@@ -127,10 +132,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health || exit 1"
+      test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health"
       interval: 30s
-      retries: 3
       timeout: 10s
+      retries: 3
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
