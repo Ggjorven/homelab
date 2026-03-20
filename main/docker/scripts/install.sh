@@ -114,8 +114,8 @@ for STACK in "${STACKS[@]}"; do
     # Prompt user for each KEY= line in the template; preserve comments/blanks as-is
     echo ""
     echo "  --- Configuring .env for $STACK ---"
-	echo "  Format: MY_VAR (default=DEFAULT): <your-input>"
-	echo "  ---                             ---"
+	echo "  You can accept the default by hitting enter"
+	echo ""
     OUTPUT_LINES=()
 
     while IFS= read -r line || [ -n "$line" ]; do
