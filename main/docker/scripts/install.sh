@@ -182,3 +182,4 @@ done
 echo ""
 echo "===== Done ====="
 echo "  Installed: $INSTALLED  |  Skipped: $SKIPPED  |  Failed: $FAILED"
+echo "  Follow the configuration instructions from: https://github.com/Ggjorven/homelab/tree/$BRANCH/main/docker"
