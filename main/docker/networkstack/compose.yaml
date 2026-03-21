@@ -12,27 +12,6 @@ networks:
         - subnet: 172.40.0.0/24
 
 services:
-  deunhealth:
-    image: qmcgaw/deunhealth
-    container_name: deunhealth
-    user: ${PUID}:${PGID}   
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - LOG_LEVEL=info
-      - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/localtime:/etc/localtime:ro
-    network_mode: "none"
-    healthcheck:
-      test: ["CMD", "/app", "healthcheck"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-    restart: always
-
   vpn1: # Main VPN, torrenting + the rest
     image: qmcgaw/gluetun
     container_name: vpn1
