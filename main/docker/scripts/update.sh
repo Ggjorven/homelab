@@ -65,7 +65,7 @@ for STACK in "${STACKS[@]}"; do
     STACK="${STACK//$'\r'/}"
     STACK_DIR="$BASE_DIR/$STACK"
 
-	# Skip stacks that are not installed
+	# Ask to install stacks that are currently not installed
     if [ ! -d "$STACK_DIR" ] || [ ! -f "$STACK_DIR/compose.yaml" ]; then
 		read -rp "$STACK not installed. Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
 		
@@ -80,8 +80,11 @@ for STACK in "${STACKS[@]}"; do
 
     echo "Updating $STACK..."
 
-    # compose.yaml
-	rm -f "$STACK_DIR/compose.yaml"
+	mkdir -p "$STACK_DIR"
+
+	# compose.yaml
+    rm -f "$STACK_DIR/compose.yaml"
+
     if ! wget -qO "$STACK_DIR/compose.yaml" "$BASE_URL/$STACK/compose.yaml"; then
         echo "  ✗ Failed to download compose.yaml"
         ((FAILED++))
@@ -192,7 +195,7 @@ for STACK in "${STACKS[@]}"; do
     } > "$STACK_DIR/.env"
 
     echo ""
-    echo "  ✓ .env merged (existing values kept, new keys prompted, removed keys dropped)"
+    echo "  ✓ .env merged"
     echo "  ✓ $STACK updated successfully"
     echo ""
 
