@@ -43,6 +43,10 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     ```
     adduser <username>
     ```
+    Example:
+    ```
+    adduser dockeruser
+    ```
     And choose all the default settings.
 
 8. Now we need to give our user the proper permissions:
@@ -80,20 +84,23 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 If you have any issues setting up `docker` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
-## Migrating to new version
+## Updating stacks
 
-To easily migrate your stacks to the newest version of `homelab` use my [script](scripts/update-compose-files.sh).  
+To update the `docker` stacks to the newest version released in `homelab` with more functionality and containers you can use these instructions.
 
 > [!CAUTION]
-> This action is irreversible. Make sure you know what you're doing and have a backup.
+> This will remove custom additions made to compose.yaml files.
 
-> [!WARNING]
-> This script only updates the compose.yaml files and doesn't take into account the newly required environment variables.
+1. Go to your `docker` LXC and run:
+    ```
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update.sh | sudo bash
+    ```
 
-1. Run this command (replace `<username>` with the linux user):
-    ```
-    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update-compose-files.sh | sudo bash -s <username>
-    ```
+2. Type in your linux user's username and the branch you wish to update to.
+
+3. Follow the rest of the instructions.
+
+4. When a stack has been updated it is recommended to go to the relevant **Configuring** section in the stacks README, because not everything is configured through the .env file.
 
 ## Extra 
 
