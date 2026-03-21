@@ -199,6 +199,25 @@ You'll see something like:
 
 To fix this disable TheTVDB for Episode Fetchers in the Series library.
 
+### Jellyfin playback fails
+
+Check the **Jellyfin** logs under **Dashboard** -> **Logs** and select the latest **FFmpeg** log.  
+You should see this at the bottom:
+```
+[in#0 @ 0xXXXXXXXXXXXX] Error opening input: Invalid argument
+Error opening input file file:/xxx/xxx/xxxxx/xxxxxx/xxxxx/xxxxxx/xxxxxxxxxxxxxx/xxx.mkv
+Error opening input files: Invalid argument
+```
+
+I found that this is related to a **qBitTorrent** seeding issue.  
+Go to **qBitTorrent** on port `8080` of the **Proxmox LXC**'s IP.
+
+1. Login with your `username` and `password`
+
+2. Stop the seeding for the related file that fails to play.
+
+Related github issue: [#11107](https://github.com/jellyfin/jellyfin/issues/11107)
+
 ## Helping others
 
 If you have found more issues while following the steps and figured it out please create a pull request with your issue and it's debugging steps and resolution.
