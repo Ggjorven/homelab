@@ -39,16 +39,6 @@ services:
     # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    ports:
-      - 8080:8080 # qbittorrent web interface
-      - 6789:6789 # nzbget web interface
-      - 9696:9696 # prowlarr web interface
-      - 9191:9191 # dispatcharr web interface
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.10
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -67,11 +57,21 @@ services:
     volumes:
       - ./vpn1:/gluetun
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8080:8080 # qbittorrent web interface
+      - 6789:6789 # nzbget web interface
+      - 9696:9696 # prowlarr web interface
+      - 9191:9191 # dispatcharr web interface
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.10
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
       interval: 30s
       timeout: 10s
       retries: 5
+    devices:
+      - /dev/net/tun:/dev/net/tun
     labels:
       - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
@@ -82,15 +82,6 @@ services:
     # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    ports:
-      - 5030:5030 # slskd web interface
-      - 5031:5031 # slskd HTTP
-      - 50300:50300 # slskd HTTPS
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.11
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -109,6 +100,15 @@ services:
     volumes:
       - ./vpn2:/gluetun
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5030:5030 # slskd web interface
+      - 5031:5031 # slskd HTTP
+      - 50300:50300 # slskd HTTPS
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.11
+    devices:
+      - /dev/net/tun:/dev/net/tun
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
       interval: 30s

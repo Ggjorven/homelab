@@ -72,7 +72,11 @@ services:
   streamystats:
     image: ghcr.io/fredrikburmester/streamystats-aio:${VERSION:-latest}
     container_name: streamystats
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
       - POSTGRES_DB=streamystats
       - POSTGRES_USER=${STREAMYSTATS_POSTGRES_USER}
       - POSTGRES_PASSWORD=${STREAMYSTATS_POSTGRES_PASSWORD}

@@ -40,6 +40,7 @@ services:
   metadata-remote:
     image: ghcr.io/wow-signal-dev/metadata-remote:latest
     container_name: metadata-remote
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -65,6 +66,7 @@ services:
   multi-scrobbler:
     image: foxxmd/multi-scrobbler
     container_name: multi-scrobbler
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       - PUID=${PUID}
       - PGID=${PGID} 
