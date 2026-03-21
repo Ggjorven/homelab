@@ -161,10 +161,10 @@ for STACK in "${STACKS[@]}"; do
                         echo "  ! $KEY is required."
                     done
                 elif [ -n "$TEMPLATE_DEFAULT" ]; then
-                    read -rp "  $KEY: " -e -i "$TEMPLATE_DEFAULT" USER_VAL </dev/tty
+                    read -rp "  [NEW] $KEY: " -e -i "$TEMPLATE_DEFAULT" USER_VAL </dev/tty
                     VALUE="${USER_VAL:-$TEMPLATE_DEFAULT}"
                 else
-                    read -rp "  $KEY: " USER_VAL </dev/tty
+                    read -rp "  [NEW] $KEY: " USER_VAL </dev/tty
                     VALUE="$USER_VAL"
                 fi
             fi
@@ -176,6 +176,13 @@ for STACK in "${STACKS[@]}"; do
     done < "$ENV_TMP"
 
     rm -f "$ENV_TMP"
+
+	# Append user-added keys not present in the template
+    for KEY in "${!EXISTING_VALS[@]}"; do
+        if [ -z "${TEMPLATE_DEFAULTS[$KEY]+_}" ]; then
+            OUTPUT_LINES+=("$KEY=${EXISTING_VALS[$KEY]}")
+        fi
+    done
 
     # Write the merged .env
     {
