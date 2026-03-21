@@ -85,7 +85,7 @@ for STACK in "${STACKS[@]}"; do
 	fi
 
 	if [ "$INSTALL_ALL_STACKS" = false ] && [ -z "$ANSWER" ]; then
-		read -rp "Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
+		read -rp "Install $STACK? [y/n]: " INSTALL_ANSWER </dev/tty
 		
 		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
 			echo "  ~ Skipping $STACK"

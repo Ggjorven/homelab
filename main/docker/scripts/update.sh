@@ -67,7 +67,7 @@ for STACK in "${STACKS[@]}"; do
 
 	# Ask to install stacks that are currently not installed
     if [ ! -d "$STACK_DIR" ] || [ ! -f "$STACK_DIR/compose.yaml" ]; then
-		read -rp "$STACK not installed. Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
+		read -rp "$STACK not installed. Install $STACK? [y/n]: " INSTALL_ANSWER </dev/tty
 		
 		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
 			echo "  ~ Skipping $STACK"
