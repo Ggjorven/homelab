@@ -48,12 +48,10 @@ services:
   immich-machine-learning:
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     container_name: immich-machine-learning
-    # user: ${PUID}:${PGID}   
-    volumes:
-      - ./immich-ml-cache:/cache
+    # user: ${PUID}:${PGID} # Requires root for GPU access
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
@@ -65,6 +63,9 @@ services:
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
+    volumes:
+      - ./immich-ml-cache:/cache
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.81
@@ -82,11 +83,13 @@ services:
   immich-redis:
     image: docker.io/valkey/valkey:9@sha256:930b41430fb727f533c5982fe509b6f04233e26d0f7354e04de4b0d5c706e44e
     container_name: immich-redis
-    # user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID} # Redis requires full root control 
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.82
@@ -104,12 +107,16 @@ services:
     container_name: immich-database
     # user: ${PUID}:${PGID} # The database requires full control
     environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
       - POSTGRES_DB=immich-database
       - POSTGRES_USER=${IMMICH_POSTGRES_USER}
       - POSTGRES_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - POSTGRES_INITDB_ARGS=--data-checksums
     volumes:
       - ./immich-postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
     shm_size: 128mb
     networks:
       internalnetwork:

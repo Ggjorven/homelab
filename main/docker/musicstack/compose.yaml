@@ -40,6 +40,7 @@ services:
   metadata-remote:
     image: ghcr.io/wow-signal-dev/metadata-remote:latest
     container_name: metadata-remote
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -47,6 +48,7 @@ services:
       - SHOW_HIDDEN_FILES=true
     volumes:
       - ${MUSIC_FOLDER}:/music
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8338:8338
     networks:
@@ -64,6 +66,7 @@ services:
   multi-scrobbler:
     image: foxxmd/multi-scrobbler
     container_name: multi-scrobbler
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       - PUID=${PUID}
       - PGID=${PGID} 
@@ -71,6 +74,7 @@ services:
       - LZE_TOKEN=${NAVIDROME_LB_TOKEN}
     volumes:
       - ./multi-scrobbler:/config
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 9078:9078
     networks:
