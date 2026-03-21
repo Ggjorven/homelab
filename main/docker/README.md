@@ -84,6 +84,24 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
 
 If you have any issues setting up `docker` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
+## Updating stacks
+
+To update the `docker` stacks to the newest version released in `homelab` with more functionality and containers you can use these instructions.
+
+> [!CAUTION]
+> This will remove custom additions made to compose.yaml files.
+
+1. Go to your `docker` LXC and run:
+    ```
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update.sh | sudo bash
+    ```
+
+2. Type in your linux user's username and the branch you wish to update to.
+
+3. Follow the rest of the instructions.
+
+4. When a stack has been updated it is recommended to go to the relevant **Configuring** section in the stacks README, because not everything is configured through the .env file.
+
 ## Extra 
 
 To update a compose stack's images just run:
