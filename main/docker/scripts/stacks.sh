@@ -10,7 +10,7 @@ STACKS=(
     "musicstack"
     "tvstack"
     "sharestack"
-    "gamingstack"
-    "securitystack"
-    "internetstack"
+    # "gamingstack"
+    # "securitystack"
+    # "internetstack"
 )
