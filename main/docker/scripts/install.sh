@@ -8,8 +8,7 @@ echo "===== Install Script ====="
 echo "=========================="
 read -rp "Username: " -e -i "dockeruser" USERNAME </dev/tty 
 read -rp "Branch: " -e -i "main" BRANCH </dev/tty 
-
-echo "==="
+echo ""
 
 BASE_DIR="/home/$USERNAME/docker"
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/docker"
@@ -69,6 +68,8 @@ for STACK in "${STACKS[@]}"; do
 				*) echo "  Please enter y or n." ;;
 			esac
 		done
+
+		echo ""
 	fi
 
 	if [ -z "$ANSWER" ]; then
@@ -101,6 +102,7 @@ for STACK in "${STACKS[@]}"; do
         continue
     fi
     echo "  ✓ .env downloaded"
+	echo ""
 
     # Read default values from the downloaded template
     declare -A EXISTING_VALS
@@ -114,7 +116,7 @@ for STACK in "${STACKS[@]}"; do
     done < "$ENV_TMP"
 
     # Prompt user for each KEY= line in the template; preserve comments/blanks as-is
-	echo "  Configuring .env"
+	echo "Configuring .env"
     OUTPUT_LINES=()
 
     while IFS= read -r line || [ -n "$line" ]; do
@@ -176,6 +178,7 @@ for STACK in "${STACKS[@]}"; do
     echo ""
     echo "  ✓ .env configured"
     echo "  ✓ $STACK installed successfully"
+	echo ""
     unset EXISTING_VALS
     ((INSTALLED++))
 done
