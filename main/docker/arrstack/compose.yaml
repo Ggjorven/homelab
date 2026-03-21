@@ -23,8 +23,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   sonarr:
@@ -49,8 +47,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true 
     restart: unless-stopped
 
   radarr:
@@ -75,8 +71,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   lidarr:
@@ -101,8 +95,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   soularr:
@@ -131,8 +123,6 @@ services:
       interval: 300s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   bazarr:
@@ -157,6 +147,4 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

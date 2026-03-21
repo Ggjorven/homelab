@@ -6,22 +6,22 @@ networks:
     external: true
 
 services:
-  deunhealth:
-    image: qmcgaw/deunhealth
-    container_name: deunhealth
+  autoheal:
+    image: willfarrell/autoheal:latest
+    container_name: autoheal
     user: ${PUID}:${PGID}
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
       - TZ=${TZ}
-      - LOG_LEVEL=info
-      - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
+      - AUTOHEAL_CONTAINER_LABEL=all # Autoheal all containers
+      # TODO: Apprise notifications to gotify
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
-    network_mode: "none"
+    network_mode: none
     healthcheck:
-      test: ["CMD", "/app", "healthcheck"]
+      test: ["CMD", "pgrep", "-f", "autoheal"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -52,8 +52,6 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   diun:
@@ -91,8 +89,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -125,8 +121,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   scrutiny:
@@ -159,6 +153,4 @@ services:
       timeout: 10s
       retries: 20
       start_period: 10s
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

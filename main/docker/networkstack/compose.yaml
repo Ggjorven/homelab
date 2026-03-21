@@ -51,8 +51,6 @@ services:
       retries: 5
     devices:
       - /dev/net/tun:/dev/net/tun
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   vpn2: # Secondary VPN, soulseek
@@ -93,8 +91,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   flaresolverr:
@@ -114,6 +110,4 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
