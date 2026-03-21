@@ -3,18 +3,17 @@
 # =========================
 # Initial configuration
 # =========================
-read -rp "Linux user's username': " USERNAME </dev/tty 
+echo "=========================="
+echo "===== Install Script ====="
+echo "=========================="
+read -rp "Username: " -e -i "dockeruser" USERNAME </dev/tty 
+read -rp "Branch: " -e -i "main" BRANCH </dev/tty 
 
-BRANCH="${1:-main}"
+echo "==="
+
 BASE_DIR="/home/$USERNAME/docker"
 BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/docker"
 STACKS_URL="$BASE_URL/scripts/stacks.sh"
-
-echo "===== Install Script ====="
-echo "User:   $USERNAME"
-echo "Branch: $BRANCH"
-echo "Base:   $BASE_DIR"
-echo "=========================="
 # =========================
 
 # =========================
@@ -63,6 +62,7 @@ for STACK in "${STACKS[@]}"; do
 	if [ -d "$STACK_DIR" ] && [ -f "$STACK_DIR/compose.yaml" ]; then
 		while true; do
 			read -rp "$STACK already installed. Overwrite? [y/n]: " ANSWER </dev/tty
+			
 			case "$ANSWER" in
 				[Yy]) break ;;
 				[Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); continue 2 ;;
@@ -73,12 +73,14 @@ for STACK in "${STACKS[@]}"; do
 
 	if [ -z "$ANSWER" ]; then
 		read -rp "Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
+		
 		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
 			echo "  ~ Skipping $STACK"
 			((SKIPPED++))
 			continue
 		fi
 	fi
+
     echo "Installing $STACK..."
     mkdir -p "$STACK_DIR"
 
@@ -112,10 +114,7 @@ for STACK in "${STACKS[@]}"; do
     done < "$ENV_TMP"
 
     # Prompt user for each KEY= line in the template; preserve comments/blanks as-is
-    echo ""
-    echo "  --- Configuring .env for $STACK ---"
-	echo "  You can accept the default by hitting enter"
-	echo ""
+	echo "  Configuring .env"
     OUTPUT_LINES=()
 
     while IFS= read -r line || [ -n "$line" ]; do
@@ -142,18 +141,20 @@ for STACK in "${STACKS[@]}"; do
 
             if [ "$REQUIRED" = true ]; then
                 while true; do
-                    read -rp "  $KEY (default=$DEFAULT, required): " USER_VAL </dev/tty
+                    read -rp "  $KEY: " -e -i "$DEFAULT" USER_VAL </dev/tty
+
                     VALUE="${USER_VAL:-$DEFAULT}"
                     if [ "$VALUE" != "$DEFAULT" ] && [ -n "$VALUE" ]; then
                         break
                     fi
-                    echo "  ! $KEY is required — enter a value other than the placeholder"
+
+                    echo "  ! $KEY is required."
                 done
             elif [ -n "$DEFAULT" ]; then
-                read -rp "  $KEY (default=$DEFAULT): " USER_VAL </dev/tty
+                read -rp "  $KEY: " -e -i "$DEFAULT" USER_VAL </dev/tty
                 VALUE="${USER_VAL:-$DEFAULT}"
             else
-                read -rp "  $KEY: " USER_VAL </dev/tty
+                read -rp "  $KEY: " -e -i "$DEFAULT" USER_VAL </dev/tty
                 VALUE="$USER_VAL"
             fi
             OUTPUT_LINES+=("$KEY=$VALUE")
@@ -162,6 +163,7 @@ for STACK in "${STACKS[@]}"; do
             OUTPUT_LINES+=("$line")
         fi
     done < "$ENV_TMP"
+
     rm -f "$ENV_TMP"
 
     # Write final .env — one element per line, no trailing newline issues
@@ -179,7 +181,6 @@ for STACK in "${STACKS[@]}"; do
 done
 # =========================
 
-echo ""
-echo "===== Done ====="
+echo "========== Done =========="
 echo "  Installed: $INSTALLED  |  Skipped: $SKIPPED  |  Failed: $FAILED"
 echo "  Follow the configuration instructions from: https://github.com/Ggjorven/homelab/tree/$BRANCH/main/docker"
