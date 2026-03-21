@@ -41,6 +41,18 @@ if [ ${#STACKS[@]} -eq 0 ]; then
     echo "Error: No stacks defined in stacks.sh"
     exit 1
 fi
+
+INSTALL_ALL_STACKS=false
+while true; do
+	read -rp "Install all stacks? [y/n]: " INSTALL_ALL_STACKS_YN </dev/tty
+	echo ""
+
+	case "$INSTALL_ALL_STACKS_YN" in
+		[Yy]) INSTALL_ALL_STACKS=true; break ;;
+		[Nn]) INSTALL_ALL_STACKS=false; break ;;
+		*) echo "  Please enter y or n." ;;
+	esac
+done
 # =========================
 
 # =========================
@@ -72,7 +84,7 @@ for STACK in "${STACKS[@]}"; do
 		echo ""
 	fi
 
-	if [ -z "$ANSWER" ]; then
+	if [ "$INSTALL_ALL_STACKS" = false ] && [ -z "$ANSWER" ]; then
 		read -rp "Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
 		
 		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
@@ -80,6 +92,8 @@ for STACK in "${STACKS[@]}"; do
 			((SKIPPED++))
 			continue
 		fi
+
+		echo ""
 	fi
 
     echo "Installing $STACK..."
