@@ -46,7 +46,7 @@ while true; do
 	read -rp "Update all stacks? [y/n]: " UPDATE_ALL_STACKS </dev/tty
 	echo ""
 
-	case "$INSTALL_ALL_STACKS_YN" in
+	case "$UPDATE_ALL_STACKS" in
 		[Yy]) UPDATE_ALL_STACKS=true; break ;;
 		[Nn]) UPDATE_ALL_STACKS=false; break ;;
 		*) echo "  Please enter y or n." ;;
