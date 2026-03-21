@@ -49,8 +49,6 @@ services:
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     container_name: immich-machine-learning
     # user: ${PUID}:${PGID}   
-    volumes:
-      - ./immich-ml-cache:/cache
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -65,6 +63,9 @@ services:
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATA_LOCATION=./immich-postgres
+    volumes:
+      - ./immich-ml-cache:/cache
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.81
@@ -87,6 +88,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.82
@@ -110,6 +113,7 @@ services:
       - POSTGRES_INITDB_ARGS=--data-checksums
     volumes:
       - ./immich-postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
     shm_size: 128mb
     networks:
       internalnetwork:

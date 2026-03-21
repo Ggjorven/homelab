@@ -19,6 +19,7 @@ services:
       - GOTIFY_SERVER_SSL_PORT=444
     volumes:
       - ./gotify:/app/data
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8070:81
     networks:
@@ -58,6 +59,7 @@ services:
     volumes:
       - ./diun:/data
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.21
@@ -90,6 +92,7 @@ services:
     volumes:
       - ./scrutiny-db/database:/var/lib/influxdb2
       - ./scrutiny-db/config:/etc/influxdb2
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.23
@@ -116,6 +119,7 @@ services:
       - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token${SCRUTINY_GOTIFY_TOKEN}
     volumes:
       - ./scrutiny:/opt/scrutiny/config
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8082:8080
     depends_on:

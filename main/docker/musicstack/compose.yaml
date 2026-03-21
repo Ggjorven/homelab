@@ -47,6 +47,7 @@ services:
       - SHOW_HIDDEN_FILES=true
     volumes:
       - ${MUSIC_FOLDER}:/music
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8338:8338
     networks:
@@ -71,6 +72,7 @@ services:
       - LZE_TOKEN=${NAVIDROME_LB_TOKEN}
     volumes:
       - ./multi-scrobbler:/config
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 9078:9078
     networks:
