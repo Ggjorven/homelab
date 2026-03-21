@@ -43,6 +43,10 @@ Before we can create our `docker` **Proxmox LXC**. We must have finished these s
     ```
     adduser <username>
     ```
+    Example:
+    ```
+    adduser dockeruser
+    ```
     And choose all the default settings.
 
 8. Now we need to give our user the proper permissions:
