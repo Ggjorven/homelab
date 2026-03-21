@@ -66,7 +66,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.10
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -110,7 +110,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -131,7 +131,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health"
+      test: sh -c "curl -s http://localhost:8191 && curl -s http://localhost:8191/health"
       interval: 30s
       timeout: 10s
       retries: 3

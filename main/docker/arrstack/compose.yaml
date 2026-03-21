@@ -19,7 +19,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && wget -qO- http://localhost:9696 >/dev/null 2>&1 && curl -s http://localhost:9696/ping"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && wget -qO- http://localhost:9696 && curl -s http://localhost:9696/ping"
       interval: 30s
       timeout: 10s
       retries: 5
@@ -45,7 +45,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.40
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:8989 >/dev/null 2>&1 && curl -s http://localhost:8989/ping"
+      test: sh -c "wget -qO- http://localhost:8989 && curl -s http://localhost:8989/ping"
       interval: 30s
       timeout: 10s
       retries: 3
@@ -71,7 +71,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.41
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:7878 >/dev/null 2>&1 && curl -s http://localhost:7878/ping"
+      test: sh -c "wget -qO- http://localhost:7878 && curl -s http://localhost:7878/ping"
       interval: 30s
       timeout: 10s
       retries: 3
@@ -97,7 +97,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.42
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:8686 >/dev/null 2>&1 && curl -s http://localhost:8686/ping"
+      test: sh -c "wget -qO- http://localhost:8686 && curl -s http://localhost:8686/ping"
       interval: 30s
       timeout: 10s
       retries: 3
@@ -127,7 +127,7 @@ services:
       lidarr:
         condition: service_healthy
     healthcheck:
-      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.11:5030"
+      test: sh -c "wget -qO- http://172.39.0.42:8686 && wget -qO- http://172.39.0.11:5030"
       interval: 300s
       timeout: 10s
       retries: 3
