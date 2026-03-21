@@ -76,7 +76,7 @@ for STACK in "${STACKS[@]}"; do
 			
 			case "$ANSWER" in
 				[Yy]) break ;;
-				[Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); continue 2 ;;
+				[Nn]) echo "  ~ Skipping $STACK"; ((SKIPPED++)); echo ""; continue 2 ;;
 				*) echo "  Please enter y or n." ;;
 			esac
 		done
