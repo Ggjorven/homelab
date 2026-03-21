@@ -40,6 +40,18 @@ if [ ${#STACKS[@]} -eq 0 ]; then
     echo "Error: No stacks defined in stacks.sh"
     exit 1
 fi
+
+UPDATE_ALL_STACKS=false
+while true; do
+	read -rp "Update all stacks? [y/n]: " UPDATE_ALL_STACKS </dev/tty
+	echo ""
+
+	case "$INSTALL_ALL_STACKS_YN" in
+		[Yy]) UPDATE_ALL_STACKS=true; break ;;
+		[Nn]) UPDATE_ALL_STACKS=false; break ;;
+		*) echo "  Please enter y or n." ;;
+	esac
+done
 # =========================
 
 # =========================
@@ -52,6 +64,19 @@ FAILED=0
 for STACK in "${STACKS[@]}"; do
     STACK="${STACK//$'\r'/}"
     STACK_DIR="$BASE_DIR/$STACK"
+
+	# Skip stacks that are not installed
+    if [ ! -d "$STACK_DIR" ] || [ ! -f "$STACK_DIR/compose.yaml" ]; then
+		read -rp "$STACK not installed. Install $STACK? [Y/n]: " INSTALL_ANSWER </dev/tty
+		
+		if [[ "${INSTALL_ANSWER,,}" == "n" ]]; then
+			echo "  ~ Skipping $STACK"
+			((SKIPPED++))
+			continue
+		fi
+
+		echo ""
+    fi
 
     echo "Updating $STACK..."
 
@@ -125,11 +150,10 @@ for STACK in "${STACKS[@]}"; do
                 # Key exists in current .env — keep the existing value silently
                 VALUE="${EXISTING_VALS[$KEY]}"
             else
-                # New key not present in current .env — prompt the user
-                echo "  [NEW] $KEY"
+                # New key not present in current .env
                 if [ "$REQUIRED" = true ]; then
                     while true; do
-                        read -rp "  $KEY: " -e -i "$TEMPLATE_DEFAULT" USER_VAL </dev/tty
+                        read -rp "  [NEW] $KEY: " -e -i "$TEMPLATE_DEFAULT" USER_VAL </dev/tty
                         VALUE="${USER_VAL:-$TEMPLATE_DEFAULT}"
                         if [ -n "$VALUE" ] && [ "$VALUE" != "$TEMPLATE_DEFAULT" ]; then
                             break
