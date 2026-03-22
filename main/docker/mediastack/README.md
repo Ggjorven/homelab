@@ -48,12 +48,18 @@ Before we can create our `media stack` on our `docker` **Proxmox LXC**. We must 
 
 5. Now change our postgres credentials to something more secure. ([hint](https://randomkeygen.com/jwt-secret))
     ```
-    JELLYSTAT_POSTGRES_USER=username
-    JELLYSTAT_POSTGRES_PASSWORD=password
-    JELLYSTAT_JWT_SECRET=secret
+    STREAMYSTATS_POSTGRES_USER=username
+    STREAMYSTATS_POSTGRES_PASSWORD=password
+    STREAMYSTATS_JWT_SECRET=secret
+    STREAMYSTATS_SERVER_KEY=key
     ```
 
-6. We are now ready to start our docker stack.
+6. Now set `MEDIALYZE_MEDIA_LOCATION` so **MediaLyze** knows where to look.
+    ```
+    MEDIALYZE_MEDIA_LOCATION=/mnt/nas/location/of/your/media
+    ```
+
+7. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```

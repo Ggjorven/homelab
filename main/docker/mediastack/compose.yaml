@@ -115,10 +115,10 @@ services:
   medialyze:
     image: ghcr.io/frederikemmer/medialyze:latest
     container_name: medialyze
-    user: ${PUID}:${PGID}   
+    # user: ${PUID}:${PGID}   
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
+      # - PUID=${PUID}
+      # - PGID=${PGID}
       - TZ=${TZ}
       - CONFIG_PATH=/config
       - MEDIA_ROOT=/media
