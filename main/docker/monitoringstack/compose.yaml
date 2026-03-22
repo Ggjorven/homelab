@@ -106,7 +106,7 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=${SCRUTINY_DATABASE_PASSWORD}
       - DOCKER_INFLUXDB_INIT_ORG=homelab
       - DOCKER_INFLUXDB_INIT_BUCKET=scrutiny
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${SCRUTINY_DATABASE_TOKEN} 
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${SCRUTINY_DATABASE_TOKEN}
     volumes:
       - ./scrutiny-db/database:/var/lib/influxdb2
       - ./scrutiny-db/config:/etc/influxdb2
@@ -135,7 +135,7 @@ services:
       - SCRUTINY_WEB_INFLUXDB_TOKEN=${SCRUTINY_DATABASE_TOKEN}
       - SCRUTINY_WEB_INFLUXDB_ORG=homelab
       - SCRUTINY_WEB_INFLUXDB_BUCKET=scrutiny
-      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token${SCRUTINY_GOTIFY_TOKEN}
+      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token={SCRUTINY_GOTIFY_TOKEN}
     volumes:
       - ./scrutiny:/opt/scrutiny/config
       - /etc/localtime:/etc/localtime:ro
