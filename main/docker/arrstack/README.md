@@ -453,7 +453,7 @@ If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUG
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
 - [Servarr](https://wiki.servarr.com/) - *Arr documentation
-- [TRaSH Guide](https://trash-guides.info/) - *Arr Settings
+- [TRaSH Guide](https://trash-guides.info/) - *Arr settings
 - [Prowlarr](https://prowlarr.com/) - Indexers manager
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
