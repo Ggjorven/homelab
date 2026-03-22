@@ -104,7 +104,7 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     Now synchronize.
 
 Make sure to add the proper tags to the indexers and applications you're adding.
-Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr* etc...
+Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr** etc...
 
 ---
 
