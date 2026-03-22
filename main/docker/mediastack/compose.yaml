@@ -37,8 +37,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   seerr:
@@ -65,8 +63,6 @@ services:
       timeout: 10s
       interval: 30s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   streamystats:
@@ -110,10 +106,8 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.52
     healthcheck:
-      test: sh -c "pg_isready -h localhost >/dev/null 2>&1 && curl -f http://127.0.0.1:3000/api/health >/dev/null 2>&1 && curl -f http://127.0.0.1:3005/health"
+      test: sh -c "pg_isready -h localhost && curl -f http://127.0.0.1:3000/api/health && curl -f http://127.0.0.1:3005/health"
       timeout: 5s
       interval: 30s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped 

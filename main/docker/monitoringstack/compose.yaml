@@ -6,6 +6,27 @@ networks:
     external: true
 
 services:
+  autoheal:
+    image: willfarrell/autoheal:latest
+    container_name: autoheal
+    user: ${PUID}:${PGID}
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - AUTOHEAL_CONTAINER_LABEL=all # Autoheal all containers
+      # TODO: Apprise notifications to gotify
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: none
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "autoheal"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: always
+
   gotify:
     image: gotify/server:latest
     container_name: gotify
@@ -31,8 +52,6 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   diun:
@@ -70,8 +89,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -104,8 +121,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   scrutiny:
@@ -138,6 +153,4 @@ services:
       timeout: 10s
       retries: 20
       start_period: 10s
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

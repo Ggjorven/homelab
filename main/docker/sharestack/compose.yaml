@@ -41,8 +41,6 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true  
     restart: always
 
   immich-machine-learning:
@@ -76,8 +74,6 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   immich-redis:
@@ -98,8 +94,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   immich-database:
@@ -126,8 +120,6 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
 
   # TODO: Nextcloud

@@ -81,7 +81,10 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **EZTV** priority = 5, tags = (series)
     - **TorrentGalaxyClone** priority = 6, tags = (movies, series, music)
     - **The Pirate Bay** priority = 7, tags = (movies, series, music)
+    - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
+    - **BitRu** priority = 25 (default), tags = (movies, series, music) 
     - **ilCorSaRoNeRo** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
     - **kickasstorrents.ws** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **MagnetDownload** priority = 25 (default), tags = (movies, series, music)
     - **Magnet Cat** priority = 25 (default), tags = (movies, series, music)
@@ -93,13 +96,15 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
     - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **TorrentDownload** priority = 25 (default), tags = (movies, series, music)
+    - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
     - **Uindex** priority = 25 (default), tags = (movies, series, music)
     - **YTS** priority = 25 (default), tags = (series)
 
     Now synchronize.
 
 Make sure to add the proper tags to the indexers and applications you're adding.
-Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr* etc...
+Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr** etc...
 
 ---
 
@@ -448,7 +453,7 @@ If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUG
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
 - [Servarr](https://wiki.servarr.com/) - *Arr documentation
-- [TRaSH Guide](https://trash-guides.info/) - *Arr Settings
+- [TRaSH Guide](https://trash-guides.info/) - *Arr settings
 - [Prowlarr](https://prowlarr.com/) - Indexers manager
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager
