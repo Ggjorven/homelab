@@ -366,6 +366,24 @@ To configure **Streamystats** we need to go to port `3000` of your **Proxmox LXC
 
 7. You're done!
 
+### MediaLyze
+
+To configure **Streamystats** we need to go to port `8100` of your **Proxmox LXC**'s IP address.
+
+1. Go to the **Settings** menu.
+
+2. Head over to the **Create Library** section.
+
+3. Create your Media libraries and select their type and location.
+
+4. After creating your Media libraries in **MediaLyze** head over to **Configured Libraries**.
+
+5. Set all your libraries to **Scan Mode**: **Scheduled** with 120 minutes.
+
+6. If you wish to immediately check all the information about your media library use **Manual Scan**.
+
+7. You can check the results back on the homepage.
+
 ## Debugging
 
 If you have any issues setting up `mediastack` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
