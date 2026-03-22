@@ -1,23 +1,47 @@
 #!/bin/bash
 
-USERNAME="<username>"
+# =========================
+# Initial configuration
+# =========================
+USERNAME="<username>" # ex. dockeruser
+BRANCH="main"
 
 BASE_DIR="/home/$USERNAME/docker"
+BASE_URL="https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/docker"
+STACKS_URL="$BASE_URL/scripts/stacks.sh"
+# =========================
 
-STACKS=(
-	"internetstack"
-	"securitystack"
-	"gamingstack"
-	"sharestack"
-	"tvstack"
-	"musicstack"
-	"mediastack"
-	"arrstack"
-	"downloadstack"
-	"monitoringstack"
-	"networkstack"
-)
+# =========================
+# Stacks
+# =========================
+echo "Fetching stacks.sh from branch '$BRANCH'..."
 
+STACKS_TMP="$(mktemp)"
+
+if ! wget -qO "$STACKS_TMP" "$STACKS_URL" || [ ! -s "$STACKS_TMP" ]; then
+    echo "Error: Failed to fetch stacks.sh from:"
+    echo "  $STACKS_URL"
+    echo "Check the branch name and your network connection."
+    rm -f "$STACKS_TMP"
+    exit 1
+fi
+
+source "$STACKS_TMP"
+
+rm -f "$STACKS_TMP"
+
+echo "  ✓ stacks.sh fetched"
+echo ""
+
+if [ ${#STACKS[@]} -eq 0 ]; then
+    echo "Error: No stacks defined in stacks.sh"
+    exit 1
+fi
+# =========================
+
+# =========================
+# Shutdown
+# =========================
 if [ ! -d "$BASE_DIR" ]; then
     echo "Error: Base directory $BASE_DIR not found."
     exit 1
@@ -49,5 +73,4 @@ for STACK in "${STACKS[@]}"; do
 done
 
 echo "Done."
-
-
+# =========================
