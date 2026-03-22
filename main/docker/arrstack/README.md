@@ -81,7 +81,8 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **EZTV** priority = 5, tags = (series)
     - **TorrentGalaxyClone** priority = 6, tags = (movies, series, music)
     - **The Pirate Bay** priority = 7, tags = (movies, series, music)
-    - **BitRu** priority = 25, tags = (movies, series, music) 
+    - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
+    - **BitRu** priority = 25 (default), tags = (movies, series, music) 
     - **ilCorSaRoNeRo** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
     - **kickasstorrents.ws** priority = 25 (default), tags = (movies, series, music, flaresolverr)
@@ -95,6 +96,8 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
     - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **TorrentDownload** priority = 25 (default), tags = (movies, series, music)
+    - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
     - **Uindex** priority = 25 (default), tags = (movies, series, music)
     - **YTS** priority = 25 (default), tags = (series)
 
