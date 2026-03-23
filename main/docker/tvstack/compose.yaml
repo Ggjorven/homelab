@@ -31,7 +31,7 @@ services:
     gpus: all
     network_mode: container:vpn1
     healthcheck:
-      test: wget -qO- http://localhost:9191
+      test: sh -c "wget -qO- www.google.com && wget -qO- http://localhost:9191" # wget google.com replaces ping and nslookup for internet connectivity test 
       interval: 30s
       timeout: 10s
       retries: 5

@@ -134,7 +134,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.53
     healthcheck:
-      test: wget -qO- http://localhost:8100
+      test: wget -qO- http://0.0.0.0:8100
       timeout: 5s
       interval: 30s
       retries: 3
