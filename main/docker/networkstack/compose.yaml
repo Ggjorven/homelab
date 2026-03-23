@@ -113,7 +113,7 @@ services:
     restart: unless-stopped
 
   openresty: # Reverse proxy
-    image: openresty/openresty:alpine
+    image: openresty/openresty:noble
     container_name: openresty
     # user: ${PUID}:${PGID} # This container requires to run as root
     environment:
@@ -121,7 +121,7 @@ services:
       # - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./openresty/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./openresty/templates:/etc/nginx/templates:ro
       - ./openresty/lua:/usr/local/openresty/lua:ro
       - ./openresty/logs:/var/log/nginx
