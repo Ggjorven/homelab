@@ -44,7 +44,24 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     ```
     To reflect your actual PIA login details.
 
-6. We are now ready to start our docker stack.
+6. After finishing the .env file. We'll start setting up the configurations and templates for nginx. Start by creating the relevant folders:
+    ```
+    mkdir -p certs
+    mkdir -p openresty
+    mkdir -p openresty/templates
+    mkdir -p openresty/lua
+    mkdir -p openresty/logs
+    ```
+
+7. Download the relevant configuration files from github:
+    ```
+    cd openresty
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/nginx.conf
+    cd templates
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/templates/default.conf.template
+    ```
+
+8. We are now ready to start our docker stack.
     ```
     docker compose --all-resources up -d
     ```
