@@ -110,4 +110,32 @@ services:
       timeout: 5s
       interval: 30s
       retries: 3
-    restart: unless-stopped 
+    restart: unless-stopped
+
+  medialyze:
+    image: ghcr.io/frederikemmer/medialyze:latest
+    container_name: medialyze
+    # user: ${PUID}:${PGID}   
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - CONFIG_PATH=/config
+      - MEDIA_ROOT=/media
+      - APP_PORT=8100
+      - HOST_PORT=8100
+    volumes:
+      - ./medialyze:/config
+      - ${MEDIALYZE_MEDIA_LOCATION}:/media:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8100:8100
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.53
+    healthcheck:
+      test: wget -qO- http://localhost:8100
+      timeout: 5s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped

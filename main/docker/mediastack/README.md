@@ -48,12 +48,18 @@ Before we can create our `media stack` on our `docker` **Proxmox LXC**. We must 
 
 5. Now change our postgres credentials to something more secure. ([hint](https://randomkeygen.com/jwt-secret))
     ```
-    JELLYSTAT_POSTGRES_USER=username
-    JELLYSTAT_POSTGRES_PASSWORD=password
-    JELLYSTAT_JWT_SECRET=secret
+    STREAMYSTATS_POSTGRES_USER=username
+    STREAMYSTATS_POSTGRES_PASSWORD=password
+    STREAMYSTATS_JWT_SECRET=secret
+    STREAMYSTATS_SERVER_KEY=key
     ```
 
-6. We are now ready to start our docker stack.
+6. Now set `MEDIALYZE_MEDIA_LOCATION` so **MediaLyze** knows where to look.
+    ```
+    MEDIALYZE_MEDIA_LOCATION=/mnt/nas/location/of/your/media
+    ```
+
+7. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -359,6 +365,24 @@ To configure **Streamystats** we need to go to port `3000` of your **Proxmox LXC
 6. Login using an administrator account.
 
 7. You're done!
+
+### MediaLyze
+
+To configure **Streamystats** we need to go to port `8100` of your **Proxmox LXC**'s IP address.
+
+1. Go to the **Settings** menu.
+
+2. Head over to the **Create Library** section.
+
+3. Create your Media libraries and select their type and location.
+
+4. After creating your Media libraries in **MediaLyze** head over to **Configured Libraries**.
+
+5. Set all your libraries to **Scan Mode**: **Scheduled** with 120 minutes.
+
+6. If you wish to immediately check all the information about your media library use **Manual Scan**.
+
+7. You can check the results back on the homepage.
 
 ## Debugging
 
