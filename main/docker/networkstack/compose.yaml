@@ -111,3 +111,33 @@ services:
       timeout: 10s
       retries: 3
     restart: unless-stopped
+
+  openresty: # Reverse proxy
+    image: openresty/openresty:alpine
+    container_name: openresty
+    # user: ${PUID}:${PGID} # This container requires to run as root
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./openresty/templates:/etc/nginx/templates:ro
+      - ./openresty/lua:/usr/local/openresty/lua:ro
+      - ./openresty/logs:/var/log/nginx
+      - ./certs:/etc/letsencrypt:ro
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.13
+      externalnetwork:
+        ipv4_address: 172.40.0.13
+    healthcheck:
+      test: curl -f http://localhost/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
