@@ -2,9 +2,17 @@
 
 set -e
 
-# Process all template files
+mkdir -p /etc/nginx/conf.d/
+
+# Check if any templates exist
+if ! ls /etc/nginx/templates/*.template > /dev/null 2>&1; then
+    echo "No templates found in /etc/nginx/templates/"
+    ls -la /etc/nginx/templates/ || echo "Directory does not exist!"
+    exit 1
+fi
+
 for template in /etc/nginx/templates/*.template; do
-    output="/usr/local/openresty/nginx/conf/conf.d/$(basename "${template}" .template)"
+    output="/etc/nginx/conf.d/$(basename "${template}" .template)"
     echo "Processing template: ${template} -> ${output}"
     envsubst "${NGINX_ENVSUBST_FILTER:-}" < "${template}" > "${output}"
 done
