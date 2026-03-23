@@ -134,10 +134,10 @@ services:
         ipv4_address: 172.39.0.13
       externalnetwork:
         ipv4_address: 172.40.0.13
-    healthcheck:
-      test: curl -f http://localhost/health
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+    # healthcheck:
+    #   test: curl -f http://localhost/health
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
     restart: unless-stopped
