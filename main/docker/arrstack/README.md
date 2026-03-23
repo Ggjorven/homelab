@@ -406,6 +406,10 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 16. Now under **Options** set **Minimum Score For Movies** to `80`. And save!
 
+---
+
+If you installed **Bazarr** before the new subtitle synchronization was enabled check out [this](https://github.com/ajmandourah/bazarr-sync). This project helps with synchronizing your subtitles even if they have already been processed by **Bazarr** before synchronization was enabled.
+
 ## Extra
 
 I have personally noticed that sometimes even though indexers in **Prowlarr** are available **Prowlarr** doesn't report them properly until you run a **Test All Indexers**.
