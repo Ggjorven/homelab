@@ -9,7 +9,7 @@ services:
   autoheal:
     image: willfarrell/autoheal:latest
     container_name: autoheal
-    user: ${PUID}:${PGID}
+    # user: ${PUID}:${PGID}
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -21,7 +21,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: none
     healthcheck:
-      test: ["CMD", "pgrep", "-f", "autoheal"]
+      test: pgrep -f autoheal
       interval: 30s
       timeout: 5s
       retries: 3
