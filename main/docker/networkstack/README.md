@@ -59,9 +59,16 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/nginx.conf
     cd templates
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/templates/default.conf.template
+    cd ..
     ```
 
-8. We are now ready to start our docker stack.
+8. Download the custom entrypoint for template preprocessing:
+    ```
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/docker-entrypoint.sh
+    chmod +x docker-entrypoint.sh
+    ```
+
+9. We are now ready to start our docker stack.
     ```
     docker compose --all-resources up -d
     ```

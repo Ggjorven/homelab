@@ -126,6 +126,8 @@ services:
       - ./openresty/lua:/usr/local/openresty/lua:ro
       - ./openresty/logs:/var/log/nginx
       - ./certs:/etc/letsencrypt:ro
+      - ./openresty/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for template processing logic like nginx
     ports:
       - 80:80
       - 443:443
