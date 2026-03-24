@@ -12,8 +12,8 @@ server {
     listen 443 ssl default_server;
     server_name _;
 
-    ssl_certificate     /etc/letsencrypt/live/${AUTH_DOMAIN}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${AUTH_DOMAIN}/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/default/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/default/privkey.pem;
 
     return 444;
 }
