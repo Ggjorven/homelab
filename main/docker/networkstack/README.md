@@ -47,6 +47,7 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
 6. After finishing the .env file. We'll start setting up the configurations and templates for nginx. Start by creating the relevant folders:
     ```
     mkdir -p certs
+    mkdir -p certs/default
     mkdir -p openresty
     mkdir -p openresty/templates
     mkdir -p openresty/lua
@@ -59,16 +60,23 @@ Before we can create our `network stack` on our `docker` **Proxmox LXC**. We mus
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/nginx.conf
     cd templates
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/templates/default.conf.template
-    cd ..
+    cd ../..
     ```
 
 8. Download the custom entrypoint for template preprocessing:
     ```
+    cd openresty
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/networkstack/openresty/docker-entrypoint.sh
     chmod +x docker-entrypoint.sh
+    cd ..
     ```
 
-9. We are now ready to start our docker stack.
+9. Now create a default self-signed certificate used for the default fallback (block) rule in **OpenResty**:
+    ```
+    openssl req -x509 -newkey rsa:2048 -nodes -keyout ./certs/default/privkey.pem -out ./certs/default/fullchain.pem -days 3650 -subj "/CN=default"
+    ```
+
+10. We are now ready to start our docker stack.
     ```
     docker compose --all-resources up -d
     ```
