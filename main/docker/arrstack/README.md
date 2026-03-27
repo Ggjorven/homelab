@@ -116,7 +116,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.41` on port `7878`, **Sonarr** = `172.39.0.40` on port `8989` & **Lidarr** = `172.39.0.42` on port `8686`.
 
-4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
+4. Give the application the appropriate tag. **Radarr** = `movies`, **Sonarr** = `series` & **Lidarr** = `music`.
 
 ### Radarr
 
