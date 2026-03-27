@@ -111,6 +111,6 @@ services:
     healthcheck:
       test: sh -c "wget -qO- www.google.com && wget -qO- http://localhost:5030/health" # wget google.com replaces ping and nslookup for internet connectivity test
       interval: 30s
-      timeout: 10s
+      timeout: 30s
       retries: 5
     restart: unless-stopped
