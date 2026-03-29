@@ -2,6 +2,13 @@
 
 SUBNET=192.168.0.0/24
 
+# Create cloudflare ipset
+sudo ipset create cloudflare hash:net 2>/dev/null || sudo ipset flush cloudflare
+
+for ip in $(curl -s https://www.cloudflare.com/ips-v4); do
+    sudo ipset add cloudflare $ip
+done
+
 # INPUT chain — protects the host
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 sudo iptables -A INPUT -i lo -j ACCEPT
