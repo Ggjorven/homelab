@@ -83,7 +83,7 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
 
 17. Before we are ready to start this stack though we'll want to set some iptables rules. Start by installing the dependencies:
     ```
-    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-dependencies.sh | bash
+    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-dependencies.sh | sudo bash
     ```
 
 18. Before we are ready to start this stack though we'll want to set some iptables rules. Now download the rule installation script:
