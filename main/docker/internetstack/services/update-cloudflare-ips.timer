@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for the update-cloudflare-ips.service
+
+[Timer]
+Unit=update-cloudflare-ips.service
+OnBootSec=5min
+OnUnitActiveSec=24h
+
+[Install]
+WantedBy=timers.target

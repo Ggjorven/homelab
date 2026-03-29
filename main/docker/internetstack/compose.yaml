@@ -1,0 +1,64 @@
+networks:
+  internalnetwork:
+    external: true
+  externalnetwork:
+    external: true
+
+services:
+  cloudflare-ddns:
+    image: favonia/cloudflare-ddns:edge-alpine
+    container_name: cloudflare-ddns
+    environment:
+      - TZ=${TZ}
+      - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - DOMAINS=${AUTH_DOMAIN},${JELLYFIN_DOMAIN},${NAVIDROME_DOMAIN}
+      - PROXIED=true
+      - IP6_PROVIDER=none
+    networks:
+      externalnetwork:
+        ipv4_address: 172.40.0.240
+    healthcheck:
+      test: nslookup cloudflare.com
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  # authelia:
+  #   image: authelia/authelia
+  #   container_name: authelia
+  #   environment:
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ./authelia:/config
+  #     - ./authelia/configuration.yml:/config/configuration.yml:ro
+  #   ports:
+  #     - 9091:9091
+  #   networks:
+  #     externalnetwork:
+  #       ipv4_address: 172.40.0.242
+  #   restart: 'unless-stopped'
+
+  # fail2ban:
+  #   image: crazymax/fail2ban:latest
+  #   container_name: fail2ban
+  #   cap_add:
+  #     - NET_ADMIN
+  #     - NET_RAW
+  #   environment:
+  #     - TZ=${TZ}
+  #     - F2B_LOG_LEVEL=INFO
+  #   volumes:
+  #     - ./nginx/logs:/var/log/nginx:ro
+  #     - ./fail2ban:/data
+  #   network_mode: host
+  #   healthcheck:
+  #     test: sh -c "fail2ban-client status || exit 1"
+  #     interval: 60s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 30s
+  #   restart: unless-stopped
+
+  # TODO: Key generator
