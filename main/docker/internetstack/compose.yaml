@@ -17,6 +17,8 @@ services:
       - DOMAINS=${AUTH_DOMAIN},${JELLYFIN_DOMAIN},${NAVIDROME_DOMAIN}
       - PROXIED=true
       - IP6_PROVIDER=none
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     networks:
       externalnetwork:
         ipv4_address: 172.40.0.240
