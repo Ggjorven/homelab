@@ -10,5 +10,14 @@ sudo iptables -A INPUT -p tcp --dport 80 -m set --match-set cloudflare src -j AC
 sudo iptables -A INPUT -p tcp --dport 443 -m set --match-set cloudflare src -j ACCEPT
 sudo iptables -P INPUT DROP
 
+# DOCKER-USER chain — protects docker-exposed ports
+# Allow LAN full access to all ports
+sudo iptables -I DOCKER-USER -s ${SUBNET} -j ACCEPT
+# Allow Cloudflare IPs to reach 80 and 443
+sudo iptables -A DOCKER-USER -p tcp --dport 80 -m set --match-set cloudflare src -j ACCEPT
+sudo iptables -A DOCKER-USER -p tcp --dport 443 -m set --match-set cloudflare src -j ACCEPT
+# Drop everything else
+sudo iptables -A DOCKER-USER -j DROP
+
 # Save so rules survive reboot
 netfilter-persistent save
