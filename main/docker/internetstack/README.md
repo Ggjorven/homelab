@@ -56,7 +56,11 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
     CLOUDFLARE_API_TOKEN=apitoken
     ```
 
-12. Now add your domains under:
+12. To avoid breaking [cloudflare's TOS](https://community.cloudflare.com/t/clarification-on-compliance-of-cloudflare-tunnel-zero-trust-for-personal-media-st/816217/3 when streaming video) with **Jellyfin** go to **Caching** -> **Cache Rules**.
+
+13. **Create a new Rule** and select the **Bypass cache for everything** template. Set it to **All incoming requests** and set the **Browser TTL** to **Respect origin TTL**. Save!
+
+14. Now add your domains under:
     ```
     # Domains
     AUTH_DOMAIN=auth.yourdomain.com
@@ -64,52 +68,52 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
     NAVIDROME_DOMAIN=navidrome.yourdomain.com
     ```
 
-13. Set auth settings in .env // TODO: ...
+15. Set auth settings in .env // TODO: ...
 
-14. Set fail2ban settings in .env
+16. Set fail2ban settings in .env
 
-15. Now we can start setting up fail2ban files:
+17. Now we can start setting up fail2ban files:
     ```
     mkdir -p fail2ban
     mkdir -p fail2ban/filter.d
     ```
 
-16. Clone the template files into the proper directories:
+18. Clone the template files into the proper directories:
     ```
     cd fail2ban
     # TODO: ...
     cd ../..
     ```
 
-17. Before we are ready to start this stack though we'll want to set some iptables rules. Start by installing the dependencies:
+19. Before we are ready to start this stack though we'll want to set some iptables rules. Start by installing the dependencies:
     ```
     wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-dependencies.sh | sudo bash
     ```
 
-18. Before we are ready to start this stack though we'll want to set some iptables rules. Now download the rule installation script:
+20. Before we are ready to start this stack though we'll want to set some iptables rules. Now download the rule installation script:
     ```
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/scripts/install-rules.sh
     ```
 
-19. Before editing the file we must know what our subnet is, check this with:
+21. Before editing the file we must know what our subnet is, check this with:
     ```
     ip a
     ```
     You should see something like `192.168.0.x/24`, where the `/24` is important.
 
-20. Now modify the script and set `SUBNET` to your actual subnet like `/24` or `/22`, keep the `192.168.0.0` intact.
+22. Now modify the script and set `SUBNET` to your actual subnet like `/24` or `/22`, keep the `192.168.0.0` intact.
     ```
     nano install-rules.sh
     ```
 
-21. Now run the script:
+23. Now run the script:
     ```
     chmod +x install-rules.sh
     ./install-rules.sh
     rm install-rules.sh
     ```
 
-22. To make sure the definition of an IP from cloudflare stays consistent with what cloudflare IP's actually are I have created a **systemd** service. To install this run:
+24. To make sure the definition of an IP from cloudflare stays consistent with what cloudflare IP's actually are I have created a **systemd** service. To install this run:
     ```
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -119,16 +123,16 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/internetstack/services/update-cloudflare-ips.timer
     ```
 
-23. Now enable this service with:
+25. Now enable this service with:
     ```
     sudo systemctl daemon-reload
     sudo systemctl start update-cloudflare-ips.timer
     sudo systemctl enable update-cloudflare-ips.timer
     ```
 
-24. // TODO: Add nginx files to networkstack
+26. // TODO: Add nginx files to networkstack
 
-25. After all these steps we are finally ready to start the containers:
+27. After all these steps we are finally ready to start the containers:
     ```
     docker compose up -d
     ```
