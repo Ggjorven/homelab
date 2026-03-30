@@ -8,7 +8,7 @@ PROWLARR_API=""
 RADARR_API=""
 SONARR_API=""
 LIDARR_API=""
-DELAY=900 # seconds
+DELAY=0 # seconds
 
 # ======================
 # SCRIPT
