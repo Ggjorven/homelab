@@ -113,4 +113,4 @@ This is a personal homelab repository, but ideas, improvements, and suggestions 
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE.txt) for details.
+This project is licensed under the CC0-1.0 License. See [LICENSE](LICENSE.txt) for details.
