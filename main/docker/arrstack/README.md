@@ -72,12 +72,9 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 
 4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **1337x (backup)** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **1337x (backup 2)** priority = 1, tags = (movies, series, music, flaresolverr)
     - **RuTracker.RU** priority = 2, tags = (movies, series, music)
     - **LimeTorrents** priority = 3, tags = (movies, series, music, flaresolverr)
     - **BitSearch** priority = 4, tags = (movies, series, music)
-    - **BitSearch (backup)** priority = 4, tags = (movies, series, music)
     - **EZTV** priority = 5, tags = (series)
     - **TorrentGalaxyClone** priority = 6, tags = (movies, series, music)
     - **The Pirate Bay** priority = 7, tags = (movies, series, music)
@@ -100,11 +97,15 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
     - **Uindex** priority = 25 (default), tags = (movies, series, music)
     - **YTS** priority = 25 (default), tags = (series)
+      
+    For higher availability I would recommend adding 3 different base url versions per indexer if possible.
 
-    Now synchronize.
+> [!NOTE]
+> Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/docker/arrstack/Prowlarr/Definitions/Custom`.
+
+6. Now **Sync App Indexers**.
 
 Make sure to add the proper tags to the indexers and applications you're adding.
-Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr** etc...
 
 ---
 
