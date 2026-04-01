@@ -75,7 +75,7 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music)
     - **BitSearch** priority = 3, tags = (movies, series, music)
     - **LimeTorrents** priority = 4, tags = (movies, series, music, flaresolverr)
-    - **EZTV** priority = 5, tags = (series)
+    - **EZTV** priority = 5, tags = (series, flaresolverr)
     - **The Pirate Bay** priority = 6, tags = (movies, series, music)
     - **YTS** priority = 7, tags = (series)
     - **Uindex** priority = 8, tags = (movies, series, music)
