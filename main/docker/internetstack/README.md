@@ -56,7 +56,7 @@ Before we can create our `internet stack` on our `docker` **Proxmox LXC**. We mu
     CLOUDFLARE_API_TOKEN=apitoken
     ```
 
-12. To avoid breaking [cloudflare's TOS](https://community.cloudflare.com/t/clarification-on-compliance-of-cloudflare-tunnel-zero-trust-for-personal-media-st/816217/3 when streaming video) with **Jellyfin** go to **Caching** -> **Cache Rules**.
+12. To avoid breaking [cloudflare's TOS when streaming video](https://community.cloudflare.com/t/clarification-on-compliance-of-cloudflare-tunnel-zero-trust-for-personal-media-st/816217/3) with **Jellyfin** go to **Caching** -> **Cache Rules**.
 
 13. **Create a new Rule** and select the **Bypass cache for everything** template. Set it to **All incoming requests** and set the **Browser TTL** to **Respect origin TTL**. Save!
 
