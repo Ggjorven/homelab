@@ -106,7 +106,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl --max-time 10 https://www.google.com && curl -s http://localhost:8191 && curl -s http://localhost:8191/health"
+      test: sh -c "curl https://www.google.com && curl -s http://localhost:8191 && curl -s http://localhost:8191/health" # curl https://www.google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
       interval: 30s
       timeout: 30s
       retries: 3
