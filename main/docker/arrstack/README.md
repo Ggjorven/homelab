@@ -70,7 +70,7 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 > [!NOTE]
 > If flaresolverr still fails to connect checkout my [debugging guide](../networkstack/DEBUGGING.md#flaresolverr-taking-very-long-to-start-chromium) for `networkstack`.
 
-4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
+4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/)):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
     - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music)
     - **BitSearch** priority = 3, tags = (movies, series, music)
@@ -84,7 +84,9 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **NorTorrent** priority = 11, tags = (movies, series, music, flaresolverr)
     - **SubsPlease** priority = 12, tags = (movies, series)
     - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
-    - **BitRu** priority = 25 (default), tags = (movies, series, music, flaresolverr) 
+    - **BitRu** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **BTdirectory** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **FileMood** priority = 25 (default), tags = (movies, series, music)
     - **ilCorSaRoNeRo** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
     - **MagnetDownload** priority = 25 (default), tags = (movies, series, music)
@@ -95,8 +97,17 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **showRSS** priority = 25 (default), tags = (series)
     - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
     - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Torrent[CORE]** priority = 25 (default), tags = (movies, series, music)
     - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
+   
+    If you also want indexers specially for anime use these (untested):
+
+    - **ACG.RIP** priority = 25 (default), tags = (series)
+    - **Anidex** priority = 25 (default), tags = (series)
+    - **AniSource** priority = 25 (default), tags = (series)
+    - **nekoBT** priority = 25 (default), tags = (series)
+    - **Shana Project** priority = 25 (default), tags = (series)
       
     For higher availability I would recommend adding 3 different base url versions per indexer if possible.
 
