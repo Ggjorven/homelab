@@ -75,7 +75,7 @@ services:
 
   lidarr:
     container_name: lidarr
-    image: lscr.io/linuxserver/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:nightly
     # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
@@ -84,6 +84,7 @@ services:
     volumes:
       - ./lidarr:/config
       - ${MUSIC_FOLDER}:/music
+      - ${SLSKD_DOWNLOAD_DIRECTORY}:${SLSKD_DOWNLOAD_DIRECTORY}
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
@@ -93,34 +94,6 @@ services:
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8686 && curl -s http://localhost:8686/ping"
       interval: 30s
-      timeout: 10s
-      retries: 3
-    restart: unless-stopped
-
-  soularr:
-    image: mrusse08/soularr:latest
-    container_name: soularr
-    user: ${PUID}:${PGID}
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
-      - SLSKD_API_KEY=${SLSKD_API_KEY}
-      - SLSKD_DOWNLOAD_DIRECTORY=${SLSKD_DOWNLOAD_DIRECTORY}
-    volumes:
-      - ./soularr:/data
-      - /mnt/nas:/mnt/nas
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.43
-    depends_on:
-      lidarr:
-        condition: service_healthy
-    healthcheck:
-      test: sh -c "wget -qO- http://172.39.0.42:8686 && wget -qO- http://172.39.0.11:5030"
-      interval: 300s
       timeout: 10s
       retries: 3
     restart: unless-stopped
@@ -141,7 +114,7 @@ services:
       - 6767:6767
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.44
+        ipv4_address: 172.39.0.43
     healthcheck:
       test: curl -s http://localhost:6767
       interval: 30s
@@ -164,9 +137,10 @@ services:
     volumes:
       - ${MOVIES_FOLDER}:/movies
       - ${SERIES_FOLDER}:/tv
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.45
+        ipv4_address: 172.39.0.44
     healthcheck:
       test: pgrep -f startup.sh
       interval: 30s
