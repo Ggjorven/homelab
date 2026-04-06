@@ -28,29 +28,28 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/.env
     ```
 
-3. Retrieve the `AutoSubSync` repository:
-    ```
-    git clone --recursive https://github.com/denizsafak/AutoSubSync -b main autosubsync
-    ```
-
-4. Before we can edit our .env we must identify our user. This is done with:
+3. Before we can edit our .env we must identify our user. This is done with:
     ```
     id <yourusername>
     ```
     Take note of `uid` and `gid`.
 
-5. Now open up your .env file:
+4. Now open up your .env file:
     ```
     nano .env
     ```
 
-6. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-7. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+6. Set `MOVIES_FOLDER` to the location on your NAS that contains your movies.
 
-8. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
+7. Do the same for `SERIES_FOLDER` and `MUSIC_FOLDER`, but now pointing to your series and music.
 
-9. We are now ready to start our docker stack.
+8. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+
+9. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
+
+10. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
