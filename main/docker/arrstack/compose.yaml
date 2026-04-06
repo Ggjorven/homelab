@@ -148,3 +148,28 @@ services:
       timeout: 10s
       retries: 3
     restart: unless-stopped
+
+  subsyncarr:
+    image: mrorbitman/subsyncarr:latest
+    container_name: subsyncarr
+    user: ${PUID}:${PGID}
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - CRON_SCHEDULE=0 0 * * * # Runs every day at midnight by default
+      - SCAN_PATHS=/movies,/tv
+      - MAX_CONCURRENT_SYNC_TASKS=1 # Higher = faster sync, but higher CPU usage
+      - INCLUDE_ENGINES=ffsubsync,autosubsync
+    volumes:
+      - /path/to/movies:/movies
+      - /path/to/tv:/tv
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.45
+    # healthcheck:
+    #   test: curl -s http://localhost:6767
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    restart: unless-stopped
