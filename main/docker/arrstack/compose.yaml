@@ -35,7 +35,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./sonarr:/config
-      - /mnt/nas:/mnt/nas
+      - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8989:8989
@@ -59,7 +59,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./radarr:/config
-      - /mnt/nas:/mnt/nas
+      - ${MOVIES_FOLDER}:/movies
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 7878:7878
@@ -83,7 +83,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./lidarr:/config
-      - /mnt/nas:/mnt/nas
+      - ${MUSIC_FOLDER}:/music
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
@@ -162,8 +162,8 @@ services:
       - MAX_CONCURRENT_SYNC_TASKS=1 # Higher = faster sync, but higher CPU usage
       - INCLUDE_ENGINES=ffsubsync,autosubsync
     volumes:
-      - /path/to/movies:/movies
-      - /path/to/tv:/tv
+      - ${MOVIES_FOLDER}:/movies
+      - ${SERIES_FOLDER}:/tv
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.45
