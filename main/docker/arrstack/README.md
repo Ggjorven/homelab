@@ -45,11 +45,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 7. Do the same for `SERIES_FOLDER` and `MUSIC_FOLDER`, but now pointing to your series and music.
 
-8. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
-
-9. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
-
-10. We are now ready to start our docker stack.
+8. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -313,23 +309,33 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 8. Enable both **Embed Covert Art In Audio Files** and **Scrub Existing Tags** too.
 
-9. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+9. To get more customization in **Lidarr** we'll want to install a plugin: [Tubifarry](https://github.com/TypNull/Tubifarry). Go to `System` -> `Plugins` and paste:
+    ```
+    https://github.com/TypNull/Tubifarry
+    ```
+    And install the latest version.
 
-10. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+10. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+11. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-12. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+12. Also add **Slskd**. Set the url to `http://172.39.0.11:5030` and paste the API key you have generated for **Slskd** in `downloadstack`.
 
-13. Go to `Apps` and **Create an Application**.
+13. To also get the searching from **Slskd** working also go to `Settings` -> `Indexers` and add **Slskd** there too using the same url and API key.
 
-14. Copy the token.
+14. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
-15. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+15. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
 
-16. Select **Gotify**.
+16. Go to `Apps` and **Create an Application**.
 
-17. Enable:
+17. Copy the token.
+
+18. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+
+19. Select **Gotify**.
+
+20. Enable:
     - **On Grab**
     - **On Release Import**
     - **On Upgrade**
@@ -341,30 +347,11 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
     - **On Health Issue**
     - **On Health Restored**
 
-18. Set **Gotify Server** to `http://172.39.0.20:81`
+21. Set **Gotify Server** to `http://172.39.0.20:81`
 
-19. Now paste the copied token in **App Token**.
+22. Now paste the copied token in **App Token**.
 
-20. Enable **Include Artist Poster**. And Save!
-
-### Soularr 
-
-To configure **Soularr** you need to edit a `config.ini` file under `soularr/config.ini`.
-
-1. Download the template file into `soularr`:
-    ```
-    cd soularr
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/config.ini
-    ```
-
-2. Modify the `config.ini` file:
-    ```
-    sudo nano config.ini
-    ```
-
-3. Set the `api_key` under `[Lidarr]` to the API key that can be found under **Settings** -> **General** -> **API Key** on the **Proxmox LXC**'s IP on port `8686`.
-
-4. All set! **Soularr** will now download monitored items automatically every 300 seconds using **Soulseek** or on another interval if you changed it.
+23. Enable **Include Artist Poster**. And Save!
 
 ### Bazarr
 
