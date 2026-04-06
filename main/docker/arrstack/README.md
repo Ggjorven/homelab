@@ -45,11 +45,7 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
 
 7. Do the same for `SERIES_FOLDER` and `MUSIC_FOLDER`, but now pointing to your series and music.
 
-8. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
-
-9. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
-
-10. We are now ready to start our docker stack.
+8. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```

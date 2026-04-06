@@ -35,6 +35,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./sonarr:/config
+      - /mnt/nas:/mnt/nas
       - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
     ports:
@@ -59,6 +60,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./radarr:/config
+      - /mnt/nas:/mnt/nas
       - ${MOVIES_FOLDER}:/movies
       - /etc/localtime:/etc/localtime:ro
     ports:
@@ -83,8 +85,8 @@ services:
       - TZ=${TZ}
     volumes:
       - ./lidarr:/config
+      - /mnt/nas:/mnt/nas
       - ${MUSIC_FOLDER}:/music
-      - ${SLSKD_DOWNLOAD_DIRECTORY}:${SLSKD_DOWNLOAD_DIRECTORY}
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
