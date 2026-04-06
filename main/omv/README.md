@@ -34,7 +34,7 @@
 
 15. Set the **Permission** to **Read/Write**
 
-16. And set the **Extra Options** to `rw,sync,no_subtree_check`.
+16. And set the **Extra Options** to `rw,sync,no_subtree_check,all_squash,anonuid=0,anongid=0`.
 
 17. To enable it go to `Services` -> `NFS` -> `Settings` and enable it.
 
