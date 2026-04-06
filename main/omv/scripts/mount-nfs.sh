@@ -10,7 +10,7 @@ MOUNT_POINT="/mnt/nas"
 # ======================
 # SCRIPT
 # ======================
-echo "Waiting for NFS share $SERVER_IP:/$SHARE_NAME ..."
+echo "Waiting for NFS share $SERVER_IP:/export/$SHARE_NAME ..."
 while true; do
     # Check if the NFS export is available on the server
     showmount -e "$SERVER_IP" 2>/dev/null | grep -q "/export/$SHARE_NAME"
