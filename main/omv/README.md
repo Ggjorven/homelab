@@ -44,7 +44,8 @@ You have now succesfully completed all the necessary steps. Another useful step 
 
 1. Install the following packages to help with mounting:
     ```
-    apt install nfs-common
+    apt update
+    apt install nfs-common nfs-kernel-server rpcbind
     ```
 
 2. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
