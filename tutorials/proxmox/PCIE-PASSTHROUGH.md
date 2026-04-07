@@ -7,11 +7,16 @@ These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/PCI_Pa
 
 1. Verify IOMMU is enabled:
     ```
-    dmesg | grep -e DMAR -e IOMMU
+    dmesg | grep iommu
     ```
     If you don't see something like:
     ```
     DMAR: IOMMU enabled
+    ```
+    or
+    ```
+    [    0.642829] iommu: Default domain type: Translated
+    [    0.642829] iommu: DMA domain TLB invalidation policy: lazy mode
     ```
     Follow [these steps](ENABLE-IOMMU.md).
 
@@ -40,6 +45,11 @@ These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/PCI_Pa
     .
     ```
     You should see that each device has a different `iommugroup`.  
-    If you don't have dedicated IOMMU groups, you can try moving the card to another PCI(e) slot.
+    If you don't have dedicated IOMMU groups, you can try moving the card to another PCI(e) slot.  
+    If that's not an option use the standard approach by editing `/etc/default/grub`:
+    ```
+    nano /etc/default/grub
+    ```
+    And add the `pcie_acs_override=downstream,multifunction` option to `GRUB_CMDLINE_LINUX_DEFAULT`.
 
 3. AA

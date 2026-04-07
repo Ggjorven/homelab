@@ -22,11 +22,16 @@ These steps have been taken from this [thread](https://www.reddit.com/r/Proxmox/
 
 3. Reboot your **Proxmox Node**.
 
-4. Verify it's enabled with:
+1. Verify IOMMU is enabled:
     ```
-    dmesg | grep -e DMAR -e IOMMU
+    dmesg | grep iommu
     ```
-    You should see something like:
+    If you don't see something like:
     ```
     DMAR: IOMMU enabled
+    ```
+    or
+    ```
+    [    0.642829] iommu: Default domain type: Translated
+    [    0.642829] iommu: DMA domain TLB invalidation policy: lazy mode
     ```
