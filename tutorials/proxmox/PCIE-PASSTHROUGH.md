@@ -52,4 +52,6 @@ These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/PCI_Pa
     ```
     And add the `pcie_acs_override=downstream,multifunction` option to `GRUB_CMDLINE_LINUX_DEFAULT`.
 
-3. AA
+3. Go the device's **Hardware** tab on your **Proxmox VM**. And hit add **PCI Device**.
+
+4. Select your device and check **All functions**.
