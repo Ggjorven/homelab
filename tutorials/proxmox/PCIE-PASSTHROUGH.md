@@ -55,3 +55,39 @@ These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/PCI_Pa
 3. Go the device's **Hardware** tab on your **Proxmox VM**. And hit add **PCI Device**.
 
 4. Select your device and check **All functions**.
+
+### HBA Help
+
+If you have issues when passing through an HBA like VMs/LXCs not booting after having booted the VM that the HBA is passed through to or having very large timeouts with disk operations checkout this:  
+What I have noticed is that before the VM which gets the PCI(e) device starts the **Proxmox Host** reads the disks and mounts the raid array. This is not what we want. To fix this follow these additional steps:  
+
+> [!NOTE]
+> Only tested on an LSI 9207-8i
+
+1. On the **Proxmox Node** go the your **Shell** and run this command:
+    ```
+    lspci -nn | grep -i "SAS\|LSI\|HBA\|mpt"
+    ```
+    You'll get something like:
+    ```
+    04:00.0 Serial Attached SCSI controller [0xxx]: Broadcom / LSI SAS2308 PCI-Express Fusion-MPT SAS-2 [1234:5678] (rev 05)
+    ```
+    Take note of the `[1234:4567]`.
+
+2. Now create the `/etc/modprobe.d/vfio.conf` file:
+    ```
+    nano /etc/modprobe.d/vfio.conf
+    ```
+    And paste:
+    ```
+    options vfio-pci ids=1234:4567
+    softdep mpt3sas pre: vfio-pci
+    ```
+    Where you replace the `1234:5678` with the ID you got from step 1.
+
+3. Now update `initramfs` with:
+   ```
+   update-initramfs -u
+   ```
+   
+4. After a reboot all your issues should be resolved!
