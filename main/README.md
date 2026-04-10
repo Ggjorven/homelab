@@ -27,7 +27,7 @@ This folder contains the installation instructions and configuration files used 
 
 1. // TODO: Steps
 
-2. // TODO: Disable enterprise repo etc
+2. // TODO: Disable enterprise repo etc ([script](https://community-scripts.org/scripts/post-pve-install?id=post-pve-install))
 
 ## Debugging
 
