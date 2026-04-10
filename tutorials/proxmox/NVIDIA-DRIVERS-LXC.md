@@ -20,7 +20,7 @@ This file contains the steps for installing NVIDIA Drivers on the **Proxmox LXC*
     ./NVIDIA-Linux-x86_64-<VERSION>.run --no-kernel-module
     ```
 
-4. Choose `MIT/GPL` and select `No` on the 32-bit compatability drivers.
+4. Choose `MIT/GPL` as the driver type, select `No` on the 32-bit compatibility drivers and select `No` on the **X** install.
    
 5. Make sure your LXC sees the drivers with:
     ```
