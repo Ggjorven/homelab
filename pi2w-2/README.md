@@ -1,6 +1,6 @@
 # pi2w-2
 
-`pi2w-2` is a **Raspberry Pi 2 W** connected via ethernet and used for lightweight network services in my homelab.  
+`pi2w-2` is a **Raspberry Pi 2 W** used for **PiKVM**.  
 This folder contains the installation instructions and configuration files used for this device.
 
 ## Steps // TODO: More detail
@@ -18,8 +18,7 @@ This folder contains the installation instructions and configuration files used 
     sudo reboot
     ```
 
-4. You can now follow the instructions for 
-    - [`pivpn`](https://github.com/Ggjorven/homelab/blob/main/pi2w-2/pivpn/README.md)
+4. // TODO: PiKVM
 
 ## Debugging
 

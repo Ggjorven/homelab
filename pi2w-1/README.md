@@ -20,8 +20,7 @@ This folder contains the installation instructions and configuration files used 
 
 4. You can now follow the instructions for 
     - [`pi-hole`](pihole/README.md)  
-    - [`homepage`](homepage/README.md)  
-    These can be completed in any order and do not require one another.
+    - [`pivpn`](pivpn/README.md)  
 
 ## Debugging
 
