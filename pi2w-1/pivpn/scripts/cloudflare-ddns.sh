@@ -2,7 +2,7 @@
 
 DOMAINS="vpn.example.com"
 API_KEY="api_key"
-PROXIED=true
+PROXIED=false
 
 IP=$(curl -4 -s https://checkip.amazonaws.com)
 echo "IP: $IP"
