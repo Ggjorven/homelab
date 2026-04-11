@@ -1,6 +1,6 @@
 # PiVPN
 
-PiVPN is a VPN service that allows you to connect to your home network from anywhere, this branch contains the installation instructions for installing **PiVPN** on a **Pi 2 W**.
+PiVPN is a VPN service that allows you to connect to your home network from anywhere, this branch contains the installation instructions for installing **PiVPN** on a **Pi Zero 2 W**.
 
 ## Installation
 

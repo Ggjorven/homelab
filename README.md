@@ -14,8 +14,8 @@ My homelab consists of three primary machines:
 | Device | Role | Description |
 |--------|------|------------|
 | `main` | Core Server | Proxmox host running core infrastructure and application stacks |
-| `pi2w-1` | Network & Dashboard | DNS filtering + Homepage dashboard |
-| `pi2w-2` | Remote Access | VPN gateway |
+| `pi2w-1` | Network & Remote Access | DNS filtering + VPN tunnel |
+| `pi2w-2` | PiKVM | Remote control over a device |
 
 There is also a `tutorials` directory containing reusable infrastructure documentation.
 
@@ -46,19 +46,19 @@ It runs **Proxmox VE** as the hypervisor and hosts:
 
 ### pi2w-1
 
-This Raspberry Pi 2 W handles:
+This Raspberry Pi 2 Zero W handles:
 
 - Network-wide DNS filtering
     - Pi-hole
-- Service dashboard
-    - Homepage
+- Remote connection
+    - PiVPN
 
 ### pi2w-2
 
-This Raspberry Pi 2 W handles:
+This Raspberry Pi 2 Zero W handles:
 
-- Remote connection
-    - PiVPN
+- Remote control
+    - PiKVM
 
 ## How to Use
 
@@ -90,12 +90,12 @@ To quickly navigate this repository I have this list of services below:
 
 - [`pi2w-1`](pi2w-1/README.md)
     - [`pi-hole`](pi2w-1/pihole/README.md)
-    - [`homepage`](pi2w-1/homepage/README.md)
+    - [`pivpn`](pi2w-1/pivpn/README.md)
 
 ---
 
 - [`pi2w-2`](pi2w-2/README.md)
-    - [`pivpn`](pi2w-2/pivpn/README.md)
+    - // TODO: ...
 
 ## Status
 
