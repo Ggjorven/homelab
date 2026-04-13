@@ -20,7 +20,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
-      externalnetwork:
+      internalnetwork:
         ipv4_address: 172.40.0.240
     healthcheck:
       test: nslookup cloudflare.com
