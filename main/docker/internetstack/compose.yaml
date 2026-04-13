@@ -21,7 +21,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
-        ipv4_address: 172.40.0.240
+        ipv4_address: 172.39.0.240
     healthcheck:
       test: nslookup cloudflare.com
       interval: 5m
