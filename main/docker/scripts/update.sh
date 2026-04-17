@@ -158,7 +158,7 @@ for STACK in "${STACKS[@]}"; do
                     while true; do
                         read -rp "  [NEW] $KEY: " -e -i "$TEMPLATE_DEFAULT" USER_VAL </dev/tty
                         VALUE="${USER_VAL:-$TEMPLATE_DEFAULT}"
-                        if [ -n "$VALUE" ] && [ "$VALUE" != "$TEMPLATE_DEFAULT" ]; then
+                        if [ -n "$VALUE" ]; then
                             break
                         fi
                         echo "  ! $KEY is required."
