@@ -7,21 +7,24 @@ networks:
 
 services:
   autoheal:
-    image: willfarrell/autoheal:latest
+    image: tmknight88/docker-autoheal:latest
     container_name: autoheal
     # user: ${PUID}:${PGID}
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
       - TZ=${TZ}
-      - AUTOHEAL_CONTAINER_LABEL=all # Autoheal all containers
-      # TODO: Apprise notifications to gotify
+      - AUTOHEAL_CONNECTION_TYPE=socket
+      - AUTOHEAL_MONITOR_ALL=true
+      - AUTOHEAL_INTERVAL=15
+      - AUTOHEAL_LOG_ALL=true
+      - AUTOHEAL_LOG_PERSIST=false
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
     network_mode: none
     healthcheck:
-      test: pgrep -f autoheal
+      test: ["CMD", "pgrep", "-f", "docker-autoheal"]
       interval: 30s
       timeout: 5s
       retries: 3
