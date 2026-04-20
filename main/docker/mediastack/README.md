@@ -53,6 +53,7 @@ Before we can create our `media stack` on our `docker` **Proxmox LXC**. We must 
     STREAMYSTATS_JWT_SECRET=secret
     STREAMYSTATS_SERVER_KEY=key
     ```
+    Make sure that your `STREAMYSTATS_POSTGRES_PASSWORD` doesn't include `@`, `#` or `*` as this will mess with the connection string. 
 
 6. Now set `MEDIALYZE_MEDIA_LOCATION` so **MediaLyze** knows where to look.
     ```
