@@ -72,6 +72,7 @@ Optionally you can enable port forwarding for a vpn.
     ```
     # VPNX_PORT_FORWARDING=on
     ```
+    Where `VPNX` is the VPN you wish to open the port for.
 
 3. Restart your compose stack:
     ```
@@ -83,26 +84,32 @@ Optionally you can enable port forwarding for a vpn.
     ```
     docker logs vpnX
     ```
+    Replace `vpnX` with the vpn you wish to open the port for.  
     You should see something like:
     ```
     [ip getter] Public IP address is xxx.xxx.xxx.xxx (Netherlands, North Holland, Amsterdam - source: ipinfo+ifconfig.co+ip2location+cloudflare)
     ...
     INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
     ```
-    If you don't see this output checkout the [debugging guide#forwarded-port-not-showing-up](DEBUGGING.md).
+    If you don't see this output checkout the [debugging guide](DEBUGGING.md#forwarded-port-not-showing-up).
 
-5. To double check the port is actually open run this:
+5. To double check the port is actually open run these commands:
     ```
     docker exec -it vpnX /bin/sh
-
+    ```
+    Where you change `vpnX` with the VPN you wish to open the port for.  
+    Now install `port-checker`:
+    ```
     wget -qO port-checker https://github.com/qdm12/port-checker/releases/download/v0.4.0/port-checker_0.4.0_linux_amd64
     chmod +x port-checker
-
+    ```
+    Now start a little webserver:
+    ```
     ./port-checker --listening-address=":9999"
     ```
-    Where you change `9999` to the port you say in the docker logs.
+    Where you replace `9999` with the port you saw in the docker logs.
 
-6. Open a browser and go the `gluetun` VPN's IP on port `9999` where `9999` is replaced by your actual listening port.
+6. Open a browser and go the `gluetun` VPN's IP on port `9999` where `9999` is replaced with your actual listening port.
 
 7. If everything works you will see a small output detailing your browser information. Something like:
     ```
@@ -113,22 +120,30 @@ Optionally you can enable port forwarding for a vpn.
     OS: Linux 0
     ```
 
-8. (Optional) To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an api key:
+8. To exit `vpnX` run:
+    ```
+    exit
+    ```
+
+9. (Optional) To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an api key:
     ```
     docker run --rm -v ./vpnX:/gluetun qmcgaw/gluetun genkey
     ```
+    Where `vpnX` is the VPN you wish to open the port for.  
     Make sure to save this API key for later.
 
-9. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
+10. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
     ```
     sudo mkdir -p vpnX/auth
     ```
+    Where `vpnX` is the VPN you wish to open the port for.
 
-10. Create a config file that sets up a route like so:
+11. Create a config file that sets up a route like so:
     ```
     sudo rm vpnX/auth/config.toml
     sudo nano vpnX/auth/config.toml
     ```
+    Where `vpnX` is the VPN you wish to open the port for.  
     And paste:
     ```
     [[roles]]
