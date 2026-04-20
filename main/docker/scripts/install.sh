@@ -121,12 +121,17 @@ for STACK in "${STACKS[@]}"; do
     # Read default values from the downloaded template
     declare -A EXISTING_VALS
     while IFS='=' read -r key val || [ -n "$key" ]; do
-        # Skip blank lines and comments
-        [[ -z "$key" || "$key" =~ ^# ]] && continue
-        # Strip carriage returns
-        key="${key//$'\r'/}"
-        val="${val//$'\r'/}"
-        EXISTING_VALS["$key"]="$val"
+		 # Skip comments and empty lines
+		 [[ -z "$line" || "$line" =~ ^# ]] && continue
+
+		 # Strip carriage returns
+		 line="${line//$'\r'/}"
+
+		 # Split only on the FIRST '='
+		 key="${line%%=*}"
+		 val="${line#*=}"
+
+		 EXISTING_VALS["$key"]="$val"
     done < "$ENV_TMP"
 
     # Prompt user for each KEY= line in the template; preserve comments/blanks as-is

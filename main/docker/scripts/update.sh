@@ -107,10 +107,17 @@ for STACK in "${STACKS[@]}"; do
     declare -A EXISTING_VALS
     if [ -f "$STACK_DIR/.env" ]; then
         while IFS='=' read -r key val || [ -n "$key" ]; do
-            [[ -z "$key" || "$key" =~ ^# ]] && continue
-            key="${key//$'\r'/}"
-            val="${val//$'\r'/}"
-            EXISTING_VALS["$key"]="$val"
+			 # Skip comments and empty lines
+			 [[ -z "$line" || "$line" =~ ^# ]] && continue
+
+			 # Strip carriage returns
+			 line="${line//$'\r'/}"
+
+			 # Split only on the FIRST '='
+			 key="${line%%=*}"
+			 val="${line#*=}"
+
+			 EXISTING_VALS["$key"]="$val"
         done < "$STACK_DIR/.env"
     fi
 
