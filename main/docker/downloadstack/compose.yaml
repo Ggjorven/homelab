@@ -25,12 +25,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:8080"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && curl -s http://localhost:8080"
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   nzbget:
@@ -47,12 +45,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && curl -s http://localhost:6789"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && curl -s http://localhost:6789"
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true 
     restart: unless-stopped
 
   metube:
@@ -81,8 +77,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   slskd: 
@@ -115,10 +109,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn2
     healthcheck:
-      test: wget -qO- http://localhost:5030/health
+      test: sh -c "wget -qO- www.google.com && wget -qO- http://localhost:5030/health" # wget google.com replaces ping and nslookup for internet connectivity test
       interval: 30s
-      timeout: 10s
+      timeout: 30s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

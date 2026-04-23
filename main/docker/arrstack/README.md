@@ -28,29 +28,24 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/.env
     ```
 
-3. Retrieve the `AutoSubSync` repository:
-    ```
-    git clone --recursive https://github.com/denizsafak/AutoSubSync -b main autosubsync
-    ```
-
-4. Before we can edit our .env we must identify our user. This is done with:
+3. Before we can edit our .env we must identify our user. This is done with:
     ```
     id <yourusername>
     ```
     Take note of `uid` and `gid`.
 
-5. Now open up your .env file:
+4. Now open up your .env file:
     ```
     nano .env
     ```
 
-6. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
+5. Modify `PUID` to reflect your `uid` and `PGID` to reflect `gid`.
 
-7. Change the `SLSKD_DOWNLOAD_DIRECTORY` to reflect your actual download directory for **Soulseek**, previously also set in `downloadstack`. Something like `/mnt/nas/Users/<USERNAME>/Soulseek/Downloads`.
+6. Set `MOVIES_FOLDER` to the location on your NAS that contains your movies.
 
-8. Set `SLSKD_API_KEY` to your created API Key in `downloadstack`.
+7. Do the same for `SERIES_FOLDER` and `MUSIC_FOLDER`, but now pointing to your series and music.
 
-9. We are now ready to start our docker stack.
+8. We are now ready to start our docker stack.
     ```
     docker compose up -d
     ```
@@ -70,36 +65,53 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
 > [!NOTE]
 > If flaresolverr still fails to connect checkout my [debugging guide](../networkstack/DEBUGGING.md#flaresolverr-taking-very-long-to-start-chromium) for `networkstack`.
 
-4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/):
+4. Now you can add indexers in **Prowlarr**. My current setup is (most stolen from [torrentio](https://torrentio.strem.fun/)):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **1337x (backup)** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **1337x (backup 2)** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **RuTracker.RU** priority = 2, tags = (movies, series, music)
-    - **LimeTorrents** priority = 3, tags = (movies, series, music, flaresolverr)
-    - **BitSearch** priority = 4, tags = (movies, series, music)
-    - **BitSearch (backup)** priority = 4, tags = (movies, series, music)
-    - **EZTV** priority = 5, tags = (series)
-    - **TorrentGalaxyClone** priority = 6, tags = (movies, series, music)
+    - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music)
+    - **BitSearch** priority = 3, tags = (movies, series, music)
+    - **TorrentDownload** priority = 4, tags = (movies, series, music)
+    - **LimeTorrents** priority = 5, tags = (movies, series, music, flaresolverr)
+    - **EZTV** priority = 6, tags = (series, flaresolverr)
     - **The Pirate Bay** priority = 7, tags = (movies, series, music)
+    - **YTS** priority = 8, tags = (series)
+    - **Uindex** priority = 9, tags = (movies, series, music)
+    - **kickasstorrents.ws** priority = 10, tags = (movies, series, music, flaresolverr)
+    - **NorTorrent** priority = 11, tags = (movies, series, music, flaresolverr)
+    - **SubsPlease** priority = 12, tags = (movies, series)
+    - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
+    - **BitRu** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **BTdirectory** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **FileMood** priority = 25 (default), tags = (movies, series, music)
     - **ilCorSaRoNeRo** priority = 25 (default), tags = (movies, series, music, flaresolverr)
-    - **kickasstorrents.ws** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
     - **MagnetDownload** priority = 25 (default), tags = (movies, series, music)
-    - **Magnet Cat** priority = 25 (default), tags = (movies, series, music)
+    - **Magnet Cat** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **Nyaa.si** priority = 25 (default), tags = (movies, series, music)
-    - **NorTorrent** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **RuTor** priority = 25 (default), tags = (movies, series, music)
+    - **RuTracker.RU** priority = 25 (default), tags = (movies, series, music)
     - **showRSS** priority = 25 (default), tags = (series)
-    - **SubsPlease** priority = 25 (default), tags = (movies, series)
     - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
     - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
-    - **TorrentDownload** priority = 25 (default), tags = (movies, series, music)
-    - **Uindex** priority = 25 (default), tags = (movies, series, music)
-    - **YTS** priority = 25 (default), tags = (series)
+    - **Torrent[CORE]** priority = 25 (default), tags = (movies, series, music)
+    - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
+   
+    If you also want indexers specially for anime use these (untested):
 
-    Now synchronize.
+    - **ACG.RIP** priority = 25 (default), tags = (series)
+    - **Anidex** priority = 25 (default), tags = (series)
+    - **AniSource** priority = 25 (default), tags = (series)
+    - **nekoBT** priority = 25 (default), tags = (series)
+    - **Shana Project** priority = 25 (default), tags = (series)
+      
+    For higher availability I would recommend adding 3 different base url versions per indexer if possible.
+
+> [!NOTE]
+> Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/docker/arrstack/Prowlarr/Definitions/Custom`.
+
+6. Now **Sync App Indexers**.
 
 Make sure to add the proper tags to the indexers and applications you're adding.
-Check [this](https://www.reddit.com/r/prowlarr/comments/11egtcn/new_to_prowlarr_and_the_my_indexers_are_not/) and [this](https://wiki.servarr.com/prowlarr/faq). Side note: not all indexers will work with **Radarr* etc...
 
 ---
 
@@ -111,7 +123,7 @@ After setting up **Radarr**, **Sonarr** & **Lidarr** come back to these steps. T
 
 3. Do the same for the *Arr application you're setting up. The IP for the *arr application can also be found in the [compose file](compose.yaml), but I'll list them here as well. **Radarr** = `172.39.0.41` on port `7878`, **Sonarr** = `172.39.0.40` on port `8989` & **Lidarr** = `172.39.0.42` on port `8686`.
 
-4. Give the application the appropriate tag. **Radarr** = `music`, **Sonarr** = `series` & **Lidarr** = `music`.
+4. Give the application the appropriate tag. **Radarr** = `movies`, **Sonarr** = `series` & **Lidarr** = `music`.
 
 ### Radarr
 
@@ -297,23 +309,33 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
 
 8. Enable both **Embed Covert Art In Audio Files** and **Scrub Existing Tags** too.
 
-9. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+9. To get more customization in **Lidarr** we'll want to install a plugin: [Tubifarry](https://github.com/TypNull/Tubifarry). Go to `System` -> `Plugins` and paste:
+    ```
+    https://github.com/TypNull/Tubifarry
+    ```
+    And install the latest version.
 
-10. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
+10. To allow **Lidarr** to download to download we need to add a download client. Go to `Settings` -> `Download Clients` and add **QBitTorrent**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-11. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+11. If you use any `usenet` indexers you will also need to set up **NZBGet**. Add **NZBGet**. Set the IP to `172.39.0.10` which is defined in the [compose file](../networkstack/compose.yaml). And set your `Username` and `Password`.
 
-12. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+12. Also add **Slskd**. Set the url to `http://172.39.0.11:5030` and paste the API key you have generated for **Slskd** in `downloadstack`.
 
-13. Go to `Apps` and **Create an Application**.
+13. To also get the searching from **Slskd** working also go to `Settings` -> `Indexers` and add **Slskd** there too using the same url and API key.
 
-14. Copy the token.
+14. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
-15. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+15. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
 
-16. Select **Gotify**.
+16. Go to `Apps` and **Create an Application**.
 
-17. Enable:
+17. Copy the token.
+
+18. Now head back to **Sonarr**. Go to `Settings` -> `Connect` and **Add Connection**.
+
+19. Select **Gotify**.
+
+20. Enable:
     - **On Grab**
     - **On Release Import**
     - **On Upgrade**
@@ -325,30 +347,11 @@ To configure **Lidarr** you need to go to port `8686` of the ip address of the *
     - **On Health Issue**
     - **On Health Restored**
 
-18. Set **Gotify Server** to `http://172.39.0.20:81`
+21. Set **Gotify Server** to `http://172.39.0.20:81`
 
-19. Now paste the copied token in **App Token**.
+22. Now paste the copied token in **App Token**.
 
-20. Enable **Include Artist Poster**. And Save!
-
-### Soularr 
-
-To configure **Soularr** you need to edit a `config.ini` file under `soularr/config.ini`.
-
-1. Download the template file into `soularr`:
-    ```
-    cd soularr
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/arrstack/config.ini
-    ```
-
-2. Modify the `config.ini` file:
-    ```
-    sudo nano config.ini
-    ```
-
-3. Set the `api_key` under `[Lidarr]` to the API key that can be found under **Settings** -> **General** -> **API Key** on the **Proxmox LXC**'s IP on port `8686`.
-
-4. All set! **Soularr** will now download monitored items automatically every 300 seconds using **Soulseek** or on another interval if you changed it.
+23. Enable **Include Artist Poster**. And Save!
 
 ### Bazarr
 
@@ -401,6 +404,10 @@ To configure **Bazarr** you need to go to port `6767` of the ip address of the *
 
 16. Now under **Options** set **Minimum Score For Movies** to `80`. And save!
 
+---
+
+If you installed **Bazarr** before the new subtitle synchronization was enabled check out [this](https://github.com/ajmandourah/bazarr-sync). This project helps with synchronizing your subtitles even if they have already been processed by **Bazarr** before synchronization was enabled.
+
 ## Extra
 
 I have personally noticed that sometimes even though indexers in **Prowlarr** are available **Prowlarr** doesn't report them properly until you run a **Test All Indexers**.
@@ -448,7 +455,7 @@ If you have any issues setting up `arrstack` checkout my [debugging guide](DEBUG
 - [Docker](https://github.com/Ggjorven) - Container ecosystem
 - [Guide](https://github.com/TechHutTV/homelab/tree/main/media) - *Arr stack guide by [TechHutTV](https://github.com/TechHutTV)
 - [Servarr](https://wiki.servarr.com/) - *Arr documentation
-- [TRaSH Guide](https://trash-guides.info/) - *Arr Settings
+- [TRaSH Guide](https://trash-guides.info/) - *Arr settings
 - [Prowlarr](https://prowlarr.com/) - Indexers manager
 - [Radarr](https://radarr.video/) - Movie organizer/manager
 - [Sonarr](https://sonarr.tv/) - Series organizer/manager

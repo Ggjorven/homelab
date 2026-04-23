@@ -12,43 +12,12 @@ networks:
         - subnet: 172.40.0.0/24
 
 services:
-  deunhealth:
-    image: qmcgaw/deunhealth
-    container_name: deunhealth
-    user: ${PUID}:${PGID}   
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - LOG_LEVEL=info
-      - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/localtime:/etc/localtime:ro
-    network_mode: "none"
-    healthcheck:
-      test: ["CMD", "/app", "healthcheck"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-    restart: always
-
   vpn1: # Main VPN, torrenting + the rest
     image: qmcgaw/gluetun
     container_name: vpn1
     # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    ports:
-      - 8080:8080 # qbittorrent web interface
-      - 6789:6789 # nzbget web interface
-      - 9696:9696 # prowlarr web interface
-      - 9191:9191 # dispatcharr web interface
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.10
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -67,13 +36,21 @@ services:
     volumes:
       - ./vpn1:/gluetun
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8080:8080 # qbittorrent web interface
+      - 6789:6789 # nzbget web interface
+      - 9696:9696 # prowlarr web interface
+      - 9191:9191 # dispatcharr web interface
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.10
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
+    devices:
+      - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
 
   vpn2: # Secondary VPN, soulseek
@@ -82,15 +59,6 @@ services:
     # user: ${PUID}:${PGID} # This container requires to run as root
     cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    ports:
-      - 5030:5030 # slskd web interface
-      - 5031:5031 # slskd HTTP
-      - 50300:50300 # slskd HTTPS
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.11
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -109,13 +77,20 @@ services:
     volumes:
       - ./vpn2:/gluetun
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5030:5030 # slskd web interface
+      - 5031:5031 # slskd HTTP
+      - 50300:50300 # slskd HTTPS
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.11
+    devices:
+      - /dev/net/tun:/dev/net/tun
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   flaresolverr:
@@ -131,10 +106,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -s http://localhost:8191 >/dev/null 2>&1 && curl -s http://localhost:8191/health"
+      test: sh -c "curl https://www.google.com && curl -s http://localhost:8191 && curl -s http://localhost:8191/health" # curl https://www.google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
       interval: 30s
-      timeout: 10s
+      timeout: 30s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

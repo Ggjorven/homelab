@@ -54,13 +54,15 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
    ./NVIDIA-Linux-x86_64-<VERSION>.run
    ```
 
-8. Verify the drivers installed succesfully:
+8. Choose `MIT/GPL` as the driver type, select `No` on the 32-bit compatibility drivers and select `No` on the **X** install.
+
+9. Verify the drivers installed succesfully:
    ```
    nvidia-smi
    ```
-   If you don't get any output. Restart your LXC
+   If you don't get any output. Restart your **Proxmox Node**.
 
-10. Now make we need to make sure that the NVIDIA drivers persist. We do so using a **systemctl service** on the main node. I have created a nice script for this you can get with this command:
+10. Now make we need to make sure that the NVIDIA drivers persist. We do so by using a **systemctl service**. I have created a nice script for this, you can get it with this command:
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/services/nvidia-persistence.service

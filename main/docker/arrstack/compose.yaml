@@ -19,12 +19,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 >/dev/null 2>&1 && nslookup www.google.com >/dev/null 2>&1 && wget -qO- http://localhost:9696 >/dev/null 2>&1 && curl -s http://localhost:9696/ping"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && wget -qO- http://localhost:9696 && curl -s http://localhost:9696/ping"
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   sonarr:
@@ -38,6 +36,7 @@ services:
     volumes:
       - ./sonarr:/config
       - /mnt/nas:/mnt/nas
+      - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8989:8989
@@ -45,12 +44,10 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.40
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:8989 >/dev/null 2>&1 && curl -s http://localhost:8989/ping"
+      test: sh -c "wget -qO- http://localhost:8989 && curl -s http://localhost:8989/ping"
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true 
     restart: unless-stopped
 
   radarr:
@@ -64,6 +61,7 @@ services:
     volumes:
       - ./radarr:/config
       - /mnt/nas:/mnt/nas
+      - ${MOVIES_FOLDER}:/movies
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 7878:7878
@@ -71,17 +69,15 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.41
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:7878 >/dev/null 2>&1 && curl -s http://localhost:7878/ping"
+      test: sh -c "wget -qO- http://localhost:7878 && curl -s http://localhost:7878/ping"
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   lidarr:
     container_name: lidarr
-    image: lscr.io/linuxserver/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:nightly
     # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
     environment:
       - PUID=${PUID}
@@ -90,6 +86,7 @@ services:
     volumes:
       - ./lidarr:/config
       - /mnt/nas:/mnt/nas
+      - ${MUSIC_FOLDER}:/music
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8686:8686
@@ -97,42 +94,10 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.42
     healthcheck:
-      test: sh -c "wget -qO- http://localhost:8686 >/dev/null 2>&1 && curl -s http://localhost:8686/ping"
+      test: sh -c "wget -qO- http://localhost:8686 && curl -s http://localhost:8686/ping"
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped
-
-  soularr:
-    image: mrusse08/soularr:latest
-    container_name: soularr
-    user: ${PUID}:${PGID}
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
-      - SCRIPT_INTERVAL=${SOULARR_DOWNLOAD_INTERVAL}
-      - SLSKD_API_KEY=${SLSKD_API_KEY}
-      - SLSKD_DOWNLOAD_DIRECTORY=${SLSKD_DOWNLOAD_DIRECTORY}
-    volumes:
-      - ./soularr:/data
-      - /mnt/nas:/mnt/nas
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      internalnetwork:
-        ipv4_address: 172.39.0.43
-    depends_on:
-      lidarr:
-        condition: service_healthy
-    healthcheck:
-      test: sh -c "wget -qO- http://172.39.0.42:8686 >/dev/null 2>&1 && wget -qO- http://172.39.0.11:5030"
-      interval: 300s
-      timeout: 10s
-      retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   bazarr:
@@ -151,12 +116,36 @@ services:
       - 6767:6767
     networks:
       internalnetwork:
-        ipv4_address: 172.39.0.44
+        ipv4_address: 172.39.0.43
     healthcheck:
       test: curl -s http://localhost:6767
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
+    restart: unless-stopped
+
+  subsyncarr:
+    image: mrorbitman/subsyncarr:latest
+    container_name: subsyncarr
+    user: ${PUID}:${PGID}
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - CRON_SCHEDULE=0 0 * * * # Runs every day at midnight by default
+      - SCAN_PATHS=/movies,/tv
+      - MAX_CONCURRENT_SYNC_TASKS=${SUBTITLE_SYNC_MAX_JOBS} # Higher = faster sync, but higher CPU usage
+      - INCLUDE_ENGINES=ffsubsync,autosubsync,alass
+    volumes:
+      - ${MOVIES_FOLDER}:/movies
+      - ${SERIES_FOLDER}:/tv
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.44
+    healthcheck:
+      test: pgrep -f startup.sh
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped

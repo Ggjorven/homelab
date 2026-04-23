@@ -6,9 +6,34 @@ networks:
     external: true
 
 services:
+  autoheal:
+    image: tmknight88/docker-autoheal:latest
+    container_name: autoheal
+    # user: ${PUID}:${PGID}
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - AUTOHEAL_CONNECTION_TYPE=socket
+      - AUTOHEAL_MONITOR_ALL=true
+      - AUTOHEAL_INTERVAL=15
+      - AUTOHEAL_LOG_ALL=true
+      - AUTOHEAL_LOG_PERSIST=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: none
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "docker-autoheal"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: always
+
   gotify:
     image: gotify/server:latest
     container_name: gotify
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -19,6 +44,7 @@ services:
       - GOTIFY_SERVER_SSL_PORT=444
     volumes:
       - ./gotify:/app/data
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8070:81
     networks:
@@ -29,14 +55,13 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   diun:
     image: crazymax/diun:latest
     container_name: diun
     command: serve
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -58,6 +83,7 @@ services:
     volumes:
       - ./diun:/data
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.21
@@ -66,8 +92,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -75,8 +99,7 @@ services:
   scrutiny-db:
     image: influxdb:2.8
     container_name: scrutiny-db
-    ports:
-      - 8083:8086
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -86,10 +109,13 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=${SCRUTINY_DATABASE_PASSWORD}
       - DOCKER_INFLUXDB_INIT_ORG=homelab
       - DOCKER_INFLUXDB_INIT_BUCKET=scrutiny
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${SCRUTINY_DATABASE_TOKEN} 
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${SCRUTINY_DATABASE_TOKEN}
     volumes:
       - ./scrutiny-db/database:/var/lib/influxdb2
       - ./scrutiny-db/config:/etc/influxdb2
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8083:8086
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.23
@@ -98,13 +124,12 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   scrutiny:
     image: ghcr.io/analogj/scrutiny:master-web
     container_name: scrutiny
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
       # - PUID=${PUID}
       # - PGID=${PGID}
@@ -113,9 +138,10 @@ services:
       - SCRUTINY_WEB_INFLUXDB_TOKEN=${SCRUTINY_DATABASE_TOKEN}
       - SCRUTINY_WEB_INFLUXDB_ORG=homelab
       - SCRUTINY_WEB_INFLUXDB_BUCKET=scrutiny
-      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token${SCRUTINY_GOTIFY_TOKEN}
+      - SCRUTINY_NOTIFY_URLS=http://172.39.0.20:81/message?token={SCRUTINY_GOTIFY_TOKEN}
     volumes:
       - ./scrutiny:/opt/scrutiny/config
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8082:8080
     depends_on:
@@ -130,6 +156,4 @@ services:
       timeout: 10s
       retries: 20
       start_period: 10s
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped

@@ -33,8 +33,8 @@ gpus: all
    
 4. Now install the container toolkit:
     ```
-    sudo apt update
-    sudo apt install -y nvidia-container-toolkit
+    apt update
+    apt install -y nvidia-container-toolkit
     ```
 
 5. Configure docker to use the NVIDIA runtime:

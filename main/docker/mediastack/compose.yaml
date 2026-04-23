@@ -37,8 +37,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   seerr:
@@ -65,14 +63,16 @@ services:
       timeout: 10s
       interval: 30s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
     restart: unless-stopped
 
   streamystats:
     image: ghcr.io/fredrikburmester/streamystats-aio:${VERSION:-latest}
     container_name: streamystats
+    # user: ${PUID}:${PGID} # Untested without root
     environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
       - POSTGRES_DB=streamystats
       - POSTGRES_USER=${STREAMYSTATS_POSTGRES_USER}
       - POSTGRES_PASSWORD=${STREAMYSTATS_POSTGRES_PASSWORD}
@@ -99,16 +99,43 @@ services:
       - SKIP_STARTUP_FULL_SYNC=false
     volumes:
       - ./streamystats:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 3000:3000
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.52
     healthcheck:
-      test: sh -c "pg_isready -h localhost >/dev/null 2>&1 && curl -f http://127.0.0.1:3000/api/health >/dev/null 2>&1 && curl -f http://127.0.0.1:3005/health"
+      test: sh -c "pg_isready -h localhost && curl -f http://127.0.0.1:3000/api/health && curl -f http://127.0.0.1:3005/health"
       timeout: 5s
       interval: 30s
       retries: 3
-    labels:
-      - deunhealth.restart.on.unhealthy=true
-    restart: unless-stopped 
+    restart: unless-stopped
+
+  medialyze:
+    image: ghcr.io/frederikemmer/medialyze:latest
+    container_name: medialyze
+    # user: ${PUID}:${PGID}   
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - CONFIG_PATH=/config
+      - MEDIA_ROOT=/media
+      - APP_PORT=8100
+      - HOST_PORT=8100
+    volumes:
+      - ./medialyze:/config
+      - ${MEDIALYZE_MEDIA_LOCATION}:/media:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8100:8100
+    networks:
+      internalnetwork:
+        ipv4_address: 172.39.0.53
+    healthcheck:
+      test: wget -qO- http://0.0.0.0:8100
+      timeout: 5s
+      interval: 30s
+      retries: 3
+    restart: unless-stopped

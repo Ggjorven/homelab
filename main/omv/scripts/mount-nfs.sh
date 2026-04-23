@@ -6,23 +6,19 @@
 SERVER_IP="192.168.x.x"
 SHARE_NAME="nas"
 MOUNT_POINT="/mnt/nas"
-CREDENTIALS="/node/.smbcred"
-SMB_VERSION="3.0"
 
 # ======================
 # SCRIPT
 # ======================
-echo "Waiting for SMB share //$SERVER_IP/$SHARE_NAME ..."
-
+echo "Waiting for NFS share $SERVER_IP:/export/$SHARE_NAME ..."
 while true; do
-    # Check if server and share respond
-    smbclient -L //$SERVER_IP -A "$CREDENTIALS" -g 2>/dev/null | grep -q "^Disk|$SHARE_NAME"
-    
+    # Check if the NFS export is available on the server
+    showmount -e "$SERVER_IP" 2>/dev/null | grep -q "/export/$SHARE_NAME"
+
     if [ $? -eq 0 ]; then
         echo "Share found! Mounting..."
-        mount -t cifs //$SERVER_IP/$SHARE_NAME "$MOUNT_POINT" \
-            -o credentials="$CREDENTIALS",file_mode=0777,dir_mode=0777,vers="$SMB_VERSION",noperm,nobrl,sec=ntlmssp
-        
+        mount -t nfs "$SERVER_IP:/export/$SHARE_NAME" "$MOUNT_POINT"
+
         if [ $? -eq 0 ]; then
             echo "Mounted successfully."
             exit 0
@@ -32,7 +28,6 @@ while true; do
     else
         echo "Share not available yet... retrying in 2s"
     fi
-    
+
     sleep 2
 done
-

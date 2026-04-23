@@ -6,7 +6,7 @@
 
 1. Create a **Proxmox VM** with the [omv iso image](https://www.openmediavault.org/download.html).
 
-2. Pass through all the disks following [these steps](../../tutorials/proxmox/DISK-PASSTHROUGH.md).
+2. Pass through all the disks following [individual disk passthrough](../../tutorials/proxmox/DISK-PASSTHROUGH.md) or [hba (pcie) passthrough](../../tutorials/proxmox/DISK-PASSTHROUGH.md).
 
 3. Login to **OMV** with username `admin` and password `openmediavault`.
 
@@ -28,59 +28,58 @@
 
 12. To enable it go to `Services` -> `SMB/CIFS` -> `Settings` and enable it. Optional: You can also set the SMB version to 3.0.
 
+13. We also want an NFS share for internal use. Go to `Services` -> `NFS` -> `Shares`. And create a new share.
+
+14. Select the just created shared folder and set the **Client** to your **Proxmox Node**'s IP address and prepend it with `/32`.
+
+15. Set the **Permission** to **Read/Write**
+
+16. And set the **Extra Options** to `rw,sync,no_subtree_check,all_squash,anonuid=0,anongid=0`.
+
+17. To enable it go to `Services` -> `NFS` -> `Settings` and enable it.
+
 ## Useful extras
 
 You have now succesfully completed all the necessary steps. Another useful step is to make it so the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
 
 1. Install the following packages to help with mounting:
     ```
-    apt install cifs-utils smbclient
+    apt update
+    apt install nfs-common nfs-kernel-server rpcbind
     ```
 
-2. Next we need to setup our credentials for our SMB share. We do this in the file `/node/.smbcred`.
-    ```
-    mkdir -p /node
-    nano /node/.smbcred 
-    ```
-
-3. Paste in the following content and replace the placeholders with your actual `username` and `password`.
-    ```
-    username=<YOUR USERNAME FOR SMB>
-    password=<YOUR PASSWORD FOR SMB>
-    ```
-
-4. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
+2. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
     ```
     cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/services/mount-smb.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/services/mount-nfs.service
     mkdir -p /node/scripts
     cd /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/scripts/mount-smb.sh 
-    chmod +x mount-smb.sh
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/scripts/mount-nfs.sh 
+    chmod +x mount-nfs.sh
     ```
 
-5. Edit the `/node/scripts/mount-smb.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
+3. Edit the `/node/scripts/mount-nfs.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
     ```
-    nano /node/scripts/mount-smb.sh
+    nano /node/scripts/mount-nfs.sh
     ```
 
-6. Now make sure the mount point set in the `/node/scripts/mount-smb.sh` actually exists with:
+4. Now make sure the mount point set in the `/node/scripts/mount-nfs.sh` actually exists with:
     ```
     mkdir -p /mnt/nas
     ```
 
-7. Now we need to enable this service with:
+5. Now we need to enable this service with:
     ```
     systemctl daemon-reload
-    systemctl enable mount-smb
-    systemctl start mount-smb
+    systemctl enable mount-nfs
+    systemctl start mount-nfs
     ```
 
-8. To check if the mounting script succeeded run:
+6. To check if the mounting script succeeded run:
    ```
-   journalctl -xeu mount-smb.service
+   journalctl -xeu mount-nfs.service
    ```
-   You should see the output from the script saying that the SMB was successfully mounted.
+   You should see the output from the script saying that the NFS was successfully mounted.
 
 Having followed these extra instructions will help with `docker` related services later on.
 
