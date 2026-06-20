@@ -16,6 +16,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./jackett:/config
+      - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com"
