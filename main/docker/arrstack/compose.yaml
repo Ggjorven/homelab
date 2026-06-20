@@ -18,7 +18,7 @@ services:
       - ./jackett:/config
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && wget -qO- http://localhost:9117/UI/Dashboard"
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com"
       interval: 30s
       timeout: 10s
       retries: 5

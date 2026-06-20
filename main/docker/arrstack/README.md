@@ -117,7 +117,6 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     **Jackett** indexers can also be added by setting up a **Generic Torznab** and go back to **Jackett** and copy the **Torznab Feed** + **API Key**:
 
     - **TorrentHeaven** (Generic Torznab) priority = 8, tags = (movies, series)
-      
 
 > [!NOTE]
 > Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/docker/arrstack/Prowlarr/Definitions/Custom`.
