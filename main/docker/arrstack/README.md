@@ -50,7 +50,16 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     docker compose up -d
     ```
 
-## Configuring 
+## Configuring
+
+## Jackett
+
+To configure **Jackett** you need to go to port `9117` of the ip address of the **Proxmox LXC**.
+
+1. Scroll down and setup authentication by setting an `Admin password`.
+
+2. Now add the indexers to **Jackett**. My current setup:
+    - **TorrentHeaven** (private), tags = (movies, series)
 
 ### Prowlarr
 
@@ -103,8 +112,12 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **AniSource** priority = 25 (default), tags = (series)
     - **nekoBT** priority = 25 (default), tags = (series)
     - **Shana Project** priority = 25 (default), tags = (series)
+
+    For higher availability I would recommend adding 3 different base url versions per indexer if possible.  
+    **Jackett** indexers can also be added by setting up a **Generic Torznab** and go back to **Jackett** and copy the **Torznab Feed** + **API Key**:
+
+    - **TorrentHeaven** (Generic Torznab) priority = 8, tags = (movies, series)
       
-    For higher availability I would recommend adding 3 different base url versions per indexer if possible.
 
 > [!NOTE]
 > Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/docker/arrstack/Prowlarr/Definitions/Custom`.
