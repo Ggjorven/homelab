@@ -319,23 +319,29 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
     - **Advanced Requests** (for quality selection)
     - **Auto Approve** (for auto approving requests)
 
-10. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
+10. To prevent certain content from showing up during discovery I have created a blocklist. Go to `Settings` -> `General`.
 
-11. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
+11. Scroll down till **Blocklist Content with Tags**. Copy the contents of [blocklist](./seerr_blocklist.txt) into the import field.
 
-12. Go to `Apps` and **Create an Application**.
+12. Enable **Hide Blocklisted Items** and **Save Changes**.
 
-13. Copy the token.
+12. Finally we'll setup notifications. Go to the **Proxmox LXC**'s IP address on port `8070`.
 
-14. Now head back to **Seerr**. Go to `Settings` -> `Notifications` and select **Gotify**.
+13. Login with the `username` and `password` set in the .env of `monitoringstack` for **Gotify**.
 
-15. Enable the agent.
+14. Go to `Apps` and **Create an Application**.
 
-16. Set **Server URL** to `http://172.39.0.20:81`
+15. Copy the token.
 
-17. Now paste the copied token in **Application Token**.
+16. Now head back to **Seerr**. Go to `Settings` -> `Notifications` and select **Gotify**.
 
-18. Enable these notification types:
+17. Enable the agent.
+
+18. Set **Server URL** to `http://172.39.0.20:81`
+
+19. Now paste the copied token in **Application Token**.
+
+20. Enable these notification types:
     - **Request Pending Approval**
     - **Request Automatically Approved**
     - **Request Approved**
@@ -347,7 +353,7 @@ To configure **Seerr** we need to go to port `5055` of your **Proxmox LXC**'s IP
     - **Issue Resolved**
     - **Issue Reopened**
 
-19. Save changes!
+21. **Save changes**!
 
 ### Streamystats
 
