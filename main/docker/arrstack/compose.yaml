@@ -137,6 +137,7 @@ services:
       - MAX_CONCURRENT_SYNC_TASKS=${SUBTITLE_SYNC_MAX_JOBS} # Higher = faster sync, but higher CPU usage
       - INCLUDE_ENGINES=ffsubsync,autosubsync,alass
     volumes:
+      - ./subsyncarr:/app/data
       - ${MOVIES_FOLDER}:/movies
       - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
