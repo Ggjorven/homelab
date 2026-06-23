@@ -136,11 +136,14 @@ services:
       - SCAN_PATHS=/movies,/tv
       - MAX_CONCURRENT_SYNC_TASKS=${SUBTITLE_SYNC_MAX_JOBS} # Higher = faster sync, but higher CPU usage
       - INCLUDE_ENGINES=ffsubsync,autosubsync,alass
+      - WEBUI_PORT=3030
     volumes:
       - ./subsyncarr:/app/data
       - ${MOVIES_FOLDER}:/movies
       - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 3030:3030
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.44
