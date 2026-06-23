@@ -12,7 +12,8 @@ These steps have been taken from this [thread](https://forum.proxmox.com/threads
 
 2. On the **Proxmox Node** run:
     ```
-    update-grub
+    qm set <VMID> -vga clipboard=vnc
     ```
+    where `<VMID>` is your virtual machine's proxmox id.
 
 3. Reboot your **Proxmox VM** to enable the clipboard button in the **NoVNC** screen.
