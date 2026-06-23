@@ -41,6 +41,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: always
 
   immich-machine-learning:
@@ -74,6 +75,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: always
 
   immich-redis:
@@ -94,6 +96,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: always
 
   immich-database:
@@ -120,6 +123,7 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
+      start_period: 10s
     restart: always
 
   # TODO: Nextcloud

@@ -23,6 +23,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 10s
     restart: unless-stopped
 
   sonarr:
@@ -48,6 +49,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   radarr:
@@ -73,6 +75,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   lidarr:
@@ -98,6 +101,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   bazarr:
@@ -122,6 +126,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   subsyncarr:

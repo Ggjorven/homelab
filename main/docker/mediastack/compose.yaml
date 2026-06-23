@@ -37,6 +37,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   seerr:
@@ -63,6 +64,7 @@ services:
       timeout: 10s
       interval: 30s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   streamystats:
@@ -110,6 +112,7 @@ services:
       timeout: 5s
       interval: 30s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   medialyze:
@@ -138,4 +141,5 @@ services:
       timeout: 5s
       interval: 30s
       retries: 3
+      start_period: 10s
     restart: unless-stopped

@@ -49,6 +49,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 10s
     devices:
       - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
@@ -91,6 +92,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 10s
     restart: unless-stopped
 
   flaresolverr:
@@ -110,4 +112,5 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
