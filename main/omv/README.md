@@ -40,7 +40,11 @@
 
 ## Useful extras
 
-You have now succesfully completed all the necessary steps. Another useful step is to make it so the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
+You have now succesfully completed all the necessary steps. Below are some other useful things.
+
+### Mounting
+
+It can be quite useful that the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s, for example [`docker`](../docker/README.md). I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
 
 1. Install the following packages to help with mounting:
     ```
@@ -81,7 +85,73 @@ You have now succesfully completed all the necessary steps. Another useful step 
    ```
    You should see the output from the script saying that the NFS was successfully mounted.
 
-Having followed these extra instructions will help with `docker` related services later on.
+### Notifications
+
+To get notified when a drive fails we need to setup notifications. In [`docker`](../docker/README.md) we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after [`docker`](../docker/monitoringstack/README.md) is setup in [`docker`](../docker/README.md).
+
+1. Go to your **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`.
+
+2. Login and go to **Apps** and **Create Application**. Give it your preferred name and description.
+
+3. Copy the token.
+
+4. Go to your **Proxmox VM**'s (with **OpenMediaVault**) **Console** and login with your credentials and install `curl`:
+    ```
+    apt update && apt install -y curl
+    ```
+
+5. Create a script:
+    ```
+    nano /usr/share/openmediavault/notification/sink.d/20gotify
+    ```
+    And paste these contents:
+    ```sh
+    #!/bin/sh
+
+    # Configuration
+    GOTIFY_URL="http://192.168.xxx.xxx:8070"
+    GOTIFY_TOKEN="XXXXXX"
+
+    MESSAGE_TEXT=$(cat "${OMV_NOTIFICATION_MESSAGE_FILE}")
+
+    # Send payload to Gotify API
+    curl -s -X POST "${GOTIFY_URL}/message" \
+         -H "X-Gotify-Key: ${GOTIFY_TOKEN}" \
+         -H "Content-Type: application/json" \
+         -d "{
+           \"title\": \"${OMV_NOTIFICATION_SUBJECT}\",
+           \"message\": \"${MESSAGE_TEXT}\",
+           \"priority\": 7
+         }"
+    ```
+    Where `GOTIFY_URL` is the **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`. And `GOTIFY_TOKEN` is the copied token.
+
+6. Make the script executable:
+    ```
+    chmod +x /usr/share/openmediavault/notification/sink.d/20gotify
+    ```
+
+7. Now go to the **Proxmox VM**'s (with **OpenMediaVault**) IP address and log in.
+
+8. Then go to **System** -> **Notification** -> **Settings**.
+
+9. Enable the notification and set the **SMTP server** to:
+    ```
+    localhost
+    ```
+
+10. Set the sender and recipient email to:
+    ```
+    omv@localhost.lan
+    ```
+
+11. Save the changes and when prompted apply the changes.
+
+12. Now you can hit **Test** to test out the notifications.
+
+### Clipboard functionality
+
+To be able to paste your clipboards contents into the **NoVNC** instance we need to change some settings on the host and the VM, the instructions can be found [here](./../../tutorials/proxmox/NOVNC-CLIPBOARD.md).
 
 ## Debugging
 

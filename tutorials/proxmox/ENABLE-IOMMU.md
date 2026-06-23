@@ -22,7 +22,7 @@ These steps have been taken from this [thread](https://www.reddit.com/r/Proxmox/
 
 3. Reboot your **Proxmox Node**.
 
-1. Verify IOMMU is enabled:
+4. Verify IOMMU is enabled:
     ```
     dmesg | grep iommu
     ```
