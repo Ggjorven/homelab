@@ -40,7 +40,11 @@
 
 ## Useful extras
 
-You have now succesfully completed all the necessary steps. Another useful step is to make it so the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
+You have now succesfully completed all the necessary steps. Below are some other useful things.
+
+### Mounting
+
+It can be quite useful that the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
 
 1. Install the following packages to help with mounting:
     ```
@@ -82,6 +86,12 @@ You have now succesfully completed all the necessary steps. Another useful step 
    You should see the output from the script saying that the NFS was successfully mounted.
 
 Having followed these extra instructions will help with `docker` related services later on.
+
+### Notifications
+
+To get notified when a drive fails we need to setup notifications. In `docker` we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after `monitoringstack` is setup in `docker`.
+
+1. AAA
 
 ## Debugging
 
