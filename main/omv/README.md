@@ -85,13 +85,13 @@ It can be quite useful that the network share is always mounted to the **Proxmox
    ```
    You should see the output from the script saying that the NFS was successfully mounted.
 
-Having followed these extra instructions will help with `docker` related services later on.
+Having followed these extra instructions will help with [`docker`](../docker/README.md) related services later on.
 
 ### Notifications
 
-To get notified when a drive fails we need to setup notifications. In `docker` we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after `monitoringstack` is setup in `docker`.
+To get notified when a drive fails we need to setup notifications. In [`docker`](../docker/README.md) we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after [`docker`](../docker/monitoringstack/README.md) is setup in [`docker`](../docker/README.md).
 
-1. Go to your **Proxmox LXC** with `docker`'s IP address on port `8070`.
+1. Go to your **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`.
 
 2. Login and go to **Apps** and **Create Application**. Give it your preferred name and description.
 
@@ -126,7 +126,7 @@ To get notified when a drive fails we need to setup notifications. In `docker` w
            \"priority\": 7
          }"
     ```
-    Where `GOTIFY_URL` is the **Proxmox LXC** with `docker`'s IP address on port `8070`. And `GOTIFY_TOKEN` is the copied token.
+    Where `GOTIFY_URL` is the **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`. And `GOTIFY_TOKEN` is the copied token.
 
 6. Make the script executable:
     ```
