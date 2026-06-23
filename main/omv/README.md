@@ -44,7 +44,7 @@ You have now succesfully completed all the necessary steps. Below are some other
 
 ### Mounting
 
-It can be quite useful that the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s. I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
+It can be quite useful that the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s, for example [`docker`](../docker/README.md). I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
 
 1. Install the following packages to help with mounting:
     ```
@@ -84,8 +84,6 @@ It can be quite useful that the network share is always mounted to the **Proxmox
    journalctl -xeu mount-nfs.service
    ```
    You should see the output from the script saying that the NFS was successfully mounted.
-
-Having followed these extra instructions will help with [`docker`](../docker/README.md) related services later on.
 
 ### Notifications
 
