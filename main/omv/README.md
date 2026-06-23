@@ -91,12 +91,18 @@ Having followed these extra instructions will help with `docker` related service
 
 To get notified when a drive fails we need to setup notifications. In `docker` we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after `monitoringstack` is setup in `docker`.
 
-1. Go to your **Proxmox VM**'s **Console** and loging with your credentials and install `curl`:
+1. Go to your **Proxmox LXC** with `docker`'s IP address on port `8070`.
+
+2. Login and go to **Apps** and **Create Application**. Give it your preferred name and description.
+
+3. Copy the token.
+
+4. Go to your **Proxmox VM**'s (with **OpenMediaVault**) **Console** and login with your credentials and install `curl`:
     ```
     apt update && apt install -y curl
     ```
 
-2. Create a script:
+5. Create a script:
     ```
     nano /usr/share/openmediavault/notification/sink.d/20gotify
     ```
@@ -120,12 +126,30 @@ To get notified when a drive fails we need to setup notifications. In `docker` w
            \"priority\": 7
          }"
     ```
-    Where `<>`
+    Where `GOTIFY_URL` is the **Proxmox LXC** with `docker`'s IP address on port `8070`. And `GOTIFY_TOKEN` is the copied token.
 
-3. Make the script executable:
+6. Make the script executable:
     ```
     chmod +x /usr/share/openmediavault/notification/sink.d/20gotify
     ```
+
+7. Now go to the **Proxmox VM**'s (with **OpenMediaVault**) IP address and log in.
+
+8. Then go to **System** -> **Notification** -> **Settings**.
+
+9. Enable the notification and set the **SMTP server** to:
+    ```
+    localhost
+    ```
+
+10. Set the sender and recipient email to:
+    ```
+    omv@localhost.lan
+    ```
+
+11. Save the changes and when prompted apply the changes.
+
+12. Now you can hit **Test** to test out the notifications.
 
 ### Clipboard functionality
 
