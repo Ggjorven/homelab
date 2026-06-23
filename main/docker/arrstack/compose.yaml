@@ -153,7 +153,7 @@ services:
       internalnetwork:
         ipv4_address: 172.39.0.44
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:3030/api/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3030/api/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"] # wget and curl don't exist in this container
       interval: 30s
       timeout: 10s
       retries: 3
