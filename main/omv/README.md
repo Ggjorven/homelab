@@ -91,7 +91,41 @@ Having followed these extra instructions will help with `docker` related service
 
 To get notified when a drive fails we need to setup notifications. In `docker` we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after `monitoringstack` is setup in `docker`.
 
-1. AAA
+1. Go to your **Proxmox VM**'s **Console** and loging with your credentials and install `curl`:
+    ```
+    apt update && apt install -y curl
+    ```
+
+2. Create a script:
+    ```
+    nano /usr/share/openmediavault/notification/sink.d/20gotify
+    ```
+    And paste these contents:
+    ```sh
+    #!/bin/sh
+
+    # Configuration
+    GOTIFY_URL="http://192.168.xxx.xxx:8070"
+    GOTIFY_TOKEN="XXXXXX"
+
+    MESSAGE_TEXT=$(cat "${OMV_NOTIFICATION_MESSAGE_FILE}")
+
+    # Send payload to Gotify API
+    curl -s -X POST "${GOTIFY_URL}/message" \
+         -H "X-Gotify-Key: ${GOTIFY_TOKEN}" \
+         -H "Content-Type: application/json" \
+         -d "{
+           \"title\": \"${OMV_NOTIFICATION_SUBJECT}\",
+           \"message\": \"${MESSAGE_TEXT}\",
+           \"priority\": 7
+         }"
+    ```
+    Where `<>`
+
+3. Make the script executable:
+    ```
+    chmod +x /usr/share/openmediavault/notification/sink.d/20gotify
+    ```
 
 ### Clipboard functionality
 
