@@ -127,7 +127,7 @@ services:
   subsyncarr:
     image: mrorbitman/subsyncarr:latest
     container_name: subsyncarr
-    user: ${PUID}:${PGID}
+    # user: ${PUID}:${PGID} # Specified through PUID and PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
