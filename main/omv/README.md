@@ -93,6 +93,10 @@ To get notified when a drive fails we need to setup notifications. In `docker` w
 
 1. AAA
 
+### Clipboard functionality
+
+To be able to paste your clipboards contents into the **NoVNC** instance we need to change some settings on the host and the VM, the instructions can be found [here](./../../tutorials/proxmox/NOVNC-CLIPBOARD.md).
+
 ## Debugging
 
 If you have any issues setting up `omv` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
