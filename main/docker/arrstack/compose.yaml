@@ -127,7 +127,7 @@ services:
   subsyncarr:
     image: mrorbitman/subsyncarr:latest
     container_name: subsyncarr
-    user: ${PUID}:${PGID}
+    # user: ${PUID}:${PGID} # Specified through PUID and PGID
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -136,16 +136,21 @@ services:
       - SCAN_PATHS=/movies,/tv
       - MAX_CONCURRENT_SYNC_TASKS=${SUBTITLE_SYNC_MAX_JOBS} # Higher = faster sync, but higher CPU usage
       - INCLUDE_ENGINES=ffsubsync,autosubsync,alass
+      - WEBUI_PORT=3030
     volumes:
+      - ./subsyncarr:/app/data
       - ${MOVIES_FOLDER}:/movies
       - ${SERIES_FOLDER}:/tv
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 3030:3030
     networks:
       internalnetwork:
         ipv4_address: 172.39.0.44
     healthcheck:
-      test: pgrep -f startup.sh
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3030/api/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
