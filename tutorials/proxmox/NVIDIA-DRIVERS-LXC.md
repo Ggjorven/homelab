@@ -9,7 +9,7 @@ This file contains the steps for installing NVIDIA Drivers on the **Proxmox LXC*
     su root
     ```
 
-2. Install the same drivers as on the **Proxmox Node**:
+2. Install the same drivers as on the **Proxmox Node**, so same `<VERSION>`:
     ```
     wget https://us.download.nvidia.com/XFree86/Linux-x86_64/<VERSION>/NVIDIA-Linux-x86_64-<VERSION>.run
     chmod +x NVIDIA-Linux-x86_64-<VERSION>.run
@@ -27,3 +27,8 @@ This file contains the steps for installing NVIDIA Drivers on the **Proxmox LXC*
     nvidia-smi
     ```
     You should see your GPU listed.
+
+6. (Optional) If you want to be extra safe you can restart your **Proxmox LXC** with:
+    ```
+    reboot
+    ```
