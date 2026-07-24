@@ -28,6 +28,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: always
 
   gotify:
@@ -55,6 +56,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   diun:
@@ -92,6 +94,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 10s
     restart: always
   
   # TODO: Dashboard (pulse)
@@ -124,6 +127,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+      start_period: 10s
     restart: unless-stopped
 
   scrutiny:

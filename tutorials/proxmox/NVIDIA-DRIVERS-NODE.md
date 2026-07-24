@@ -3,6 +3,10 @@
 This file contains the steps for installing NVIDIA Drivers on the **Proxmox Node**.  
 These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia-drivers-instalation-proxmox-and-ct.156421/) and slightly modified.
 
+## Prerequisites
+
+1. (Optional) Disable all of your containers and VMs that require your **GPU**.
+
 ## Steps
 
 1. Blacklist the nouveau drivers (this will create a new file):
@@ -46,12 +50,12 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
 
 6. Install the required build packages:
    ```
-   apt install build-essential pve-headers-$(uname -r)
+   apt install build-essential pve-headers-$(uname -r) dkms
    ```
 
 7. Run the installation:
    ```
-   ./NVIDIA-Linux-x86_64-<VERSION>.run
+   ./NVIDIA-Linux-x86_64-<VERSION>.run --dkms
    ```
 
 8. Choose `MIT/GPL` as the driver type, select `No` on the 32-bit compatibility drivers and select `No` on the **X** install.
@@ -72,9 +76,14 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
     chmod +x nvidia-persistence.sh
     ```
 
-11. Lastly we need to enable this service with:
+11. Now enable this service with:
     ```
     systemctl daemon-reload
     systemctl enable nvidia-persistence
     systemctl start nvidia-persistence
     ```
+
+12. Now just restart your **Proxmox Node**, to make sure any leftovers are cleaned up:
+   ```
+   reboot
+   ```
