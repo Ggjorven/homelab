@@ -36,7 +36,7 @@ This folder contains the installation instructions and configuration files used 
 
 5. Accept the EULA (after reading of course).
 
-6. Select the target hard disk to install to (most likely an SSD).
+6. Select the target hard disk to install to if you want it on 1 SSD with no redundancy (most likely an SSD). If you want redundancy press **Options** and select `zfs (RAID1)` and select your 2 drives.
 
 7. Set your **Country**, **Time zone** and **Keyboard Layout**.
 
