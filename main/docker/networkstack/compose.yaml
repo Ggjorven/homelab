@@ -40,6 +40,7 @@ services:
       - 8080:8080 # qbittorrent web interface
       - 6789:6789 # nzbget web interface
       - 9696:9696 # prowlarr web interface
+      - 9117:9117 # jackett web interface
       - 9191:9191 # dispatcharr web interface
     networks:
       internalnetwork:

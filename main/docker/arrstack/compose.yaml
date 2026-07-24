@@ -6,6 +6,25 @@ networks:
     external: true
 
 services:
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    # user: ${PUID}:${PGID} # This container requires joining another containers network
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./jackett:/config
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: container:vpn1
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && wget -qO- http://localhost:9117/health"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -140,8 +159,7 @@ services:
       - CRON_SCHEDULE=0 0 * * * # Runs every day at midnight by default
       - SCAN_PATHS=/movies,/tv
       - MAX_CONCURRENT_SYNC_TASKS=${SUBTITLE_SYNC_MAX_JOBS} # Higher = faster sync, but higher CPU usage
-      - INCLUDE_ENGINES=ffsubsync,autosubsync,alass
-      - WEBUI_PORT=3030
+      - INCLUDE_ENGINES=ffsubsync
     volumes:
       - ./subsyncarr:/app/data
       - ${MOVIES_FOLDER}:/movies

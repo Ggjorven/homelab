@@ -50,7 +50,16 @@ Before we can create our `*arr stack` on our `docker` **Proxmox LXC**. We must h
     docker compose up -d
     ```
 
-## Configuring 
+## Configuring
+
+## Jackett
+
+To configure **Jackett** you need to go to port `9117` of the ip address of the **Proxmox LXC**.
+
+1. Scroll down and setup authentication by setting an `Admin password`.
+
+2. Now add the indexers to **Jackett**. My current setup:
+    - **TorrentHeaven** (private), tags = (movies, series)
 
 ### Prowlarr
 
@@ -103,13 +112,19 @@ To configure **Prowlarr** you need to go to port `9696` of the ip address of the
     - **AniSource** priority = 25 (default), tags = (series)
     - **nekoBT** priority = 25 (default), tags = (series)
     - **Shana Project** priority = 25 (default), tags = (series)
-      
-    For higher availability I would recommend adding 3 different base url versions per indexer if possible.
+
+    For higher availability I would recommend adding 3 different base url versions per indexer if possible.  
+
+5. Now add the **Jackett** indexers to **Prowlarr**. Go to **Jacket** on port `9117`. Copy the **Torznab URL**. Go back to **Prowlarr** and create a **Generic Torznab** indexer, paste the URL in the **Url** field. Go back to **Jackett** and copy the **API Key** from the top right and paste that in the **API Key** field. Do this for all these indexers:
+    - **TorrentHeaven** priority = 8, tags = (movies, series)
+
+6. To also add RSS capabilities go back to **Jackett** and copy the **RSS Feed** url and in **Prowlarr** create a **Torrent RSS Feed** and paste the url in **Full RSS Feed URL**. Do this all these indexers:
+    - **TorrentHeaven** priority = 8, tags = (movies, series)
 
 > [!NOTE]
 > Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/docker/arrstack/Prowlarr/Definitions/Custom`.
 
-6. Now **Sync App Indexers**.
+7. Now **Sync App Indexers**.
 
 Make sure to add the proper tags to the indexers and applications you're adding.
 
