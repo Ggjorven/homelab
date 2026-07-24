@@ -12,5 +12,5 @@ STACKS=(
     "sharestack"
     # "gamingstack"
     # "securitystack"
-    # "internetstack"
+    "internetstack"
 )

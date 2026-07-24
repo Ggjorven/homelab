@@ -1,0 +1,8 @@
+[Unit]
+Description=Update Cloudflare IP ranges in ipset
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/node/scripts/update-cloudflare-ips.sh

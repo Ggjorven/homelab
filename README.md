@@ -40,6 +40,7 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - music stack
     - tv stack
     - share stack
+    - internet stack
 - Home automation
     - Home assistant 
     - ESP Home
@@ -84,6 +85,8 @@ To quickly navigate this repository I have this list of services below:
         - [`mediastack`](main/docker/mediastack/README.md)
         - [`musicstack`](main/docker/musicstack/README.md)
         - [`tvstack`](main/docker/tvstack/README.md)
+        - [`sharestack`](main/docker/sharestack/README.md)
+        - [`internetstack`](main/docker/internetstack/README.md)
     - [`home-assistant`](main/home-assistant/README.md)
 
 ---
