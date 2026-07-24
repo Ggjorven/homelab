@@ -1,0 +1,9 @@
+[Unit]
+Description=Cloudflare DDNS updater
+Requires=cloudflare-ddns.timer
+
+[Service]
+Type=simple
+ExecStart=/pi2w/scripts/cloudflare-ddns.sh
+User=root
+Group=root
