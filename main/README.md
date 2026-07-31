@@ -40,7 +40,7 @@ This folder contains the installation instructions and configuration files used 
 
 7. Set your **Country**, **Time zone** and **Keyboard Layout**.
 
-8. Set a secure password and confirm it. Also make sure to add a valid email address for important alerts about your server.
+8. Set a secure password and confirm it. For the email address I set it to `invalid@invalid.invalid` since we'll be using a different service for notifications.
 
 9. Now select your network interface (likely only 1 option).
 
@@ -72,9 +72,11 @@ This folder contains the installation instructions and configuration files used 
 
 21. Update your **Proxmox VE** and reboot.
 
-22. After the reboot go back to the WebUI and go back to your `pve1` node. Now select **System** -> **Network**. Select `vmbr0` and enable **VLAN aware**.
+22. After the reboot go back to the WebUI and go back to your `pve1` node.
 
-23. TODO: Proxmox Prometheus exporter
+23. // TODO: Create a new bridge with no physical port.
+
+24. // TODO: Proxmox Prometheus exporter
 
 ## Debugging
 
