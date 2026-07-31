@@ -1,11 +1,11 @@
 # main
 
-`main` is a **Proxmox VE** installed on a dedicated PC with a Ryzen 5 3600, 16GB of RAM, a RTX 3050 6GB, a 500GB boot SSD, a 128GB cache SSD and 3x2TB HDD's.  
+`main` is a dedicated machine running **Proxmox VE** with a Ryzen 5 3600, 64GB of RAM, a RTX 3050 6GB, dual 500GB boot SSDs, a 500GB cache SSD and 6x2TB HDD's.  
 This folder contains the installation instructions and configuration files used for this device.
 
 ## Specifications
 
-- [`omv`](omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, 3x2TB HDD Passthrough).
+- [`omv`](omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, HDD Passthrough (HBA)).
 - [`docker`](docker/README.md) (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
 - [`home-assistant`](home-assistant/README.md) (2vCPUs, 2GB RAM, 32GB Disk).
 
@@ -74,7 +74,7 @@ This folder contains the installation instructions and configuration files used 
 
 22. After the reboot go back to the WebUI and go back to your `pve1` node. Now select **System** -> **Network**. Select `vmbr0` and enable **VLAN aware**.
 
-23. A
+23. TODO: Proxmox Prometheus exporter
 
 ## Debugging
 
