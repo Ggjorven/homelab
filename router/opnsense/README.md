@@ -165,7 +165,11 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 53. Now to access the WebUI things get a little more complicated (and annoying). Plug your ethernet cable into the LAN port of your newly created router and plug the other end into your PC or laptop for configuration through the WebUI.
 
-54. TODO WebUI 
+54. Navigate to `https://192.168.1.1` on your device plugged into the router.
+
+55. Login with `root` and your password.
+
+56. // TODO: Configure
 
 ## Configuring
 
