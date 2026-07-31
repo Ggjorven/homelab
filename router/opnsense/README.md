@@ -169,7 +169,33 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 55. Login with `root` and your password.
 
-56. // TODO: Configure
+56. One of the first things I like to do is go to **System** -> **Settings** -> **General** and under **Theme** select `opnsense-dark`. Scroll to the bottom and hit **Save**.
+
+57. Now we're gonna follow the setup wizard under **System** -> **Configuration** -> **Wizard**. Hit **Next**.
+
+58. I like to switch the **Domain** from `.internal` to `.lan`, since I also use that for my proxmox domain.
+
+59. Set the timezone to `Europe/Amsterdam` or whatever timezone you're in.
+
+60. For the DNS servers I like to start with `1.1.1.1` and `8.8.8.8`. Hit **Next**.
+
+61. Keep the **Network [WAN]** default for now and hit **Next**.
+
+62. Now for **Network [LAN]** we're gonna want to change the subnet from `192.168.1.1/24` to `10.10.1.1/24` (personal preference). Hit **Next**.
+
+63. And for **Deployment Type** keep the defaults and hit **Next**.
+
+64. Now again set your password (I know annoying) and click **Apply**.
+
+65. Now because we have changed the DHCP range for the LAN we'll need to give our PC or laptop a new IP address. The easiest way is to unplug and replug the network cable.
+
+66. Now navigate to `https://10.10.1.1`.
+
+67. Before we continue, now plug an ethernet cable connected to your current internet into the WAN port, because we're gonna update our system.
+
+68. Navigate to **System** -> **Firmware** -> **Updates** and **Check for updates**.
+
+69. After you have installed all the updates. // TODO: ...
 
 ## Configuring
 
