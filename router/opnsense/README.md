@@ -122,12 +122,26 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
     reboot
     ```
 
-34. After the reboot check that the NICs are using the `vfio-pci` driver by rerunning:
+34. After the reboot check that the NICs are using the `vfio-pci` driver by re-running:
     ```sh
-    lspci -nn | grep -i ethernet
+    lspci -k | grep -A3 -i ethernet
     ```
 
-35. Now we'll start actually installing **OPNSense**. Go to the **Console** tab of the **VM** and click **Start Now**.
+35. Now we'll start actually installing **OPNSense**. Go to the **Console** tab of the **VM** and click **Start Now** (in case the VM is already started this is not needed).
+
+36. Wait for all the default installation instructions until you get to a `login` screen in the terminal.
+
+37. Type `installer` as the username and `opnsense` as the password. 
+
+38. You'll now be greated by a keymap selection screen. Select the default or the one you prefer.
+
+39. Now select **Install (ZFS)**.
+
+40. Select **stripe**. (I know no redundancy :o)
+
+41. Now select the QEMU HARDDISK and after selecting confirm with Yes and wait...
+
+42. TODO
 
 ## Configuring
 
