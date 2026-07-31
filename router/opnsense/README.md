@@ -141,7 +141,31 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 41. Now select the QEMU HARDDISK and after selecting confirm with Yes and wait...
 
-42. TODO
+42. Now change your root password to something more secure and **Complete Install**!
+
+43. Select **Halt now**.
+
+44. Now navigate back to the **Hardware** tab of the **VM** and click on the **CD/DVD Drive** and hit **Remove**.
+
+45. Now go back to the **Console** and start it again.
+
+46. Again wait for the autoboot and login as `root` and with the password you just set.
+
+47. Now you'll be greeted with a menu of options to select. First we'll set which port is LAN and which is WAN. Type option `1` (Assign interfaces).
+
+48. You'll be asked if you want to configure LAGGs and VLANs, select `N` for both.
+
+49. Now select the WAN interface by auto-detecting (`a`). Then plug in an ethernet cable to the port you wish to be WAN (make sure the ethernet cable is connected). Then press enter.
+
+50. Do the same for LAN.
+
+51. Then for the optional interface just enter nothing and hit enter again.
+
+52. Confirm your changes by selecting `y`.
+
+53. Now to access the WebUI things get a little more complicated (and annoying). Plug your ethernet cable into the LAN port of your newly created router and plug the other end into your PC or laptop for configuration through the WebUI.
+
+54. TODO WebUI 
 
 ## Configuring
 
