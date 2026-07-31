@@ -59,11 +59,13 @@ This folder contains the installation instructions and configuration files used 
 
 20. Don't enable high availability (it consumes more system resources and is unnecessary in a homelab).
 
-21. Update your **Proxmox VE** and reboot.
+21. You can also disable **Corosync**.
 
-22. After the reboot go back to the WebUI and go back to your `pve2` node. Now select **System** -> **Network**.
+22. Update your **Proxmox VE** and reboot.
 
-23. // TODO: Create a new bridge with no physical port.
+23. After the reboot go back to the WebUI and go back to your `pve2` node. Now select **System** -> **Network**.
+
+24. // TODO: Create a new bridge with no physical port.
 
 ## Debugging
 
