@@ -193,17 +193,22 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 67. Before we continue, now plug an ethernet cable connected to your current internet into the WAN port, because we're gonna update our system.
 
-68. Navigate to **System** -> **Firmware** -> **Updates** and **Check for updates**.
+68. Navigate to **System** -> **Firmware** -> **Status** and **Check for updates**. Close the release notes and hit **Update**. (Note: Sometimes this will restart your system)
 
-69. After you have installed all the updates. // TODO: ...
+69. After you have installed all the updates we can get into configuring or set up other services on this device like:
+    - [`pihole`](./../pihole/README.md)
 
 ## Configuring
 
-// TODO: ...
+### DNS
+
+To make the entire network use [pihole](./../pihole/README.md) we can configure certain DNS settings, follow these steps:
+
+1. TODO
 
 ## Debugging
 
-If you have any issues setting up `home-assistant` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `opnsense` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
