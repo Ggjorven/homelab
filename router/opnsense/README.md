@@ -181,7 +181,7 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 61. Keep the **Network [WAN]** default for now and hit **Next**.
 
-62. Now for **Network [LAN]** we're gonna want to change the subnet from `192.168.1.1/24` to `10.10.1.1/24` (personal preference). Hit **Next**.
+62. Now for **Network [LAN]** we're gonna want to change the subnet from `192.168.1.1/24` to `10.10.1.1/22` (personal preference). Hit **Next**.
 
 63. And for **Deployment Type** keep the defaults and hit **Next**.
 
