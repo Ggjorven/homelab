@@ -50,7 +50,7 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
 
 6. Install the required build packages:
    ```
-   apt install build-essential pve-headers-$(uname -r) dkms
+   apt install build-essential pve-headers-$(uname -r) pve-headers dkms
    ```
 
 7. Run the installation:
