@@ -70,8 +70,8 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
     ```
     cd /etc/systemd/system
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/services/nvidia-persistence.service
-    mkdir -p /lxc/scripts
-    cd /lxc/scripts
+    mkdir -p /node/scripts
+    cd /node/scripts
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/scripts/nvidia-persistence.sh
     chmod +x nvidia-persistence.sh
     ```
@@ -84,6 +84,6 @@ These steps have been taken from [here](https://forum.proxmox.com/threads/nvidia
     ```
 
 12. Now just restart your **Proxmox Node**, to make sure any leftovers are cleaned up:
-   ```
-   reboot
-   ```
+    ```
+    reboot
+    ```
