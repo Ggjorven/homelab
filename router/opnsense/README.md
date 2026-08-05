@@ -52,7 +52,7 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 21. Navigate to **VM** under the **Proxmox Node** (ex. `pve2`).
 
-22. Go to the **Hardware** tab and click **Add** and select **PCI Device**.
+22. Now we'll start passing through the NICs to the **VM**. Go to the **Hardware** tab and click **Add** and select **PCI Device**. // NOTE: These steps have been taken from [this tutorial](./../../tutorials/proxmox/PCIE-PASSTHROUGH.md) and modified to be specific to NICs.
 
 23. Select **Raw Device**. Select 1 of your NICs, but NOT YOUR MANAGEMENT NIC!
 

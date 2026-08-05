@@ -52,42 +52,75 @@ These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/PCI_Pa
     ```
     And add the `pcie_acs_override=downstream,multifunction` option to `GRUB_CMDLINE_LINUX_DEFAULT`.
 
-3. Go the device's **Hardware** tab on your **Proxmox VM**. And hit add **PCI Device**.
+3. Go to the **Hardware** tab for the **VM** and click **Add** and select **PCI Device**.
 
-4. Select your device and check **All functions**.
+4. Select **Raw Device**. Select your PCI(e) device.
 
-### HBA Help
+5. Enable **All Functions** and **Add**! // NOTE: If you have boot issues with your **VM** open **Advanced** and disable **ROM-bar**.
 
-If you have issues when passing through an HBA like VMs/LXCs not booting after having booted the VM that the HBA is passed through to or having very large timeouts with disk operations checkout this:  
-What I have noticed is that before the VM which gets the PCI(e) device starts the **Proxmox Host** reads the disks and mounts the raid array. This is not what we want. To fix this follow these additional steps:  
+6. Before we can start the VM we need to make sure that our host never attaches the PCI(e) device to the host, so we'll need to disable the appropriate drivers.
 
-> [!NOTE]
-> Only tested on an LSI 9207-8i
-
-1. On the **Proxmox Node** go the your **Shell** and run this command:
+7. To find out what drivers your device is using run:
+    ```sh
+    lspci -k
     ```
-    lspci -nn | grep -i "SAS\|LSI\|HBA\|mpt"
+    Find your device in the list and take note of the output underneath like:
     ```
-    You'll get something like:
+    Kernel driver in use: igc
     ```
-    04:00.0 Serial Attached SCSI controller [0xxx]: Broadcom / LSI SAS2308 PCI-Express Fusion-MPT SAS-2 [1234:5678] (rev 05)
-    ```
-    Take note of the `[1234:4567]`.
+    Where in this case `igc` is the driver.
 
-2. Now create the `/etc/modprobe.d/vfio.conf` file:
+8. Now disable this driver by create a blacklist file like `/etc/modprobe.d/blacklist-igc.conf`:
+    ```sh
+    nano /etc/modprobe.d/blacklist-igc.conf
     ```
+    and paste:
+    ```
+    blacklist igc
+    ```
+    Replace `igc` with your actual driver name.
+
+9. Now we'll want to make the PCI(e) device run the **VFIO** drivers. First get the [`vendor`:`deviceid`] for your device:
+    ```sh
+    lspci -nn
+    ```
+    You'll get lines like:
+    ```
+    01:00.0 Ethernet controller [0200]: Intel Corporation Ethernet Controller I226-V [8086:125c] (rev 04)
+    ```
+    Find your device. Here `8086:125c` is the `vendor`:`deviceid`. Take note of the relevant id for your device.
+
+10. Now edit `/etc/modprobe.d/vfio.conf` and add the `vendor`:`deviceid` to the `vfio-pci` devices:
+    ```sh
     nano /etc/modprobe.d/vfio.conf
     ```
-    And paste:
+    Add or modify the line:
     ```
-    options vfio-pci ids=1234:4567
-    softdep mpt3sas pre: vfio-pci
+    options vfio-pci ids=8086:125c
     ```
-    Where you replace the `1234:5678` with the ID you got from step 1.
+    If you have multiple different IDs you can comma seperate them like so: `8086:125c,8086:15bc`.
 
-3. Now update `initramfs` with:
-   ```
-   update-initramfs -u
-   ```
-   
-4. After a reboot all your issues should be resolved!
+11. Now we need to make sure we have the vfio modules enabled in `/etc/modules-load.d/vfio.conf`. // NOTE: This only needs to be done once for multiple devices
+    ```sh
+    nano /etc/modules-load.d/vfio.conf
+    ```
+    Add the lines:
+    ```
+    vfio
+    vfio_iommu_type1
+    vfio_pci
+    vfio_virqfd
+    ```
+
+12. Now update `initram-fs` and reboot!
+    ```
+    update-initramfs -u -k all
+    reboot
+    ```
+
+13. After the reboot check that the PCI(e) device is using the `vfio-pci` driver by re-running:
+    ```sh
+    lspci -k
+    ```
+
+14. Your device is now successfully passed through to the **VM**.
