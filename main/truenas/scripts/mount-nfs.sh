@@ -3,21 +3,21 @@
 # ======================
 # CONFIG
 # ======================
-SERVER_IP="192.168.x.x"
-SHARE_NAME="nas"
+SERVER_IP="172.20.xxx.xxx"
+SHARE_PATH="/mnt/tank/PATH"
 MOUNT_POINT="/mnt/nas"
 
 # ======================
 # SCRIPT
 # ======================
-echo "Waiting for NFS share $SERVER_IP:/export/$SHARE_NAME ..."
+echo "Waiting for NFS share $SERVER_IP:/$SHARE_PATH ..."
 while true; do
     # Check if the NFS export is available on the server
-    showmount -e "$SERVER_IP" 2>/dev/null | grep -q "/export/$SHARE_NAME"
+    showmount -e "$SERVER_IP" 2>/dev/null | grep -q "$SHARE_PATH"
 
     if [ $? -eq 0 ]; then
         echo "Share found! Mounting..."
-        mount -t nfs "$SERVER_IP:/export/$SHARE_NAME" "$MOUNT_POINT"
+        mount -t nfs "$SERVER_IP:$SHARE_PATH" "$MOUNT_POINT"
 
         if [ $? -eq 0 ]; then
             echo "Mounted successfully."

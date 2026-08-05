@@ -3,9 +3,9 @@
 # ======================
 # CONFIG
 # ======================
-SERVER_IP="192.168.x.x"
-SHARE_NAME="nas"
-MOUNT_POINT="/mnt/nas"
+SERVER_IP="172.20.xxx.xxx"
+SHARE_NAME="NAME"
+MOUNT_POINT="/mnt/MOUNTPOINT"
 CREDENTIALS="/node/.smbcred"
 SMB_VERSION="3.0"
 

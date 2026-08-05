@@ -1,5 +1,5 @@
 [Unit]
-Description=Mount NAS SMB Shares
+Description=Mount NAS SMB Share
 Wants=network-online.target
 After=network-online.target
 
