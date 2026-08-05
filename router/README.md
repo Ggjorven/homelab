@@ -3,15 +3,12 @@
 `router` is a dedicated machine (m720q) running **Proxmox VE** with an i3-8100T, 16GB of RAM, 2 M.2 2.5GbE ethernet NICs and a 120GB SATA boot SSD.
 This folder contains the installation instructions and configuration files used for this device.
 
-## Specifications
-
-- [`opnsense`](opnsense/README.md) (4vCPUs, 8GB RAM, 32GB Disk).
-// TODO: Pihole + PiVPN
-
 ## Deployments
 
-- [`opnsense`](opnsense/README.md)
-// TODO: Pihole + PiVPN
+| # | Type | vCPUs | RAM (MiB) | Disk (GB) | Name | Services | Description |
+| -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| 100 | VM | 2 | 8192 | 32 | [opnsense](./opnsense/README.md) | OPNSense | Router and firewall |
+| 101 | LXC | 1 | 512 | 16 | [pi-hole](./pi-hole/README.md) | PiHole | Adblocking DNS resolver |
 
 ## Steps
 
