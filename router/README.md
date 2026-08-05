@@ -7,8 +7,8 @@ This folder contains the installation instructions and configuration files used 
 
 | # | Type | vCPUs | RAM (MiB) | Disk (GB) | Name | Services | Description |
 | -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 100 | VM | 2 | 8192 | 32 | [opnsense](./opnsense/README.md) | OPNSense | Router and firewall |
-| 101 | LXC | 1 | 512 | 16 | [pi-hole](./pi-hole/README.md) | PiHole | Adblocking DNS resolver |
+| [100](./opnsense/README.md) | VM | 2 | 8192 | 32 | [opnsense](./opnsense/README.md) | OPNSense | Router and firewall |
+| [101](./pi-hole/README.md) | LXC | 1 | 512 | 16 | [pi-hole](./pi-hole/README.md) | PiHole | Adblocking DNS resolver |
 
 ## Steps
 

@@ -7,8 +7,8 @@ This folder contains the installation instructions and configuration files used 
 
 | # | Type | vCPUs | RAM (MiB) | Disk (GB) | Name | Services | Description | Passthrough | Sharing | Public | VLAN ID & IP range|
 | -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 100 | VM | 4 | 16384 | 32 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA, SATA Controller | - | X | 100 \| 172.20.100.10/24 |
-| 101 | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, MusicSeerr | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
+| [100](./truenas/README.md) | VM | 4 | 16384 | 32 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA, SATA Controller | - | X | 100 \| 172.20.100.10/24 |
+| [101](./media/README.md) | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, MusicSeerr | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
 | 102 | LXC | 2 | 1024 | 10 | media-mgmt | tinyMediaManager, metadata-remote | Media management services | - | - | X | 102 \| 172.20.102.10/24 |
 | 103 | LXC | 4 | 4096 | 32 | photos | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
 | 104 | LXC | 2 | 2048 | 32 | cloud | NextCloud | Personal Cloud | - | - |Yes, through proxy | 104 \| 172.20.104.10/24 |
@@ -19,7 +19,7 @@ This folder contains the installation instructions and configuration files used 
 | 109 | LXC | 1 | 512 | 10 | mgmt | Portainer | Management of all (docker) services | - | - | X | 109 \| 172.20.109.10/24 |
 | 110 | LXC | 2 | 1024 | 10 | pub-net | OpenResty, Authelia, Crowdsec, Fail2ban | Public reverse proxy with authentication DMZ | - | - | Yes, port 80 and 443 | 110 \| 172.20.110.10/24 |
 | 111 | LXC | 1 | 512 | 10 | priv-net | OpenResty, DDNS | Private reverse proxy and some network utilities | - | - | X | 111 \| 172.20.111.10/24 |
-| 112 | VM | 2 | 2048 | 32 | [haos](./haos/README.md) | Home Assistant | Smarthome system | - | - | X | 112 \| 172.20.112.10/24 |
+| [112](./haos/README.md) | VM | 2 | 2048 | 32 | [haos](./haos/README.md) | Home Assistant | Smarthome system | - | - | X | 112 \| 172.20.112.10/24 |
 | 113 | LXC | 2 | 2048 | 20 | search | SearchXNG, Hermes + CliProxyAPI | Search engine + AI | - | GPU | X | 113 \| 172.20.113.10/24 |
 | 114 | LXC | 2 | 2048 | 32 | misc | Mealie + Nametag + Leantime + Memos + ... | Miscellaneous tools | - | - | X | 114 \| 172.20.114.10/24 |
 
