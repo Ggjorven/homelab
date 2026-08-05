@@ -12,7 +12,7 @@ This folder contains the installation instructions and configuration files used 
 
 ## Steps
 
-1. Download a proxmox ISO image from [proxmox isos](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso). 
+1. Download the latest proxmox ISO image from [the proxmox iso download page](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso). 
 
 2. Flash the ISO to a USB stick using something like [balena etcher](https://etcher.balena.io/).
 

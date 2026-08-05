@@ -27,7 +27,7 @@ This folder contains the installation instructions and configuration files used 
 
 ## Steps
 
-1. Download a proxmox ISO image from [proxmox isos](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso). 
+1. Download the latest proxmox ISO image from [the proxmox iso download page](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso). 
 
 2. Flash the ISO to a USB stick using something like [balena etcher](https://etcher.balena.io/).
 
@@ -75,11 +75,127 @@ This folder contains the installation instructions and configuration files used 
 
 22. Update your **Proxmox VE** and reboot.
 
-23. After the reboot go back to the WebUI and go back to your `pve1` node.
+23. After the reboot go back to the WebUI and go back to your `pve1` node's **Shell**.
 
-24. // TODO: Create a new bridge with no physical port.
+24. Switch from `iptables` to `nftables`:
+    ```sh
+    update-alternatives --set iptables /usr/sbin/iptables-nft
+    update-alternatives --set ip6tables /usr/sbin/ip6tables-nft
+    ```
 
-25. // TODO: Proxmox Prometheus exporter
+25. Edit `/etc/network/interfaces`:
+    ```sh
+    nano /etc/network/interfaces
+    ```
+    And paste (above the `source /etc/network/interfaces.d/*` line):
+    ```
+    auto vmbr1
+    iface vmbr1 inet manual
+        bridge-ports none
+        bridge-stp off
+        bridge-fd 0
+        bridge-vlan-aware yes
+        bridge-vids 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116
+
+    # Host gateway IPs, one per VLAN
+    auto vmbr1.100
+    iface vmbr1.100 inet static
+         address 172.20.100.1/24
+
+    auto vmbr1.101
+    iface vmbr1.101 inet static
+         address 172.20.101.1/24
+
+    auto vmbr1.102
+    iface vmbr1.102 inet static
+         address 172.20.102.1/24
+
+    auto vmbr1.103
+    iface vmbr1.103 inet static
+        address 172.20.103.1/24
+
+    auto vmbr1.104
+    iface vmbr1.104 inet static
+        address 172.20.104.1/24
+
+    auto vmbr1.105
+    iface vmbr1.105 inet static
+        address 172.20.105.1/24
+
+    auto vmbr1.106
+    iface vmbr1.106 inet static
+        address 172.20.106.1/24
+
+    auto vmbr1.107
+    iface vmbr1.107 inet static
+        address 172.20.107.1/24
+
+    auto vmbr1.108
+    iface vmbr1.108 inet static
+        address 172.20.108.1/24
+
+    auto vmbr1.109
+    iface vmbr1.109 inet static
+        address 172.20.109.1/24
+
+    auto vmbr1.110
+    iface vmbr1.110 inet static
+        address 172.20.110.1/24
+
+    auto vmbr1.111
+    iface vmbr1.111 inet static
+        address 172.20.111.1/24
+
+    auto vmbr1.112
+    iface vmbr1.112 inet static
+        address 172.20.112.1/24
+
+    auto vmbr1.113
+    iface vmbr1.113 inet static
+        address 172.20.113.1/24
+
+    auto vmbr1.114
+    iface vmbr1.114 inet static
+        address 172.20.114.1/24
+
+    auto vmbr1.115
+    iface vmbr1.115 inet static
+        address 172.20.115.1/24
+
+    auto vmbr1.116
+    iface vmbr1.116 inet static
+        address 172.20.116.1/24
+    ```
+    This creates a bridge without a physical interface.  
+    Where for every VLAN there is an ID defined in `bridge-vids` as well as a VLAN address block below.
+
+26. While still in the `/etc/network/interfaces` file under `vmbr0` add the line:
+    ```
+    post-up nft -f /etc/nftables.conf
+    ```
+    And now you can save and exit.
+
+27. Retrieve the `/etc/nftables.conf` file:
+    ```sh
+    cd /etc/
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables.conf
+    ```
+
+28. Enable IPv4 forwarding, so `vmbr1` also has internet access:
+    ```sh
+    echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+    sysctl -p
+    ```
+
+29. Enable `nftables`:
+    ```sh
+    systemctl enable --now nftables
+    nft -f /etc/nftables.conf
+    ```
+
+30. Reboot your **Proxmox Node** to get all VLANs properly initialized.
+
+31. Once back aaaaa
 
 ## Debugging
 
