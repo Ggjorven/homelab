@@ -1,10 +1,10 @@
 # Debugging
 
-This file exists with the purpose of helping you debug your issues with `home-assistant`. This is not a foolproof file, it may miss certain issues and steps.
+This file exists with the purpose of helping you debug your issues with `haos`. This is not a foolproof file, it may miss certain issues and steps.
 
 ## Debugging steps
 
-To debug any issues with `home-assistant` use the following steps:
+To debug any issues with `haos` use the following steps:
 
 1. // TODO: ...
 

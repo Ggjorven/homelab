@@ -13,6 +13,8 @@
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/haos-vm.sh)"
   ```
 
+  // TODO: VLAN tags and networking
+
 2. Now go to the `Console` of the **Home Assistant VM**. We need to install `qemu-guest-agent` to give proxmox control over the VM. This is done with these commands:
   ```
   apt install qemu-guest-agent
@@ -36,7 +38,7 @@ This is located under `Settings` -> `Add-ons` -> `Add-on Store`.
 
 ## Debugging
 
-If you have any issues setting up `home-assistant` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `haos` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
