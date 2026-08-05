@@ -7,9 +7,25 @@ This file contains the steps for optimizing consumer drives for **NAS** usage.
 Before we can start installing software we must have finished these tutorials:
 
 - [`root ssh access`](./ROOT-SSH-ACCESS.md)
-- [`ability to install apt software`](./INSTALLING-APT-SOFTWARE.md) (keep the terminal open for these steps)
+- (need for [advanced](#Advanced)) [`ability to install apt software`](./INSTALLING-APT-SOFTWARE.md) (keep the terminal open for these steps)
 
 ## Steps
+
+### WebUI
+
+The simplest changes to make are in the **TrueNAS** 
+
+1. Open the **TrueNAS** WebUI and login as an admin user.
+
+2. Go to storage and click **View VDEVs**.
+
+3. Under **Data VDEVs** open all the vdevs and do the following for all individual drives (ex. `/dev/sdb/`)
+    
+    1. **Edit** the drive and set **Advanced Power Management** to **Level 254**.
+
+    2. Save!
+
+### Advanced
 
 With the terminal open from the [`ability to install apt software`](./INSTALLING-APT-SOFTWARE.md) follow these steps:
 
@@ -22,7 +38,7 @@ With the terminal open from the [`ability to install apt software`](./INSTALLING
 
 3. Now follow the the steps below per drive type. (Ignore the QEMU HARDDISK)
 
-### Western Digital
+#### Western Digital
 
 1. Consumer Western Digital drives often have **IntelliPark**, which parks the harddrive head every X seconds, but ZFS writes a lot of metadata files making the head constantly park and unpark, making the lifetime of the drive significantly shorter.
 
@@ -49,6 +65,6 @@ With the terminal open from the [`ability to install apt software`](./INSTALLING
 
 6. Now fully shutdown your system (the full **Proxmox Node**) and power cycle it so the drive can configure the new settings, so not just a reboot.
 
-### Other
+#### Other
 
 I don't have any optimization tips for other drive types, but contributions are highly appreciated.
