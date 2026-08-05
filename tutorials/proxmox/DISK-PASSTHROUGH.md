@@ -1,7 +1,8 @@
 # Disk passthrough in Proxmox
 
-This file contains the steps for passing through disks in **Proxmox**.  
+This file contains the steps for passing through disks in **Proxmox** without passing through a SATA controller.  
 This allows us to use our physical disks in a **Proxmox VM**.  
+This does have some drawbacks compared to passing through a SATA controller, it doesn't support S.M.A.R.T. and other sensor passthrough.  
 These steps have been taken from this [wiki](https://pve.proxmox.com/wiki/Passthrough_Physical_Disk_to_Virtual_Machine_(VM)) and slightly modified.
 
 ## Steps
