@@ -3,26 +3,25 @@
 `main` is a dedicated machine running **Proxmox VE** with a Ryzen 5 3600, 64GB of RAM, a RTX 3050 6GB, dual 500GB boot SSDs, a 500GB cache SSD and 6x2TB HDD's.  
 This folder contains the installation instructions and configuration files used for this device.
 
-## Specifications
-
-- [`omv`](omv/README.md) (2vCPUs, 2GB RAM, 32GB Disk, HDD Passthrough (HBA)).
-- [`docker`](docker/README.md) (8vCPUs, 12GB RAM, 160GB Disk, GPU Passthrough).
-- [`home-assistant`](home-assistant/README.md) (2vCPUs, 2GB RAM, 32GB Disk).
-
 ## Deployments
 
-- [`omv`](omv/README.md)
-- [`docker`](docker/README.md)
-    - [`networkstack`](docker/networkstack/README.md)
-    - [`monitoringstack`](docker/monitoringstack/README.md)
-    - [`downloadstack`](docker/downloadstack/README.md)
-    - [`arrstack`](docker/arrstack/README.md)
-    - [`mediastack`](docker/mediastack/README.md)
-    - [`musicstack`](docker/musicstack/README.md)
-    - [`tvstack`](docker/tvstack/README.md)
-    - [`sharestack`](docker/sharestack/README.md)
-    - [`internetstack`](docker/internetstack/README.md)
-- [`home-assistant`](home-assistant/README.md)
+| # | Type | vCPUs | RAM (MiB) | Disk (GB) | Name | Services | Description | Passthrough | Sharing | Public | VLAN ID & IP range|
+| -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| 100 | VM | 4 | 16384 | 32 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA, SATA Controller | - | X | 100 \| 172.20.100.10/24 |
+| 101 | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, MusicSeerr | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
+| 102 | LXC | 2 | 1024 | 10 | media-mgmt | tinyMediaManager, metadata-remote | Media management services | - | - | X | 102 \| 172.20.102.10/24 |
+| 103 | LXC | 4 | 4096 | 32 | photos | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
+| 104 | LXC | 2 | 2048 | 32 | cloud | NextCloud | Personal Cloud | - | - |Yes, through proxy | 104 \| 172.20.104.10/24 |
+| 105 | LXC | 4 | 4096 | 32 | arr | Gluetun (x2), FlareSolverr, Jackett, Prowlarr, Radarr, Sonarr, Lidarr, Bazarr, Scraparr, Subsyncarr, Slskd, QBitTorrent, NZBGet, MeTube | Content download stack | - | GPU | X | 105 \| 172.20.105.10/24 |
+| 106 | LXC | 2 | 1024 | 10 | post-arr | Unmanic, ffmpeg-normalizer, Subsyncarr | Post processing on downloaded content| - | GPU| X | 106 \| 172.20.106.10/24 |
+| 107 | LXC | 2 | 2048 | 10 | dashboard | Grafana, Gotify | Dashboard/fronted of monitoring | - | - | Yes, through proxy| 107 \| 172.20.107.10/24 |
+| 108 | LXC | 2 | 4096 | 80 | monitoring | Prometheus, Loki | Monitoring of all services | - | - | X | 108 \| 172.20.108.10/24 |
+| 109 | LXC | 1 | 512 | 10 | mgmt | Portainer | Management of all (docker) services | - | - | X | 109 \| 172.20.109.10/24 |
+| 110 | LXC | 2 | 1024 | 10 | pub-net | OpenResty, Authelia, Crowdsec, Fail2ban | Public reverse proxy with authentication DMZ | - | - | Yes, port 80 and 443 | 110 \| 172.20.110.10/24 |
+| 111 | LXC | 1 | 512 | 10 | priv-net | OpenResty, DDNS | Private reverse proxy and some network utilities | - | - | X | 111 \| 172.20.111.10/24 |
+| 112 | VM | 2 | 2048 | 32 | [haos](./haos/README.md) | Home Assistant | Smarthome system | - | - | X | 112 \| 172.20.112.10/24 |
+| 113 | LXC | 2 | 2048 | 20 | search | SearchXNG, Hermes + CliProxyAPI | Search engine + AI | - | GPU | X | 113 \| 172.20.113.10/24 |
+| 114 | LXC | 2 | 2048 | 32 | misc | Mealie + Nametag + Leantime + Memos + ... | Miscellaneous tools | - | - | X | 114 \| 172.20.114.10/24 |
 
 ## Steps
 

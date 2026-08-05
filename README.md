@@ -16,6 +16,7 @@ My homelab consists of three primary machines:
 | `main` | Core Server | Proxmox host running core infrastructure and application stacks |
 | `pi2w-1` | Network & Remote Access | DNS filtering + VPN tunnel |
 | `pi2w-2` | PiKVM | Remote control over a device |
+| `router` | Router & Firewall | Router, firewall and DNS server |
 
 There is also a `tutorials` directory containing reusable infrastructure documentation.
 
@@ -30,17 +31,10 @@ The `main` machine is the heart of the homelab.
 It runs **Proxmox VE** as the hypervisor and hosts:
 
 - Storage service
-    - Open Media Vault
+    - TrueNAS
 - Docker-based application stacks
-    - network stack
-    - monitoring stack
-    - download stack
-    - *arr stack
-    - media stack
-    - music stack
-    - tv stack
-    - share stack
-    - internet stack
+    - media
+    - // TODO: More
 - Home automation
     - Home assistant 
     - ESP Home
@@ -76,17 +70,9 @@ If you still can't figure it out you can reach out to me personally, I personall
 To quickly navigate this repository I have this list of services below:
 
 - [`main`](main/README.md)
-    - [`omv`](main/omv/README.md)
-    - [`docker`](main/docker/README.md)
-        - [`networkstack`](main/docker/networkstack/README.md)
-        - [`monitoringstack`](main/docker/monitoringstack/README.md)
-        - [`downloadstack`](main/docker/downloadstack/README.md)
-        - [`arrstack`](main/docker/arrstack/README.md)
-        - [`mediastack`](main/docker/mediastack/README.md)
-        - [`musicstack`](main/docker/musicstack/README.md)
-        - [`tvstack`](main/docker/tvstack/README.md)
-        - [`sharestack`](main/docker/sharestack/README.md)
-        - [`internetstack`](main/docker/internetstack/README.md)
+    - [`truenas`](main/truenas/README.md)
+    - Docker based application stacks:
+        - [`media`](main/media/README.md)
     - [`home-assistant`](main/home-assistant/README.md)
 
 ---
