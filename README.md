@@ -55,6 +55,13 @@ This Raspberry Pi 2 Zero W handles:
 - Remote control
     - PiKVM
 
+### router
+
+This M720Q handles:
+
+- Router & Firewall
+- DNS server
+
 ## How to Use
 
 1. Start at the device level (`main`, `pi2w-1`, `pi2w-2`)
@@ -73,7 +80,7 @@ To quickly navigate this repository I have this list of services below:
     - [`truenas`](main/truenas/README.md)
     - Docker based application stacks:
         - [`media`](main/media/README.md)
-    - [`home-assistant`](main/home-assistant/README.md)
+    - [`haos`](main/haos/README.md)
 
 ---
 
@@ -85,6 +92,12 @@ To quickly navigate this repository I have this list of services below:
 
 - [`pi2w-2`](pi2w-2/README.md)
     - // TODO: ...
+
+---
+
+- [`router`](router/README.md)
+    - [`opnsense`](./router/opnsense/README.md)
+    - [`pi-hole`](./router/pihole/README.md)
 
 ## Status
 
