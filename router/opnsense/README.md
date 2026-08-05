@@ -196,13 +196,13 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 68. Navigate to **System** -> **Firmware** -> **Status** and **Check for updates**. Close the release notes and hit **Update**. (Note: Sometimes this will restart your system)
 
 69. After you have installed all the updates we can get into configuring or set up other services on this device like:
-    - [`pihole`](./../pihole/README.md)
+    - [`pi-hole`](./../pi-hole/README.md)
 
 ## Configuring
 
 ### DNS
 
-To make the entire network use [pihole](./../pihole/README.md) we can configure certain DNS settings, follow these steps:
+To make the entire network use [pi-hole](./../pi-hole/README.md) we can configure certain DNS settings, follow these steps:
 
 1. TODO
 
