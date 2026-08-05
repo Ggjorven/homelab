@@ -7,7 +7,7 @@ This folder contains the installation instructions and configuration files used 
 
 | # | Type | vCPUs | RAM (MiB) | Disk (GB) | Name | Services | Description | Passthrough | Sharing | Public | VLAN ID & IP range|
 | -------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| [100](./truenas/README.md) | VM | 4 | 16384 | 48 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA, SATA Controller | - | X | 100 \| 172.20.100.10/24 |
+| [100](./truenas/README.md) | VM | 4 | 16384 | 48 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA | - | X | 100 \| 172.20.100.10/24 |
 | [101](./media/README.md) | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, MusicSeerr | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
 | 102 | LXC | 2 | 1024 | 10 | media-mgmt | tinyMediaManager, metadata-remote | Media management services | - | - | X | 102 \| 172.20.102.10/24 |
 | 103 | LXC | 4 | 4096 | 32 | photos | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
