@@ -52,21 +52,21 @@ gpus: all
     Runtimes: runc io.containerd.runc.v2 nvidia
     ```
 
-At the time of writing this there is an issue with the current NVIDIA drivers:  
-```
+~~At the time of writing this there is an issue with the current NVIDIA drivers:~~
+~~```~~
 Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running prestart hook #0: exit status 1, stdout: , stderr: Auto-detected mode as 'legacy'
 nvidia-container-cli: mount error: failed to add device rules: unable to find any existing device filters attached to the cgroup: bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted
-```
+~~```~~
 
-To resolve this issue manually I have provided steps from [here](https://github.com/NVIDIA/nvidia-container-toolkit/issues/1246#issuecomment-3194219487)
+~~To resolve this issue manually I have provided steps from [here](https://github.com/NVIDIA/nvidia-container-toolkit/issues/1246#issuecomment-3194219487)~~
 
-1. Run these commands:
-    ```
+~~1. Run these commands:~~
+    ~~```~~
     sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
     sudo nvidia-ctk config --in-place --set nvidia-container-runtime.mode=cdi && sudo systemctl restart docker
-    ```
-    If you're running as `root` remove `sudo`:
-    ```
+    ~~```~~
+    ~~If you're running as `root` remove `sudo`:~~
+    ~~```~~
     nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
     nvidia-ctk config --in-place --set nvidia-container-runtime.mode=cdi && systemctl restart docker
-    ```
+    ~~```~~
