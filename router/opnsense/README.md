@@ -32,7 +32,7 @@ Before we can create the **OPNSense VM** we need to have completed these steps:
 
 11. Give the **VM** a name like `opnsense`. Optionally enable **Start at boot**. **Next**! 
 
-12. Under **ISO Image** select your recently downloaded **OPNSense** image. **Next**!.
+12. Under **ISO Image** select your recently downloaded **OPNSense** image and under **Type** select "Other". **Next**!.
 
 13. Under **System** just keep all default except enable **Qemu Agent**. **Next**!
 
