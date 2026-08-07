@@ -195,7 +195,9 @@ This folder contains the installation instructions and configuration files used 
 
 30. Reboot your **Proxmox Node** to get all VLANs properly initialized.
 
-31. Once back aaaaa
+31. Once back we can start creating our **VM**'s and **LXC**'s:
+    - [`truenas`](./truenas/README.md)
+    - [`media`](./media/README.md)
 
 ## Debugging
 
