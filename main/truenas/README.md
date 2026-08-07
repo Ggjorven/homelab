@@ -1,153 +1,129 @@
-# Open Media Vault
+# TrueNAS
 
-**Open Media Vault** is a NAS operating system run as a **Proxmox VM**, this branch contains the steps to easily redeploy an **Open Media Vault** setup with an SMB network share.
+**TrueNAS** is a NAS operating system run as a **Proxmox VM**, this branch contains the steps to easily (re-)deploy **TrueNAS**.
+
+## Prerequisites
+
+- [`Enable IOMMU`](./../../tutorials/proxmox/ENABLE-IOMMU.md)
 
 ## Steps
 
-1. Create a **Proxmox VM** with the [omv iso image](https://www.openmediavault.org/download.html).
+1. Before we can create a **VM** we need to download the latest **TrueNAS** iso. Go to [the download page](https://www.truenas.com/download/) and navigate to the latest Community Edition image (non-beta).
 
-2. Pass through all the disks following [individual disk passthrough](../../tutorials/proxmox/DISK-PASSTHROUGH.md) or [hba (pcie) passthrough](../../tutorials/proxmox/DISK-PASSTHROUGH.md).
+2. Now right click the download button and **Copy Link**.
 
-3. Login to **OMV** with username `admin` and password `openmediavault`.
+3. Navigate to the **Proxmox WebUI** on port `8006` on the IP you chose in the **Proxmox** installation.
 
-4. Click your profile in the top-right and change the `admin` password.
+4. Select the `local` storage pool under your **Proxmox Node**'s name (ex. `pve1`).
 
-5. Add a new user under `Users` -> `Users`.
+5. Navigate to **ISO Images** and click **Download from URL**. Now paste the copied url.
 
-6. Now we need to install plugins. `Plugins` are located under `System` -> `Plugins`. We'll be installing the: `openmediavault-md` plugin.
+6. Click **Query URL** and then **Download**.
 
-7. Before we can create a 'pool'/multiple device, we need to qipe the current devices to remove their signatures. This can be done under `Storage` -> `Disks`. Select the disk and press `Wipe`. When asked which method to use just select `Quick`.
+7. After the download has finished we can create our **VM**. Right click on your **Proxmox Node**'s name (ex. `pve1`) and select **Create VM**.
 
-8. Now we can head to `Storage` -> `Multiple Devices`. Create your pool with your desired layout. Now it will clean and resync. This can take a WHILE.
+8. Give the **VM** a name like `truenas`. **Next**! 
 
-9. After that's finally finished we need create a filesystem on this large pool. This can be found under `Storage` -> `File Systems`.
+9. Under **ISO Image** select your recently downloaded **TrueNAS** image. **Next**!.
 
-10. Now we can create a shader folder under `Storage` -> `Shared Folders`. Choose the filesystem you just created.
+10. Under **System** just keep all default except enable **Qemu Agent**. **Next**!
 
-11. To make this shared folder visible on the network we need to create an SMB Share under `Services` -> `SMB/CIFS` -> `Shares`. And create a new share and use the just created shared folder.
+11. Under **Disks** things get a little more complicated. For **Bus/Device** select **SCSI**. 
 
-12. To enable it go to `Services` -> `SMB/CIFS` -> `Settings` and enable it. Optional: You can also set the SMB version to 3.0.
+12. For **Cache Mode** select **Write Back**. Also enable **Discard**.
 
-13. We also want an NFS share for internal use. Go to `Services` -> `NFS` -> `Shares`. And create a new share.
+13. Select an appropriate size for the disk (ex. `32` GiB). **Next**!
 
-14. Select the just created shared folder and set the **Client** to your **Proxmox Node**'s IP address and prepend it with `/32`.
+14. For **CPU** select a reasonable amount of cores, I use `4`. **Next**!
 
-15. Set the **Permission** to **Read/Write**
+15. For the memory give 16GB so `16384` MiB. **Next**!
 
-16. And set the **Extra Options** to `rw,sync,no_subtree_check,all_squash,anonuid=0,anongid=0`.
+16. Under **Network** set **bridge** to `vmbr1`. Set the **VLAN Tag** to `100` and finally disable the built-in **firewall**. **Next**!
 
-17. To enable it go to `Services` -> `NFS` -> `Settings` and enable it.
+17. Confirm all your settings are correct. If that's the hit **Finish**.
 
-## Useful extras
+18. Navigate to **VM** under the **Proxmox Node** (ex. `pve2`).
 
-You have now succesfully completed all the necessary steps. Below are some other useful things.
+19. Now we'll pass through the HBA to the **VM**. Go to the **Hardware** tab and click **Add** and select **PCI Device**. // NOTE: These steps have been taken from [this tutorial](./../../tutorials/proxmox/PCIE-PASSTHROUGH.md) and modified to be specific to HBAs.
 
-### Mounting
+20. Select **Raw Device**. Select 1 your HBA.
 
-It can be quite useful that the network share is always mounted to the **Proxmox Node**. This can help with passing it to **LXC**'s, for example [`docker`](../docker/README.md). I have created a helper script and service for this purpose. You can install them on the **Proxmox Node** using these commands:
+21. The device name should look something like: "SASXXXX ..." and a vendor like "Broadcom / LSI".
 
-1. Install the following packages to help with mounting:
-    ```
-    apt update
-    apt install nfs-common nfs-kernel-server rpcbind
-    ```
+22. Enable **All Functions** and enable the **Advanced** options too and disable **ROM-Bar**. **Add**!
 
-2. Now we just need to make a service that mounts the TrueNAS **SMB Share** when it becomes available. I have also created a service script for this purpose:
-    ```
-    cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/services/mount-nfs.service
-    mkdir -p /node/scripts
-    cd /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/omv/scripts/mount-nfs.sh 
-    chmod +x mount-nfs.sh
-    ```
+23. Before we can install and configure **TrueNAS** we need to make sure that our host never attaches the HBA to the host, so we'll need to disable the appropriate drivers.
 
-3. Edit the `/node/scripts/mount-nfs.sh` script and replace the `SERVER_IP` with your NAS's actual IP and `SHARE_NAME` with your SMB's share name. 
-    ```
-    nano /node/scripts/mount-nfs.sh
-    ```
-
-4. Now make sure the mount point set in the `/node/scripts/mount-nfs.sh` actually exists with:
-    ```
-    mkdir -p /mnt/nas
-    ```
-
-5. Now we need to enable this service with:
-    ```
-    systemctl daemon-reload
-    systemctl enable mount-nfs
-    systemctl start mount-nfs
-    ```
-
-6. To check if the mounting script succeeded run:
-   ```
-   journalctl -xeu mount-nfs.service
-   ```
-   You should see the output from the script saying that the NFS was successfully mounted.
-
-### Notifications
-
-To get notified when a drive fails we need to setup notifications. In [`docker`](../docker/README.md) we use **Gotify** for notifications. Here we will use this same instance, so these steps can only be follow after [`docker`](../docker/monitoringstack/README.md) is setup in [`docker`](../docker/README.md).
-
-1. Go to your **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`.
-
-2. Login and go to **Apps** and **Create Application**. Give it your preferred name and description.
-
-3. Copy the token.
-
-4. Go to your **Proxmox VM**'s (with **OpenMediaVault**) **Console** and login with your credentials and install `curl`:
-    ```
-    apt update && apt install -y curl
-    ```
-
-5. Create a script:
-    ```
-    nano /usr/share/openmediavault/notification/sink.d/20gotify
-    ```
-    And paste these contents:
+24. To find out what drivers your HBA is using run:
     ```sh
-    #!/bin/sh
-
-    # Configuration
-    GOTIFY_URL="http://192.168.xxx.xxx:8070"
-    GOTIFY_TOKEN="XXXXXX"
-
-    MESSAGE_TEXT=$(cat "${OMV_NOTIFICATION_MESSAGE_FILE}")
-
-    # Send payload to Gotify API
-    curl -s -X POST "${GOTIFY_URL}/message" \
-         -H "X-Gotify-Key: ${GOTIFY_TOKEN}" \
-         -H "Content-Type: application/json" \
-         -d "{
-           \"title\": \"${OMV_NOTIFICATION_SUBJECT}\",
-           \"message\": \"${MESSAGE_TEXT}\",
-           \"priority\": 7
-         }"
+    lspci -k | grep -A3 -i "sas\|scsi\|raid"
     ```
-    Where `GOTIFY_URL` is the **Proxmox LXC** with [`docker`](../docker/README.md)'s IP address on port `8070`. And `GOTIFY_TOKEN` is the copied token.
-
-6. Make the script executable:
+    Take note of the output like:
     ```
-    chmod +x /usr/share/openmediavault/notification/sink.d/20gotify
+    Kernel driver in use: mpt3sas
+    ```
+    Where in this case `mpt3sas` is the driver. Some common examples are: `mpt3sas`, `megaraid_sas`, or `lpfc`.
+
+25. Now disable this driver by create a blacklist file like `/etc/modprobe.d/blacklist-igc.conf`:
+    ```sh
+    nano /etc/modprobe.d/blacklist-mpt3sas.conf
+    ```
+    and paste:
+    ```
+    blacklist mpt3sas
+    ```
+    Replace `mpt3sas` with your actual driver name.
+
+26. Now we'll want to make our HBA run **VFIO** drivers. First get the [`vendor`:`deviceid`] for your HBA:
+    ```sh
+    lspci -nn | grep -i "sas\|scsi\|raid"
+    ```
+    You'll get lines like:
+    ```
+    05:00.0 Serial Attached SCSI controller [0107]: Broadcom / LSI SAS2008 [1000:0072] (rev 03)
+    ```
+    Where `1000:0072` is the `vendor`:`deviceid`. Take note of these!
+
+27. Now edit `/etc/modprobe.d/vfio.conf` and add the `vendor`:`deviceid` to the `vfio-pci` devices:
+    ```sh
+    nano /etc/modprobe.d/vfio.conf
+    ```
+    Add or modify the line:
+    ```
+    options vfio-pci ids=1000:0072
+    ```
+    If you have multiple different IDs you can comma seperate them like so: `1000:0072,8086:125c`.
+
+28. Now we need to make sure we have the vfio modules enabled in `/etc/modules-load.d/vfio.conf`.
+    ```sh
+    nano /etc/modules-load.d/vfio.conf
+    ```
+    Add the lines (if not already there):
+    ```
+    vfio
+    vfio_iommu_type1
+    vfio_pci
+    vfio_virqfd
     ```
 
-7. Now go to the **Proxmox VM**'s (with **OpenMediaVault**) IP address and log in.
-
-8. Then go to **System** -> **Notification** -> **Settings**.
-
-9. Enable the notification and set the **SMTP server** to:
+29. Now update `initram-fs` and reboot!
     ```
-    localhost
+    update-initramfs -u -k all
+    reboot
     ```
 
-10. Set the sender and recipient email to:
-    ```
-    omv@localhost.lan
+30. After the reboot check that the HBA is using the `vfio-pci` driver by re-running:
+    ```sh
+    lspci -k | grep -A3 -i "sas\|scsi\|raid"
     ```
 
-11. Save the changes and when prompted apply the changes.
+31. For local access as well as access through proxmox we also need to add the `vmbr0` bridge. Go back to the **Hardware** tab of the **VM**.
 
-12. Now you can hit **Test** to test out the notifications.
+32. Hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
+
+33. Now we'll start actually installing **TrueNAS**. Go to the **Console** tab of the **VM** and click **Start Now**!
+
+34. a
 
 ### Clipboard functionality
 
@@ -155,9 +131,9 @@ To be able to paste your clipboards contents into the **NoVNC** instance we need
 
 ## Debugging
 
-If you have any issues setting up `omv` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
+If you have any issues setting up `truenas` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## References
 
 - [Proxmox](https://www.proxmox.com) - Hypervisor
-- [Open Media Vault](https://www.openmediavault.org) - NAS Operating System
+- [TrueNAS](https://www.truenas.com/) - NAS Operating System
