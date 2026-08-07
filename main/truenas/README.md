@@ -237,18 +237,71 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 61. Now we'll create the corresponding users, go to **Credentials** -> **Users**.
 
-62. 
+62. Now create these users, when setting the **Group** disable **Create New Primary Group** and set the group as defined in the table (follow the table and leave the rest as defaults):
+    | Name | SMB Access | Disable password | (Primary) Group | UID |
+    | --- | --- | --- | --- | --- |
+    | media | No | Yes | media | 1001 |
+    | cloud | No | Yes | cloud | 1002 |
+    | photos | No | Yes | photos | 1003 |
+    | downloader | No | Yes | downloaders | 1004 |
+    | my_name | Yes | No | my_name | 3001 |
+    | family_member_name | Yes | No | family_member_name | 3002 |
+    | unprivileged_lxc_root | No | Yes | unprivileged_lxc_root | 100000 |
+
+63. Go back to **Datasets** and select `cloud` and hit **Edit** on **Permissions**.
+
+64. Click **Set ACL** and select **Create a custom ACL**.
+
+65. Set the **Access Control List** to this list:
+    | Who | Read | Write | Execute (Traverse) | Default |
+    | --- | --- | --- | --- | --- |
+    | User Obj | Yes | Yes | Yes | No |
+    | Group Obj | Yes | Yes | Yes | No |
+    | Group - unprivileged_lxc_root | Yes | Yes | Yes | No |
+    | Mask | Yes | Yes | Yes | No |
+    | Other | No | No | No | No |
+    | User Obj | Yes | Yes | Yes | Yes |
+    | Group Obj | Yes | Yes | Yes | Yes |
+    | Group - unprivileged_lxc_root | Yes | Yes | Yes | Yes |
+    | Mask | Yes | Yes | Yes | Yes |
+    | Other | No | No | No | Yes |
+
+66. At the bottom select **Save As Preset** and name it something like `POSIX_OWNER_GROUP_AND_UNPRIVILED_ROOT`. Now we can re-use it.
+
+67. Now for these datasets:
+    - `cloud`
+    - `downloads`
+    - `media`
+    - `photos`
+    
+    1. **Edit** the **Permissions** and use the just created preset for the ACL permissions.  
+    2. Set the **Owner** and **Owner Group** to the user/group with the same name as the dataset and enable the **Apply owner (group)** checkmarks below the selection.  
+    3. (Optional) If you already have files in the directories also set the **Apply Permissions Recursively**. Now you can **Save**.
+
+68. For the dataset `users` click **Edit** under **Details**.
+
+69. Enable **Advanced Options**, scroll to the bottom and set **ACL Type** to **SMB/NFSv4**. **Save**.
+
+70. Now **Edit** the **Permissions** for the `users` dataset and **Set ACL**.
+
+71. For each family_member (including you) add a rule with a **Group** set to that user's group. Set the **ACL Type** to **Allow** and permission to **Traverse**, also enable **Inherit** under **Flags**. **Save Access Control List**.
+
+72. Now for each dataset under `users` **Edit** the **Permissions** and **Set ACL**. Set the **Owner** and **Owner Group** to the user/group with the same name as the dataset and enable the **Apply owner (group)** checkmarks below the selection.
+
+73. (optional) If you already have files in the directories also set **Apply Directories Recursively** and **Save Access Control List**.
+
+74. Now we'll enable **Network Services**. Go to aaa
 
 XX. Now we need to know is the structure of the NAS folders, this is mine:
     ```
-    pool
-    ├── cloud (storage for NextCloud and Paperless-ngx)
-    ├── downloads (storage for *Arr stack)
-    ├── media (storage for Movies, Series, etc.)
-    ├── photos (storage for family photos)
-    └── users
-        ├── my_name (personal private storage for me)
-        └── family_member_name (personal private storage for a family member)
+    pool  
+    ├── cloud (storage for NextCloud and Paperless-ngx)  
+    ├── downloads (storage for *Arr stack)  
+    ├── media (storage for Movies, Series, etc.)  
+    ├── photos (storage for family photos)  
+    └── users  
+        ├── my_name (personal private storage for me)  
+        └── family_member_name (personal private storage for a family member)  
     ```
     This is essential for understanding what users and groups need to be made.  
     For example I only want a dedicated media user to be able to access my media.
