@@ -4,6 +4,8 @@
 
 ## Prerequisites
 
+Before we can install **TrueNAS**. We must have finished these steps:
+
 - [`Enable IOMMU`](./../../tutorials/proxmox/ENABLE-IOMMU.md)
 
 ## Steps
@@ -107,7 +109,7 @@
     ```
 
 29. Now update `initram-fs` and reboot!
-    ```
+    ```sh
     update-initramfs -u -k all
     reboot
     ```
@@ -123,7 +125,135 @@
 
 33. Now we'll start actually installing **TrueNAS**. Go to the **Console** tab of the **VM** and click **Start Now**!
 
-34. a
+34. Wait for the installation window to show up and select **Install/Upgrade**.
+
+35. Now select the **QEMU HARDDISK** as the destination media (with space) and proceed with the installation.
+
+36. Now select **Administrative user** as the **Web UI Authentication Method** and set your password.
+
+37. For **Legacy Boot**/**Allow EFI Boot** select **No**, since we are virtualizing with a legacy BIOS.
+
+38. Now wait... When you see the "Installation Succeeded" screen don't hit **Ok** yet. First go to the **Hardware** tab and click on the **CD/DVD Drive** and hit **Remove**.
+
+39. Go back to the **Console** and select **Ok** and **Reboot System**.
+
+40. After you are back in select the option for the **Linux Shell** (`8`).
+
+41. We'll be setting up networking over `vmbr1`, go back to the **Hardware** tab of the **VM**.
+
+42. Look for the **Network Device** set to **bridge** `vmbr1` probably net0. Take note of the MAC-address shown after `virtio=`, it should look something like `XX:XX:XX:XX:XX:XX`.
+
+43. Now go back to the **Console** and execute:
+    ```sh
+    ip link show
+    ```
+
+44. Now look through the links and find the link with:
+    ```
+    link/ether XX:XX:XX:XX:XX:XX .....
+    ```
+    Where `XX:XX:XX:XX:XX:XX` is the same as the MAC-address you took note of.
+
+45. Under that same link look for `altname` like so:
+    ```
+    altname enp0s18
+    ```
+    Take note of this name.
+
+46. Now we need to set up our IP address and gateway, since our `vmbr1` doesn't have a DHCP server. Open `/etc/network/interfaces`:
+    ```sh
+    nano /etc/network/interfaces
+    ```
+
+47. Write:
+    ```
+    auto enp0s18
+    inet enp0s18 inet static
+        address 172.20.100.10/24
+        gateway 172.20.100.1
+    ```
+    Above the:
+    ```
+    source /etc/network/interfaces.d/*
+    ```
+    Line.  
+    These correspond with the VLAN ID specified in [this table](./../README.md#Deployments) and the VLAN we have subsequently created on `vmbr1` on the **Proxmox Host**.
+
+48. Now reboot:
+    ```sh
+    reboot now
+    ```
+
+49. After reboot enter the linux shell again (option `8`).
+
+50. Check your IP address attached to `vmbr0`, so you can access the WebUI:
+    ```sh
+    ip a
+    ```
+    Look for a line like:
+    ```
+    inet 192.168.XXX.XXX
+    ```
+    Maybe under option `3` or like `ens19`.
+
+51. Open the WebUI under that IP address in a browser.
+
+52. Log in with username `truenas_admin` and the password you set in the installation.
+
+53. Go to **Storage** and hit **Create Pool**.
+
+54. Give it a name like `pool` or `tank` (or something else). **Next**!
+
+55. For my drives I set a **Layout** of **RAIDZ2**. It should auto-fill with the proper disks, if not set them manually. **Next**!
+
+56. Hit **Next** until you reach **Cache**, if you have an SSD (attached to your HBA) set it as your **Cache** drive for extra performance.
+
+57. Then hit **Next** until you reach the **Review** and **Create Pool**.
+
+58. Now go to **Datasets** and create these datasets (use the **Generic** preset):
+    ```
+    pool
+    ├── cloud (storage for NextCloud and Paperless-ngx)
+    ├── downloads (storage for *Arr stack)
+    ├── media (storage for Movies, Series, etc.)
+    ├── photos (storage for family photos)
+    └── users
+        ├── my_name (personal private storage for me)
+        └── family_member_name (personal private storage for a family member)
+    ```
+
+59. We only want dedicated users to be able to access these folders, so we'll now be setting up groups and credentials. Go to **Credentials** -> **Groups**.
+
+60. Now create these groups (follow the table and leave the rest as defaults):
+    | GID | Name | SMB Group |
+    | --- | --- | --- |
+    | 1001 | media | No |
+    | 1002 | cloud | No |
+    | 1003 | photos | No |
+    | 1004 | downloader | No |
+    | 3001 | my_name | Yes |
+    | 3002 | family_member_name | Yes |
+    | 100000 | unprivileged_lxc_root | No |
+
+61. Now we'll create the corresponding users, go to **Credentials** -> **Users**.
+
+62. 
+
+XX. Now we need to know is the structure of the NAS folders, this is mine:
+    ```
+    pool
+    ├── cloud (storage for NextCloud and Paperless-ngx)
+    ├── downloads (storage for *Arr stack)
+    ├── media (storage for Movies, Series, etc.)
+    ├── photos (storage for family photos)
+    └── users
+        ├── my_name (personal private storage for me)
+        └── family_member_name (personal private storage for a family member)
+    ```
+    This is essential for understanding what users and groups need to be made.  
+    For example I only want a dedicated media user to be able to access my media.
+
+XX. (Optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
 ### Clipboard functionality
 
