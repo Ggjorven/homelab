@@ -313,7 +313,9 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 77. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
-78. (optional) You can now follow optional [configuration steps](#Configuration).
+78. (optional) You can now follow optional [configuration steps](#Configuration) like.
+    - [Scrutiny](#Scrutiny)
+    - [Filebrowser Quantum](#Filebrowser-Quantum)
 
 ## Configuration
 
@@ -321,13 +323,71 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 To be able to easily track the state of our drives and see S.M.A.R.T. data we'll be setting up **Scrutiny**.
 
-1. aa
+1. In the **TrueNAS** WebUI navigate to **Apps**.
 
-### Quantum Filebrowser
+2. Search for "Scrutiny" and select the result.
+
+3. Hit **Install**.
+
+4. Scroll down to **Network Configuration** and under **InfluxDB Port** -> **Port Bind Mode** set the mode to **Expose port for inter-container communication**.
+
+5. Now scroll down to the bottom and hit **Install**.
+
+6. To navigate to the **WebUI** of **Scrutiny** go to **Apps** and select the just created **Scrutiny** app and under **Application Info** click the **WebUI** button.
+
+### Filebrowser Quantum
 
 To be able to traverse your files and edit them from a browser we'll be setting up **Quantum Filebrowser**.
 
-1. aa
+1. Before we can install **Filebrowser Quantum** we'll be setting up a and **Group** that access certain datasets.
+
+2. In the **TrueNAS** WebUI navigate to **Credentials** -> **Groups**.
+
+3. **Add** a group and set the **GID** to `2001` and set the **Name** to `filebrowser`. **Save**!
+
+4. Now we'll be setting permissions for the **Group** `filebrowser` in the **Datasets**. For each dataset below
+    - `cloud`
+    - `downloads`
+    - `media`
+    - `photos`
+    Add the following permissions:
+    | Who | Read | Write | Execute (Traverse) | Default (Inherit) |
+    | --- | --- | --- | --- | --- |
+    | Group - `filebrowser` | Yes | Yes | Yes | No |
+    | Group - `filebrowser` | Yes | Yes | Yes | Yes |
+    If there are already files or directories in the dataset also set **Apply Permissions Recursively**.
+
+5. Now we'll be setting permissions for the **Group** `filebrowser` in the **Datasets**. For each dataset below
+    - `users`
+    - `my_name`
+    - `family_member_name`
+    Add the following permissions:
+    | Who | ACL Type | Permissions | Inherit |
+    | --- | --- | --- | --- |
+    | Group - `filebrowser` | Basic | Traverse | Yes |
+    If there are already files or directories in the dataset also set **Apply Permissions Recursively**.
+
+6. Now we can actually install **Filebrowser Quantum**, navigate to **Apps**.
+
+7. Search for "Filebrowser Quantum" and select the result.
+
+8. Hit **Install**.
+
+9. Under **FileBrowser Quantum Configuration** set an **Admin Password**.
+
+10. Scroll down to **User and Group Configuration** and set the **Group ID** to `2001` (the `filebrowser` group).
+
+11. Scroll further down to **Storage Configuration** and **Add** **Additional Storage**.
+
+12. Set the **Type** to **Host Path**.
+
+13. Set the the **Mount Path** to something like `/tank` or `/pool`
+
+14. Set the **Host Path** to `/mnt/tank` or `/mnt/pool` depending on what you originally called your pool.
+
+15. Scroll down and **Install**.
+
+16. To navigate to the **WebUI** of **Filebrowser Quantum** go to **Apps** and select the just created **Filebrowser Quantum** app and under **Application Info** click the **WebUI** button.
 
 ## Debugging
 
