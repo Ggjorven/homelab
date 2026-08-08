@@ -364,7 +364,9 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 83. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
-84. (optional) You can now follow optional [configuration steps](#Configuration) like.
+84. (optional) In the **Proxmox** WebUI for the **VM** set **Protection** to **Yes** under the **Options** tab.
+
+85. (optional) You can now follow optional [configuration steps](#Configuration) like.
     - [Scrutiny](#Scrutiny)
     - [Filebrowser Quantum](#Filebrowser-Quantum)
 
