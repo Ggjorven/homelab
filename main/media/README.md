@@ -71,16 +71,54 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     ```sh
     nano /etc/pve/lxc/101.conf
     ```
-    Where `101` is the container ID (CTID) or LXC ID.  
-    In the file paste:
+    Where `101` is the container ID (CTID) or LXC ID.
+
+28. Pass through the `/mnt/media` mountpoint by pasting:
     ```
     mp0: /mnt/media,mp=/mnt/media
     ```
-    And save!
 
-28. Now reboot the LXC.
+29. We'll also want to make the `media`'s user and group ID to be properly passed through to the mountpoint/NFS share. `media`:`media` is `1001`:`1001` as set during the [truenas installation](./../truenas/README.md). So also paste this in `/etc/pve/lxc/101.conf`:
+    ```
+    lxc.idmap: g 0 100000 1001
+    lxc.idmap: g 1001 1001 1
+    lxc.idmap: g 1002 101002 64534
+    lxc.idmap: u 0 100000 1001
+    lxc.idmap: u 1001 1001 1
+    lxc.idmap: u 1002 101002 64534
+    ```
+    The explanation/tutorial for these id mappings can be found [here](./../../tutorials/proxmox/UNPRIVILEGED-LXC-UID-GID-PASSTHROUGH.md).
 
-29. TODO: Drivers, TODO: Network, TODO: Monitoring
+30. Now reboot the **LXC**.
+
+31. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+
+32. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
+
+33. Create a `media` group and user in the LXC using:
+    ```sh
+    groupadd -g 1001 media
+    useradd media -u 1001
+    usermod -aG media media
+    usermod -aG docker media
+    ```
+
+34. Set a (safe) password for the `media` user:
+    ```sh
+    passwd media
+    ```
+
+35. Now login as the `media` user:
+    ```sh
+    su media
+    ```
+
+36. Now we're going to set up the required compose stacks: `networking` & `monitoring`. Start by navigating to the `home` directory:
+    ```sh
+    cd ~/
+    ```
+
+37. aaa
 
 ## Configuration
 

@@ -8,6 +8,6 @@ docker compose down
 cd /home/media/monitoring
 docker compose down
 
-# Network
-cd /home/media/network
+# Networking
+cd /home/media/networking
 docker compose down

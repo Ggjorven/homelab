@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Network
-cd /home/media/network
+# Networking
+cd /home/media/networking
 docker compose --all-resources up -d
 
 # Monitoring
