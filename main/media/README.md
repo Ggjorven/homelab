@@ -55,32 +55,38 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 20. Also don't expose the **Docker TCP Socket**, so **N**.
 
-21. Now that the container is installed aaa
+21. Now that the container is installed go to the **LXC** in the WebUI and go to **Network**.
 
+22. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
 
+23. For debugging I also like to **Add** another **Network Device**. 
 
+24. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**.
 
-Go through the installation and choose your desired settings and specifications. I have given it `8vCPUs`, `12GB` of RAM and a `160GB` disk.
+25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
 
-3. Make sure that when your installing you enable, **keyctl**, **nesting**, **gpu passthrough**, **TUN/TAP** and add `ext4` as a filesystem mount.
+26. We also want to give the **LXC** access to our `media` dataset from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
 
-4. To give our **LXC** access to our network share mounted on the **Proxmox Node** we need to add these lines to `/etc/pve/lxc/<CTID>.conf`:
+27. Edit the **LXC**'s config file:
+    ```sh
+    nano /etc/pve/lxc/101.conf
     ```
-    nano /etc/pve/lxc/<CTID>.conf
+    Where `101` is the container ID (CTID) or LXC ID.  
+    In the file paste:
     ```
-    Add:
+    mp0: /mnt/media,mp=/mnt/media
     ```
-    mp0: /mnt/nas,mp=/mnt/nas
-    ```
+    And save!
 
-5. To give our **LXC** full access to `/dev/net/tun` for setting up a **VPN** we need to also add this:
-    ```
-    lxc.cgroup2.devices.allow: c 10:200 rwm
-    lxc.mount.entry: /dev/net dev/net none bind,create=dir
-    lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
-    ```
+28. Now reboot the LXC.
 
-6. After a restart your **Docker LXC** should have access to `/mnt/nas` and `/dev/net/tun`.
+29. TODO: Drivers, TODO: Network, TODO: Monitoring
+
+## Configuration
+
+### Jellyfin
+
+// TODO: Aaa
 
 ## Debugging
 
