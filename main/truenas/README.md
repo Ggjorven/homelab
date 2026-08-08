@@ -351,6 +351,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     - `media`
     - `photos`
     Add the following permissions:
+
     | Who | Read | Write | Execute (Traverse) | Default (Inherit) |
     | --- | --- | --- | --- | --- |
     | Group - `filebrowser` | Yes | Yes | Yes | No |
@@ -362,6 +363,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     - `my_name`
     - `family_member_name`
     Add the following permissions:
+
     | Who | ACL Type | Permissions | Inherit |
     | --- | --- | --- | --- |
     | Group - `filebrowser` | Basic | Traverse | Yes |
