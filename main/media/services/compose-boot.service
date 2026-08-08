@@ -4,8 +4,8 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User=<username>
-Group=<username>
+User=media
+Group=media
 Type=oneshot
 ExecStart=/lxc/scripts/compose-boot.sh
 RemainAfterExit=yes

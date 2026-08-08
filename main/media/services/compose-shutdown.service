@@ -3,8 +3,8 @@ Description=Shutting down docker compose stacks
 After=docker.service
 
 [Service]
-User=<username>
-Group=<username>
+User=media
+Group=media
 Type=oneshot
 ExecStop=/lxc/scripts/compose-boot.sh
 

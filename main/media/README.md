@@ -1,11 +1,11 @@
-# docker
+# media
 
-`docker` is a **Proxmox LXC** on the **Proxmox Node** with **docker** and **docker compose** installed.  
+`media` is a **Proxmox LXC** on the **Proxmox Node** with **docker** and **docker compose** installed.  
 This folder contains the installation instructions and configuration files used for this device.
 
 ## Prerequisites
 
-Before we can create our `docker` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `media` **Proxmox LXC**. We must have finished these steps:
 
 - [`omv`](../omv/README.md) + extras.
 - [`NVIDIA Driver`](../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
