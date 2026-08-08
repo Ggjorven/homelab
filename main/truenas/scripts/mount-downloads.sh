@@ -3,9 +3,9 @@
 # ======================
 # CONFIG
 # ======================
-SERVER_IP="172.20.xxx.xxx"
-SHARE_PATH="/mnt/tank/PATH"
-MOUNT_POINT="/mnt/nas"
+SERVER_IP="172.20.100.1"
+SHARE_PATH="/mnt/tank/downloads" # CHANGE THIS, if your pool/tank has a different path
+MOUNT_POINT="/mnt/downloads"
 
 # ======================
 # SCRIPT

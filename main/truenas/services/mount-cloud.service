@@ -1,0 +1,13 @@
+[Unit]
+Description=Mount cloud NFS Share
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 5
+ExecStart=/node/scripts/mount-cloud.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

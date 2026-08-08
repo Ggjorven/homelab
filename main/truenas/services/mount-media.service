@@ -1,12 +1,12 @@
 [Unit]
-Description=Mount NAS NFS Share
+Description=Mount media NFS Share
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sleep 5
-ExecStart=/node/scripts/mount-nfs.sh
+ExecStart=/node/scripts/mount-media.sh
 RemainAfterExit=yes
 
 [Install]

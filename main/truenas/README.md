@@ -202,7 +202,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 53. Go to **Storage** and hit **Create Pool**.
 
-54. Give it a name like `pool` or `tank` (or something else). **Next**!
+54. Name it `tank` (or something else). **Next**!
 
 55. For my drives I set a **Layout** of **RAIDZ2**. It should auto-fill with the proper disks, if not set them manually. **Next**!
 
@@ -212,7 +212,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 58. Now go to **Datasets** and create these datasets (use the **Generic** preset):
     ```
-    pool
+    tank
     ├── cloud (storage for NextCloud and Paperless-ngx)
     ├── downloads (storage for *Arr stack)
     ├── media (storage for Movies, Series, etc.)
@@ -301,6 +301,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     2. Open **Advanced Options**.
     3. Set **Maproot User** & **Maproot Group** to the user/group with the same name as the dataset.
     4. Under **Security** enable **SYS**.
+    5. Under **Hosts** add 1 host with IP: `172.20.100.1` (the proxmox host)
     5. **Save**!
 
 76. Now follow the steps for these **Datasets**:
@@ -311,9 +312,59 @@ Before we can install **TrueNAS**. We must have finished these steps:
     3. Enable **Access Based Share Enumeration**.
     4. **Save**!
 
-77. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
+77. Most of the steps are now complete. Now we'll setup auto-mounting to the **Proxmox Host**. Go to the **Proxmox** WebUI and go to the **Node**'s **Shell**.
 
-78. (optional) You can now follow optional [configuration steps](#Configuration) like.
+78. We have these internal shares: `cloud`, `downloads`, `media` and `photos`. First create all the mountpoints:
+    ```sh
+    mkdir -p /mnt/cloud
+    mkdir -p /mnt/downloads
+    mkdir -p /mnt/media
+    mkdir -p /mnt/photos
+    ```
+
+79. I have created multiple auto-mount scripts, download them:
+    ```sh
+    mkdir -p /node/scripts
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-cloud.sh
+    chmod +x mount-cloud.sh
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-downloads.sh
+    chmod +x mount-downloads.sh
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-media.sh
+    chmod +x mount-media.sh
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-photos.sh
+    chmod +x mount-photos.sh
+    ```
+    Note: If you have a different path than `/mnt/tank/xxx`, you must edit the `SHARE_PATH` variable in the script.
+
+80. Download the `systemctl` services:
+    ```sh
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-cloud.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-downloads.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-media.service
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-photos.service
+    ```
+
+81. Enable the services:
+    ```sh
+    systemctl daemon-reload
+    systemctl enable mount-cloud
+    systemctl enable mount-downloads
+    systemctl enable mount-media
+    systemctl enable mount-photos
+    ```
+
+82. (optional) Start the services right now:
+    ```sh
+    systemctl start mount-cloud
+    systemctl start mount-downloads
+    systemctl start mount-media
+    systemctl start mount-photos
+    ```
+
+83. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
+
+84. (optional) You can now follow optional [configuration steps](#Configuration) like.
     - [Scrutiny](#Scrutiny)
     - [Filebrowser Quantum](#Filebrowser-Quantum)
 
@@ -385,9 +436,9 @@ To be able to traverse your files and edit them from a browser we'll be setting 
 
 12. Set the **Type** to **Host Path**.
 
-13. Set the the **Mount Path** to something like `/tank` or `/pool`
+13. Set the the **Mount Path** to `/tank` or anything you like.
 
-14. Set the **Host Path** to `/mnt/tank` or `/mnt/pool` depending on what you originally called your pool.
+14. Set the **Host Path** to `/mnt/tank` or the actual pool path if you changed the name.
 
 15. Scroll down and **Install**.
 
