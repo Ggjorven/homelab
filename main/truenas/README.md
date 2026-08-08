@@ -356,6 +356,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     | --- | --- | --- | --- | --- |
     | Group - `filebrowser` | Yes | Yes | Yes | No |
     | Group - `filebrowser` | Yes | Yes | Yes | Yes |
+
     If there are already files or directories in the dataset also set **Apply Permissions Recursively**.
 
 5. Now we'll be setting permissions for the **Group** `filebrowser` in the **Datasets**. For each dataset below
@@ -367,6 +368,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     | Who | ACL Type | Permissions | Inherit |
     | --- | --- | --- | --- |
     | Group - `filebrowser` | Basic | Traverse | Yes |
+
     If there are already files or directories in the dataset also set **Apply Permissions Recursively**.
 
 6. Now we can actually install **Filebrowser Quantum**, navigate to **Apps**.
