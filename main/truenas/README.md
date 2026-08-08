@@ -218,8 +218,8 @@ Before we can install **TrueNAS**. We must have finished these steps:
     ├── media (storage for Movies, Series, etc.)
     ├── photos (storage for family photos)
     └── users
-        ├── my_name (personal private storage for me)
-        └── family_member_name (personal private storage for a family member)
+        ├── my_name (personal private storage for me, replace with your actual name)
+        └── family_member_name (personal private storage for a family member, replace with actual name)
     ```
 
 59. We only want dedicated users to be able to access these folders, so we'll now be setting up groups and credentials. Go to **Credentials** -> **Groups**.
@@ -253,7 +253,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
 64. Click **Set ACL** and select **Create a custom ACL**.
 
 65. Set the **Access Control List** to this list:
-    | Who | Read | Write | Execute (Traverse) | Default |
+    | Who | Read | Write | Execute (Traverse) | Default (Inherit) |
     | --- | --- | --- | --- | --- |
     | User Obj | Yes | Yes | Yes | No |
     | Group Obj | Yes | Yes | Yes | No |
@@ -290,27 +290,44 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 73. (optional) If you already have files in the directories also set **Apply Directories Recursively** and **Save Access Control List**.
 
-74. Now we'll enable **Network Services**. Go to aaa
+74. Now we'll enable **Network Services**. Go to **System** -> **Services** and flick the switch **Start Automatically** to **On** for both **SMB** and **NFS**.
 
-XX. Now we need to know is the structure of the NAS folders, this is mine:
-    ```
-    pool  
-    ├── cloud (storage for NextCloud and Paperless-ngx)  
-    ├── downloads (storage for *Arr stack)  
-    ├── media (storage for Movies, Series, etc.)  
-    ├── photos (storage for family photos)  
-    └── users  
-        ├── my_name (personal private storage for me)  
-        └── family_member_name (personal private storage for a family member)  
-    ```
-    This is essential for understanding what users and groups need to be made.  
-    For example I only want a dedicated media user to be able to access my media.
+75. Now go back to **Datasets** and follow the steps below for each listed dataset:
+    - `cloud`
+    - `downloads`
+    - `media`
+    - `photos`
+    1. Under **Usage** **Create NFS Share**.
+    2. Open **Advanced Options**.
+    3. Set **Maproot User** & **Maproot Group** to the user/group with the same name as the dataset.
+    4. Under **Security** enable **SYS**.
+    5. **Save**!
 
-XX. (Optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
+76. Now follow the steps for these **Datasets**:
+    - `my_name`
+    - `family_member_name`
+    1. Under **Usage** **Create SMB Share**.
+    2. Open **Advanced Options**.
+    3. Enable **Access Based Share Enumeration**.
+    4. **Save**!
 
-### Clipboard functionality
+77. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
-To be able to paste your clipboards contents into the **NoVNC** instance we need to change some settings on the host and the VM, the instructions can be found [here](./../../tutorials/proxmox/NOVNC-CLIPBOARD.md).
+78. (optional) You can now follow optional [configuration steps](#Configuration).
+
+## Configuration
+
+### Scrutiny
+
+To be able to easily track the state of our drives and see S.M.A.R.T. data we'll be setting up **Scrutiny**.
+
+1. aa
+
+### Quantum Filebrowser
+
+To be able to traverse your files and edit them from a browser we'll be setting up **Quantum Filebrowser**.
+
+1. aa
 
 ## Debugging
 
