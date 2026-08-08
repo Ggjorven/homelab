@@ -7,17 +7,60 @@ This folder contains the installation instructions and configuration files used 
 
 Before we can create our `media` **Proxmox LXC**. We must have finished these steps:
 
-- [`omv`](../omv/README.md) + extras.
-- [`NVIDIA Driver`](../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
+- [`truenas`](../truenas/README.md)
+- [`Node NVIDIA Driver`](../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
 
 ## Steps
 
-1. From the **Proxmox Node**'s shell install a **Docker LXC** using the [community script](https://community-scripts.github.io/ProxmoxVE/scripts?id=docker):
+1. From the **Proxmox** WebUI navigate to the **Node**'s **Shell**.
+
+2. Start creation of a **Docker LXC** using the [community script](https://community-scripts.org/scripts/docker):
     ```
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 
-2. Choose `Advanced Install`. Go through the installation and choose your desired settings and specifications. I have given it `8vCPUs`, `12GB` of RAM and a `160GB` disk.
+3. Choose `Advanced Install`. 
+
+4. Choose **Unpriviliged**, set a safe root password, set the container ID to `101` (matches with the VLAN) and set the hostname to `media` (or something else).
+
+5. For the `media` LXC I have given it a disk of **48GB**, **4vCPU**s and **4096MiB** of RAM.
+
+6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.101.10/24` and the gateway to `172.20.101.1`. For IPv6 select `none`.
+
+7. Leave **MTU Size** blank, same for **DNS search domain**, **DNS server IP** and **MAC-address**.
+
+8. Set the **VLAN tag** to `101` to get the proper firewall rules.
+
+9. You can keep the **Tags** as default or set it to something custom like: `docker;media`.
+
+10. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
+
+11. Leave **FUSE support** disabled, same for **TUN/TAP** support.
+
+12. **Enable nesting** and **Enable GPU passthrough**.
+
+13. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
+
+14. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
+
+15. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
+
+16. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
+
+17. (Optional) If you want verbose output during installation enable it. (I like it)
+
+18. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
+
+19. When it asks you to install **Portainer** select **N**. Same for the **Portainer Agent**.
+
+20. Also don't expose the **Docker TCP Socket**, so **N**.
+
+21. Now that the container is installed aaa
+
+
+
+
+Go through the installation and choose your desired settings and specifications. I have given it `8vCPUs`, `12GB` of RAM and a `160GB` disk.
 
 3. Make sure that when your installing you enable, **keyctl**, **nesting**, **gpu passthrough**, **TUN/TAP** and add `ext4` as a filesystem mount.
 
@@ -39,68 +82,9 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 6. After a restart your **Docker LXC** should have access to `/mnt/nas` and `/dev/net/tun`.
 
-7. Now we'll create a new user on the **Proxmox LXC** that'll run our **docker compose**'s. Go to the **Shell** of your **LXC** and run:
-    ```
-    adduser <username>
-    ```
-    Example:
-    ```
-    adduser dockeruser
-    ```
-    And choose all the default settings.
-
-8. Now we need to give our user the proper permissions:
-   ```
-   usermod <username> -aG sudo
-   usermod <username> -aG docker
-   ```
-
-9. Now change the shell to your docker user with:
-   ```
-   su <username> 
-   ```
-
-10. Now we can actually start setting up a place to work in:
-    ```
-    cd ~
-    mkdir -p docker
-    ```
-
-11. Now we can install the NVIDIA Drivers on the LXC using [these instructions](../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md)
-
-12. To help with starting docker stacks on boot-up of the LXC follow **# Installation** from [these instructions](BOOT-UP.md#installation).
-
-13. You're now ready to start setting up different compose stacks like:
-    - [`networkstack`](networkstack/README.md)
-    - [`monitoringstack`](monitoringstack/README.md)
-    - [`downloadstack`](downloadstack/README.md)
-    - [`arrstack`](arrstack/README.md)
-    - [`mediastack`](mediastack/README.md)
-    - [`musicstack`](musicstack/README.md)
-    - [`tvstack`](tvstack/README.md)
-    - [`sharestack`](sharestack/README.md)
-
 ## Debugging
 
-If you have any issues setting up `docker` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
-
-## Updating stacks
-
-To update the `docker` stacks to the newest version released in `homelab` with more functionality and containers you can use these instructions.
-
-> [!CAUTION]
-> This will remove custom additions made to compose.yaml files.
-
-1. Go to your `docker` LXC and run:
-    ```
-    wget -qO- https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/docker/scripts/update.sh | sudo bash
-    ```
-
-2. Type in your linux user's username and the branch you wish to update to.
-
-3. Follow the rest of the instructions.
-
-4. When a stack has been updated it is recommended to go to the relevant **Configuring** section in the stacks README, because not everything is configured through the .env file.
+If you have any issues setting up `media` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
 
 ## Extra 
 
@@ -109,8 +93,7 @@ To update a compose stack's images just run:
 docker compose down
 docker compose pull
 docker compose up -d
-docker image prune -f 
-docker compose down
+docker image prune
 ```
 In the stack's directory
 
