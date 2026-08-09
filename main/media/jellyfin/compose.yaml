@@ -1,0 +1,41 @@
+env_file:
+  - ../.env # shared (PUID, PGID, TZ)
+  - .env    # stack-specific
+
+networks:
+  media-network:
+    name: media-network
+    external: true
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
+    environment:
+      - PUID=0 # ${PUID} # Jellyfin needs root for GPU access
+      - PGID=0 # ${PGID} # Jellyfin needs root for GPU access 
+      - TZ=${TZ}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./jellyfin:/config
+      - /mnt/media/films:/movies
+      - /mnt/media/series:/series
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - media-network:
+          ipv4_address: 172.24.1.1
+    ports:
+      - "0.0.0.0:8096:8096"
+    runtime: nvidia
+    gpus: all
+    healthcheck:
+      test: curl -s http://localhost:8096/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # TODO: Prometheus exporter
