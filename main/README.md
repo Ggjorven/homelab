@@ -20,7 +20,7 @@ This folder contains the installation instructions and configuration files used 
 | 110 | LXC | 2 | 4096 | 80 | monitoring | Prometheus, Loki | Monitoring of all services | - | - | X | 110 \| 172.20.110.10/24 |
 | 111 | LXC | 1 | 512 | 10 | mgmt | Portainer | Management of all (docker) services | - | - | X | 111 \| 172.20.111.10/24 |
 | 112 | LXC | 2 | 1024 | 10 | pub-net | OpenResty, Authelia, Crowdsec, Fail2ban | Public reverse proxy with authentication DMZ | - | - | Yes, port 80 and 443 | 112 \| 172.20.112.10/24 |
-| 113 | LXC | 1 | 512 | 10 | priv-net | OpenResty, DDNS | Private reverse proxy and some network utilities | - | - | X | 113 \| 172.20.113.10/24 |
+| [113](./priv-net/README.md) | LXC | 1 | 512 | 10 | [priv-net](./priv-net/README.md) | OpenResty, DDNS | Private reverse proxy and some network utilities | - | - | X | 113 \| 172.20.113.10/24 |
 | [114](./haos/README.md) | VM | 2 | 2048 | 32 | [haos](./haos/README.md) | Home Assistant | Smarthome system | - | - | X | 114 \| 172.20.114.10/24 |
 | 115 | LXC | 2 | 2048 | 20 | search | SearchXNG, Hermes + CliProxyAPI | Search engine + AI | - | GPU | X | 115 \| 172.20.115.10/24 |
 | 116 | LXC | 2 | 2048 | 32 | misc | Mealie + Nametag + Leantime + Memos + ... | Miscellaneous tools | - | - | X | 116 \| 172.20.116.10/24 |

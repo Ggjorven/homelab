@@ -16,7 +16,7 @@ This folder contains the installation instructions and configuration files used 
 
 4. Choose **Unpriviliged**, set a safe root password, set the container ID to `113` (matches with the VLAN) and set the hostname to `priv-net` (or something else).
 
-5. For the `priv-net` LXC I have given it a disk of **48GB**, **4vCPU**s and **4096MiB** of RAM.
+5. For the `priv-net` LXC I have given it a disk of **10GB**, **1vCPU**s and **512MiB** of RAM.
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.113.10/24` and the gateway to `172.20.113.1`. For IPv6 select `none`.
 
