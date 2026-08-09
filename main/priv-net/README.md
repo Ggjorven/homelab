@@ -28,9 +28,9 @@ This folder contains the installation instructions and configuration files used 
 
 10. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
 
-11. Leave **FUSE support** disabled, same for **TUN/TAP** support.
+11. Leave **FUSE support** disabled, enable **TUN/TAP** support.
 
-12. **Enable nesting** and **Enable GPU passthrough**.
+12. **Enable nesting**, but disable **GPU passthrough**.
 
 13. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
 
