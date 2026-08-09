@@ -213,6 +213,7 @@ To change **Jellyfin**'s settings go to the hamburger menu in the top left and g
     - AV1
     - HEVC 10bit
     - VP9 10bit
+
     You can what your NVIDIA GPU supports [here](https://en.wikipedia.org/wiki/NVDEC).  
     For AMD you can look [here](https://en.wikipedia.org/wiki/Unified_Video_Decoder).  
     And Intel [here](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/1-1/overview.html).
