@@ -33,8 +33,6 @@ while :; do
     certbot renew \
         --dns-cloudflare \
         --dns-cloudflare-credentials /cloudflare.ini \
-		--post-hook "docker inspect openresty --format '{{.State.Running}}' 2>/dev/null | grep -q true \
-			&& docker exec openresty openresty -s reload \
-			|| echo '[certbot] openresty not running, skipping reload'"
+		--post-hook "/reload-openresty.sh"
     sleep 12h & wait $!
 done

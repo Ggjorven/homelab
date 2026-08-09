@@ -9,9 +9,16 @@ services:
     container_name: certbot
     environment:
       - CF_API_TOKEN=${CF_API_TOKEN}
+      - LOCAL_DOMAIN=${LOCAL_DOMAIN}
+      - EMAIL=${EMAIL}
     volumes:
       - ./certs:/etc/letsencrypt
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - ./reload-openresty.sh:/reload-openresty.sh:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      priv-net-network:
+        ipv4_address: 172.24.1.10
     # TODO: Add healthcheck
     entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for auto-renewing certificates
     restart: unless-stopped
