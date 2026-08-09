@@ -1,7 +1,3 @@
-env_file:
-  - ../.env # shared (PUID, PGID, TZ)
-  - .env    # stack-specific
-
 networks:
   media-network:
     name: media-network
@@ -25,9 +21,9 @@ services:
     ports:
       - "0.0.0.0:9001:9001"
     networks:
-      - media-network:
-          ipv4_address: 172.24.0.1
+      media-network:
+        ipv4_address: 172.24.0.1
     # TODO: Healthcheck
     restart: unless-stopped
-  
+
   # TODO: Promtail for Loki
