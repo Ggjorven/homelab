@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Networking
-cd /home/media/networking
-docker compose --all-resources up -d
-
-# Monitoring
-cd /home/media/monitoring
-docker compose up -d
-
-# Jellyfin
-cd /home/media/jellyfin
-docker compose up -d
+"$(dirname "$0")/up-networking.sh"
+"$(dirname "$0")/up-monitoring.sh"
+"$(dirname "$0")/up-jellyfin.sh"
