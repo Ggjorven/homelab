@@ -98,7 +98,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 33. Create a `media` group and user in the LXC using:
     ```sh
     groupadd -g 1001 media
-    useradd -u 1001 -g 1001 -m media
+    useradd -u 1001 -g 1001 -m -s /bin/bash media
     usermod -aG docker media
     usermod -aG sudo media
     ```
@@ -113,7 +113,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     su media
     ```
 
-36. Now we're going to set up the required compose stacks: `networking` & `monitoring`. Start by navigating to the `home` directory:
+36. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
