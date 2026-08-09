@@ -1,0 +1,10 @@
+# Add one upstream block per service. keepalive reuses connections to backends.
+
+upstream jellyfin {
+    server 172.20.101.10:8096;
+    keepalive 16;
+}
+
+# Future services:
+# upstream nextcloud  { server 172.20.101.11:80; keepalive 16; }
+# upstream grafana    { server 172.20.101.12:3000; keepalive 16; }

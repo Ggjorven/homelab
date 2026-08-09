@@ -1,5 +1,4 @@
 #!/bin/sh
-
 set -e
 
 mkdir -p /etc/nginx/conf.d/
@@ -11,10 +10,12 @@ if ! ls /etc/nginx/templates/*.template > /dev/null 2>&1; then
     exit 1
 fi
 
+# Substitute variables
 for template in /etc/nginx/templates/*.template; do
     output="/etc/nginx/conf.d/$(basename "${template}" .template)"
     echo "Processing template: ${template} -> ${output}"
     envsubst "${NGINX_ENVSUBST_FILTER:-}" < "${template}" > "${output}"
 done
 
+# Run openresty
 exec /usr/local/openresty/bin/openresty -g "daemon off;"

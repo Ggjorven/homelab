@@ -17,11 +17,11 @@ services:
       - ./config/templates:/etc/nginx/templates:ro
       - ./config/lua:/usr/local/openresty/lua:ro
       - ./config/logs:/var/log/nginx
-      - ./config/docker-entrypoint.sh:/docker-entrypoint.sh:ro
-      - ./certs:/etc/letsencrypt:ro
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      # - ./certs:/etc/letsencrypt:ro
     networks:
       priv-net-network:
-        ipv4_address: 172.24.1.10
+        ipv4_address: 172.24.1.11
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
