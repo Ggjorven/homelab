@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Networking
-cd /home/media/networking
+cd /home/privnet/networking
 docker compose --env-file ../.env --env-file .env down

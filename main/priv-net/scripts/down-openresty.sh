@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Openresty
-cd /home/media/openresty
+cd /home/privnet/openresty
 docker compose --env-file ../.env --env-file .env down

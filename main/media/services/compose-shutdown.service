@@ -6,7 +6,7 @@ After=docker.service
 User=media
 Group=media
 Type=oneshot
-ExecStop=/lxc/scripts/compose-boot.sh
+ExecStop=/lxc/scripts/compose-shutdown.sh
 
 [Install]
 WantedBy=multi-user.target
