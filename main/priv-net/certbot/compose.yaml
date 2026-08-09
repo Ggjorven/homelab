@@ -1,0 +1,17 @@
+networks:
+  priv-net-network:
+    name: priv-net-network
+    external: true
+
+services:
+  certbot:
+    image: certbot/dns-cloudflare:latest
+    container_name: certbot
+    environment:
+      - CF_API_TOKEN=${CF_API_TOKEN}
+    volumes:
+      - ./certs:/etc/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # TODO: Add healthcheck
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for auto-renewing certificates
+    restart: unless-stopped

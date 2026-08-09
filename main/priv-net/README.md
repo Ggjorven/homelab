@@ -106,15 +106,24 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/compose.yaml
     ```
 
-35. Create the `openresty` stack:
+35. Create the `certbot` stack:
+    ```sh
+    mkdir -p ~/certbot
+    cd ~/certbot
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/compose.yaml
+    ```
+
+36. Create the `openresty` stack:
     ```sh
     mkdir -p ~/openresty
     cd ~/openresty
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/.env
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/compose.yaml
+    # TODO: Files
     ```
 
-36. Get the `up` and `down` scripts:
+37. Get the `up` and `down` scripts:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -122,6 +131,8 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-networking.sh
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-monitoring.sh
     sudo chmod +x up-monitoring.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-certbot.sh
+    sudo chmod +x up-certbot.sh
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-openresty.sh
     sudo chmod +x up-openresty.sh
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-networking.sh
@@ -130,9 +141,11 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-monitoring.sh
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-openresty.sh
     sudo chmod +x down-openresty.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-certbot.sh
+    sudo chmod +x down-certbot.sh
     ```
 
-37. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+38. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -147,14 +160,70 @@ This folder contains the installation instructions and configuration files used 
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-shutdown.service
     ```
 
-38. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+39. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-39. Now you can get to configuring the stacks below.
+40. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+
+41. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
+
+42. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
+
+43. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
+
+44. Click **Create Token**, select **Edit Zone DNS**.
+
+45. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
+
+46. Copy the API token to a temporary safe location since we are going to need it multiple times.
+
+47. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
+
+48. Create records for all of these:
+    - `jellyfin.local`
+    
+    For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
+
+49. Now we can generate our SSL certificates:
+    ```sh
+    cd ~/certbot
+
+    LOCAL_DOMAIN="local.mydomain.com"
+    CF_API_TOKEN="your_token_here"
+    EMAIL="invalid@invalid.invalid"
+
+    echo "dns_cloudflare_api_token = ${CF_API_TOKEN}" > cloudflare.ini
+    chmod 600 cloudflare.ini
+
+    docker run --rm \
+        -v "$(pwd)/certs:/etc/letsencrypt" \
+        -v "$(pwd)/cloudflare.ini:/cloudflare.ini:ro" \
+        certbot/dns-cloudflare:latest certonly \
+            --dns-cloudflare \
+            --dns-cloudflare-credentials /cloudflare.ini \
+            -d "${LOCAL_DOMAIN}" \
+            -d "*.${LOCAL_DOMAIN}" \
+            --email "${EMAIL}" \
+            --agree-tos --no-eff-email --non-interactive
+
+    rm cloudflare.ini
+    ```
+    Edit the `LOCAL_DOMAIN` to have be your actual domain and `CF_API_TOKEN` to be the actual token, finally set `EMAIL` to your actual email to receive alerts if it fails.
+
+50. We want our SSL certificates to also auto-renew, so edit the `.env` for `certbot`:
+    ```sh
+    cd ~/certbot
+    nano .env
+    ```
+    Change the `CF_API_TOKEN` to the previously created token.  
+    Set the `LOCAL_DOMAIN` to the same `local.mydomain.com` you set earlier.  
+    Finally set the `EMAIL` to a real email for notifications about your certificates.
+
+51. TODO: openresty
 
 ## Configuration
 
