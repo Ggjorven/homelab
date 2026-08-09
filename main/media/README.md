@@ -119,17 +119,82 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     cd ~/
     ```
 
-37. aaa
+37. Get the global .env:
+    ```sh
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/.env
+    ```
+
+38. Create the `networking` stack:
+    ```sh
+    mkdir -p ~/networking
+    cd ~/networking
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/networking/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/networking/compose.yaml
+    ```
+
+39. Create the `monitoring` stack:
+    ```sh
+    mkdir -p ~/monitoring
+    cd ~/monitoring
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/monitoring/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/monitoring/compose.yaml
+    ```
+
+40. Create the `jellyfin` stack:
+    ```sh
+    mkdir -p ~/jellyfin
+    cd ~/jellyfin
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/jellyfin/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/jellyfin/compose.yaml
+    ```
+
+41. Get the `up` and `down` scripts:
+    ```sh
+    sudo mkdir -p /lxc/scripts
+    cd /lxc/scripts
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-networking.sh
+    sudo chmod +x up-networking.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-monitoring.sh
+    sudo chmod +x up-monitoring.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-jellyfin.sh
+    sudo chmod +x up-jellyfin.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-networking.sh
+    sudo chmod +x down-networking.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-monitoring.sh
+    sudo chmod +x down-monitoring.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-jellyfin.sh
+    sudo chmod +x down-jellyfin.sh
+    ```
+
+42. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+    ```sh
+    sudo mkdir -p /lxc/scripts
+    cd /lxc/scripts
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-boot.sh
+    sudo chmod +x compose-boot.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-shutdown.sh
+    sudo chmod +x compose-shutdown.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-restart.sh
+    sudo chmod +x compose-restart.sh
+    cd /etc/systemd/system
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/services/compose-boot.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/services/compose-shutdown.service
+    ```
+
+43. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+    ```sh
+    sudo systemctl daemon-reload
+    sudo systemctl enable compose-boot
+    sudo systemctl enable compose-shutdown
+    ```
+
+44. Now you can get to configuring the stacks below.
 
 ## Configuration
 
 ### Jellyfin
 
 // TODO: Aaa
-
-## Automatic boot/shutdown
-
-// TODO: ...
 
 ## Debugging
 
