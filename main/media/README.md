@@ -98,8 +98,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 33. Create a `media` group and user in the LXC using:
     ```sh
     groupadd -g 1001 media
-    useradd media -u 1001
-    usermod -aG media media
+    useradd -u 1001 -g 1001 -m media
     usermod -aG docker media
     usermod -aG sudo media
     ```

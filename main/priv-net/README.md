@@ -65,7 +65,7 @@ This folder contains the installation instructions and configuration files used 
 28. Create a `privnet` group and user in the LXC using:
     ```sh
     groupadd -g 1000 privnet
-    useradd privnet -u 1000
+    useradd -u 1000 -g 1000 -m privnet
     usermod -aG docker privnet
     usermod -aG sudo privnet
     ```
