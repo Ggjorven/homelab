@@ -194,7 +194,114 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 ### Jellyfin
 
-// TODO: Aaa
+To configure **Jellyfin** you need to go to port `8096` of the ip address of the **Proxmox LXC** if `vmbr0` is attached (and enabled).
+
+#### Settings
+
+To change **Jellyfin**'s settings go to the hamburger menu in the top left and go to **Dashboard**.
+
+##### Transcoding
+
+1. Set **Hardware Acceleration** to **NVIDIA NVENC**.
+
+2. Enable hardware decoding for (for RTX 3050):
+    - H264
+    - HEVC
+    - MPEG2
+    - VC1
+    - VP9
+    - AV1
+    - HEVC 10bit
+    - VP9 10bit
+    You can what your NVIDIA GPU supports [here](https://en.wikipedia.org/wiki/NVDEC).  
+    For AMD you can look [here](https://en.wikipedia.org/wiki/Unified_Video_Decoder).  
+    And Intel [here](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/1-1/overview.html).
+
+3. Enable **enhanced NVDEC decoder**.
+
+4. Enable hardware encoding and set **Allow encoding in HEVC format**.
+
+5. Scroll to the bottom and hit **Save**.
+
+##### Trickplay
+
+1. Enable **hardware decoding**.
+
+2. Scroll to the bottom and hit **Save**.
+
+#### Plugins
+
+**Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
+
+- [Cover Art Archive](https://github.com/jellyfin/jellyfin-plugin-coverartarchive) - Installed by default
+- [Custom Tabs](https://github.com/IAmParadox27/jellyfin-plugin-custom-tabs) - Installed from [this manifest](https://www.iamparadox.dev/jellyfin/plugins/manifest.json)
+- [File Transformation](https://github.com/IAmParadox27/jellyfin-plugin-file-transformation) - Installed from [this manifest](https://www.iamparadox.dev/jellyfin/plugins/manifest.json)
+- [InPlayerEpisodePreview](https://github.com/Namo2/InPlayerEpisodePreview) - Installed from [this manifest](https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json)
+- [Intro Skipper](https://github.com/intro-skipper/intro-skipper) - Installed from [this manifest](https://intro-skipper.org/manifest.json)
+- [Javascript Injector](https://github.com/n00bcodr/Jellyfin-JavaScript-Injector) - Installed from [this manifest](https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json)
+- [Jellyfin Enhanced](https://github.com/n00bcodr/Jellyfin-Enhanced) - Installed from [this manifest](https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json)
+- [Segment Editor](https://github.com/intro-skipper/segment-editor-plugin) - Installed from [this manifest](https://intro-skipper.org/manifest.json)
+- [TheIntroDB](https://github.com/TheIntroDB/jellyfin-plugin) - Installed from [this manifest](https://raw.githubusercontent.com/TheIntroDB/jellyfin-plugin/main/manifest.json)
+- [KefinTweaks](https://github.com/ranaldsgift/kefintweaks) - Installed using [Javascript Injector](https://github.com/n00bcodr/Jellyfin-JavaScript-Injector)
+- [TheTVDB](https://github.com/jellyfin/jellyfin-plugin-tvdb) - Installed using the default manifest
+
+// TODO: Install from a manifest instructions
+
+##### Jellyfin Enhanced
+
+// TODO: Customization settings
+
+##### KefinTweaks
+
+// TODO: Install help
+
+// TODO: Customization settings
+
+#### *Arr Connection
+
+> [!NOTE]
+> Requires [arr](./../arr/README.md) to be set-up.
+
+To immediately scan your media library when **Radarr** or **Sonarr** adds something I have created some simple instructions. Repeat these instructions for both **Radarr** and **Sonarr**.
+
+1. Go to your ***Arr** app on port `7878`/`8989` of the `arr` **Proxmox LXC**'s IP (if `vmbr0` is attached/enabled).
+
+2. Go to `Settings` -> `Connect`.
+
+3. Add a connection and select **Emby / Jellyfin**.
+
+4. Enable the triggers (radarr/sonarr):  
+  
+    **Radarr**:  
+    - On File Import
+    - On File Upgrade
+    - On Rename
+    - On Movie Delete
+    - On Movie File Delete
+    - On Movie File Delete For Upgrade
+    - On Application Update
+  
+    **Sonarr**:  
+    - On File Import
+    - On File Upgrade
+    - On Import Complete
+    - On Rename
+    - On Series Delete
+    - On Episode File Delete
+    - On Episode File Delete For Upgrade
+    - On Application Update
+
+5. Set the host IP to `172.20.101.10` as defined in [this table](./../README.md#Deployments).
+
+6. Go to **Jellyfin** on port `8096` of your **Proxmox LXC**'s IP (if `vmbr0` is attached/enabled).
+
+7. Go to `Dashboard` -> `API Keys` and create a key for your ***arr app**. 
+
+8. Paste the key in the **API Key** field.
+
+9. Enable **Update Library**.
+
+10. **Save**!
 
 ## Debugging
 
