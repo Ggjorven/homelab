@@ -1,0 +1,35 @@
+networks:
+  priv-net-network:
+    name: priv-net-network
+    external: true
+
+services:
+  openresty:
+    image: openresty/openresty:noble
+    container_name: openresty
+    # user: ${PUID}:${PGID} # This container requires to run as root
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./config/templates:/etc/nginx/templates:ro
+      - ./config/lua:/usr/local/openresty/lua:ro
+      - ./config/logs:/var/log/nginx
+      - ./config/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - ./certs:/etc/letsencrypt:ro
+    networks:
+      priv-net-network:
+        ipv4_address: 172.24.1.10
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    healthcheck:
+      test: pgrep -f openresty
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for template processing logic like nginx
+    restart: unless-stopped
