@@ -1,17 +1,40 @@
 #!/bin/sh
 set -e
 
-trap exit TERM;
+# Validate required env vars
+: "${CF_API_TOKEN:?CF_API_TOKEN is required}"
+: "${LOCAL_DOMAIN:?LOCAL_DOMAIN is required}"
+: "${EMAIL:?EMAIL is required}"
 
-# Make the credentials file based on env var
+# Credentials file
 echo "dns_cloudflare_api_token = ${CF_API_TOKEN}" > /cloudflare.ini
 chmod 600 /cloudflare.ini
 
-# Renew loop
+# Initial certificate if none exists
+CERT_PATH="/etc/letsencrypt/live/${LOCAL_DOMAIN}/fullchain.pem"
+
+if [ ! -f "${CERT_PATH}" ]; then
+    echo "[certbot] No certificate found for ${LOCAL_DOMAIN}, requesting initial cert..."
+    certbot certonly \
+        --dns-cloudflare \
+        --dns-cloudflare-credentials /cloudflare.ini \
+        -d "${LOCAL_DOMAIN}" \
+        -d "*.${LOCAL_DOMAIN}" \
+        --email "${EMAIL}" \
+        --agree-tos --no-eff-email --non-interactive
+    echo "[certbot] Initial certificate obtained."
+else
+    echo "[certbot] Certificate already exists for ${LOCAL_DOMAIN}, skipping initial request."
+fi
+
+# Renewal loop
+trap exit TERM
 while :; do
-	certbot renew
-		--dns-cloudflare
-		--dns-cloudflare-credentials /cloudflare.ini
-		--post-hook "docker exec openresty openresty -s reload"; # (Hot)Reload openresty
-	sleep 12h & wait $${!};
+    certbot renew \
+        --dns-cloudflare \
+        --dns-cloudflare-credentials /cloudflare.ini \
+		--post-hook "docker inspect openresty --format '{{.State.Running}}' 2>/dev/null | grep -q true \
+			&& docker exec openresty openresty -s reload \
+			|| echo '[certbot] openresty not running, skipping reload'"
+    sleep 12h & wait $!
 done
