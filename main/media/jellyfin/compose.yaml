@@ -21,7 +21,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       media-network:
-        ipv4_address: 172.24.1.1
+        ipv4_address: 172.24.1.10
     ports:
       - "0.0.0.0:8096:8096"
     runtime: nvidia

@@ -22,7 +22,7 @@ services:
       - "0.0.0.0:9001:9001"
     networks:
       media-network:
-        ipv4_address: 172.24.0.1
+        ipv4_address: 172.24.0.10
     # TODO: Healthcheck
     restart: unless-stopped
 

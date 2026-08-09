@@ -2,4 +2,4 @@
 
 # Monitoring
 cd /home/media/monitoring
-docker compose --env-file ../.env --env-file .env down
+docker compose --env-file ../.env --env-file .env up -d

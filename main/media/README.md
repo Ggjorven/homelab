@@ -101,6 +101,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     useradd media -u 1001
     usermod -aG media media
     usermod -aG docker media
+    usermod -aG sudo media
     ```
 
 34. Set a (safe) password for the `media` user:
@@ -125,6 +126,10 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 ### Jellyfin
 
 // TODO: Aaa
+
+## Automatic boot/shutdown
+
+// TODO: ...
 
 ## Debugging
 
