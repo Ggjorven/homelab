@@ -126,7 +126,7 @@ This folder contains the installation instructions and configuration files used 
     cd config
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/nginx.conf
     cd templates
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/templates/nginx.conf
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/templates/jellyfin.conf.template
     ```
 
 37. Get the `up` and `down` scripts:
@@ -190,7 +190,7 @@ This folder contains the installation instructions and configuration files used 
 47. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
 48. Create records for all of these:
-    - `jellyfin.local`
+    - `jellyfin.local` *.mydomain.com*
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
@@ -221,7 +221,19 @@ sudo /lxc/scripts/up-certbot.sh
 
 ### OpenResty
 
-// TODO: 
+We can also configure **OpenResty** settings from the `.env` file.  
+Open `.env`:
+```sh
+nano ~/certbot/.env
+```
+Set the `LOCAL_DOMAIN` to `local.mydomain.com`, where you replace `mydomain.com` with your actual domain.
+
+Now start **OpenResty** by running:
+```sh
+sudo /lxc/scripts/up-openresty.sh
+```
+
+You should now be able to access **Jellyfin** by going to `https://jellyfin.local.mydomain.com`.
 
 ## Debugging
 

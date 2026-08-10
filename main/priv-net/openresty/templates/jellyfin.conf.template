@@ -11,7 +11,6 @@ server {
 
     ssl_certificate     /etc/letsencrypt/live/${LOCAL_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${LOCAL_DOMAIN}/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/${LOCAL_DOMAIN}/chain.pem;
 
     # Security headers
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
