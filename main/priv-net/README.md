@@ -122,7 +122,11 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/.env
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/compose.yaml
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/docker-entrypoint.sh
-    # TODO: Files
+    mkdir -p config/templates
+    cd config
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/nginx.conf
+    cd templates
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/templates/nginx.conf
     ```
 
 37. Get the `up` and `down` scripts:
