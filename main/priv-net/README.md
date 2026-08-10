@@ -112,6 +112,7 @@ This folder contains the installation instructions and configuration files used 
     cd ~/certbot
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/.env
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/docker-entrypoint.sh
     ```
 
 36. Create the `openresty` stack:
@@ -120,6 +121,7 @@ This folder contains the installation instructions and configuration files used 
     cd ~/openresty
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/.env
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/docker-entrypoint.sh
     # TODO: Files
     ```
 
@@ -188,46 +190,34 @@ This folder contains the installation instructions and configuration files used 
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
-49. Now we can generate our SSL certificates:
+49. Now start the `networking` and `monitoring` stacks:
     ```sh
-    cd ~/certbot
-
-    LOCAL_DOMAIN="local.mydomain.com"
-    CF_API_TOKEN="your_token_here"
-    EMAIL="invalid@invalid.invalid"
-
-    echo "dns_cloudflare_api_token = ${CF_API_TOKEN}" > cloudflare.ini
-    chmod 600 cloudflare.ini
-
-    docker run --rm \
-        -v "$(pwd)/certs:/etc/letsencrypt" \
-        -v "$(pwd)/cloudflare.ini:/cloudflare.ini:ro" \
-        certbot/dns-cloudflare:latest certonly \
-            --dns-cloudflare \
-            --dns-cloudflare-credentials /cloudflare.ini \
-            -d "${LOCAL_DOMAIN}" \
-            -d "*.${LOCAL_DOMAIN}" \
-            --email "${EMAIL}" \
-            --agree-tos --no-eff-email --non-interactive
-
-    rm cloudflare.ini
+    sudo /lxc/scripts/up-networking.sh
+    sudo /lxc/scripts/up-monitoring.sh
     ```
-    Edit the `LOCAL_DOMAIN` to have be your actual domain and `CF_API_TOKEN` to be the actual token, finally set `EMAIL` to your actual email to receive alerts if it fails.
-
-50. We want our SSL certificates to also auto-renew, so edit the `.env` for `certbot`:
-    ```sh
-    cd ~/certbot
-    nano .env
-    ```
-    Change the `CF_API_TOKEN` to the previously created token.  
-    Set the `LOCAL_DOMAIN` to the same `local.mydomain.com` you set earlier.  
-    Finally set the `EMAIL` to a real email for notifications about your certificates.
-
-51. TODO: openresty
+    You can now start configuring individual stacks listed below.
 
 ## Configuration
 
-// TODO: aaa
+### Certbot
+
+We can configure **Certbot** settings from the `.env` file.  
+Open `.env`:
+```sh
+nano ~/certbot/.env
+```
+Set `CF_API_TOKEN` to the cloudflare token you copied during the installation.  
+Set the `LOCAL_DOMAIN` to `local.mydomain.com`, where you replace `mydomain.com` with your actual domain.  
+Finally set the `EMAIL` to your actual email.
+
+Now start **Certbot** by running:
+```sh
+sudo /lxc/scripts/up-certbot.sh
+```
+
+### OpenResty
+
+// TODO: 
 
 ## Debugging
 

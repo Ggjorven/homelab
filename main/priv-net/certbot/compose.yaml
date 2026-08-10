@@ -13,12 +13,17 @@ services:
       - EMAIL=${EMAIL}
     volumes:
       - ./certs:/etc/letsencrypt
+      - ./logs:/var/log/letsencrypt
       - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
-      - ./reload-openresty.sh:/reload-openresty.sh:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       priv-net-network:
         ipv4_address: 172.24.1.10
-    # TODO: Add healthcheck
+    healthcheck:
+      test: pgrep -f docker-entrypoint
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for auto-renewing certificates
     restart: unless-stopped
