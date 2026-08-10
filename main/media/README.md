@@ -187,11 +187,29 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo systemctl enable compose-shutdown
     ```
 
-44. Now you can get to configuring the stacks below.
+44. Now start the `networking` and `monitoring` stacks:
+    ```sh
+    sudo /lxc/scripts/up-networking.sh
+    sudo /lxc/scripts/up-monitoring.sh
+    ```
+    You can now start configuring individual stacks listed below.
 
 ## Configuration
 
 ### Jellyfin
+
+Before we can configure the settings inside **Jellyfin** we must set certain `env` variables.  
+Open `.env`:
+```sh
+nano ~/jellyfin/.env
+```
+Set `MOVIES_FOLDER` to the actual movies directory.  
+Do the same for `SERIES_FOLDER`.
+
+Start **Jellyfin** by running:
+```sh
+sudo /lxc/scripts/up-jellyfin.sh
+```
 
 To configure **Jellyfin** you need to go to port `8096` of the ip address of the **Proxmox LXC** if `vmbr0` is attached (and enabled).
 

@@ -16,8 +16,8 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./config:/config
-      - /mnt/media/films:/movies
-      - /mnt/media/series:/series
+      - ${MOVIES_FOLDER}:/movies
+      - ${SERIES_FOLDER}:/series
       - /etc/localtime:/etc/localtime:ro
     networks:
       media-network:
