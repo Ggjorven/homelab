@@ -175,10 +175,19 @@ This folder contains the installation instructions and configuration files used 
     ```
     And now you can save and exit.
 
-27. Retrieve the `/etc/nftables.conf` file:
+27. Retrieve the **nftables** files:
     ```sh
     cd /etc/
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables.conf
+    mkdir -p nftables
+    cd nftables
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/main.conf
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/vars.conf
+    mkdir -p chains
+    cd chains
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/forward.conf
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/input.conf
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/nat.conf
     ```
 
 28. Enable IPv4 forwarding, so `vmbr1` also has internet access:
