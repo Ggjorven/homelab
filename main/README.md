@@ -190,6 +190,8 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/nat.conf
     ```
 
+28. TODO: Customize files
+
 28. Enable IPv4 forwarding, so `vmbr1` also has internet access:
     ```sh
     echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
