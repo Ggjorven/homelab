@@ -7,11 +7,7 @@ services:
   openresty:
     image: openresty/openresty:noble
     container_name: openresty
-    # user: ${PUID}:${PGID} # This container requires to run as root
-    environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
+    # user: ${PUID}:${PGID} # This container runs better as root
     volumes:
       - ./config/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
       - ./config/templates:/etc/nginx/templates:ro

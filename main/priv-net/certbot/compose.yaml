@@ -7,6 +7,7 @@ services:
   certbot:
     image: certbot/dns-cloudflare:latest
     container_name: certbot
+    # user: ${PUID}:${PGID} # This container runs better as root
     environment:
       - CF_API_TOKEN=${CF_API_TOKEN}
       - LOCAL_DOMAIN=${LOCAL_DOMAIN}
