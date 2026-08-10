@@ -8,13 +8,16 @@ services:
     image: openresty/openresty:noble
     container_name: openresty
     # user: ${PUID}:${PGID} # This container runs better as root
+    environment:
+      - LOCAL_DOMAIN=${LOCAL_DOMAIN}
+      - NGINX_ENVSUBST_FILTER=$$LOCAL_DOMAIN
     volumes:
       - ./config/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
       - ./config/templates:/etc/nginx/templates:ro
       - ./config/lua:/usr/local/openresty/lua:ro
       - ./config/logs:/var/log/nginx
+      - ./../certbot/certs:/etc/letsencrypt:ro
       - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
-      # - ./certs:/etc/letsencrypt:ro
     networks:
       priv-net-network:
         ipv4_address: 172.24.1.11
