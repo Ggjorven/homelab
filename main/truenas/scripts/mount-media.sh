@@ -3,7 +3,7 @@
 # ======================
 # CONFIG
 # ======================
-SERVER_IP="172.20.100.1"
+SERVER_IP="172.20.100.10"
 SHARE_PATH="/mnt/tank/media" # CHANGE THIS, if your pool/tank has a different path
 MOUNT_POINT="/mnt/media"
 
