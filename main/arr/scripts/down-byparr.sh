@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Monitoring
-cd /home/arr/monitoring
+# Byparr
+cd /home/arr/byparr
 docker compose --env-file ../.env --env-file .env down

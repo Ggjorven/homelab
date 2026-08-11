@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Monitoring
-cd /home/arr/monitoring
+# Slskd
+cd /home/arr/slskd
 docker compose --env-file ../.env --env-file .env down

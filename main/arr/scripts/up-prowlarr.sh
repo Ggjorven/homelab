@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Networking
-cd /home/arr/networking
+# Prowlarr
+cd /home/arr/prowlarr
 docker compose --all-resources --env-file ../.env --env-file .env up -d

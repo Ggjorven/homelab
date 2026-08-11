@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Networking
-cd /home/arr/networking
+# VPN2
+cd /home/arr/vpn2
 docker compose --all-resources --env-file ../.env --env-file .env up -d

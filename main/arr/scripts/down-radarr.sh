@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Monitoring
-cd /home/arr/monitoring
+# Radarr
+cd /home/arr/radarr
 docker compose --env-file ../.env --env-file .env down

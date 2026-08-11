@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Monitoring
-cd /home/arr/monitoring
+# Jackett
+cd /home/arr/jackett
 docker compose --env-file ../.env --env-file .env down

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Networking
-cd /home/arr/networking
+# QBitTorrent
+cd /home/arr/qbittorrent
 docker compose --all-resources --env-file ../.env --env-file .env up -d
