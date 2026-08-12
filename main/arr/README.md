@@ -101,23 +101,23 @@ This folder contains the installation instructions and configuration files used 
 
 35. Get the global .env:
     ```sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/.env
     ```
 
 36. Create the `networking` stack:
     ```sh
     mkdir -p ~/networking
     cd ~/networking
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/networking/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/networking/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/networking/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/networking/compose.yaml
     ```
 
 37. Create the `monitoring` stack:
     ```sh
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/monitoring/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/monitoring/compose.yaml
     ```
 
 38. Create the `vpn1` stack:
