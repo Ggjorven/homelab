@@ -8,7 +8,7 @@ This folder contains the installation instructions and configuration files used 
 1. From the **Proxmox** WebUI navigate to the **Node**'s **Shell**.
 
 2. Start creation of a **Docker LXC** using the [community script](https://community-scripts.org/scripts/docker):
-    ```
+    ```sh
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 

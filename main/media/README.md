@@ -15,7 +15,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 1. From the **Proxmox** WebUI navigate to the **Node**'s **Shell**.
 
 2. Start creation of a **Docker LXC** using the [community script](https://community-scripts.org/scripts/docker):
-    ```
+    ```sh
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 
@@ -89,13 +89,31 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     ```
     The explanation/tutorial for these id mappings can be found [here](./../../tutorials/proxmox/UNPRIVILEGED-LXC-UID-GID-PASSTHROUGH.md).
 
-30. Now reboot the **LXC**.
+30. Before rebooting the **LXC** we must give our **Proxmox Host** the ability to map this **UID** and **GID**:
+    ```sh
+    nano /etc/subuid
+    ```
+    Add (if it doesn't exist already):
+    ```
+    root:1001:1
+    ```
 
-31. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+31. Do the same for **GID**:
+    ```sh
+    nano /etc/subgid
+    ```
+    Add (if it doesn't exist already):
+    ```
+    root:1001:1
+    ```
 
-32. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
+32. Now reboot the **LXC**.
 
-33. Create a `media` group and user in the LXC using:
+33. Go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+
+34. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
+
+35. Create a `media` group and user in the LXC using:
     ```sh
     groupadd -g 1001 media
     useradd -u 1001 -g 1001 -m -s /bin/bash media
@@ -103,27 +121,27 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     usermod -aG sudo media
     ```
 
-34. Set a (safe) password for the `media` user:
+36. Set a (safe) password for the `media` user:
     ```sh
     passwd media
     ```
 
-35. Now login as the `media` user:
+37. Now login as the `media` user:
     ```sh
     su media
     ```
 
-36. Now we're going to install all of the files. Start by navigating to the `home` directory:
+38. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-37. Get the global .env:
+39. Get the global .env:
     ```sh
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/.env
     ```
 
-38. Create the `networking` stack:
+40. Create the `networking` stack:
     ```sh
     mkdir -p ~/networking
     cd ~/networking
@@ -131,7 +149,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/networking/compose.yaml
     ```
 
-39. Create the `monitoring` stack:
+41. Create the `monitoring` stack:
     ```sh
     mkdir -p ~/monitoring
     cd ~/monitoring
@@ -139,7 +157,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/monitoring/compose.yaml
     ```
 
-40. Create the `jellyfin` stack:
+42. Create the `jellyfin` stack:
     ```sh
     mkdir -p ~/jellyfin
     cd ~/jellyfin
@@ -147,7 +165,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/jellyfin/compose.yaml
     ```
 
-41. Get the `up` and `down` scripts:
+43. Get the `up` and `down` scripts:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -165,7 +183,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-jellyfin.sh
     ```
 
-42. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+44. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -180,14 +198,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/services/compose-shutdown.service
     ```
 
-43. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+45. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-44. Now start the `networking` and `monitoring` stacks:
+46. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
