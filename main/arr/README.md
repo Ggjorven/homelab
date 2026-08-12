@@ -347,17 +347,25 @@ This folder contains the installation instructions and configuration files used 
 
 // TODO: ...
 
+// TODO: Download test-indexers script, timer and service and add API key
+
 ### Radarr
 
 // TODO: ...
+
+// Add API key to test-indexers script
 
 ### Sonarr
 
 // TODO: ...
 
+// Add API key to test-indexers script
+
 ### Lidarr
 
 // TODO: ...
+
+// Add API key to test-indexers script
 
 ### Bazarr
 

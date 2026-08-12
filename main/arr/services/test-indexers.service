@@ -1,0 +1,9 @@
+[Unit]
+Description=Test Indexers
+Requires=test-indexers.timer
+
+[Service]
+Type=simple
+ExecStart=/lxc/scripts/test-indexers.sh
+User=arr
+Group=arr
