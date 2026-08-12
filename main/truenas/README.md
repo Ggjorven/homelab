@@ -233,7 +233,6 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | 1004 | downloader | No |
     | 3001 | my_name | Yes |
     | 3002 | family_member_name | Yes |
-    | 100000 | unprivileged_lxc_root | No |
 
 61. Now we'll create the corresponding users, go to **Credentials** -> **Users**.
 
@@ -246,7 +245,6 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | downloader | No | Yes | downloaders | 1004 |
     | my_name | Yes | No | my_name | 3001 |
     | family_member_name | Yes | No | family_member_name | 3002 |
-    | unprivileged_lxc_root | No | Yes | unprivileged_lxc_root | 100000 |
 
 63. Go back to **Datasets** and select `cloud` and hit **Edit** on **Permissions**.
 
@@ -257,16 +255,14 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | --- | --- | --- | --- | --- |
     | User Obj | Yes | Yes | Yes | No |
     | Group Obj | Yes | Yes | Yes | No |
-    | Group - unprivileged_lxc_root | Yes | Yes | Yes | No |
     | Mask | Yes | Yes | Yes | No |
     | Other | No | No | No | No |
     | User Obj | Yes | Yes | Yes | Yes |
     | Group Obj | Yes | Yes | Yes | Yes |
-    | Group - unprivileged_lxc_root | Yes | Yes | Yes | Yes |
     | Mask | Yes | Yes | Yes | Yes |
     | Other | No | No | No | Yes |
 
-66. At the bottom select **Save As Preset** and name it something like `POSIX_OWNER_GROUP_AND_UNPRIVILED_ROOT`. Now we can re-use it.
+66. At the bottom select **Save As Preset** and name it something like `POSIX_CUSTOM_OWNER_GROUP`. Now we can re-use it.
 
 67. Now for these datasets:
     - `cloud`
@@ -299,7 +295,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     - `photos`
     1. Under **Usage** **Create NFS Share**.
     2. Open **Advanced Options**.
-    3. Set **Maproot User** & **Maproot Group** to the user/group with the same name as the dataset.
+    3. Set **Mapall User** & **Mapall Group** to the user/group with the same name as the dataset.
     4. Under **Security** enable **SYS**.
     5. Under **Hosts** add 1 host with IP: `172.20.100.1` (the proxmox host)
     5. **Save**!
