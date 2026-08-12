@@ -25,7 +25,7 @@ services:
       - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING:-off}
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
     volumes:
-      - ./vpn1:/gluetun
+      - ./config:/gluetun
       - /etc/localtime:/etc/localtime:ro
     networks:
       arr-network:
