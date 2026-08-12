@@ -4,7 +4,29 @@ networks:
     external: true
 
 services:
-  # TODO: autoheal
+  autoheal:
+    image: tmknight88/docker-autoheal:latest
+    container_name: autoheal
+    # user: ${PUID}:${PGID} # This requires root, because it needs access to the docker socket
+    environment:
+      - TZ=${TZ}
+      - AUTOHEAL_CONNECTION_TYPE=socket
+      - AUTOHEAL_MONITOR_ALL=true
+      - AUTOHEAL_INTERVAL=15
+      - AUTOHEAL_LOG_ALL=true
+      - AUTOHEAL_LOG_PERSIST=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./logs:/opt/docker-autoheal
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: none
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "docker-autoheal"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: always
 
   portainer-agent:
     container_name: portainer-agent
