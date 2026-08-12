@@ -152,15 +152,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/compose.yaml
     ```
 
-42. Create the `qbittorrent` stack:
-    ```sh
-    mkdir -p ~/qbittorrent
-    cd ~/qbittorrent
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/compose.yaml
-    ```
-
-43. Create the `slskd` stack:
+42. Create the `slskd` stack:
     ```sh
     mkdir -p ~/slskd
     cd ~/slskd
@@ -168,7 +160,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/slskd/compose.yaml
     ```
 
-44. Create the `jackett` stack:
+43. Create the `jackett` stack:
     ```sh
     mkdir -p ~/jackett
     cd ~/jackett
@@ -176,7 +168,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/jackett/compose.yaml
     ```
 
-45. Create the `prowlarr` stack:
+44. Create the `prowlarr` stack:
     ```sh
     mkdir -p ~/prowlarr
     cd ~/prowlarr
@@ -184,7 +176,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/prowlarr/compose.yaml
     ```
 
-46. Create the `radarr` stack:
+45. Create the `radarr` stack:
     ```sh
     mkdir -p ~/radarr
     cd ~/radarr
@@ -192,7 +184,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/radarr/compose.yaml
     ```
 
-47. Create the `sonarr` stack:
+46. Create the `sonarr` stack:
     ```sh
     mkdir -p ~/sonarr
     cd ~/sonarr
@@ -200,7 +192,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/sonarr/compose.yaml
     ```
 
-48. Create the `lidarr` stack:
+47. Create the `lidarr` stack:
     ```sh
     mkdir -p ~/lidarr
     cd ~/lidarr
@@ -208,7 +200,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/lidarr/compose.yaml
     ```
 
-49. Create the `bazarr` stack:
+48. Create the `bazarr` stack:
     ```sh
     mkdir -p ~/bazarr
     cd ~/bazarr
@@ -216,7 +208,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/bazarr/compose.yaml
     ```
 
-50. Create the `metube` stack:
+49. Create the `metube` stack:
     ```sh
     mkdir -p ~/metube
     cd ~/metube
@@ -224,7 +216,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/metube/compose.yaml
     ```
 
-51. Get the `up` and `down` scripts:
+50. Get the `up` and `down` scripts:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -286,7 +278,7 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-metube.sh
     ```
 
-52. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+51. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -301,14 +293,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-shutdown.service
     ```
 
-53. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+52. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-54. Now start the `networking` and `monitoring` stacks:
+53. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
