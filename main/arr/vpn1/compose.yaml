@@ -1,0 +1,46 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  vpn1: # Main VPN, torrenting + the rest
+    image: qmcgaw/gluetun:latest
+    container_name: vpn1
+    # user: ${PUID}:${PGID} # This container requires to run as root
+    cap_add:
+      - NET_ADMIN
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=openvpn
+      - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the internalnetwork, this is needed for some people
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=${VPN_REGIONS}
+      - DNS_SERVER=on
+      - DNS_UPSTREAM_RESOLVERS=cloudflare,google,quad9 # Makes the DNS requests to random resolvers 
+      - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING:-off}
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "echo My forwarded ports are {{PORTS}}, the first forwarded port is {{PORT}} and the VPN network interface is {{VPN_INTERFACE}}" 
+    volumes:
+      - ./vpn1:/gluetun
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      arr-network:
+        ipv4_address: 172.24.1.10
+    ports:
+      - 8080:8080 # QBitTorrent web interface
+      - 9696:9696 # Prowlarr web interface
+      - 9117:9117 # Jackett web interface
+      - 9191:9191 # Dispatcharr web interface
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
