@@ -136,10 +136,10 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn2/compose.yaml
     ```
 
-40. Create the `flaresolverr` stack:
+40. Create the `byparr` stack:
     ```sh
-    mkdir -p ~/flaresolverr
-    cd ~/flaresolverr
+    mkdir -p ~/byparr
+    cd ~/byparr
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/flaresolverr/.env
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/flaresolverr/compose.yaml
     ```
