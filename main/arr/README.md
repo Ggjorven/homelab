@@ -128,9 +128,9 @@ This folder contains the installation instructions and configuration files used 
     passwd arr
     ```
 
-36. Now login as the `media` user:
+36. Now login as the `arr` user:
     ```sh
-    su media
+    su arr
     ```
 
 37. Now we're going to install all of the files. Start by navigating to the `home` directory:

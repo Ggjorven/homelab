@@ -75,7 +75,7 @@ This folder contains the installation instructions and configuration files used 
     passwd privnet
     ```
 
-30. Now login as the `media` user:
+30. Now login as the `privnet` user:
     ```sh
     su privnet
     ```
