@@ -16,7 +16,7 @@ services:
       - TZ=${TZ}
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=openvpn
-      - FIREWALL_OUTBOUND_SUBNETS=172.39.0.0/24 # Make the VPN able to talk over the internalnetwork, this is needed for some people
+      - FIREWALL_OUTBOUND_SUBNETS=172.24.0.0/23 # Make the VPN able to talk over the arr-network, this is needed for some people
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - SERVER_REGIONS=${VPN_REGIONS}
