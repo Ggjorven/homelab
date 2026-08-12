@@ -140,8 +140,8 @@ This folder contains the installation instructions and configuration files used 
     ```sh
     mkdir -p ~/byparr
     cd ~/byparr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/flaresolverr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/flaresolverr/compose.yaml
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/byparr/.env
+    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/byparr/compose.yaml
     ```
 
 41. Create the `qbittorrent` stack:
