@@ -72,78 +72,39 @@ This folder contains the installation instructions and configuration files used 
     mp1: /mnt/downloads,mp=/mnt/downloads
     ```
 
-29. We'll also want to make the `media` and `downloader`'s user and group ID to be properly passed through to the mountpoint/NFS share. `media`:`media` is `1001`:`1001` as set during the [truenas installation](./../truenas/README.md) and `downloader`:`downloader` is `1004`:`1004`. So also paste this in `/etc/pve/lxc/105.conf`:
-    ```
-    lxc.idmap: g 0 100000 1001
-    lxc.idmap: g 1001 1001 1
-    lxc.idmap: g 1002 101002 2
-    lxc.idmap: g 1004 1004 1
-    lxc.idmap: g 1005 101005 64531
-    lxc.idmap: u 0 100000 1001
-    lxc.idmap: u 1001 1001 1
-    lxc.idmap: u 1002 101002 2
-    lxc.idmap: u 1004 1004 1
-    lxc.idmap: u 1005 101005 64531
-    ```
-    The explanation/tutorial for these id mappings can be found [here](./../../tutorials/proxmox/UNPRIVILEGED-LXC-UID-GID-PASSTHROUGH.md).
+29. Reboot the **LXC** to apply the changes.
 
-30. Before rebooting the **LXC** we must give our **Proxmox Host** the ability to map this **UID** and **GID**:
-    ```sh
-    nano /etc/subuid
-    ```
-    Add (if it doesn't exist already):
-    ```
-    root:1001:1
-    root:1004:1
-    ```
+30. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
 
-31. Do the same for **GID**:
-    ```sh
-    nano /etc/subgid
-    ```
-    Add (if it doesn't exist already):
-    ```
-    root:1001:1
-    root:1004:1
-    ```
-
-32. Reboot the **LXC** to apply the changes.
-
-33. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
-
-34. Create the `arr` group and user in the LXC using:
+31. Create the `arr` group and user in the LXC using:
     ```sh
     groupadd -g 1000 arr
-    groupadd -g 1001 media
-    groupadd -g 1004 downloader
     useradd -u 1000 -g 1000 -m -s /bin/bash arr
-    usermod -aG media arr
-    usermod -aG downloader arr
     usermod -aG docker arr
     usermod -aG sudo arr
     ```
 
-35. Set a (safe) password for the `arr` user:
+32. Set a (safe) password for the `arr` user:
     ```sh
     passwd arr
     ```
 
-36. Now login as the `arr` user:
+33. Now login as the `arr` user:
     ```sh
     su arr
     ```
 
-37. Now we're going to install all of the files. Start by navigating to the `home` directory:
+34. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-38. Get the global .env:
+35. Get the global .env:
     ```sh
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/.env
     ```
 
-39. Create the `networking` stack:
+36. Create the `networking` stack:
     ```sh
     mkdir -p ~/networking
     cd ~/networking
@@ -151,7 +112,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/networking/compose.yaml
     ```
 
-40. Create the `monitoring` stack:
+37. Create the `monitoring` stack:
     ```sh
     mkdir -p ~/monitoring
     cd ~/monitoring
@@ -159,7 +120,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/compose.yaml
     ```
 
-41. Create the `vpn1` stack:
+38. Create the `vpn1` stack:
     ```sh
     mkdir -p ~/vpn1
     cd ~/vpn1
@@ -167,7 +128,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn1/compose.yaml
     ```
 
-42. Create the `vpn2` stack:
+39. Create the `vpn2` stack:
     ```sh
     mkdir -p ~/vpn2
     cd ~/vpn2
@@ -175,7 +136,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn2/compose.yaml
     ```
 
-43. Create the `flaresolverr` stack:
+40. Create the `flaresolverr` stack:
     ```sh
     mkdir -p ~/flaresolverr
     cd ~/flaresolverr
@@ -183,7 +144,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/flaresolverr/compose.yaml
     ```
 
-44. Create the `qbittorrent` stack:
+41. Create the `qbittorrent` stack:
     ```sh
     mkdir -p ~/qbittorrent
     cd ~/qbittorrent
@@ -191,7 +152,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/compose.yaml
     ```
 
-45. Create the `qbittorrent` stack:
+42. Create the `qbittorrent` stack:
     ```sh
     mkdir -p ~/qbittorrent
     cd ~/qbittorrent
@@ -199,7 +160,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/compose.yaml
     ```
 
-46. Create the `slskd` stack:
+43. Create the `slskd` stack:
     ```sh
     mkdir -p ~/slskd
     cd ~/slskd
@@ -207,7 +168,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/slskd/compose.yaml
     ```
 
-47. Create the `jackett` stack:
+44. Create the `jackett` stack:
     ```sh
     mkdir -p ~/jackett
     cd ~/jackett
@@ -215,7 +176,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/jackett/compose.yaml
     ```
 
-48. Create the `prowlarr` stack:
+45. Create the `prowlarr` stack:
     ```sh
     mkdir -p ~/prowlarr
     cd ~/prowlarr
@@ -223,7 +184,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/prowlarr/compose.yaml
     ```
 
-49. Create the `radarr` stack:
+46. Create the `radarr` stack:
     ```sh
     mkdir -p ~/radarr
     cd ~/radarr
@@ -231,7 +192,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/radarr/compose.yaml
     ```
 
-50. Create the `sonarr` stack:
+47. Create the `sonarr` stack:
     ```sh
     mkdir -p ~/sonarr
     cd ~/sonarr
@@ -239,7 +200,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/sonarr/compose.yaml
     ```
 
-51. Create the `lidarr` stack:
+48. Create the `lidarr` stack:
     ```sh
     mkdir -p ~/lidarr
     cd ~/lidarr
@@ -247,7 +208,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/lidarr/compose.yaml
     ```
 
-52. Create the `bazarr` stack:
+49. Create the `bazarr` stack:
     ```sh
     mkdir -p ~/bazarr
     cd ~/bazarr
@@ -255,7 +216,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/bazarr/compose.yaml
     ```
 
-53. Create the `metube` stack:
+50. Create the `metube` stack:
     ```sh
     mkdir -p ~/metube
     cd ~/metube
@@ -263,7 +224,7 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/metube/compose.yaml
     ```
 
-54. Get the `up` and `down` scripts:
+51. Get the `up` and `down` scripts:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -325,7 +286,7 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-metube.sh
     ```
 
-55. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+52. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
@@ -340,14 +301,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-shutdown.service
     ```
 
-56. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+53. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-57. Now start the `networking` and `monitoring` stacks:
+54. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
