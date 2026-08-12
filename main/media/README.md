@@ -21,7 +21,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 3. Choose `Advanced Install`. 
 
-4. Choose **Unpriviliged**, set a safe root password, set the container ID to `101` (matches with the VLAN) and set the hostname to `media` (or something else).
+4. Choose **Unprivileged**, set a safe root password, set the container ID to `101` (matches with the VLAN) and set the hostname to `media` (or something else).
 
 5. For the `media` LXC I have given it a disk of **48GB**, **4vCPU**s and **4096MiB** of RAM.
 

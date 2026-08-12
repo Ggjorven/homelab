@@ -14,7 +14,7 @@ This folder contains the installation instructions and configuration files used 
 
 3. Choose `Advanced Install`. 
 
-4. Choose **Unpriviliged**, set a safe root password, set the container ID to `113` (matches with the VLAN) and set the hostname to `priv-net` (or something else).
+4. Choose **Unprivileged**, set a safe root password, set the container ID to `113` (matches with the VLAN) and set the hostname to `priv-net` (or something else).
 
 5. For the `priv-net` LXC I have given it a disk of **10GB**, **1vCPU**s and **512MiB** of RAM.
 

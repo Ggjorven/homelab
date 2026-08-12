@@ -14,7 +14,7 @@ This folder contains the installation instructions and configuration files used 
 
 3. Choose `Advanced Install`. 
 
-4. Choose **Unpriviliged**, set a safe root password, set the container ID to `105` (matches with the VLAN) and set the hostname to `arr` (or something else).
+4. Choose **Unprivileged**, set a safe root password, set the container ID to `105` (matches with the VLAN) and set the hostname to `arr` (or something else).
 
 5. For the `arr` LXC I have given it a disk of **32GB**, **4vCPU**s and **4096MiB** of RAM.
 
