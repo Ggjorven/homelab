@@ -190,48 +190,33 @@ This folder contains the installation instructions and configuration files used 
     wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/nat.conf
     ```
 
-28. We'll need to change some variables in `/etc/nftables/vars.conf`. First we need to gather some information though. Check what NIC your `vmbr0` is using
-    ```sh
-    ip a
-    ```
-    Look for:
-    ```
-    X: vmbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
-        link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
-        inet 192.168.xxx.xxx/xx scope global vmbr0
-           valid_lft forever preferred_lft forever
-    ```
-    Take note of the MAC-address after `link/ether`.  
-    Now in the same `ip a` result look for a `nicX` or an `enpXsX` with that same MAC-address and take note of it.
-
-29. Before can edit the variables for the firewall we also need to know what subnet our LAN is on, run:
+28. We'll need to change some variables in `/etc/nftables/vars.conf`. First we need to gather some information though. Check what subnet your LAN is on:
     ```sh
     ip route show
     ```
     Look for the `192.168.xxx.xxx/xx` on the same line as `vmbr0`, most likely the last line. Take note of the `192.168.xxx.xxx/xx`.
 
-30. Now that we finally have this information we must add it to the firewall variables:
+29. Now that we finally have this information we must add it to the firewall variables:
     ```sh
     nano /etc/nftables/vars.conf
     ```
-    Change `WAN_IF` to the name of the NIC you took note of during step `28`, it should look something like `nicX` or `enpXsX`.  
-    Change `NET_LAN` to the subnet you took note of during step `29`, it should look something like `192.168.xxx.xxx/xx`.
+    Change `NET_LAN` to the subnet you took note of during step `28`, it should look something like `192.168.xxx.xxx/xx`.
 
-31. Enable IPv4 forwarding, so `vmbr1` also has internet access:
+30. Enable IPv4 forwarding, so `vmbr1` also has internet access:
     ```sh
     echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
     sysctl -p
     ```
 
-32. Enable `nftables`:
+31. Enable `nftables`:
     ```sh
     systemctl enable --now nftables
     nft -f /etc/nftables.conf
     ```
 
-33. Reboot your **Proxmox Node** to get all VLANs properly initialized.
+32. Reboot your **Proxmox Node** to get all VLANs properly initialized.
 
-34. Once back we can start creating our **VM**'s and **LXC**'s:
+33. Once back we can start creating our **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
 
