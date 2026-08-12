@@ -1,0 +1,9 @@
+[Unit]
+Description=Restart VPNs
+Requires=vpns-restart.timer
+
+[Service]
+Type=simple
+ExecStart=/lxc/scripts/vpns-restart.sh
+User=arr
+Group=arr

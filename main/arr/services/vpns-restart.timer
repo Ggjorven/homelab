@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for the vpns-restart.service
+
+[Timer]
+Unit=vpns-restart.service
+OnBootSec=24h
+OnUnitActiveSec=24h
+
+[Install]
+WantedBy=timers.target
