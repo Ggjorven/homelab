@@ -615,18 +615,20 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 3. Then go to the **Settings** -> **WebUI** and change the `username` and `password` to something you can remember.
 
-3. Secondly we need to change the `network interface` in the setting under **Advanced** to `tun0`.
+4. A bit below that set **Bypass authentication for clients on localhost**.
 
-4. Thirdly we need to set our directories. Go to **Settings** -> **Downloads**.
+5. For security we also need to change the `network interface` in the **Settings** under **Advanced** to `tun0`.
+
+6. Thirdly we need to set our directories. Go to **Settings** -> **Downloads**.
     - Set `Default Save Path` to `/downloads`
     - Set `Keep incomplete torrents` to `/incomplete`
     - And `Copy .torrent files` to `/torrents`
 
-5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Settings** go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+7. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Settings** go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
-6. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to **Settings** and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
+8. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to **Settings** and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
 
-7. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
+9. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
 
 ### Slskd
 
