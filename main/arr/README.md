@@ -364,7 +364,7 @@ We can configure `vpn2` by editing the `.env` file.
 
 ### Byparr
 
-// TODO: ...
+This container doesn't require any configuration.
 
 ### QBitTorrent
 
