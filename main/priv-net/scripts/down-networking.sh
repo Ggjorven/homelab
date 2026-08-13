@@ -4,7 +4,7 @@ STACK_USER="privnet"
 STACK_NAME="networking"
 
 STACK_DIR="/home/$STACK_USER/$STACK_NAME"
-COMPOSE_FILE="$SLSKD_DIR/compose.yaml"
+COMPOSE_FILE="$STACK_DIR/compose.yaml"
 
 if [[ ! -d "$STACK_DIR" ]]; then
     echo "[INFO] Directory '$STACK_DIR' does not exist. Skipping $STACK_NAME shutdown."
