@@ -282,15 +282,15 @@ This folder contains the installation instructions and configuration files used 
     ```sh
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-boot.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-boot.sh
     sudo chmod +x compose-boot.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-shutdown.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-shutdown.sh
     sudo chmod +x compose-shutdown.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-restart.sh
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-restart.sh
     sudo chmod +x compose-restart.sh
     cd /etc/systemd/system
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-boot.service
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-shutdown.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/compose-boot.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/compose-shutdown.service
     ```
 
 52. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
@@ -311,13 +311,56 @@ This folder contains the installation instructions and configuration files used 
 
 ### VPN1
 
-// TODO: ...
+We can configure `vpn1` by editing the `.env` file.
+
+1. Edit the `.env` file:
+    ```sh
+    cd ~/vpn1
+    nano .env
+    ```
+    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.
+
+2. That's it, you can now start `vpn1`:
+    ```sh
+    sudo /lxc/scripts/up-vpn1.sh
+    ```
+
+3. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
+    ```sh
+    cd /lxc/scripts
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/vpns-restart.sh
+    sudo chmod +x vpns-restart.sh
+    ```
+
+4. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
+    ```sh
+    cd /etc/systemd/system
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/vpns-restart.service
+    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/vpns-restart.timer
+    ```
+
+5. (optional) Enable and start the service with:
+    ```sh
+    systemctl daemon-reload
+    systemctl enable vpns-restart.timer
+    systemctl start vpns-restart.timer
+    ```
 
 ### VPN2
 
-// TODO: ...
+We can configure `vpn2` by editing the `.env` file.
 
-// TODO: VPNs restart script and service and timer
+1. Edit the `.env` file:
+    ```sh
+    cd ~/vpn2
+    nano .env
+    ```
+    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.
+
+2. That's it, you can now start `vpn2`:
+    ```sh
+    sudo /lxc/scripts/up-vpn2.sh
+    ```
 
 ### Byparr
 
