@@ -193,20 +193,28 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 ### Jellyfin
 
-Before we can configure the settings inside **Jellyfin** we must set certain `env` variables.  
-Open `.env`:
-```sh
-nano ~/jellyfin/.env
-```
-Set `MOVIES_FOLDER` to the actual movies directory.  
-Do the same for `SERIES_FOLDER`.
+First we'll start by configuring via the `.env` file.
 
-Start **Jellyfin** by running:
-```sh
-sudo /lxc/scripts/up-jellyfin.sh
-```
+1. Open the `.env`:
+    ```sh
+    cd ~/jellyfin
+    nano .env
+    ```
+    Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
+    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.
 
-To configure **Jellyfin** you need to go to port `8096` of the ip address of the **Proxmox LXC** if `vmbr0` is attached (and enabled).
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/media/films
+    mkdir -p /mnt/media/series
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-jellyfin.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8096`. This requires either having `vmbr0` still attached or having set up `[priv-net](./../priv-net/README.md).
 
 #### Settings
 
