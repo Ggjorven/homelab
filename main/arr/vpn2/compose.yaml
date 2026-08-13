@@ -4,9 +4,9 @@ networks:
     external: true
 
 services:
-  vpn1: # Main VPN, torrenting + the rest
+  vpn2: # Secondary VPN, Soulseek
     image: qmcgaw/gluetun:latest
-    container_name: vpn1
+    container_name: vpn2
     # user: ${PUID}:${PGID} # This container runs as 1000:1000 already (except for openvpn)
     cap_add:
       - NET_ADMIN
@@ -29,11 +29,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       arr-network:
-        ipv4_address: 172.24.1.10
+        ipv4_address: 172.24.1.11
     ports:
-      - 8080:8080 # QBitTorrent web interface
-      - 9696:9696 # Prowlarr web interface
-      - 9117:9117 # Jackett web interface
+      - 5030:5030 # Slskd web interface
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
       interval: 30s
