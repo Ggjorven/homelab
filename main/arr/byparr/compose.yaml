@@ -9,10 +9,9 @@ services:
     container_name: byparr
     # user: ${PUID}:${PGID} # This container runs as 1000:1000 already (except for openvpn)
     environment:
-      # - PUID=${PUID}
-      # - PGID=${PGID}
-      - TZ=${TZ}
       - LOG_LEVEL=INFO
+      - TZ=${TZ}
+      - PORT=8191
     volumes:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
