@@ -328,7 +328,7 @@ This folder contains the installation instructions and configuration files used 
 
 ### VPN1
 
-We can configure `vpn1` by editing the `.env` file.
+We can configure `vpn1` by editing the `.env` file and other files.
 
 1. Edit the `.env` file:
     ```sh
@@ -444,7 +444,7 @@ We can configure `vpn1` by editing the `.env` file.
 
 ### VPN2
 
-We can configure `vpn2` by editing the `.env` file.
+We can configure `vpn2` by editing the `.env` file and other files.
 
 1. Edit the `.env` file:
     ```sh
@@ -560,11 +560,67 @@ We can configure `vpn2` by editing the `.env` file.
 
 ### Byparr
 
-This container doesn't require any configuration.
+This container doesn't require any configuration.  
+You can start the container with:
+```sh
+sudo /lxc/scripts/up-byparr.sh
+```
 
 ### QBitTorrent
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
+
+1. [QBitTorrent](#QBitTorrent) is connected to [VPN1](#VPN1), we'll need to grab the API key from that and put it in `.env`. See the contents of the auth config:
+    ```sh
+    cat ~/vpn1/config/auth/config.toml
+    ```
+    Take note of the `apikey`.
+
+2. Open the `.env`:
+    ```sh
+    cd ~/qbittorrent
+    nano .env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/qbittorrent/downloads`.  
+    Change `INCOMPLETE_FOLDER` to your incomplete folder, I use `/mnt/downloads/qbittorrent/incomplete`.  
+    Change `TORRENTS_FOLDER` to your torrents folder, I use `/mnt/downloads/qbittorrent/torrents`.  
+    Change `PORTCHECKER_API_KEY` to the value of the vpn api key.
+
+3. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/qbittorrent/downloads
+    mkdir -p /mnt/downloads/qbittorrent/incomplete
+    mkdir -p /mnt/downloads/qbittorrent/torrents
+    ```
+
+4. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-qbittorrent.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up `[priv-net](./../priv-net/README.md).
+
+1. First login to QBitTorrent using `username` and `password` from this command:
+    ```sh
+    docker logs qbittorrent
+    ```
+    You'll see a message saying that a temporary password has been generated.  
+    Your temporary `username` will most likely be `admin` and the password is the one generated.
+
+2. Then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
+
+3. Secondly we need to change the `network interface` in the setting under `Advanced` to `tun0`.
+
+4. Thirdly we need to set our directories. Go back to setting and then `Downloads`.
+    - Set `Default Save Path` to `/downloads`
+    - Set `Keep incomplete torrents` to `/incomplete`
+    - And `Copy .torrent files` to `/torrents`
+
+5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under settings go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+
+6. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to settings and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
+
+7. (optional) If you really value every ounce of privacy you can also go to settings and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
 
 ### Slskd
 

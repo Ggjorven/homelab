@@ -1,0 +1,33 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - WEBUI_PORT=8080
+      - DOCKER_MODS=${QBITTORRENT_MODS:-}
+      - PORTCHECKER_GLUETUN_API_KEY=${PORTCHECKER_API_KEY:-}
+      - PORTCHECKER_SLEEP=120
+      - PORTCHECKER_KILL_ON_NOT_CONNECTABLE=true
+    volumes:
+      - ./config:/config
+      - ${DOWNLOADS_FOLDER}:/downloads
+      - ${INCOMPLETE_FOLDER}:/incomplete
+      - ${TORRENTS_FOLDER}:/torrents
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: container:vpn1
+    healthcheck:
+      test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && curl -s http://localhost:8080"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
