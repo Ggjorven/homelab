@@ -578,8 +578,7 @@ First we'll start by configuring via the `.env` file.
 
 2. Open the `.env`:
     ```sh
-    cd ~/qbittorrent
-    nano .env
+    nano ~/qbittorrent/.env
     ```
     Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/qbittorrent/downloads`.  
     Change `INCOMPLETE_FOLDER` to your incomplete folder, I use `/mnt/downloads/qbittorrent/incomplete`.  
@@ -635,7 +634,34 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ### Slskd
 
-// TODO: ...
+We can fully configure `slskd` by editing the `.env` file.
+
+1. [Slskd](#Slskd) is connected to [VPN2](#VPN2), we'll need to grab the API key from that and put it in `.env`. See the contents of the auth config:
+    ```sh
+    cat ~/vpn2/config/auth/config.toml
+    ```
+    Take note of the `apikey`.
+
+2. Open the `.env`:
+    ```sh
+    nano ~/slskd/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/slskd/downloads`.  
+    Change `INCOMPLETE_FOLDER` to your incomplete folder, I use `/mnt/downloads/slskd/incomplete`.  
+    Change `SHARING_FOLDER` to your music folder, I use `/mnt/media/music`.  
+
+3. For other apps to be able to access **Slskd** we'll need to create an API key. Generate one from [here](https://randomkeygen.com/jwt-secret) or another 16 to 255 character generator.
+
+4. In the `.env` set the `SLSKD_API_KEY` to the generated key.
+
+5. Set `PORTCHECKER_API_KEY` to the `vpn2`'s API key you took note of in step `1`.
+
+6. Set `SOULSEEK_USERNAME` and `SOULSEEK_PASSWORD` to your existing soulseek username and password. Or you can just make one up.
+
+7. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-slskd.sh
+    ```
 
 ### Jackett
 

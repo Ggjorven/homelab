@@ -1,0 +1,44 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    # user: ${PUID}:${PGID} # This is handled via PUID:PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SLSKD_SLSK_USERNAME=${SOULSEEK_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SOULSEEK_PASSWORD}
+      - SLSKD_SLSK_DESCRIPTION=${SOULSEEK_DESCRIPTION:-}
+      - SLSKD_DOWNLOADS_DIR=/downloads
+      - SLSKD_INCOMPLETE_DIR=/incomplete
+      - SLSKD_SHARED_DIR=/sharing
+      - SLSKD_SLSK_LISTEN_IP_ADDRESS=0.0.0.0
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_VPN=true
+      - SLSKD_VPN_PORT_FORWARDING=true
+      - SLSKD_VPN_POLLING_INTERVAL=500
+      - SLSKD_VPN_GLUETUN_URL=http://172.24.1.10:8000
+      - SLSKD_VPN_GLUETUN_API_KEY=${VPN_API_KEY}
+      - SLSKD_UPLOAD_SLOTS=${UPLOAD_SLOTS}
+      - SLSKD_UPLOAD_SPEED_LIMIT=${UPLOAD_SPEED_LIMIT}
+      - SLSKD_API_KEY=${SLSKD_API_KEY}
+    volumes:
+      - ./config:/app
+      - ${DOWNLOADS_DIRECTORY}:/downloads
+      - ${INCOMPLETE_DIRECTORY}:/incomplete
+      - ${SHARING_DIRECTORY}:/sharing:ro
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: container:vpn2
+    healthcheck:
+      test: sh -c "wget -qO- www.google.com && wget -qO- http://localhost:5030/health" # wget google.com replaces ping and nslookup for internet connectivity test
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
