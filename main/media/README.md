@@ -214,7 +214,7 @@ First we'll start by configuring via the `.env` file.
     sudo /lxc/scripts/up-jellyfin.sh
     ```
 
-Now that the container is running we'll start configuring via the WebUI on port `8096`. This requires either having `vmbr0` still attached or having set up `[priv-net](./../priv-net/README.md).
+Now that the container is running we'll start configuring via the WebUI on port `8096`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 #### Settings
 

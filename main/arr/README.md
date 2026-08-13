@@ -597,7 +597,7 @@ First we'll start by configuring via the `.env` file.
     sudo /lxc/scripts/up-qbittorrent.sh
     ```
 
-Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up `[priv-net](./../priv-net/README.md).
+Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 1. Check the `username` and `password`:
     ```sh
@@ -662,6 +662,9 @@ We can fully configure `slskd` by editing the `.env` file.
     ```sh
     sudo /lxc/scripts/up-slskd.sh
     ```
+
+Now that the container is running you can access the WebUI on port `5030`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).  
+The default `username` and `password` for **Slskd** are `slskd` and `slskd` respectively.
 
 ### Jackett
 
