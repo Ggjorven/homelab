@@ -414,7 +414,12 @@ We can configure `vpn1` by editing the `.env` file.
     Replace `<APIKEY>` with your generated API Key.  
     If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
 
-12. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
+12. Restart the `vpn1` container:
+    ```sh
+    docker restart vpn1
+    ```
+
+13. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
     ```sh
     BRANCH=main
     cd /lxc/scripts
@@ -422,7 +427,7 @@ We can configure `vpn1` by editing the `.env` file.
     sudo chmod +x vpns-restart.sh
     ```
 
-13. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
+14. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
     ```sh
     BRANCH=main
     cd /etc/systemd/system
@@ -430,7 +435,7 @@ We can configure `vpn1` by editing the `.env` file.
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.timer"
     ```
 
-14. (optional) Enable and start the service with:
+15. (optional) Enable and start the service with:
     ```sh
     systemctl daemon-reload
     systemctl enable vpns-restart.timer
@@ -525,7 +530,12 @@ We can configure `vpn2` by editing the `.env` file.
     Replace `<APIKEY>` with your generated API Key.  
     If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
 
-12. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, if you haven't installed it during `vpn1`'s configuration you can install it with:
+12. Restart the `vpn2` container:
+    ```sh
+    docker restart vpn2
+    ```
+
+13. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, if you haven't installed it during `vpn1`'s configuration you can install it with:
     ```sh
     BRANCH=main
     cd /lxc/scripts
@@ -533,7 +543,7 @@ We can configure `vpn2` by editing the `.env` file.
     sudo chmod +x vpns-restart.sh
     ```
 
-13. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with if you haven't already:
+14. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with if you haven't already:
     ```sh
     BRANCH=main
     cd /etc/systemd/system
@@ -541,7 +551,7 @@ We can configure `vpn2` by editing the `.env` file.
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.timer"
     ```
 
-14. (optional) Enable and start the service with these commands if you haven't already:
+15. (optional) Enable and start the service with these commands if you haven't already:
     ```sh
     systemctl daemon-reload
     systemctl enable vpns-restart.timer
