@@ -1,0 +1,25 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  byparr:
+    image: ghcr.io/thephaseless/byparr:latest
+    container_name: byparr
+    # user: ${PUID}:${PGID} # This container runs as 1000:1000 already (except for openvpn)
+    environment:
+      # - PUID=${PUID}
+      # - PGID=${PGID}
+      - TZ=${TZ}
+      - LOG_LEVEL=INFO
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: container:vpn1
+    healthcheck:
+      test: sh -c "curl https://www.google.com && curl -s http://localhost:8191/health" # curl https://www.google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
