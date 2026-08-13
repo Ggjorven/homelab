@@ -31,7 +31,7 @@ services:
       arr-network:
         ipv4_address: 172.24.1.11
     ports:
-      - 5030:5030 # Slskd web interface
+      - "0.0.0.0:5030:5030" # Slskd web interface
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
       interval: 30s
