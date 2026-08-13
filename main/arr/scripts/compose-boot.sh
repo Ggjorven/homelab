@@ -7,6 +7,8 @@
 "$(dirname "$0")/up-byparr.sh"
 "$(dirname "$0")/up-qbittorrent.sh"
 "$(dirname "$0")/up-slskd.sh"
+"$(dirname "$0")/up-jackett.sh"
+"$(dirname "$0")/up-prowlarr.sh"
 "$(dirname "$0")/up-radarr.sh"
 "$(dirname "$0")/up-sonarr.sh"
 "$(dirname "$0")/up-lidarr.sh"
