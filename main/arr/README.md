@@ -600,27 +600,33 @@ First we'll start by configuring via the `.env` file.
 
 Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up `[priv-net](./../priv-net/README.md).
 
-1. First login to QBitTorrent using `username` and `password` from this command:
+1. Check the `username` and `password`:
     ```sh
     docker logs qbittorrent
     ```
-    You'll see a message saying that a temporary password has been generated.  
-    Your temporary `username` will most likely be `admin` and the password is the one generated.
+    You'll see a message like:
+    ```
+    The WebUI administrator username is: admin
+    The WebUI administrator password was not set. A temporary password is provided for this session: xxxxxxxx
+    ```
+    Take note of the `username` and `password`.
 
-2. Then go to the settings and `WebUI` and change the `username` and `password` to something you can remember.
+2. Now go to the WebUI and login with those credentials.
 
-3. Secondly we need to change the `network interface` in the setting under `Advanced` to `tun0`.
+3. Then go to the **Settings** -> **WebUI** and change the `username` and `password` to something you can remember.
 
-4. Thirdly we need to set our directories. Go back to setting and then `Downloads`.
+3. Secondly we need to change the `network interface` in the setting under **Advanced** to `tun0`.
+
+4. Thirdly we need to set our directories. Go to **Settings** -> **Downloads**.
     - Set `Default Save Path` to `/downloads`
     - Set `Keep incomplete torrents` to `/incomplete`
     - And `Copy .torrent files` to `/torrents`
 
-5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under settings go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
+5. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Settings** go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
-6. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to settings and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
+6. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to **Settings** and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
 
-7. (optional) If you really value every ounce of privacy you can also go to settings and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
+7. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
 
 ### Slskd
 
