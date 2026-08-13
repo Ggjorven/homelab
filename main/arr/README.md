@@ -335,14 +335,86 @@ We can configure `vpn1` by editing the `.env` file.
     cd ~/vpn1
     nano .env
     ```
-    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.
+    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.  
+    Leave `VPN_PORT_FORWARDING` `on`.
 
-2. That's it, you can now start `vpn1`:
+2. Now start `vpn1`:
     ```sh
     sudo /lxc/scripts/up-vpn1.sh
     ```
 
-3. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
+3. Check the logs:
+    ```sh
+    docker logs vpn1
+    ```
+    You should see something like:
+    ```
+    [ip getter] Public IP address is xxx.xxx.xxx.xxx (Netherlands, North Holland, Amsterdam - source: ipinfo+ifconfig.co+ip2location+cloudflare)
+    ...
+    INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
+    ```
+    If you don't see this output checkout the [debugging guide](DEBUGGING.md#forwarded-port-not-showing-up).
+
+4. To double check the port is actually open run these commands:
+    ```sh
+    docker exec -it vpn1 /bin/sh
+    ```
+    Install `port-checker` in the container:
+    ```sh
+    wget -qO port-checker https://github.com/qdm12/port-checker/releases/download/v0.4.0/port-checker_0.4.0_linux_amd64
+    chmod +x port-checker
+    ```
+    Now start the webserver:
+    ```
+    ./port-checker --listening-address=":9999"
+    ```
+    Where you replace `9999` with the port you saw in the docker logs.
+
+5. Open a browser and go the VPN's IP on port `9999` where `9999` is replaced with your actual listening port.
+
+6. If everything works you will see a small output detailing your browser information. Something like:
+    ```
+    Listening address: :9999
+    Client address: xxx.xxx.xxxx.xxx:xxx
+    Browser: Chrome 145
+    Device: Computer
+    OS: Linux 0
+    ```
+
+8. To exit `vpn1`'s shell run:
+    ```sh
+    exit
+    ```
+
+9. To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an API key:
+    ```sh
+    cd ~/vpn1
+    docker run --rm -v ./config:/gluetun qmcgaw/gluetun:latest genkey
+    ```
+    Make sure to save this API key for later.
+
+10. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
+    ```sh
+    sudo mkdir -p config/auth
+    ```
+
+11. Create a config file that sets up a route like so:
+    ```
+    sudo rm config/auth/config.toml
+    sudo nano config/auth/config.toml
+    ```
+    And paste:
+    ```
+    [[roles]]
+    name = "portchecker"
+    routes = ["GET /v1/portforward", "GET /v1/openvpn/portforwarded", "GET /v1/publicip/ip"]
+    auth = "apikey"
+    apikey = "<APIKEY>"
+    ```
+    Replace `<APIKEY>` with your generated API Key.  
+    If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
+
+12. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
     ```sh
     BRANCH=main
     cd /lxc/scripts
@@ -350,7 +422,7 @@ We can configure `vpn1` by editing the `.env` file.
     sudo chmod +x vpns-restart.sh
     ```
 
-4. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
+13. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
     ```sh
     BRANCH=main
     cd /etc/systemd/system
@@ -358,7 +430,7 @@ We can configure `vpn1` by editing the `.env` file.
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.timer"
     ```
 
-5. (optional) Enable and start the service with:
+14. (optional) Enable and start the service with:
     ```sh
     systemctl daemon-reload
     systemctl enable vpns-restart.timer
@@ -374,11 +446,106 @@ We can configure `vpn2` by editing the `.env` file.
     cd ~/vpn2
     nano .env
     ```
-    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.
+    Change `OPENVPN_USER` and `OPENVPN_PASSWORD` to your [pia](https://www.privateinternetaccess.com/) credentials.  
+    Leave `VPN_PORT_FORWARDING` `on`.
 
-2. That's it, you can now start `vpn2`:
+2. Now start `vpn2`:
     ```sh
     sudo /lxc/scripts/up-vpn2.sh
+    ```
+
+3. Check the logs:
+    ```sh
+    docker logs vpn2
+    ```
+    You should see something like:
+    ```
+    [ip getter] Public IP address is xxx.xxx.xxx.xxx (Netherlands, North Holland, Amsterdam - source: ipinfo+ifconfig.co+ip2location+cloudflare)
+    ...
+    INFO [port forwarding] My forwarded ports are 9999, the first forwarded port is 9999 and the VPN network interface is tun0
+    ```
+    If you don't see this output checkout the [debugging guide](DEBUGGING.md#forwarded-port-not-showing-up).
+
+4. To double check the port is actually open run these commands:
+    ```sh
+    docker exec -it vpn2 /bin/sh
+    ```
+    Install `port-checker` in the container:
+    ```sh
+    wget -qO port-checker https://github.com/qdm12/port-checker/releases/download/v0.4.0/port-checker_0.4.0_linux_amd64
+    chmod +x port-checker
+    ```
+    Now start the webserver:
+    ```
+    ./port-checker --listening-address=":9999"
+    ```
+    Where you replace `9999` with the port you saw in the docker logs.
+
+5. Open a browser and go the VPN's IP on port `9999` where `9999` is replaced with your actual listening port.
+
+6. If everything works you will see a small output detailing your browser information. Something like:
+    ```
+    Listening address: :9999
+    Client address: xxx.xxx.xxxx.xxx:xxx
+    Browser: Chrome 145
+    Device: Computer
+    OS: Linux 0
+    ```
+
+8. To exit `vpn2`'s shell run:
+    ```sh
+    exit
+    ```
+
+9. To be able to use this port dynamically in other applications we also want to setup `gluetun` authentication. First we'll need to generate an API key:
+    ```sh
+    cd ~/vpn2
+    docker run --rm -v ./config:/gluetun qmcgaw/gluetun:latest genkey
+    ```
+    Make sure to save this API key for later.
+
+10. Create a new directory for setting up a safe path that someone with the API key can retrieve the dynamic port.
+    ```sh
+    sudo mkdir -p config/auth
+    ```
+
+11. Create a config file that sets up a route like so:
+    ```
+    sudo rm config/auth/config.toml
+    sudo nano config/auth/config.toml
+    ```
+    And paste:
+    ```
+    [[roles]]
+    name = "portchecker"
+    routes = ["GET /v1/portforward", "GET /v1/openvpn/portforwarded", "GET /v1/publicip/ip"]
+    auth = "apikey"
+    apikey = "<APIKEY>"
+    ```
+    Replace `<APIKEY>` with your generated API Key.  
+    If you have any other issues I have taken these instructions from [here](https://github.com/TechClusterHQ/qbt-portchecker/tree/main).
+
+12. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, if you haven't installed it during `vpn1`'s configuration you can install it with:
+    ```sh
+    BRANCH=main
+    cd /lxc/scripts
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/vpns-restart.sh"
+    sudo chmod +x vpns-restart.sh
+    ```
+
+13. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with if you haven't already:
+    ```sh
+    BRANCH=main
+    cd /etc/systemd/system
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.timer"
+    ```
+
+14. (optional) Enable and start the service with these commands if you haven't already:
+    ```sh
+    systemctl daemon-reload
+    systemctl enable vpns-restart.timer
+    systemctl start vpns-restart.timer
     ```
 
 ### Byparr
