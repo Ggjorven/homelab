@@ -611,7 +611,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     ```
     Take note of the `username` and `password`.
 
-2. Now go to the WebUI and login with those credentials.
+2. Now go to the WebUI and login with those credentials. Be quick with next few steps because qbittorrent restarts every 120s until you finish step 4.
 
 3. Then go to the **Settings** -> **WebUI** and change the `username` and `password` to something you can remember.
 
@@ -626,7 +626,10 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 7. Since we are gonna be a good torrenter we'll be seeding after downloading, but we don't want to give up all our bandwith. So under **Settings** go to **Speed** under **Global Rate Limits** set your **Upload** to something you want. I have `5000 KiB/s`.
 
-8. Also we want to allow multiple downloads simultaneously, by default only `3` simultaneous download and `2` simultaneous uploads are allowed. Go to **Settings** and under **BitTorrent** set maximum active downloads to something significantly higher like `50`. Same for uploads, something like `10`.
+8. Also we want to allow multiple downloads and uploads simultaneously, go to **Settings** -> **BitTorrent**:
+    - Set `Maximum active downloads` to something a lot higher, I use `40`.
+    - Set `Maximum active uploads` to something higher, I use `10`.
+    - Set `Maximum active torrents` to the max downloads + max uploads, in my case `50`.
 
 9. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
 
