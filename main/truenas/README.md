@@ -320,14 +320,15 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 79. I have created multiple auto-mount scripts, download them:
     ```sh
+    BRANCH=main
     mkdir -p /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-cloud.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/scripts/mount-cloud.sh"
     chmod +x mount-cloud.sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-downloads.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/scripts/mount-downloads.sh"
     chmod +x mount-downloads.sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-media.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/scripts/mount-media.sh"
     chmod +x mount-media.sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/scripts/mount-photos.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/scripts/mount-photos.sh"
     chmod +x mount-photos.sh
     ```
     Note: If you have a different path than `/mnt/tank/xxx`, you must edit the `SHARE_PATH` variable in the script.
@@ -335,10 +336,10 @@ Before we can install **TrueNAS**. We must have finished these steps:
 80. Download the `systemctl` services:
     ```sh
     cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-cloud.service
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-downloads.service
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-media.service
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/truenas/services/mount-photos.service
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-cloud.service"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-downloads.service"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-media.service"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-photos.service"
     ```
 
 81. Enable the services:

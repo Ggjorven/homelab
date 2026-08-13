@@ -177,17 +177,18 @@ This folder contains the installation instructions and configuration files used 
 
 27. Retrieve the **nftables** files:
     ```sh
+    BRANCH=main
     cd /etc/
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables.conf
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables.conf"
     mkdir -p nftables
     cd nftables
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/main.conf
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/vars.conf
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/main.conf"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/vars.conf"
     mkdir -p chains
     cd chains
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/forward.conf
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/input.conf
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/nftables/nftables/chains/nat.conf
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/chains/forward.conf"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/chains/input.conf"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/chains/nat.conf"
     ```
 
 28. We'll need to change some variables in `/etc/nftables/vars.conf`. First we need to gather some information though. Check what subnet your LAN is on:

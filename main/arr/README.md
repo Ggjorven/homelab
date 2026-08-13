@@ -101,196 +101,213 @@ This folder contains the installation instructions and configuration files used 
 
 35. Get the global .env:
     ```sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/.env
+    BRANCH=main
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/.env"
     ```
 
 36. Create the `networking` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/networking
     cd ~/networking
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/networking/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/networking/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/networking/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/networking/compose.yaml"
     ```
 
 37. Create the `monitoring` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/monitoring/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/monitoring/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/monitoring/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/monitoring/compose.yaml"
     ```
 
 38. Create the `vpn1` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/vpn1
     cd ~/vpn1
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn1/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn1/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn1/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn1/compose.yaml"
     ```
 
 39. Create the `vpn2` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/vpn2
     cd ~/vpn2
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn2/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/vpn2/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn2/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn2/compose.yaml"
     ```
 
 40. Create the `byparr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/byparr
     cd ~/byparr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/byparr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/byparr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/byparr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/byparr/compose.yaml"
     ```
 
 41. Create the `qbittorrent` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/qbittorrent
     cd ~/qbittorrent
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/qbittorrent/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/qbittorrent/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/qbittorrent/compose.yaml"
     ```
 
 42. Create the `slskd` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/slskd
     cd ~/slskd
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/slskd/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/slskd/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/slskd/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/slskd/compose.yaml"
     ```
 
 43. Create the `jackett` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/jackett
     cd ~/jackett
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/jackett/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/jackett/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/jackett/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/jackett/compose.yaml"
     ```
 
 44. Create the `prowlarr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/prowlarr
     cd ~/prowlarr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/prowlarr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/prowlarr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/prowlarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/prowlarr/compose.yaml"
     ```
 
 45. Create the `radarr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/radarr
     cd ~/radarr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/radarr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/radarr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/radarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/radarr/compose.yaml"
     ```
 
 46. Create the `sonarr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/sonarr
     cd ~/sonarr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/sonarr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/sonarr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/sonarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/sonarr/compose.yaml"
     ```
 
 47. Create the `lidarr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/lidarr
     cd ~/lidarr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/lidarr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/lidarr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/lidarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/lidarr/compose.yaml"
     ```
 
 48. Create the `bazarr` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/bazarr
     cd ~/bazarr
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/bazarr/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/bazarr/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/bazarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/bazarr/compose.yaml"
     ```
 
 49. Create the `metube` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/metube
     cd ~/metube
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/metube/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/metube/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/metube/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/metube/compose.yaml"
     ```
 
 50. Get the `up` and `down` scripts:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-networking.sh"
     sudo chmod +x up-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-vpn1.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-vpn1.sh"
     sudo chmod +x up-vpn1.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-vpn2.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-vpn2.sh"
     sudo chmod +x up-vpn2.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-byparr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-byparr.sh"
     sudo chmod +x up-byparr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-qbittorrent.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-qbittorrent.sh"
     sudo chmod +x up-qbittorrent.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-slskd.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-slskd.sh"
     sudo chmod +x up-slskd.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-jackett.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-jackett.sh"
     sudo chmod +x up-jackett.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-prowlarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-prowlarr.sh"
     sudo chmod +x up-prowlarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-radarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-radarr.sh"
     sudo chmod +x up-radarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-sonarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-sonarr.sh"
     sudo chmod +x up-sonarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-lidarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-lidarr.sh"
     sudo chmod +x up-lidarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-bazarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-bazarr.sh"
     sudo chmod +x up-bazarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/up-metube.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-metube.sh"
     sudo chmod +x up-metube.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-vpn1.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-vpn1.sh"
     sudo chmod +x down-vpn1.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-vpn2.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-vpn2.sh"
     sudo chmod +x down-vpn2.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-byparr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-byparr.sh"
     sudo chmod +x down-byparr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-qbittorrent.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-qbittorrent.sh"
     sudo chmod +x down-qbittorrent.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-slskd.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-slskd.sh"
     sudo chmod +x down-slskd.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-jackett.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-jackett.sh"
     sudo chmod +x down-jackett.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-prowlarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-prowlarr.sh"
     sudo chmod +x down-prowlarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-radarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-radarr.sh"
     sudo chmod +x down-radarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-sonarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-sonarr.sh"
     sudo chmod +x down-sonarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-lidarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-lidarr.sh"
     sudo chmod +x down-lidarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-bazarr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-bazarr.sh"
     sudo chmod +x down-bazarr.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/down-metube.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-metube.sh"
     sudo chmod +x down-metube.sh
     ```
 
 51. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-boot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/compose-boot.sh"
     sudo chmod +x compose-boot.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-shutdown.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/compose-shutdown.sh"
     sudo chmod +x compose-shutdown.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/compose-restart.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/compose-restart.sh"
     sudo chmod +x compose-restart.sh
     cd /etc/systemd/system
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/compose-boot.service
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/compose-shutdown.service
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/compose-boot.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/compose-shutdown.service"
     ```
 
 52. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
@@ -327,16 +344,18 @@ We can configure `vpn1` by editing the `.env` file.
 
 3. (optional) Sometimes the VPN ip gets blocked by the services, so I have created a restart script, you can install it with:
     ```sh
+    BRANCH=main
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/scripts/vpns-restart.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/vpns-restart.sh"
     sudo chmod +x vpns-restart.sh
     ```
 
 4. (optional) I like having a timer/service setup that restarts the VPN(s) automatically, you can also install these with:
     ```sh
+    BRANCH=main
     cd /etc/systemd/system
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/vpns-restart.service
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/arr/services/vpns-restart.timer
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/vpns-restart.timer"
     ```
 
 5. (optional) Enable and start the service with:

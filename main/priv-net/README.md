@@ -87,83 +87,90 @@ This folder contains the installation instructions and configuration files used 
 
 32. Get the global .env:
     ```sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/.env
+    BRANCH=main
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/.env"
     ```
 
 33. Create the `networking` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/networking
     cd ~/networking
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/networking/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/networking/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/networking/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/networking/compose.yaml"
     ```
 
 34. Create the `monitoring` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/monitoring/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/monitoring/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/monitoring/compose.yaml"
     ```
 
 35. Create the `certbot` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/certbot
     cd ~/certbot
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/compose.yaml
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/certbot/docker-entrypoint.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/docker-entrypoint.sh"
     ```
 
 36. Create the `openresty` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/openresty
     cd ~/openresty
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/compose.yaml
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/docker-entrypoint.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/docker-entrypoint.sh"
     mkdir -p config/templates
     cd config
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/nginx.conf
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/nginx.conf"
     cd templates
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/openresty/templates/jellyfin.conf.template
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/jellyfin.conf.template"
     ```
 
 37. Get the `up` and `down` scripts:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-networking.sh"
     sudo chmod +x up-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-certbot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-certbot.sh"
     sudo chmod +x up-certbot.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/up-openresty.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-openresty.sh"
     sudo chmod +x up-openresty.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-openresty.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-openresty.sh"
     sudo chmod +x down-openresty.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/down-certbot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-certbot.sh"
     sudo chmod +x down-certbot.sh
     ```
 
 38. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-boot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/compose-boot.sh"
     sudo chmod +x compose-boot.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-shutdown.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/compose-shutdown.sh"
     sudo chmod +x compose-shutdown.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/scripts/compose-restart.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/compose-restart.sh"
     sudo chmod +x compose-restart.sh
     cd /etc/systemd/system
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-boot.service
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/priv-net/services/compose-shutdown.service
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/services/compose-boot.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/services/compose-shutdown.service"
     ```
 
 39. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:

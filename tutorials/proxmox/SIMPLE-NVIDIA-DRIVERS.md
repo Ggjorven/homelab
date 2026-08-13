@@ -56,9 +56,10 @@ This file contains the steps for installing NVIDIA Drivers on the **Proxmox Node
 
 7. Download my simplified installation script:
     ```
+    BRANCH=main
     mkdir -p /node/scripts
     cd /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/scripts/install-nvidia-drivers.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/tutorials/proxmox/scripts/install-nvidia-drivers.sh"
     chmod +x install-nvidia-drivers.sh
     ```
 
@@ -75,11 +76,12 @@ This file contains the steps for installing NVIDIA Drivers on the **Proxmox Node
 
 10. Now make we need to make sure that the NVIDIA drivers persist. We do so by using a **systemctl service**. I have created a nice script for this, you can get it with this command:
     ```
+    BRANCH=main
     cd /etc/systemd/system
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/services/nvidia-persistence.service
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/tutorials/proxmox/services/nvidia-persistence.service"
     mkdir -p /node/scripts
     cd /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/scripts/nvidia-persistence.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/tutorials/proxmox/scripts/nvidia-persistence.sh"
     chmod +x nvidia-persistence.sh
     ```
 
@@ -109,9 +111,10 @@ If you have already previously follow the steps and installed the drivers and wa
 
 2. Download my simplified installation script:
     ```
+    BRANCH=main
     mkdir -p /node/scripts
     cd /node/scripts
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/tutorials/proxmox/scripts/install-nvidia-drivers.sh
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/tutorials/proxmox/scripts/install-nvidia-drivers.sh"
     chmod +x install-nvidia-drivers.sh
     ```
 

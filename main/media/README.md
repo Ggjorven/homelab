@@ -109,64 +109,70 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 36. Get the global .env:
     ```sh
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/.env
+    BRANCH=main
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/.env"
     ```
 
 37. Create the `networking` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/networking
     cd ~/networking
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/networking/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/networking/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/networking/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/networking/compose.yaml"
     ```
 
 38. Create the `monitoring` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/monitoring/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/monitoring/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/monitoring/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/monitoring/compose.yaml"
     ```
 
 39. Create the `jellyfin` stack:
     ```sh
+    BRANCH=main
     mkdir -p ~/jellyfin
     cd ~/jellyfin
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/jellyfin/.env
-    wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/jellyfin/compose.yaml
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/jellyfin/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/jellyfin/compose.yaml"
     ```
 
 40. Get the `up` and `down` scripts:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-networking.sh"
     sudo chmod +x up-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/up-jellyfin.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-jellyfin.sh"
     sudo chmod +x up-jellyfin.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-networking.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/down-jellyfin.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-jellyfin.sh"
     sudo chmod +x down-jellyfin.sh
     ```
 
 41. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
+    BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-boot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/compose-boot.sh"
     sudo chmod +x compose-boot.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-shutdown.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/compose-shutdown.sh"
     sudo chmod +x compose-shutdown.sh
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/scripts/compose-restart.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/compose-restart.sh"
     sudo chmod +x compose-restart.sh
     cd /etc/systemd/system
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/services/compose-boot.service
-    sudo wget https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/main/main/media/services/compose-shutdown.service
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-boot.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-shutdown.service"
     ```
 
 42. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
