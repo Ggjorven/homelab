@@ -668,7 +668,31 @@ The default `username` and `password` for **Slskd** are `slskd` and `slskd` resp
 
 ### Jackett
 
-// TODO: ...
+**Jackett** doesn't require any configuring via the `.env` file.  
+So just start the container:
+```sh
+sudo /lxc/scripts/up-jackett.sh
+```
+
+Now that the container is running we'll start configuring via the WebUI on port `9117`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Scroll down and setup authentication by setting an **Admin password**.
+
+2. Scroll down further to **FlareSolverr API URL**. Set it to `http://172.24.1.10:8191` which is the [Byparr](#Byparr) URL.
+
+3. Set the **FlareSolverr Max Timeout** to `60000` ms.
+
+4. Scroll back up and **Apply server settings**.
+
+5. Now we'll be adding our indexers, note that **Jackett** is the backup for **Prowlarr**, so only the most important indexers will be here. Follow these instructions for all indexers:
+    1. Click **Add indexer**.
+    2. Find your indexer and hit the **Configure** button.
+    3. Under **Site link** click on the link you prefer (since this is a backup, make it the most popular one)
+    4. Scroll down to tags and set the tags listed for that indexer below.
+    5. Hit **Okay** to save the indexer.
+
+6. Now add the indexers to **Jackett**. My current setup:
+    - **TorrentHeaven** (private), tags = (movies, series)
 
 ### Prowlarr
 
