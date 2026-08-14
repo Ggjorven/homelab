@@ -56,7 +56,7 @@ services:
       arr-network:
         ipv4_address: 172.24.1.12
     ports:
-      - "0.0.0.0:8191:8191"
+      - "127.0.0.1:8191:8191"
     depends_on:
       - flaresolverr
       - byparr
