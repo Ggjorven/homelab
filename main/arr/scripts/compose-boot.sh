@@ -4,7 +4,7 @@
 "$(dirname "$0")/up-monitoring.sh"
 "$(dirname "$0")/up-vpn1.sh"
 "$(dirname "$0")/up-vpn2.sh"
-"$(dirname "$0")/up-byparr.sh"
+"$(dirname "$0")/up-flaresolverr.sh"
 "$(dirname "$0")/up-qbittorrent.sh"
 "$(dirname "$0")/up-slskd.sh"
 "$(dirname "$0")/up-jackett.sh"

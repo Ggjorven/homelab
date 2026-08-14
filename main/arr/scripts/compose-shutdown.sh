@@ -9,7 +9,7 @@
 "$(dirname "$0")/down-jackett.sh"
 "$(dirname "$0")/down-slskd.sh"
 "$(dirname "$0")/down-qbittorrent.sh"
-"$(dirname "$0")/down-byparr.sh"
+"$(dirname "$0")/down-flaresolverr.sh"
 "$(dirname "$0")/down-vpn2.sh"
 "$(dirname "$0")/down-vpn1.sh"
 "$(dirname "$0")/down-monitoring.sh"

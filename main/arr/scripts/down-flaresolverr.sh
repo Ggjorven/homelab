@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STACK_USER="arr"
-STACK_NAME="byparr"
+STACK_NAME="flaresolverr"
 
 STACK_DIR="/home/$STACK_USER/$STACK_NAME"
 COMPOSE_FILE="$STACK_DIR/compose.yaml"

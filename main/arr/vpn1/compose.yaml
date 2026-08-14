@@ -31,7 +31,8 @@ services:
       arr-network:
         ipv4_address: 172.24.1.10
     ports:
-      - "127.0.0.1:8191:8191" # Byparr port
+      - "127.0.0.1:8192:8192" # Flaresolverr port
+      - "127.0.0.1:8193:8193" # Byparr port
       - "0.0.0.0:8080:8080" # QBitTorrent web interface
       - "0.0.0.0:9696:9696" # Prowlarr web interface
       - "0.0.0.0:9117:9117" # Jackett web interface

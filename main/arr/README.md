@@ -141,13 +141,13 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn2/compose.yaml"
     ```
 
-40. Create the `byparr` stack:
+40. Create the `flaresolverr` stack:
     ```sh
     BRANCH=main
-    mkdir -p ~/byparr
-    cd ~/byparr
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/byparr/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/byparr/compose.yaml"
+    mkdir -p ~/flaresolverr
+    cd ~/flaresolverr
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/flaresolverr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/flaresolverr/compose.yaml"
     ```
 
 41. Create the `qbittorrent` stack:
@@ -244,8 +244,8 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-vpn1.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-vpn2.sh"
     sudo chmod +x up-vpn2.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-byparr.sh"
-    sudo chmod +x up-byparr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-flaresolverr.sh"
+    sudo chmod +x up-flaresolverr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-qbittorrent.sh"
     sudo chmod +x up-qbittorrent.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-slskd.sh"
@@ -272,8 +272,8 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-vpn1.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-vpn2.sh"
     sudo chmod +x down-vpn2.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-byparr.sh"
-    sudo chmod +x down-byparr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-flaresolverr.sh"
+    sudo chmod +x down-flaresolverr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-qbittorrent.sh"
     sudo chmod +x down-qbittorrent.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-slskd.sh"
@@ -558,12 +558,12 @@ We can configure `vpn2` by editing the `.env` file and other files.
     systemctl start vpns-restart.timer
     ```
 
-### Byparr
+### Flaresolverr
 
-This container doesn't require any configuration.  
+This container (stack) doesn't require any configuration.  
 You can start the container with:
 ```sh
-sudo /lxc/scripts/up-byparr.sh
+sudo /lxc/scripts/up-flaresolverr.sh
 ```
 
 ### QBitTorrent
@@ -678,7 +678,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 1. Scroll down and setup authentication by setting an **Admin password**.
 
-2. Scroll down further to **FlareSolverr API URL**. Set it to `http://172.24.1.10:8191` which is the [Byparr](#Byparr) URL.
+2. Scroll down further to **FlareSolverr API URL**. Set it to `http://172.24.1.12:8191` which is the [FlareSolverr](#FlareSolverr) (aggregate) URL.
 
 3. Set the **FlareSolverr Max Timeout** to `60000` ms.
 
