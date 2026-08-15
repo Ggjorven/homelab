@@ -692,11 +692,130 @@ Now that the container is running we'll start configuring via the WebUI on port 
     5. Hit **Okay** to save the indexer.
 
 6. Now add the indexers to **Jackett**. My current setup:
-    - **TorrentHeaven** (private), tags = (movies, series)
+    - **1337x**, tags = (movies, series, music, flaresolverr)
+    - **TorrentGalaxyClone**, tags = (movies, series, music)
+    - **TorrentDownload**, tags = (movies, series, music)
+    - **LimeTorrents**, tags = (movies, series, music, flaresolverr)
+    - **EZTV**, tags = (series, flaresolverr)
+    - **The Pirate Bay**, tags = (movies, series, music)
+    - **YTS**, tags = (series)
+    - **Uindex**, tags = (movies, series, music)
+    - **TorrentHeaven** (private), tags = (movies, series), NOTE: This requires your credentials and a thank you message
 
 ### Prowlarr
 
-// TODO: ...
+**Prowlarr** doesn't require any configuring via the `.env` file.  
+So just start the container:
+```sh
+sudo /lxc/scripts/up-prowlarr.sh
+```
+
+Now that the container is running we'll start configuring via the WebUI on port `9696`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Once you open the WebUI the first thing you'll see is "Authentication Required". Set the **Authentication Method** to `Forms (login page)`.
+
+2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
+
+3. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+4. Now go to **Settings** -> **Indexers** and add an **Index Proxy** and click `FlareSolverr` set it's ip to `172.24.1.12`. And give it the tag `flaresolverr`. Enable advanced options and set timeout to `180`.
+
+5. Now we'll need to add all of our indexers, follow these steps for each indexer:
+    1. Under **Indexers** click **Add Indexer**.
+    2. Search for the name and click it.
+    3. Set the **Name** field to `{NAME} ({N})`, where `{NAME}` is the name of the indexer and `{N}` is the nth indexer of that name, since there are multiple base URLs.
+    4. Set the **Base URL** to the nth name, so for the first indexer of **Name** to the first URL.
+    5. Scroll down to **Indexer Priority** and set it to the priority listed in the list. (If you don't see it click on the gear icon in the bottom right)
+    6. Set the tags to the tags specified in the list.
+    7. **Save**!
+    8. Repeat these steps for the same indexer for `2` or `3` times with different **Base URL**'s, make sure to make the **Name** unique.
+
+6. Follow the steps under step `5` for all of these indexers (most stolen from [torrentio](https://torrentio.strem.fun/)):
+    - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
+    - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music)
+    - **BitSearch** priority = 3, tags = (movies, series, music)
+    - **TorrentDownload** priority = 4, tags = (movies, series, music)
+    - **LimeTorrents** priority = 5, tags = (movies, series, music, flaresolverr)
+    - **EZTV** priority = 6, tags = (series, flaresolverr)
+    - **The Pirate Bay** priority = 7, tags = (movies, series, music)
+    - **YTS** priority = 8, tags = (series)
+    - **Uindex** priority = 9, tags = (movies, series, music)
+    - **kickasstorrents.ws** priority = 10, tags = (movies, series, music, flaresolverr)
+    - **NorTorrent** priority = 11, tags = (movies, series, music, flaresolverr)
+    - **SubsPlease** priority = 12, tags = (movies, series)
+    - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
+    - **BitRu** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **BTdirectory** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **FileMood** priority = 25 (default), tags = (movies, series, music)
+    - **ilCorSaRoNeRo** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
+    - **MagnetDownload** priority = 25 (default), tags = (movies, series, music)
+    - **Magnet Cat** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Nyaa.si** priority = 25 (default), tags = (movies, series, music)
+    - **RuTor** priority = 25 (default), tags = (movies, series, music)
+    - **RuTracker.RU** priority = 25 (default), tags = (movies, series, music)
+    - **showRSS** priority = 25 (default), tags = (series)
+    - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
+    - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **Torrent[CORE]** priority = 25 (default), tags = (movies, series, music)
+    - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
+    - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
+   
+    If you also want indexers specially for anime use these (untested):
+
+    - **ACG.RIP** priority = 25 (default), tags = (series)
+    - **Anidex** priority = 25 (default), tags = (series)
+    - **AniSource** priority = 25 (default), tags = (series)
+    - **nekoBT** priority = 25 (default), tags = (series)
+    - **Shana Project** priority = 25 (default), tags = (series)
+
+    For higher availability I would recommend adding `2` or `3` different **Base URL** versions per indexer if possible.  
+
+> [!NOTE]
+> Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/prowlarr/config/Definitions/Custom`.
+
+7. Now add the [Jackett](#Jackett) indexers to **Prowlarr**. Go to the **Jacket** WebUI on port `9117` if `vmbr0` is still attached or go to the url if you set up [`priv-net`](./../priv-net/README.md). For all of your indexers in **Jackett** follow these steps:
+    1. In the **Jacket** WebUI indexer click **Copy Torznab Feed** for the indexer.
+    2. Back in the **Prowlarr** WebUI under **Indexers** click **Add Indexer**.
+    3. Search for "Generic Torznab" and click it.
+    4. Make sure **Advanced Settings** are enabled by click the gear icon in the bottom right.
+    5. Set the **Url** to `172.24.1.10:9117`.
+    6. Paste the just copied URL under **Api Path**, but from the front remove the `http://xxx.xxx.xxx.xxx:xxx` so the **API Path** looks something like `/api/xxxx`
+    7. Go back to the **Jackett** WebUI and click the **Copy** icon in the top right to copy the **API Key**.
+    8. Back in **Prowlarr** set the **API Key** field to that just copied value.
+    9. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
+    10. **Save**!
+    To also add the RSS capabilities follow these steps:
+    1. In the **Jacket** WebUI indexer click **Copy RSS Feed** for the indexer.
+    2. Back in the **Prowlarr** WebUI under **Indexers** click **Add Indexer**.
+    3. Search for "Torrent RSS Feed" and click it.
+    4. Make sure **Advanced Settings** are enabled by click the gear icon in the bottom right.
+    6. Paste the just copied URL under **Full RSS Feed URL**, but from the front replace the `http://xxx.xxx.xxx.xxx:xxx` with `http://172.24.1.10:9117`, so the url looks something like `http://172.24.1.10:9117/api/xxxx`
+    7. Enable **Allow Zero Size**.
+    8. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
+    9. **Save**!
+
+8. Now **Sync App Indexers**.
+
+---
+
+After setting up [Radarr](#Radarr), [Sonarr](#Sonarr) & [Lidarr](#Lidarr) come back to these steps. These steps are pretty much the same for all of them so there is only 1 explanation:
+
+1. Go to the application you want to add to **Prowlarr** and go to that apps WebUI and **Settings** -> **General** and copy your **API Key**.
+
+2. Go back to **Prowlarr** and go to **Settings** -> **Apps** and add an application. 
+
+3. Paste in the **API Key** under **API Key**. 
+
+4. Set the **Prowlarr Server** to `http://172.24.1.10:9696`.
+
+5. Set the ***Arr Server** to `http://172.24.1.13:7878` for **Radarr**, `http://172.24.1.13:8989` for **Sonarr** and `http://172.24.1.13:8686` for **Lidarr**.
+
+6. Now set the **Tags**. For **Radarr** set it to `movies`, for **Sonarr** to `series` and for **Lidarr** set it to `music`.
+
+7. **Save**!
+
+---
 
 // TODO: Download test-indexers script, timer and service and add API key
 
