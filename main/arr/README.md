@@ -846,9 +846,66 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
 
-3. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+3. First we're gonna start by importing existing movies, click on **Import Existing Movies** and hit **Start Import** and select the `/movies` folder.
 
-4. a
+4. Wait for all the movies to be processed and click **Import X Movies** and wait again.
+
+5. Now go to **Settings** -> **Media Management** and enable **Rename Movies** ans set it to `{Movie Title} ({Release Year})` and hit **Save Changes** in the top left.
+
+6. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+7. Now we'll need to modify **Quality Profiles**. Go to **Settings** -> **Profiles**
+
+8. Delete:
+    - **HD - 720p/1080p**
+    - **SD**
+
+9. Now change these profiles titles:
+    - **HD-720p** to **720p - HD**
+    - **HD-1080p** to **1080p - HD**
+    - **Ultra-HD** to **2160p - 4K**
+
+10. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
+
+11. Now we'll need to set maximum **Quality** sizes. Go to **Settings** -> **Quality**.
+
+12. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+    - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
+    - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
+    --
+    - **HDTV-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `25`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `25`, max = `55`  
+    --
+    - **HDVTV-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `65`, max = `135`
+
+// TODO: Fix below:
+
+13. We'll also want the **Jellyfin** library to update automatically on movie imports, so go to **Settings** -> **Connect**. 
+
+14. Add a connection and select **Emby / Jellyfin**. Enable:
+    - **On Grab**
+    - **On File Import**
+    - **On File Upgrade**
+    - **On Rename**
+    - **On Movie Added**
+    - **On Movie Delete**
+    - **On Movie File Delete**
+    - **On Movie File Delete For Upgrade**
+
+15. Set the **Host** to `172.`
+
+---
+
+// TODO: Gotify notifications after monitoring
 
 ### Sonarr
 

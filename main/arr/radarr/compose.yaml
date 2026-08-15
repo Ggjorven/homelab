@@ -14,7 +14,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./config:/config
-      - ${DOWNLOADS_FOLDER}:/downloads
+      - ${DOWNLOADS_FOLDER}:/downloads:ro
       - ${MOVIES_FOLDER}:/movies
       - /etc/localtime:/etc/localtime:ro
     ports:
