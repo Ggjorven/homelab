@@ -818,10 +818,6 @@ After setting up [Radarr](#Radarr), [Sonarr](#Sonarr) & [Lidarr](#Lidarr) come b
 
 7. **Save**!
 
----
-
-// TODO: Download test-indexers script, timer and service and add API key
-
 ### Radarr
 
 // TODO: ...
