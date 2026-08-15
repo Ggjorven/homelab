@@ -741,9 +741,8 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **YTS** priority = 8, tags = (series)
     - **Uindex** priority = 9, tags = (movies, series, music)
     - **kickasstorrents.ws** priority = 10, tags = (movies, series, music, flaresolverr)
-    - **NorTorrent** priority = 11, tags = (movies, series, music, flaresolverr)
+    - **World-torrent** priority = 11, tags = (movies, series, music, flaresolverr)
     - **SubsPlease** priority = 12, tags = (movies, series)
-    - **arab-torrents** priority = 25 (default), tags = (movies, series, music)
     - **BitRu** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **BTdirectory** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **FileMood** priority = 25 (default), tags = (movies, series, music)
@@ -751,7 +750,6 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **Internet Archive** priority = 25 (default), tags = (movies, series, music)
     - **MagnetDownload** priority = 25 (default), tags = (movies, series, music)
     - **Magnet Cat** priority = 25 (default), tags = (movies, series, music, flaresolverr)
-    - **Nyaa.si** priority = 25 (default), tags = (movies, series, music)
     - **RuTor** priority = 25 (default), tags = (movies, series, music)
     - **RuTracker.RU** priority = 25 (default), tags = (movies, series, music)
     - **showRSS** priority = 25 (default), tags = (series)
@@ -763,6 +761,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
    
     If you also want indexers specially for anime use these (untested):
 
+    - **Nyaa.si** priority = 25 (default), tags = (movies, series, music)
     - **ACG.RIP** priority = 25 (default), tags = (series)
     - **Anidex** priority = 25 (default), tags = (series)
     - **AniSource** priority = 25 (default), tags = (series)
@@ -780,7 +779,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     3. Search for "Generic Torznab" and click it.
     4. Make sure **Advanced Settings** are enabled by click the gear icon in the bottom right.
     5. Set the **Name** to `{NAME} (jackett)` where `{NAME}` is the name of the indexer.
-    6. Set the **Url** to `172.24.1.10:9117`.
+    6. Set the **Url** to `http://172.24.1.10:9117`.
     7. Paste the just copied URL under **Api Path**, but from the front remove the `http://xxx.xxx.xxx.xxx:xxx` so the **API Path** looks something like `/api/xxxx`
     8. Go back to the **Jackett** WebUI and click the **Copy** icon in the top right to copy the **API Key**.
     9. Back in **Prowlarr** set the **API Key** field to that just copied value.
