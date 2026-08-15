@@ -779,17 +779,21 @@ Now that the container is running we'll start configuring via the WebUI on port 
     2. Back in the **Prowlarr** WebUI under **Indexers** click **Add Indexer**.
     3. Search for "Generic Torznab" and click it.
     4. Make sure **Advanced Settings** are enabled by click the gear icon in the bottom right.
-    5. Set the **Url** to `172.24.1.10:9117`.
-    6. Paste the just copied URL under **Api Path**, but from the front remove the `http://xxx.xxx.xxx.xxx:xxx` so the **API Path** looks something like `/api/xxxx`
-    7. Go back to the **Jackett** WebUI and click the **Copy** icon in the top right to copy the **API Key**.
-    8. Back in **Prowlarr** set the **API Key** field to that just copied value.
-    9. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
-    10. **Save**!
+    5. Set the **Name** to `{NAME} (jackett)` where `{NAME}` is the name of the indexer.
+    6. Set the **Url** to `172.24.1.10:9117`.
+    7. Paste the just copied URL under **Api Path**, but from the front remove the `http://xxx.xxx.xxx.xxx:xxx` so the **API Path** looks something like `/api/xxxx`
+    8. Go back to the **Jackett** WebUI and click the **Copy** icon in the top right to copy the **API Key**.
+    9. Back in **Prowlarr** set the **API Key** field to that just copied value.
+    10. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
+    11. **Save**!
+
     To also add the RSS capabilities follow these steps:
+
     1. In the **Jacket** WebUI indexer click **Copy RSS Feed** for the indexer.
     2. Back in the **Prowlarr** WebUI under **Indexers** click **Add Indexer**.
     3. Search for "Torrent RSS Feed" and click it.
     4. Make sure **Advanced Settings** are enabled by click the gear icon in the bottom right.
+    5. Set the **Name** to `{NAME} (jackett rss)` where `{NAME}` is the name of the indexer.
     6. Paste the just copied URL under **Full RSS Feed URL**, but from the front replace the `http://xxx.xxx.xxx.xxx:xxx` with `http://172.24.1.10:9117`, so the url looks something like `http://172.24.1.10:9117/api/xxxx`
     7. Enable **Allow Zero Size**.
     8. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
