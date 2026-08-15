@@ -1,0 +1,31 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config:/config
+      - ${DOWNLOADS_FOLDER}:/downloads
+      - ${MOVIES_FOLDER}:/movies
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "0.0.0.0:7878:7878"
+    networks:
+      arr-network:
+        ipv4_address: 172.24.1.13
+    healthcheck:
+      test: sh -c "wget -qO- http://localhost:7878 && curl -s http://localhost:7878/ping"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped

@@ -820,9 +820,35 @@ After setting up [Radarr](#Radarr), [Sonarr](#Sonarr) & [Lidarr](#Lidarr) come b
 
 ### Radarr
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
 
-// Add API key to test-indexers script
+1. Open the `.env`:
+    ```sh
+    nano ~/radarr/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/qbittorrent/downloads`.  
+    Change `MOVIES_FOLDER` to your downloads folder, I use `/mnt/media/films`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/qbittorrent/downloads
+    mkdir -p /mnt/media/films
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-radarr.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `7878`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Once you open the WebUI the first thing you'll see is "Authentication Required". Set the **Authentication Method** to `Forms (login page)`.
+
+2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
+
+3. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+4. a
 
 ### Sonarr
 
