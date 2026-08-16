@@ -739,7 +739,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **EZTV** priority = 6, tags = (series, flaresolverr)
     - **The Pirate Bay** priority = 7, tags = (movies, series, music)
     - **YTS** priority = 8, tags = (series)
-    - **Uindex** priority = 9, tags = (movies, series, music)
+    - **Uindex** priority = 9, tags = (movies, series, music, flaresolverr)
     - **kickasstorrents.ws** priority = 10, tags = (movies, series, music, flaresolverr)
     - **World-torrent** priority = 11, tags = (movies, series, music, flaresolverr)
     - **SubsPlease** priority = 12, tags = (movies, series)
