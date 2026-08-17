@@ -1,0 +1,29 @@
+networks:
+  media-network:
+    name: media-network
+    external: true
+
+services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    user: ${PUID}:${PGID}
+    init: true
+    environment:
+      - LOG_LEVEL=info
+      - TZ=${TZ}
+    volumes:
+      - ./config:/app/config
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      media-network:
+        ipv4_address: 172.24.1.11
+    ports:
+      - "0.0.0.0:5055:5055"
+    healthcheck:
+      test: wget -qO- http://localhost:5055/api/v1/status
+      timeout: 10s
+      interval: 30s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
