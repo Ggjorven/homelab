@@ -716,11 +716,13 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
 
-3. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+3. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
 
-4. Now go to **Settings** -> **Indexers** and add an **Index Proxy** and click `FlareSolverr` set it's ip to `172.24.1.12`. And give it the tag `flaresolverr`. Enable advanced options and set timeout to `180`.
+4. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
 
-5. Now we'll need to add all of our indexers, follow these steps for each indexer:
+5. Now go to **Settings** -> **Indexers** and add an **Index Proxy** and click `FlareSolverr` set it's ip to `172.24.1.12`. And give it the tag `flaresolverr`. Enable advanced options and set timeout to `180`.
+
+6. Now we'll need to add all of our indexers, follow these steps for each indexer:
     1. Under **Indexers** click **Add Indexer**.
     2. Search for the name and click it.
     3. Set the **Name** field to `{NAME} ({N})`, where `{NAME}` is the name of the indexer and `{N}` is the nth indexer of that name, since there are multiple base URLs.
@@ -730,9 +732,9 @@ Now that the container is running we'll start configuring via the WebUI on port 
     7. **Save**!
     8. Repeat these steps for the same indexer for `2` or `3` times with different **Base URL**'s, make sure to make the **Name** unique.
 
-6. Follow the steps under step `5` for all of these indexers (most stolen from [torrentio](https://torrentio.strem.fun/)):
+7. Follow the steps under step `5` for all of these indexers (most stolen from [torrentio](https://torrentio.strem.fun/)):
     - **1337x** priority = 1, tags = (movies, series, music, flaresolverr)
-    - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music)
+    - **TorrentGalaxyClone** priority = 2, tags = (movies, series, music, flaresolverr)
     - **BitSearch** priority = 3, tags = (movies, series, music)
     - **TorrentDownload** priority = 4, tags = (movies, series, music)
     - **LimeTorrents** priority = 5, tags = (movies, series, music, flaresolverr)
@@ -773,7 +775,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 > [!NOTE]
 > Some indexers get removed from **Prowlarr** because they supposedly don't work anymore, if you still wish to use these download the said indexer from: [here](https://github.com/Prowlarr/indexers) and place them under `~/prowlarr/config/Definitions/Custom`.
 
-7. Now add the [Jackett](#Jackett) indexers to **Prowlarr**. Go to the **Jacket** WebUI on port `9117` if `vmbr0` is still attached or go to the url if you set up [`priv-net`](./../priv-net/README.md). For all of your indexers in **Jackett** follow these steps:
+8. Now add the [Jackett](#Jackett) indexers to **Prowlarr**. Go to the **Jacket** WebUI on port `9117` if `vmbr0` is still attached or go to the url if you set up [`priv-net`](./../priv-net/README.md). For all of your indexers in **Jackett** follow these steps:
     1. In the **Jacket** WebUI indexer click **Copy Torznab Feed** for the indexer.
     2. Back in the **Prowlarr** WebUI under **Indexers** click **Add Indexer**.
     3. Search for "Generic Torznab" and click it.
@@ -798,7 +800,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     8. Scroll down to **Tags** and set it to the tags set in **Jackett** for that indexer, but remove the `flaresolverr` tag if it exists.
     9. **Save**!
 
-8. Now **Sync App Indexers**.
+9. Now **Sync App Indexers**.
 
 ---
 
@@ -850,26 +852,30 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 4. Wait for all the movies to be processed and click **Import X Movies** and wait again.
 
-5. Now go to **Settings** -> **Media Management** and enable **Rename Movies** ans set it to `{Movie Title} ({Release Year})` and hit **Save Changes** in the top left.
+5. Now go to **Settings** -> **Media Management** and enable **Rename Movies** and set it to `{Movie Title} ({Release Year})`.
 
-6. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+6. Since we'll be doing postprocessing on the files, we can't hardlink, so while in **Settings** -> **Media Management** enable **Advanced Settings** in the top left. Scroll down to **Importing** and disable **Use Hardlinks instead of Copy**.
 
-7. Now we'll need to modify **Quality Profiles**. Go to **Settings** -> **Profiles**
+7. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
 
-8. Delete:
+8. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+9. Now we'll need to modify **Quality Profiles**. Go to **Settings** -> **Profiles**
+
+10. Delete:
     - **HD - 720p/1080p**
     - **SD**
 
-9. Now change these profiles titles:
+11. Now change these profiles titles:
     - **HD-720p** to **720p - HD**
     - **HD-1080p** to **1080p - HD**
     - **Ultra-HD** to **2160p - 4K**
 
-10. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
+12. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
 
-11. Now we'll need to set maximum **Quality** sizes. Go to **Settings** -> **Quality**.
+13. Now we'll need to set maximum **Quality** sizes. Go to **Settings** -> **Quality**.
 
-12. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+14. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
     - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
     - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
@@ -887,21 +893,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **Bluray-2160p**: min = `0`, preferred = `65`, max = `135`
     - **Remux-2160p**: min = `0`, preferred = `65`, max = `135`
 
-// TODO: Fix below:
-
-13. We'll also want the **Jellyfin** library to update automatically on movie imports, so go to **Settings** -> **Connect**. 
-
-14. Add a connection and select **Emby / Jellyfin**. Enable:
-    - **On Grab**
-    - **On File Import**
-    - **On File Upgrade**
-    - **On Rename**
-    - **On Movie Added**
-    - **On Movie Delete**
-    - **On Movie File Delete**
-    - **On Movie File Delete For Upgrade**
-
-15. Set the **Host** to `172.`
+15. We'll now want to add **Radarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Radarr** inputs.
 
 ---
 
@@ -909,9 +901,81 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ### Sonarr
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
 
-// Add API key to test-indexers script
+1. Open the `.env`:
+    ```sh
+    nano ~/sonarr/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/qbittorrent/downloads`.  
+    Change `SERIES_FOLDER` to your downloads folder, I use `/mnt/media/series`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/qbittorrent/downloads
+    mkdir -p /mnt/media/series
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-sonarr.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8989`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Once you open the WebUI the first thing you'll see is "Authentication Required". Set the **Authentication Method** to `Forms (login page)`.
+
+2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
+
+3. First we're gonna start by importing existing series, click on **Import Existing Series** and hit **Start Import** and select the `/tv` folder.
+
+4. Wait for all the series to be processed and click **Import X Series** and wait again.
+
+5. Now go to **Settings** -> **Media Management** and enable **Rename Movies** and set:
+   - **Standard Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
+   - **Daily Episode Format** to `{Series Title} - {Air-Date} - {Episode Title}`
+   - **Anime Episode Format** to `{Series Title} - S{season:00}E{episode:00} - {Episode Title}`
+
+6. Since we'll be doing postprocessing on the files, we can't hardlink, so while in **Settings** -> **Media Management** enable **Advanced Settings** in the top left. Scroll down to **Importing** and disable **Use Hardlinks instead of Copy**.
+
+7. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
+
+8. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+9. Now we'll need to modify **Quality Profiles**. Go to **Settings** -> **Profiles**
+
+10. Delete:
+    - **HD - 720p/1080p**
+    - **SD**
+
+11. Now change these profiles titles:
+    - **HD-720p** to **720p - HD**
+    - **HD-1080p** to **1080p - HD**
+    - **Ultra-HD** to **2160p - 4K**
+
+12. Under **2160p - 4K** you can optionally add **1080p** profiles for if **4K** isn't available.
+
+13. Now we'll need to set maximum **Quality** sizes. Go to **Settings** -> **Quality**.
+
+14. The **Min**, **Preferred** and **Max** megabytes per minute are defined below:  
+    - **HDTV-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBDL-720p**: min = `0`, preferred = `20`, max = `30`
+    - **WEBRip-720p**: min = `0`, preferred = `20`, max = `30`
+    - **Bluray-720p**: min = `0`, preferred = `20`, max = `30`  
+    --
+    - **HDTV-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBDL-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **WEBRip-1080p**: min = `0`, preferred = `25`, max = `55`
+    - **Bluray-1080p**: min = `0`, preferred = `25`, max = `55`  
+    - **Remux-1080p**: min = `0`, preferred = `25`, max = `55`  
+    --
+    - **HDVTV-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBDL-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **WEBRip-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Bluray-2160p**: min = `0`, preferred = `65`, max = `135`
+    - **Remux-2160p**: min = `0`, preferred = `65`, max = `135`
+
+15. We'll now want to add **Sonarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Sonarr** inputs.
 
 ### Lidarr
 
