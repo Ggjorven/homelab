@@ -814,7 +814,7 @@ After setting up [Radarr](#Radarr), [Sonarr](#Sonarr) & [Lidarr](#Lidarr) come b
 
 4. Set the **Prowlarr Server** to `http://172.24.1.10:9696`.
 
-5. Set the ***Arr Server** to `http://172.24.1.13:7878` for **Radarr**, `http://172.24.1.13:8989` for **Sonarr** and `http://172.24.1.13:8686` for **Lidarr**.
+5. Set the ***Arr Server** to `http://172.24.1.13:7878` for **Radarr**, `http://172.24.1.14:8989` for **Sonarr** and `http://172.24.1.15:8686` for **Lidarr**.
 
 6. Now set the **Tags**. For **Radarr** set it to `movies`, for **Sonarr** to `series` and for **Lidarr** set it to `music`.
 
@@ -1009,19 +1009,69 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
 
+3. Before we actually set up our `music` folder, we'll want to modify the **Standard** profile. Go to **Settings** -> **Profiles** and select **Standard**.
 
+4. Under **Primary Types** enable:
+    - Album
+    - Single
+    - EP
 
-6. Since we'll be doing postprocessing on the files, we can't hardlink, so while in **Settings** -> **Media Management** enable **Advanced Settings** in the top left. Scroll down to **Importing** and disable **Use Hardlinks instead of Copy**.
+5. Under **Secondary Types** enable:
+    - Studio
+    - Soundtrack
+    - Live
+    - Demo
+    - Compilation
 
-7. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
+6. Under **Release Statuses** enable:
+    - Official
 
+7. We'll now add the **Root Folder**, go to **Settings** -> **Media Management** and under **Root Folders** hit the plus.
 
+8. Set the **Name** to something like `music` and the path to `/music`. 
 
-8. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+9. Set **Monitor** to **Existing Albums** and **Monitor New Albums** to **No New Albums**.
 
+10. (optional) Set the **Quality Profile** to **Lossless** and **Save**!
 
+11. Since we'll be doing postprocessing on the files, we can't hardlink, so while in **Settings** -> **Media Management** enable **Advanced Settings** in the top left. Scroll down to **Importing** and disable **Use Hardlinks instead of Copy**.
 
-15. We'll now want to add **Sonarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Sonarr** inputs.
+12. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
+
+13. To automatically add metadata go to **Settings** -> **Metadata**. Set **Tag Audio Files with Metadata** to **For new downloads only**.
+
+14. Enable both **Embed Covert Art In Audio Files** and **Scrub Existing Tags** too.
+
+15. To get more customization in we'll also want to install a plugin: [Tubifarry](https://github.com/TypNull/Tubifarry). Go to **System** -> **Plugins** and paste:
+    ```
+    https://github.com/TypNull/Tubifarry
+    ```
+    And hit **Install**, it should install the latest version.
+
+16. After it is done go to the **LXC**'s **Console** and restart **Lidarr**:
+    ```sh
+    docker restart lidarr
+    ```
+
+17. Back in the WebUI, we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+18. Still in **Download Clients** add another client and select **Slskd**. Set the **URL** to `http://172.24.1.11:5030`.
+
+19. We'll also need the **API Key**, open the **Console** for the **LXC** back up and run:
+    ```sh
+    cat ~/slskd/.env
+    ```
+    And copy the value set under `SLSKD_API_KEY`.
+
+20. Back in the WebUI paste that copied key under **API Key** and **Save**!
+
+21. To also make it so **Lidarr** can use **Slskd** as an indexer go to **Settings** -> **Indexers** and hit the plus and select **Slskd**.
+
+22. Set the **URL** to `http://172.24.1.11:5030` and set the **API Key** to the same API key you just copied and used in the download client.
+
+23. Scroll down all the way to bottom and set the **Indexer Priority** to `1` (if you don't see it click the gear icon in the bottom right) and **Save**.
+
+24. We'll now want to add **Lidarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Lidarr** inputs.
 
 ---
 
