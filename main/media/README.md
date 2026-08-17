@@ -140,7 +140,25 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/jellyfin/compose.yaml"
     ```
 
-40. Get the `up` and `down` scripts:
+40. Create the `seerr` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/seerr
+    cd ~/seerr
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/seerr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/seerr/compose.yaml"
+    ```
+
+41. Create the `navidrome` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/navidrome
+    cd ~/navidrome
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/navidrome/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/navidrome/compose.yaml"
+    ```
+
+42. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -151,15 +169,23 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x up-monitoring.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-jellyfin.sh"
     sudo chmod +x up-jellyfin.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-seerr.sh"
+    sudo chmod +x up-seerr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-navidrome.sh"
+    sudo chmod +x up-navidrome.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-jellyfin.sh"
     sudo chmod +x down-jellyfin.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-seerr.sh"
+    sudo chmod +x down-seerr.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-navidrome.sh"
+    sudo chmod +x down-navidrome.sh
     ```
 
-41. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+43. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -175,14 +201,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-shutdown.service"
     ```
 
-42. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+44. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-43. Now start the `networking` and `monitoring` stacks:
+45. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -192,6 +218,8 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 ## Configuration
 
 ### Jellyfin
+
+// TODO: Make instructions linear with just plugin sections
 
 First we'll start by configuring via the `.env` file.
 
@@ -278,51 +306,30 @@ To change **Jellyfin**'s settings go to the hamburger menu in the top left and g
 
 // TODO: Customization settings
 
-#### *Arr Connection
+### Seerr
 
-> [!NOTE]
-> Requires [arr](./../arr/README.md) to be set-up.
+First we'll start by configuring via the `.env` file.
 
-To immediately scan your media library when **Radarr** or **Sonarr** adds something I have created some simple instructions. Repeat these instructions for both **Radarr** and **Sonarr**.
+1. Open the `.env`:
+    ```sh
+    cd ~/seerr
+    nano .env
+    ```
+    Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
+    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.
 
-1. Go to your ***Arr** app on port `7878`/`8989` of the `arr` **Proxmox LXC**'s IP (if `vmbr0` is attached/enabled).
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/media/films
+    mkdir -p /mnt/media/series
+    ```
 
-2. Go to `Settings` -> `Connect`.
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-jellyfin.sh
+    ```
 
-3. Add a connection and select **Emby / Jellyfin**.
-
-4. Enable the triggers (radarr/sonarr):  
-  
-    **Radarr**:  
-    - On File Import
-    - On File Upgrade
-    - On Rename
-    - On Movie Delete
-    - On Movie File Delete
-    - On Movie File Delete For Upgrade
-    - On Application Update
-  
-    **Sonarr**:  
-    - On File Import
-    - On File Upgrade
-    - On Import Complete
-    - On Rename
-    - On Series Delete
-    - On Episode File Delete
-    - On Episode File Delete For Upgrade
-    - On Application Update
-
-5. Set the host IP to `172.20.101.10` as defined in [this table](./../README.md#Deployments).
-
-6. Go to **Jellyfin** on port `8096` of your **Proxmox LXC**'s IP (if `vmbr0` is attached/enabled).
-
-7. Go to `Dashboard` -> `API Keys` and create a key for your ***arr app**. 
-
-8. Paste the key in the **API Key** field.
-
-9. Enable **Update Library**.
-
-10. **Save**!
+Now that the container is running we'll start configuring via the WebUI on port `8096`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 ## Debugging
 
