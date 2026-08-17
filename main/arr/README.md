@@ -977,11 +977,55 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 15. We'll now want to add **Sonarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Sonarr** inputs.
 
+---
+
+// TODO: Gotify notifications after monitoring
+
 ### Lidarr
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
 
-// Add API key to test-indexers script
+1. Open the `.env`:
+    ```sh
+    nano ~/lidarr/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/slskd/downloads`.  
+    Change `MUSIC_FOLDER` to your downloads folder, I use `/mnt/media/music`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/slskd/downloads
+    mkdir -p /mnt/media/music
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-lidarr.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8686`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Once you open the WebUI the first thing you'll see is "Authentication Required". Set the **Authentication Method** to `Forms (login page)`.
+
+2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
+
+
+
+6. Since we'll be doing postprocessing on the files, we can't hardlink, so while in **Settings** -> **Media Management** enable **Advanced Settings** in the top left. Scroll down to **Importing** and disable **Use Hardlinks instead of Copy**.
+
+7. Since I also prefer to be fully anonymous go to **Settings** -> **General** and under **Analytics** disable **Send Anonymous Usage Data**.
+
+
+
+8. Now we're gonna setup our Download Clients. Go to **Settings** -> **Download Clients**. Add **QBitTorrent**, set the **Host** to `172.24.1.10`. Set it to the **Username** and **Password** you set during the [QBitTorrent](#QBitTorrent) configuration. Finally change the **Default Category** to something like `Movies` and **Save**!
+
+
+
+15. We'll now want to add **Sonarr** as an **App** to **Prowlarr** go to [Prowlarr](#Prowlarr) and follow the final instruction set using the **Sonarr** inputs.
+
+---
+
+// TODO: Gotify notifications after monitoring
 
 ### Bazarr
 
