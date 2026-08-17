@@ -21,7 +21,7 @@ services:
       - "0.0.0.0:6767:6767"
     networks:
       arr-network:
-        ipv4_address: 172.24.1.15
+        ipv4_address: 172.24.1.16
     healthcheck:
       test: sh -c "wget -qO- http://localhost:6767 && curl -s http://localhost:6767/ping"
       interval: 30s
