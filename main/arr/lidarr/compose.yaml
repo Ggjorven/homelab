@@ -1,0 +1,31 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:nightly
+    container_name: lidarr
+    # user: ${PUID}:${PGID} # linuxserver containers handle this with environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config:/config
+      - ${DOWNLOADS_FOLDER}:/downloads:ro
+      - ${MUSIC_FOLDER}:/music
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "0.0.0.0:8686:8686"
+    networks:
+      arr-network:
+        ipv4_address: 172.24.1.15
+    healthcheck:
+      test: sh -c "wget -qO- http://localhost:8686 && curl -s http://localhost:8686/ping"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
