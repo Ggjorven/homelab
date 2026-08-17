@@ -1101,57 +1101,58 @@ First we'll start by configuring via the `.env` file.
 
 Now that the container is running we'll start configuring via the WebUI on port `6767`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-1. Once you open the WebUI the first thing you'll see is "Authentication Required". Set the **Authentication Method** to `Forms (login page)`.
+1. Once you open the WebUI you'll be greeted on the **Settings** -> **General** page, so the first thing we'll do is set up authentication under **Security** -> **Authentication** on this same page. Set the **Authentication Method** to `Form`.
 
-2. Now set a safe **Username** and **Password** and repeat your password under **Password Confirmation** and **Save**!
+2. Now set a safe **Username** and **Password** and **Save** by scrolling back up and clicking the **Save** button in the top left.
 
+3. Now scroll further down to **Analytics** and disable the switch. **Save** by scrolling back top the top and click the **Save** button in the top left.
 
-1. Go to `Settings` -> `Languages` and set **Languages Filter** and add:
+4. Now go to **Settings** -> **Languages** and under **Languages Filter** add:
    - English
    - Dutch
 
-2. Now we need to add **Language Profiles**. Add:
+5. Now we need to add **Languages Profile**s. Add:
    - Name = "Nederlands", Tag = "dutch", Languages = (Dutch)
    - Name = "English", Tag = "english", Languages = (English)
    - Name = "Combined", Tag = "english_dutch", Languages = (English, Dutch)
      
-3. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`.
+6. Now scroll down to the bottom and under **Default Language Profiles For Newly Added Shows** enable **Series** and **Movies**. Set this profile to `Combined`. Then scroll back up and **Save**.
 
-4. Now go to `Settings` -> `Providers` and add:
+7. Now go to **Settings** -> **Providers** and add:
    - **OpenSubtitles.com** (requires login details from [https://www.opensubtitles.com/](https://www.opensubtitles.com/))
    - **Subdl** (requires **API Key** from [https://subdl.com/](https://subdl.com/))
    - ~~**SuperSubtitles**~~
    - ~~**TVSubtitles**~~
    - ~~**YIFY Subtitles**~~
 
-5. To make sure our subtitles are up to our standard of quality we need to go to `Settings` -> `Subtitles`.
+   And **Save**!
 
-6. Under **Sub-Zero Subtitle Content Modifications** enable:
+8. To make sure our subtitles are up to our standard of quality we need to go to **Settings** -> **Subtitles**.
+
+9. Under **Sub-Zero Subtitle Content Modifications** enable:
     - Remove Tags
     - Remove Emoji
     - OCR Fixes
     - Common Fixes
     - Fix Uppercase
 
-7. Now under **Audio Synchronization / Alignment** enable **Automatic Subtitles Audio Synchronization**.
+    And **Save**!
 
-8. Set **Series Score Threshold For Audio Sync** to `96` and **Movies Score Threshold For Audio Sync** to `86`. And save!
+10. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under **Settings** -> **Sonarr**. Enable it.
 
-9. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under `Settings` -> `Sonarr`. Enable it.
+11. Set the **Address** to `172.24.1.14`.
 
-10. Set the `Address` to `172.39.0.40` as defined in the [compose file](compose.yaml)
+12. Now open another tab and go to **Sonarr**'s WebUI on port `8989`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
 
-11. Now open another tab and go to your **Proxmox LXC**'s IP address on port `8989`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key` and hit **Test**.
+13. Now under **Options** set **Minimum Score For Episodes** to `90`. And **Save**!
 
-12. Now under **Options** set **Minimum Score For Episodes** to `90`. And save!
+14. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-13. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+15. Set the **Address** to `172.24.1.13`.
 
-14. Set the `Address` to `172.39.0.41` as defined in the [compose file](compose.yaml)
+16. Now open another tab and go to **Radarr**'s WebUI on port `7878`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
 
-15. Now open another tab and go to your **Proxmox LXC**'s IP address on port `7878`. Go to `Settings` -> `General` and copy your **API Key**. Now paste it back in the Bazarr field called `API Key` and hit **Test**.
-
-16. Now under **Options** set **Minimum Score For Movies** to `80`. And save!
+17. Now under **Options** set **Minimum Score For Movies** to `80`. And **Save**!
 
 ### MeTube
 
