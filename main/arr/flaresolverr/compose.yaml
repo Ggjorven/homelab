@@ -60,4 +60,10 @@ services:
     depends_on:
       - flaresolverr
       - byparr
+    healthcheck:
+      test: curl -s http://localhost:8191/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     restart: unless-stopped
