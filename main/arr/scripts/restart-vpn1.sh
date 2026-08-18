@@ -8,6 +8,7 @@ restart_if_running() {
 
 restart_if_running vpn1
 restart_if_running flaresolverr
+restart_if_running byparr
 restart_if_running jackett
 restart_if_running prowlarr
 restart_if_running qbittorrent
