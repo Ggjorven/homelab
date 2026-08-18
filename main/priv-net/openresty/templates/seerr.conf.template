@@ -1,5 +1,5 @@
-upstream jellyfin {
-    server 172.20.101.10:8096;
+upstream seerr {
+    server 172.20.105.10:5055;
     keepalive 16;
 }
 
@@ -7,7 +7,7 @@ server {
     listen      443 ssl;
     listen [::]:443 ssl;
     http2       on;
-    server_name jellyfin.${LOCAL_DOMAIN};
+    server_name seerr.${LOCAL_DOMAIN};
 
     ssl_certificate     /etc/letsencrypt/live/${LOCAL_DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${LOCAL_DOMAIN}/privkey.pem;
@@ -18,14 +18,8 @@ server {
     add_header X-Frame-Options           "SAMEORIGIN"                          always;
     add_header Referrer-Policy           "strict-origin-when-cross-origin"     always;
 
-    # Jellyfin-specific tuning
-    client_max_body_size    20G;
-    proxy_buffering         off;
-    proxy_request_buffering off;
-    proxy_read_timeout      600s;
-
     location / {
-        proxy_pass http://jellyfin;
+        proxy_pass http://seerr;
 
         # Required proxy headers
         proxy_set_header Host              $host;
@@ -33,7 +27,7 @@ server {
         proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        # WebSocket support (used for session sync and playback events)
+        # WebSocket support (real-time notifications)
         proxy_set_header Upgrade    $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_http_version 1.1;

@@ -132,6 +132,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/nginx.conf"
     cd templates
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/jellyfin.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/seerr.conf.template"
     ```
 
 37. Get the `up` and `down` scripts:
@@ -198,6 +199,7 @@ This folder contains the installation instructions and configuration files used 
 
 48. Create records for all of these:
     - `jellyfin.local` *.mydomain.com*
+    - `seerr.local` *.mydomain.com*
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
@@ -240,7 +242,8 @@ Now start **OpenResty** by running:
 sudo /lxc/scripts/up-openresty.sh
 ```
 
-You should now be able to access **Jellyfin** by going to `https://jellyfin.local.mydomain.com`.
+You should now be able to access **Jellyfin** by going to `https://jellyfin.local.mydomain.com`.  
+You should now be able to access **Seerr** by going to `https://seerr.local.mydomain.com`.
 
 ## Debugging
 
