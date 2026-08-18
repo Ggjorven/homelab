@@ -423,6 +423,10 @@ We can configure `vpn1` by editing the `.env` file and other files.
     ```sh
     BRANCH=main
     cd /lxc/scripts
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/restart-vpn1.sh"
+    sudo chmod +x restart-vpn1.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/restart-vpn2.sh"
+    sudo chmod +x restart-vpn2.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/vpns-restart.sh"
     sudo chmod +x vpns-restart.sh
     ```
