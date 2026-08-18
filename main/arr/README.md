@@ -16,7 +16,7 @@ This folder contains the installation instructions and configuration files used 
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `105` (matches with the VLAN) and set the hostname to `arr` (or something else).
 
-5. For the `arr` LXC I have given it a disk of **32GB**, **4vCPU**s and **4096MiB** of RAM.
+5. For the `arr` LXC I have given it a disk of **32GB**, **4vCPU**s and **8192MiB** of RAM.
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.105.10/24` and the gateway to `172.20.105.1`. For IPv6 select `none`.
 
@@ -757,7 +757,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **showRSS** priority = 25 (default), tags = (series)
     - **Tokyo Tokoshan** priority = 25 (default), tags = (series, music)
     - **Torrent9** priority = 25 (default), tags = (movies, series, music, flaresolverr)
-    - **Torrent[CORE]** priority = 25 (default), tags = (movies, series, music)
+    - **Torrent[CORE]** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **TorrentKitty** priority = 25 (default), tags = (movies, series, music, flaresolverr)
     - **TorrentProject2** priority = 25 (default), tags = (movies, series, music)
    
@@ -818,7 +818,11 @@ After setting up [Radarr](#Radarr), [Sonarr](#Sonarr) & [Lidarr](#Lidarr) come b
 
 6. Now set the **Tags**. For **Radarr** set it to `movies`, for **Sonarr** to `series` and for **Lidarr** set it to `music`.
 
-7. **Save**!
+7. Now make sure **Advanced Options** is enabled by clicking the gear in the bottom right of the popup.
+
+8. Some indexers don't return categories but just **Other**. So also under **Sync Categories** scroll down and enable both **Other** categories.
+
+9. **Save**!
 
 ### Radarr
 
