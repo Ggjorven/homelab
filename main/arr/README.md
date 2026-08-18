@@ -441,9 +441,9 @@ We can configure `vpn1` by editing the `.env` file and other files.
 
 15. (optional) Enable and start the service with:
     ```sh
-    systemctl daemon-reload
-    systemctl enable vpns-restart.timer
-    systemctl start vpns-restart.timer
+    sudo systemctl daemon-reload
+    sudo systemctl enable vpns-restart.timer
+    sudo systemctl start vpns-restart.timer
     ```
 
 ### VPN2
