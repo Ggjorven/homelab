@@ -1,5 +1,5 @@
 upstream seerr {
-    server 172.20.105.10:5055;
+    server 172.20.101.10:5055;
     keepalive 16;
 }
 
