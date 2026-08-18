@@ -1083,6 +1083,11 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ---
 
+After having set up both **Radarr** and **Sonarr** you can also set up [Seerr](./../media/README.md#Seerr) in [media](./../media/README.md).  
+This provides a handy callback.
+
+---
+
 // TODO: Gotify notifications after monitoring
 
 ### Bazarr
