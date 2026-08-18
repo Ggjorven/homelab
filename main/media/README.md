@@ -308,28 +308,71 @@ To change **Jellyfin**'s settings go to the hamburger menu in the top left and g
 
 ### Seerr
 
-First we'll start by configuring via the `.env` file.
+> ![NOTE]
+> This requires having set up the [arr](./../arr/README.md) container
 
-1. Open the `.env`:
-    ```sh
-    cd ~/seerr
-    nano .env
-    ```
-    Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
-    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.
+**Seerr** doesn't require any configuring via the `.env` file.  
+So just start the container:
+```sh
+sudo /lxc/scripts/up-seerr.sh
+```
 
-2. Make sure the folders actually exist:
-    ```sh
-    mkdir -p /mnt/media/films
-    mkdir -p /mnt/media/series
-    ```
+Now that the container is running we'll start configuring via the WebUI on port `5055`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-3. You can now start the container:
-    ```sh
-    sudo /lxc/scripts/up-jellyfin.sh
-    ```
+1. When in the WebUI select **Jellyfin** as the media server type.
 
-Now that the container is running we'll start configuring via the WebUI on port `8096`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+2. Now set the URL of **Jellyfin** to `172.24.1.10`. Leave **URL Base** empty. Set **Email Address** to something random like `invalid@invalid.invalid`. And choose an appropriate **Username** and **Password**.
+
+3. Now **Sync Libraries**. Both **Movies** and **Series** and **Start the scan**.
+
+4. Continue and set up the **Radarr** server. Make it the **Default Server** and set the **Name** to something like "Radarr". 
+
+5. Set the IP address to `172.20.105.10`. 
+
+6. Now open the **Radarr** WebUI on port `7878`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). 
+
+7. Go to **Settings** -> **General** and copy your API key and paste it in the **API Key** field in **Seerr**.
+
+8. Now hit **Test**.
+
+9. Set your desired **Quality Profile** and **Root Folder**, for me `1080p - HD` and `/movies`.
+
+10. Finally enable **Enable Scan** & **Enable Automatic Search** and **Save**.
+
+11. Now set up the **Sonarr** server. Make it the **Default Server** and set the **Name** to something like "Sonarr". 
+
+12. Set the IP address to `172.20.105.10`. 
+
+13. Now open the **Sonarr** WebUI on port `8989`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). 
+
+14. Go to **Settings** -> **General** and copy your API key and paste it in the **API Key** field in **Seerr**.
+
+15. Now hit **Test**.
+
+16. Set your desired **Quality Profile** and **Root Folder**, for me `1080p - HD` and `/tv`.
+
+17. Finally enable **Enable Scan** & **Enable Automatic Search** and **Save**.
+
+18. And finish your setup!
+
+19. Now go to **Settings** -> **Users** and under **Default Permissions** enable:
+    - **Advanced Requests** (for quality selection)
+    - **Auto-Approve** (for auto approving requests)
+    And scroll to the bottom and **Save**!
+
+20. Go to **Settings** -> **Network** and enable **Enable Proxy Support** and **Save**!
+
+21. Now go to **Settings** -> **General** and scroll down to **Blocklist Content with Tags**.
+
+22. Now open [this file](https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/dev/main/docker/mediastack/seerr_blocklist.txt) and copy it's contents.
+
+23. Back in the WebUI hit the import arrow next to **Blocklist Content with Tags** and paste the file contents and **Save**!
+
+24. Finally go to the **Users** tab and hit **Import Jellyfin Users** and import the users.
+
+---
+
+// TODO: Gotify notifications after monitoring
 
 ## Debugging
 
