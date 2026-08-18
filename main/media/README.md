@@ -368,7 +368,12 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 23. Back in the WebUI hit the import arrow next to **Blocklist Content with Tags** and paste the file contents and **Save**!
 
-24. Finally go to the **Users** tab and hit **Import Jellyfin Users** and import the users.
+24. The last step is to go to the **Users** tab and hit **Import Jellyfin Users** and import the users.
+
+25. To apply some of the changes you might need to restart **Seerr**:
+    ```sh
+    docker restart seerr
+    ```
 
 ---
 
