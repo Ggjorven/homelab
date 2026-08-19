@@ -17,11 +17,11 @@ services:
       - ${DOWNLOADS_FOLDER}:/downloads:ro
       - ${MUSIC_FOLDER}:/music
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "0.0.0.0:8686:8686"
     networks:
       arr-network:
         ipv4_address: 172.24.1.15
+    ports:
+      - "0.0.0.0:8686:8686"
     healthcheck:
       test: sh -c "wget -qO- http://localhost:8686 && curl -s http://localhost:8686/ping"
       interval: 30s

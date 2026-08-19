@@ -17,11 +17,11 @@ services:
       - ${DOWNLOADS_FOLDER}:/downloads:ro
       - ${MOVIES_FOLDER}:/movies
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "0.0.0.0:7878:7878"
     networks:
       arr-network:
         ipv4_address: 172.24.1.13
+    ports:
+      - "0.0.0.0:7878:7878"
     healthcheck:
       test: sh -c "wget -qO- http://localhost:7878 && curl -s http://localhost:7878/ping"
       interval: 30s
