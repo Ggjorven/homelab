@@ -293,6 +293,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     - `downloads`
     - `media`
     - `photos`
+
     1. Under **Usage** **Create NFS Share**.
     2. Open **Advanced Options**.
     3. Set **Mapall User** & **Mapall Group** to the user/group with the same name as the dataset.
@@ -303,6 +304,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
 76. Now follow the steps for these **Datasets**:
     - `my_name`
     - `family_member_name`
+
     1. Under **Usage** **Create SMB Share**.
     2. Open **Advanced Options**.
     3. Enable **Access Based Share Enumeration**.
@@ -400,6 +402,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     - `downloads`
     - `media`
     - `photos`
+
     Add the following permissions:
 
     | Who | Read | Write | Execute (Traverse) | Default (Inherit) |
@@ -413,6 +416,7 @@ To be able to traverse your files and edit them from a browser we'll be setting 
     - `users`
     - `my_name`
     - `family_member_name`
+
     Add the following permissions:
 
     | Who | ACL Type | Permissions | Inherit |
