@@ -58,11 +58,13 @@ This folder contains the installation instructions and configuration files used 
 
 25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
 
-26. Reboot the **LXC** to apply the changes.
+26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `14`. 
 
-27. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+27. Reboot the **LXC** to apply the changes.
 
-28. Create a `privnet` group and user in the LXC using:
+28. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+
+29. Create a `privnet` group and user in the LXC using:
     ```sh
     groupadd -g 1000 privnet
     useradd -u 1000 -g 1000 -m -s /bin/bash privnet
@@ -70,28 +72,28 @@ This folder contains the installation instructions and configuration files used 
     usermod -aG sudo privnet
     ```
 
-29. Set a (safe) password for the `privnet` user:
+30. Set a (safe) password for the `privnet` user:
     ```sh
     passwd privnet
     ```
 
-30. Now login as the `privnet` user:
+31. Now login as the `privnet` user:
     ```sh
     su privnet
     ```
 
-31. Now we're going to install all of the files. Start by navigating to the `home` directory:
+32. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-32. Get the global .env:
+33. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/.env"
     ```
 
-33. Create the `networking` stack:
+34. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -100,7 +102,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/networking/compose.yaml"
     ```
 
-34. Create the `monitoring` stack:
+35. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -109,7 +111,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/monitoring/compose.yaml"
     ```
 
-35. Create the `certbot` stack:
+36. Create the `certbot` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/certbot
@@ -119,7 +121,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/docker-entrypoint.sh"
     ```
 
-36. Create the `openresty` stack:
+37. Create the `openresty` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/openresty
@@ -135,7 +137,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/seerr.conf.template"
     ```
 
-37. Get the `up` and `down` scripts:
+38. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -158,7 +160,7 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-certbot.sh
     ```
 
-38. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -174,36 +176,36 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/services/compose-shutdown.service"
     ```
 
-39. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+40. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-40. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+41. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
 
-41. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
+42. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
 
-42. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
+43. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
 
-43. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
+44. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
 
-44. Click **Create Token**, select **Edit Zone DNS**.
+45. Click **Create Token**, select **Edit Zone DNS**.
 
-45. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
+46. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
 
-46. Copy the API token to a temporary safe location since we are going to need it multiple times.
+47. Copy the API token to a temporary safe location since we are going to need it multiple times.
 
-47. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
+48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
-48. Create records for all of these:
+49. Create records for all of these:
     - `jellyfin.local` *.mydomain.com*
     - `seerr.local` *.mydomain.com*
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
-49. Now start the `networking` and `monitoring` stacks:
+50. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh

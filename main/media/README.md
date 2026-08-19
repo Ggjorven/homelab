@@ -43,11 +43,11 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 14. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
 
-15. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
+15. (optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
 
 16. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
 
-17. (Optional) If you want verbose output during installation enable it. (I like it)
+17. (optional) If you want verbose output during installation enable it. (I like it)
 
 18. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
 
@@ -65,26 +65,28 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
 
-26. We also want to give the **LXC** access to our `media` dataset from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
+26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `2`. 
 
-27. Edit the **LXC**'s config file:
+27. We also want to give the **LXC** access to our `media` dataset from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
+
+28. Edit the **LXC**'s config file:
     ```sh
     nano /etc/pve/lxc/101.conf
     ```
     Where `101` is the container ID (CTID) or LXC ID.
 
-28. Pass through the `/mnt/media` mountpoint by pasting:
+29. Pass through the `/mnt/media` mountpoint by pasting:
     ```
     mp0: /mnt/media,mp=/mnt/media
     ```
 
-29. Now reboot the **LXC**.
+30. Now reboot the **LXC**.
 
-30. Go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+31. Go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
 
-31. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
+32. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
 
-32. Create a `media` group and user in the LXC using:
+33. Create a `media` group and user in the LXC using:
     ```sh
     groupadd -g 1000 media
     useradd -u 1000 -g 1000 -m -s /bin/bash media
@@ -92,28 +94,28 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     usermod -aG sudo media
     ```
 
-33. Set a (safe) password for the `media` user:
+34. Set a (safe) password for the `media` user:
     ```sh
     passwd media
     ```
 
-34. Now login as the `media` user:
+35. Now login as the `media` user:
     ```sh
     su media
     ```
 
-35. Now we're going to install all of the files. Start by navigating to the `home` directory:
+36. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-36. Get the global .env:
+37. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/.env"
     ```
 
-37. Create the `networking` stack:
+38. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -122,7 +124,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/networking/compose.yaml"
     ```
 
-38. Create the `monitoring` stack:
+39. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -131,7 +133,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/monitoring/compose.yaml"
     ```
 
-39. Create the `jellyfin` stack:
+40. Create the `jellyfin` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/jellyfin
@@ -140,7 +142,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/jellyfin/compose.yaml"
     ```
 
-40. Create the `seerr` stack:
+41. Create the `seerr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/seerr
@@ -149,7 +151,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/seerr/compose.yaml"
     ```
 
-41. Create the `navidrome` stack:
+42. Create the `navidrome` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/navidrome
@@ -158,7 +160,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/navidrome/compose.yaml"
     ```
 
-42. Get the `up` and `down` scripts:
+43. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -185,7 +187,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-navidrome.sh
     ```
 
-43. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+44. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -201,14 +203,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-shutdown.service"
     ```
 
-44. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+45. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-45. Now start the `networking` and `monitoring` stacks:
+46. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
