@@ -238,6 +238,10 @@ This folder contains the installation instructions and configuration files used 
 34. Once back we can start creating our **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
+    - [`arr`](./arr/README.md)
+    - [`priv-net`](./priv-net/README.md)
+
+    // TODO: All LXCs
 
 ## Debugging
 
