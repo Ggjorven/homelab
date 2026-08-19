@@ -1,0 +1,34 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  metube:
+    image: ghcr.io/alexta69/metube:latest
+    container_name: metube
+    # user: ${PUID}:${PGID} # metube handles this through PUID and PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - STATE_DIR=/config
+      - DOWNLOAD_DIR=/downloads
+      - CREATE_CUSTOM_DIRS=false # Stops metube from re-creating the download directories with wrong permissions
+      - CHOWN_DIRS=false # Stop metube from changing permissions of download directories
+    volumes:
+      - ./config:/config
+      - ${DOWNLOADS_DIR}:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      arr-network:
+        ipv4_address: 172.24.1.17
+    ports:
+      - "0.0.0.0:8081:8081"
+    healthcheck:
+      test: curl -s http://localhost:8081
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
