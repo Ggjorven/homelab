@@ -1169,7 +1169,25 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ### MeTube
 
-// TODO: ...
+We can fully configure `metube` by editing the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    nano ~/metube/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your movies folder, I use `/mnt/downloads/metube/downloads`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/metube/downloads
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-metube.sh
+    ```
+
+Now that the container is running you can access the WebUI on port `8081`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).  
 
 ## Debugging
 
