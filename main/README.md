@@ -77,13 +77,31 @@ This folder contains the installation instructions and configuration files used 
 
 23. After the reboot go back to the WebUI and go back to your `pve1` node's **Shell**.
 
-24. Switch from `iptables` to `nftables`:
+24. (optional) If you installed with `zfs (RAID1)`, the installer only sets up the boot partition on the first drive. Make the second drive independently bootable:
+    1. First, give the second drive's boot partition a unique UUID:
+        ```sh
+        fatlabel --volume-id $(lsblk -o NAME,TRAN | grep nvme | awk 'NR==2{print "/dev/"$1"p2"}') $(printf '%04X-%04X' $RANDOM $RANDOM)
+        ```
+    2. Find the second drive's boot partition and register it:
+        ```sh
+        SECOND_BOOT=$(lsblk -o NAME,TRAN | grep nvme | awk 'NR==2{print "/dev/"$1"p2"}')
+        proxmox-boot-tool init $SECOND_BOOT
+        proxmox-boot-tool refresh
+        ```
+    3. Verify both drives are registered:
+        ```sh
+        proxmox-boot-tool status
+        ```
+        You should see two UUIDs, each with `grub` and your kernel versions listed.  
+        From now on, kernel updates automatically synced to both drives.
+
+25. Now switch from `iptables` to `nftables`:
     ```sh
     update-alternatives --set iptables /usr/sbin/iptables-nft
     update-alternatives --set ip6tables /usr/sbin/ip6tables-nft
     ```
 
-25. Edit `/etc/network/interfaces`:
+26. Edit `/etc/network/interfaces`:
     ```sh
     nano /etc/network/interfaces
     ```
@@ -169,13 +187,13 @@ This folder contains the installation instructions and configuration files used 
     This creates a bridge without a physical interface.  
     Where for every VLAN there is an ID defined in `bridge-vids` as well as a VLAN address block below.
 
-26. While still in the `/etc/network/interfaces` file under `vmbr0` add the line:
+27. While still in the `/etc/network/interfaces` file under `vmbr0` add the line:
     ```
     post-up nft -f /etc/nftables.conf
     ```
     And now you can save and exit.
 
-27. Retrieve the **nftables** files:
+28. Retrieve the **nftables** files:
     ```sh
     BRANCH=main
     cd /etc/
@@ -191,33 +209,33 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/nftables/nftables/chains/nat.conf"
     ```
 
-28. We'll need to change some variables in `/etc/nftables/vars.conf`. First we need to gather some information though. Check what subnet your LAN is on:
+29. We'll need to change some variables in `/etc/nftables/vars.conf`. First we need to gather some information though. Check what subnet your LAN is on:
     ```sh
     ip route show
     ```
     Look for the `192.168.xxx.xxx/xx` on the same line as `vmbr0`, most likely the last line. Take note of the `192.168.xxx.xxx/xx`.
 
-29. Now that we finally have this information we must add it to the firewall variables:
+30. Now that we finally have this information we must add it to the firewall variables:
     ```sh
     nano /etc/nftables/vars.conf
     ```
     Change `NET_LAN` to the subnet you took note of during step `28`, it should look something like `192.168.xxx.xxx/xx`.
 
-30. Enable IPv4 forwarding, so `vmbr1` also has internet access:
+31. Enable IPv4 forwarding, so `vmbr1` also has internet access:
     ```sh
     echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
     sysctl -p
     ```
 
-31. Enable `nftables`:
+32. Enable `nftables`:
     ```sh
     systemctl enable --now nftables
     nft -f /etc/nftables.conf
     ```
 
-32. Reboot your **Proxmox Node** to get all VLANs properly initialized.
+33. Reboot your **Proxmox Node** to get all VLANs properly initialized.
 
-33. Once back we can start creating our **VM**'s and **LXC**'s:
+34. Once back we can start creating our **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
 
