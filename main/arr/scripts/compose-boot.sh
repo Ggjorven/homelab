@@ -14,3 +14,4 @@
 "$(dirname "$0")/up-lidarr.sh"
 "$(dirname "$0")/up-bazarr.sh"
 "$(dirname "$0")/up-metube.sh"
+"$(dirname "$0")/up-shelfarr.sh"

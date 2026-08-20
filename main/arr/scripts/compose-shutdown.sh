@@ -1,5 +1,6 @@
 #!/bin/bash
 
+"$(dirname "$0")/down-shelfarr.sh"
 "$(dirname "$0")/down-metube.sh"
 "$(dirname "$0")/down-bazarr.sh"
 "$(dirname "$0")/down-lidarr.sh"
