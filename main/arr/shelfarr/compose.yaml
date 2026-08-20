@@ -12,18 +12,14 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - HTTP_PORT=5056
-      - CHOWN_ON_START=never
+      - CHOWN_ON_START=auto
     volumes:
       - ./config:/rails/storage
       - ${DOWNLOADS_FOLDER}:/downloads
       - ${EBOOKS_FOLDER}:/ebooks
       - ${AUDIOBOOKS_FOLDER}:/audiobooks
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      arr-network:
-        ipv4_address: 172.24.1.18
-    ports:
-      - "0.0.0.0:5056:5056"
+    network_mode: container:vpn1
     healthcheck:
       test: curl -s http://localhost:5056/up
       interval: 30s
