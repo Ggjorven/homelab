@@ -1,0 +1,33 @@
+networks:
+  arr-network:
+    name: arr-network
+    external: true
+
+services:
+  shelfarr:
+    image: ghcr.io/pedro-revez-silva/shelfarr:latest
+    container_name: shelfarr
+    # user: ${PUID}:${PGID} # shelfarr handles this with environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - HTTP_PORT=5056
+      - CHOWN_ON_START=never
+    volumes:
+      - ./config:/rails/storage
+      - ${DOWNLOADS_FOLDER}:/downloads
+      - ${EBOOKS_FOLDER}:/ebooks
+      - ${AUDIOBOOKS_FOLDER}:/audiobooks
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      arr-network:
+        ipv4_address: 172.24.1.18
+    ports:
+      - "0.0.0.0:5056:5056"
+    healthcheck:
+      test: curl -s http://localhost:5056/up
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
