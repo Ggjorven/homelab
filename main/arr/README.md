@@ -1230,7 +1230,46 @@ First we'll start by configuring via the `.env` file.
 
 Now that the container is running we'll start configuring via the WebUI on port `5056`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-1. aaa
+1. Start by creating your account. Set an appropriate **Name** and **Username** for your admin account (ex. `admin`). Set and confirm a secure **Password** and **Create Account**!
+
+2. Now you should be in the settings menu under **Search**. Under **Indexer** set the **Provider** to **Prowlarr**
+
+3. Set the **Prowlarr Url** to `http://172.24.1.10:9696`.
+
+4. Now open another tab and go to **Prowlarr**'s WebUI on port `9696`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Shelfarr field called **Prowlarr Api Key** and hit **Test**.
+
+5. Set the **Prowlarr Tags** to `books`. Scroll up and click **Save All** in the top right, go back down and hit **Test Indexer Connection**.
+
+6. Scroll down to **Anna's Archive** and enable **Anna's Archive Enabled**.
+
+7. Set the **Flaresolverr Url** to `http://172.24.1.12:8191` and scroll up and click **Save All** in the top right, go back down and hit **Test FlareSolverr Connection**.
+
+8. // TODO: Other libraries
+
+9. Scroll down to **Language & Matching** and under **Enabled Languages** set `en, nl`.
+
+10. Scroll down to **Auto-Selection** and enable **Auto Select Enable** and scroll up and click **Save All** in the top right.
+
+11. Now select the **Downloads** settings menu.
+
+12. Set **Preferred Download Types** to:
+    1. Direct
+    2. Torrent
+    3. Usenet
+
+13. Scroll up and click **Save All**.
+
+14. Now go to **Integrations** settings tab.
+
+14. // TODO: BookOrbit
+
+15. // TODO: Metadata providers
+
+16. Now go to the **Queue & System** settings tab.
+
+17. Under **Queue Settings** enable:
+    - **Immediate Search Enabled**
+    - **Auto Approve Requests**
 
 ## Debugging
 
