@@ -13,6 +13,7 @@ services:
       - PGID=${PGID}
       - HTTP_PORT=5056
       - CHOWN_ON_START=auto
+      - TRUST_NFS_UID_SQUASH=true
     volumes:
       - ./config:/rails/storage
       - ${DOWNLOADS_FOLDER}:/downloads
