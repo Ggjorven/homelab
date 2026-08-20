@@ -233,7 +233,16 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/metube/compose.yaml"
     ```
 
-51. Get the `up` and `down` scripts:
+51. Create the `shelfarr` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/shelfarr
+    cd ~/shelfarr
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/shelfarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/shelfarr/compose.yaml"
+    ```
+
+52. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -266,6 +275,8 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-bazarr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-metube.sh"
     sudo chmod +x up-metube.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/up-shelfarr.sh"
+    sudo chmod +x up-shelfarr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-monitoring.sh"
@@ -294,9 +305,11 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-bazarr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-metube.sh"
     sudo chmod +x down-metube.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/scripts/down-shelfarr.sh"
+    sudo chmod +x down-shelfarr.sh
     ```
 
-52. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+53. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -312,14 +325,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/compose-shutdown.service"
     ```
 
-53. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+54. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-54. Now start the `networking` and `monitoring` stacks:
+55. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -1190,6 +1203,34 @@ We can fully configure `metube` by editing the `.env` file.
     ```
 
 Now that the container is running you can access the WebUI on port `8081`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).  
+
+### Shelfarr
+
+First we'll start by configuring via the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    nano ~/shelfarr/.env
+    ```
+    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/shelfarr/downloads`.  
+    Change `EBOOKS_FOLDER` to your ebooks folder, I use `/mnt/media/books/ebooks`.  
+    Change `AUDIOBOOKS_FOLDER` to your audio books folder, I use `/mnt/media/books/audiobooks`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/downloads/shelfarr/downloads
+    mkdir -p /mnt/media/books/ebooks
+    mkdir -p /mnt/media/books/audiobooks
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-shelfarr.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `5056`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. aaa
 
 ## Debugging
 
