@@ -1271,6 +1271,8 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **Immediate Search Enabled**
     - **Auto Approve Requests**
 
+18. // TODO: Download client
+
 ## Debugging
 
 If you have any issues setting up `arr` checkout my [debugging guide](DEBUGGING.md). If you still can't figure it out, create a github issue or contact me personally.
