@@ -160,7 +160,25 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/navidrome/compose.yaml"
     ```
 
-43. Get the `up` and `down` scripts:
+43. Create the `droppedneedle` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/droppedneedle
+    cd ~/droppedneedle
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/droppedneedle/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/droppedneedle/compose.yaml"
+    ```
+
+44. Create the `bookorbit` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/bookorbit
+    cd ~/bookorbit
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/bookorbit/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/bookorbit/compose.yaml"
+    ```
+
+45. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -175,6 +193,10 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x up-seerr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-navidrome.sh"
     sudo chmod +x up-navidrome.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-droppedneedle.sh"
+    sudo chmod +x up-droppedneedle.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/up-bookorbit.sh"
+    sudo chmod +x up-bookorbit.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-monitoring.sh"
@@ -185,9 +207,13 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-seerr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-navidrome.sh"
     sudo chmod +x down-navidrome.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-droppedneedle.sh"
+    sudo chmod +x down-droppedneedle.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/scripts/down-bookorbit.sh"
+    sudo chmod +x down-bookorbit.sh
     ```
 
-44. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+46. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -203,14 +229,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-shutdown.service"
     ```
 
-45. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+47. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-46. Now start the `networking` and `monitoring` stacks:
+48. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -380,6 +406,18 @@ Now that the container is running we'll start configuring via the WebUI on port 
 ---
 
 // TODO: Gotify notifications after monitoring
+
+### Navidrome
+
+// TODO: ...
+
+### DroppedNeedle
+
+// TODO: ...
+
+### BookOrbit
+
+// TODO: ...
 
 ## Debugging
 
