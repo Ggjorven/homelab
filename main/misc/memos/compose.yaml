@@ -20,7 +20,7 @@ services:
     ports:
       - "0.0.0.0:5230:5230"
     healthcheck:
-      test: curl -s http://localhost:5230/healthz
+      test: wget -qO- http://localhost:5230/healthz
       interval: 30s
       timeout: 10s
       retries: 3
