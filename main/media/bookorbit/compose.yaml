@@ -1,0 +1,75 @@
+networks:
+  media-network:
+    name: media-network
+    external: true
+
+services:
+  bookorbit:
+    image: ghcr.io/bookorbit/bookorbit:latest
+    container_name: bookorbit
+    # user: ${PUID}:${PGID} # bookorbit handles this with environment PUID, PGID
+    init: true
+    read_only: true
+    environment:
+      - LOG_LEVEL=info
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - NODE_ENV=production
+      - PORT=3131
+      - POSTGRES_HOST=172.24.1.15
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${DATABASE_USERNAME:-bookorbit}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=bookorbit-db
+      - JWT_SECRET=${APP_SECRET}
+      - SETUP_BOOTSTRAP_TOKEN=${APP_SETUP_SECRET}
+      - APP_URL=${APP_URL}
+      - CLIENT_URL=${APP_URL}
+      - NODE_MAX_OLD_SPACE_SIZE=2048
+      - LIBRARY_BROWSE_ROOT=/books
+    volumes:
+      - ./config:/data
+      - ${EBOOKS_FOLDER}:/books/ebooks
+      - ${AUDIOBOOKS_FOLDER}:/books/audiobooks
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      media-network:
+        ipv4_address: 172.24.1.14
+    ports:
+      - "0.0.0.0:3131:3131"
+    depends_on:
+      - bookorbit-db
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  bookorbit-db:
+    image: pgvector/pgvector:pg18
+    container_name: bookorbit-db
+    # user: ${PUID}:${PGID} # postgres runs as 999:999 internally already
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=bookorbit-db
+      - POSTGRES_USER=${DATABASE_USERNAME:-bookorbit}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ./database:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      media-network:
+        ipv4_address: 172.24.1.15
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # TODO: Prometheus exporter
