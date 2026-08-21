@@ -1,0 +1,28 @@
+networks:
+  misc-network:
+    name: misc-network
+    external: true
+
+services:
+  memos:
+    image: neosmemo/memos:stable
+    container_name: memos
+    # user: ${PUID}:${PGID} # Memos handles this via the environment MEMOS_UID and MEMOS_GID
+    environment:
+      - MEMOS_UID=${PUID}
+      - MEMOS_GID=${PGID}
+    volumes:
+      - ./config:/var/opt/memos
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      misc-network:
+        ipv4_address: 172.24.1.10
+    ports:
+      - "0.0.0.0:5230:5230"
+    healthcheck:
+      test: curl -s http://localhost:5230/healthz
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
