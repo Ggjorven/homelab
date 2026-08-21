@@ -24,7 +24,7 @@ This folder contains the installation instructions and configuration files used 
 
 8. Set the **VLAN tag** to `116` to get the proper firewall rules.
 
-9. You can keep the **Tags** as default or set it to something custom like: `docker;misc`.
+9. You can keep the **Tags** as default or set it to something custom like: `docker`.
 
 10. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
 
