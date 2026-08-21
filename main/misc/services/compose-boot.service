@@ -1,0 +1,14 @@
+[Unit]
+Description=Booting docker compose stacks
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=misc
+Group=misc
+Type=oneshot
+ExecStart=/lxc/scripts/compose-boot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
