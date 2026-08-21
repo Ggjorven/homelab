@@ -14,15 +14,15 @@ This folder contains the installation instructions and configuration files used 
 
 3. Choose `Advanced Install`. 
 
-4. Choose **Unprivileged**, set a safe root password, set the container ID to `114` (matches with the VLAN) and set the hostname to `misc` (or something else).
+4. Choose **Unprivileged**, set a safe root password, set the container ID to `116` (matches with the VLAN) and set the hostname to `misc` (or something else).
 
 5. For the `misc` LXC I have given it a disk of **32GB**, **2vCPU**s and **2048MiB** of RAM.
 
-6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.114.10/24` and the gateway to `172.20.114.1`. For IPv6 select `none`.
+6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.116.10/24` and the gateway to `172.20.116.1`. For IPv6 select `none`.
 
 7. Leave **MTU Size** blank, same for **DNS search domain**, **DNS server IP** and **MAC-address**.
 
-8. Set the **VLAN tag** to `114` to get the proper firewall rules.
+8. Set the **VLAN tag** to `116` to get the proper firewall rules.
 
 9. You can keep the **Tags** as default or set it to something custom like: `docker;misc`.
 
