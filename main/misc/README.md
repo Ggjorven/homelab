@@ -90,7 +90,7 @@ This folder contains the installation instructions and configuration files used 
 33. Get the global .env:
     ```sh
     BRANCH=main
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/.env"
     ```
 
 34. Create the `networking` stack:
