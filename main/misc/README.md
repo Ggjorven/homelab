@@ -173,7 +173,13 @@ This folder contains the installation instructions and configuration files used 
 
 ### Memos
 
-We can configure `memos` by editing the `.env` file.
+**Memos** doesn't require any configuring via the `.env` file.  
+So just start the container:
+```sh
+sudo /lxc/scripts/up-memos.sh
+```
+
+Now that the container is running we'll start configuring via the WebUI on port `5230`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 1. TODO
 
