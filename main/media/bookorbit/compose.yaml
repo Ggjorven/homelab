@@ -38,7 +38,8 @@ services:
     ports:
       - "0.0.0.0:3131:3131"
     depends_on:
-      - bookorbit-db
+      bookorbit-db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
