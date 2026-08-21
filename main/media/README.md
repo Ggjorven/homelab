@@ -417,7 +417,35 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ### BookOrbit
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    nano ~/bookorbit/.env
+    ```
+    Change `EBOOKS_FOLDER` to your ebooks folder, I use `/mnt/media/books/ebooks`.  
+    Change `AUDIOBOOKS_FOLDER` to your audiobooks folder, I use `/mnt/media/books/audiobooks`.
+
+2. Change `APP_URL` to either your reverse proxy's url like `https://bookorbit.local.mydomain.com` or set it to `http://vmbr0-ip:3131` where `vmbr0-ip` is the LAN ip of the LXC (you can query it with `ip a`).
+
+3. For security we'll need to generate some random keys, generate them from [here](https://randomkeygen.com/jwt-secret) or another 16 to 255 character generator. Now set a unique key for both `APP_SECRET` and `APP_SETUP_SECRET` in the `.env` file.
+
+4. Finally we'll set a secure password for `DATABASE_PASSWORD`.
+
+5. Now make sure the book folders actually exist:
+    ```sh
+    mkdir -p /mnt/media/books/ebooks
+    mkdir -p /mnt/media/books/audiobooks
+    ```
+
+6. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-bookorbit.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `3131`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. aaa
 
 ## Debugging
 
