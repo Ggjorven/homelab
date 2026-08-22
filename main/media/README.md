@@ -507,7 +507,18 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 16. Enable **Kobo** and **Audible** and scroll up and **Save Changes**!
 
-17. To create more users go to the **Admin** tab and hit **Create user**.
+17. Go to the **Kobo** tab and enable:
+    - **Two-way progress sync**
+    - **Sync BookOrbit highlights to Kobo**
+    - **Include Kobo store titles**
+
+    Scroll down and **Save Sync Settings**!
+
+18. Go to the **System** tab and select **Book Dock** and enable **Enable auto-finalize**.
+
+19. Set the **Destination Library** to **Ebooks** and set the **Confidence threshold** to `90%`.
+
+20. To create more users go to the **Admin** tab and hit **Create user** (ex. for family members).
 
 ## Debugging
 
