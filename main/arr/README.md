@@ -1244,7 +1244,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 7. Set the **Flaresolverr Url** to `http://172.24.1.12:8191` and scroll up and click **Save All** in the top right, go back down and hit **Test FlareSolverr Connection**.
 
-8. // TODO: Other libraries
+8. // TODO: Other libraries (Z-library)
 
 9. Scroll down to **Language & Matching** and under **Enabled Languages** set `en, nl`.
 
@@ -1261,17 +1261,53 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 14. Now go to **Integrations** settings tab.
 
-14. // TODO: BookOrbit
+14. Set **Active Library Platform** to **BookOrbit**.
 
-15. // TODO: Metadata providers
+15. Set the **BookOrbit URL** to `http://172.20.101.10:3131`.
 
-16. Now go to the **Queue & System** settings tab.
+16. Set the **BookOrbit** **Username** and **Password** to the admin user you created during [BookOrbit Configuration](./../media/README.md#BookOrbit).
 
-17. Under **Queue Settings** enable:
+17. Scroll down and **Test Library Platform Connection**.
+
+18. Scroll back up and for **Audiobook Library (BookOrbit)** set it to **Audiobooks (bookorbit)**.
+
+19. For **Ebook Library (BookOrbit)** set it to **Ebooks (bookorbit)**.
+
+20. Scroll up and **Save All** and then scroll back down and **Sync BookOrbit Inventory**.
+
+21. (optional) Scroll down to **Hardcover**. If you already created a **Hardcover** account during [BookOrbit Configuration](./../media/README.md#BookOrbit), you can skip the next step.
+
+22. (optional) Create a **Hardcover** account ([from here](https://hardcover.app/)).
+
+23. (optional) In **Hardcover** under **Settings** go to **Hardcover API**.
+
+24. (optional) Click **New API Key** and **Name** it "Shelfarr" and set the **Expiration** to **Never**. Set **Permissions** to **All** and **Create Key**. Now **Copy** the key.
+
+25. (optional) Paste the API key into the **Hardcover API Token** field back in the **Shelfarr** WebUI, hit **Test Hardcover Connection** and enable **Hardcover Enalbed** and scroll up and **Save All**!
+
+26. Now go to the **Queue & System** settings tab.
+
+27. Under **Queue Settings** enable:
     - **Immediate Search Enabled**
     - **Auto Approve Requests**
 
-18. // TODO: Download client
+    And scroll up and **Save All**.
+
+28. Now click **Admin** in the top bar and click **Download Clients**.
+
+29. Click **New Client**.
+
+30. Set the **Type** to **Qbittorrent** and set the **Name** to `QBitTorrent`.
+
+31. Set the **URL** to `http://172.24.1.10:8080`.
+
+32. Set the **Username** and **Password** to the admin credentials you created during the [QBitTorrent](#QBitTorrent) setup.
+
+33. Set **Torrent Verification Attempts** to `50` and **Verification Wait Time** to `15` seconds.
+
+34. Now **Create Download Client**.
+
+35. a
 
 ## Debugging
 
