@@ -466,10 +466,12 @@ Now that the container is running we'll start configuring via the WebUI on port 
     5. For source precedence set the following order:
         - **Embedded metadata**
         - **OPF files**
+
         And keep the format priority and **Continue**.
     6. Now set the percentages:
         - Set **Reading Start** to `0.25%`.
         - Set **Mark as Finished** to `98%`
+
         And **Continue**.
     7. Enable **Watch Folders** and set the **Auto-scan Schedule** to **Custom** and input: `0 */2 * * *` which is every 2 hours. **Continue**!
     8. Enable **Rename files after metadata changes** and **Write metadata to files** and **Continue**!
