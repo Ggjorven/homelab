@@ -47,7 +47,7 @@
 
 18. Click on the **Serial Port** and hit **Remove**.
 
-19. Now hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
+19. We also need it to be able to access our LAN, so hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
 
 20. Now we can finally start the **VM**, go to the **Console** tab and hit **Start Now**.
 
