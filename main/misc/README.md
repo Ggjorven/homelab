@@ -191,12 +191,10 @@ If you have any issues setting up `misc` checkout my [debugging guide](DEBUGGING
 
 To update a compose stack's images just run:
 ```
-docker compose down
 docker compose pull
-docker compose up -d
 docker image prune
 ```
-In the stack's directory
+In the stack's directory and restart the stack.
 
 To remove all docker containers and their remains run:
 
@@ -204,8 +202,6 @@ To remove all docker containers and their remains run:
 > This action is irreversible and will delete docker containers and networks.
 
 ```
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
 docker network prune
 ```
 To also delete cached images run:

@@ -255,13 +255,10 @@ If you have any issues setting up `priv-net` checkout my [debugging guide](DEBUG
 
 To update a compose stack's images just run:
 ```
-docker compose down
 docker compose pull
-docker compose up -d
 docker image prune
 ```
-In the stack's directory
-
+In the stack's directory and restart the stack.
 To remove all docker containers and their remains run:
 
 > [!CAUTION]
