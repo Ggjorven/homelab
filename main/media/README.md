@@ -503,9 +503,11 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 14. (optional) Click **New API Key** and **Name** it "BookOrbit" and set the **Expiration** to **Never**. Set **Permissions** to **All** and **Create Key**. Now **Copy** the key.
 
-15. (optional) Paste the API key into the **Hardcover** field back in the **BookOrbit** WebUI, hit **Test** and enable **Hardcover** as a provider. Scroll up and **Save Changes**.
+15. (optional) Paste the API key into the **Hardcover** field back in the **BookOrbit** WebUI, hit **Test** and enable **Hardcover** as a provider.
 
-16. To create more users go to the **Admin** tab and hit **Create user**.
+16. Enable **Kobo** and **Audible** and scroll up and **Save Changes**!
+
+17. To create more users go to the **Admin** tab and hit **Create user**.
 
 ## Debugging
 
