@@ -21,7 +21,7 @@
 
 5. Set the VM ID to `114` (matches with the VLAN).
 
-6. Choose `i440fx` as the **Machine Type**.
+6. Choose `q35` as the **Machine Type**.
 
 7. I have given the `haos` VM a disk of **32GB**, also enable **Disk Cache** when prompted.
 
