@@ -1312,7 +1312,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 34. Now **Create Download Client**.
 
-35. TODO
+35. You should now be able to request books.
 
 ## Debugging
 
