@@ -14,6 +14,7 @@ services:
       - HTTP_PORT=5056
       - CHOWN_ON_START=auto
       - TRUST_NFS_UID_SQUASH=true
+      - SOLID_QUEUE_IN_PUMA=1
     volumes:
       - ./config:/rails/storage
       - ${DOWNLOADS_FOLDER}:/downloads

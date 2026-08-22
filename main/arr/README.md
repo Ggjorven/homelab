@@ -1212,18 +1212,23 @@ First we'll start by configuring via the `.env` file.
     ```sh
     nano ~/shelfarr/.env
     ```
-    Change `DOWNLOADS_FOLDER` to your downloads folder, I use `/mnt/downloads/shelfarr/downloads`.  
+    Change `DOWNLOADS_FOLDER` to qbittorrent's downloads folder, I use `/mnt/downloads/qbittorrent/downloads`.  
     Change `EBOOKS_FOLDER` to your ebooks folder, I use `/mnt/media/books/ebooks`.  
     Change `AUDIOBOOKS_FOLDER` to your audio books folder, I use `/mnt/media/books/audiobooks`.
 
 2. Make sure the folders actually exist:
     ```sh
-    mkdir -p /mnt/downloads/shelfarr/downloads
+    mkdir -p /mnt/downloads/qbittorrent/downloads
     mkdir -p /mnt/media/books/ebooks
     mkdir -p /mnt/media/books/audiobooks
     ```
 
-3. You can now start the container:
+3. For QBitTorrent we also need a subfolder `/shelfarr` under the `/downloads`, make sure it exists:
+    ```sh
+    mkdir -p /mnt/downloads/qbittorrent/downloads/shelfarr
+    ```
+
+4. You can now start the container:
     ```sh
     sudo /lxc/scripts/up-shelfarr.sh
     ```
@@ -1307,7 +1312,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 34. Now **Create Download Client**.
 
-35. a
+35. TODO
 
 ## Debugging
 
