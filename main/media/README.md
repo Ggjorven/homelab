@@ -445,7 +445,36 @@ First we'll start by configuring via the `.env` file.
 
 Now that the container is running we'll start configuring via the WebUI on port `3131`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-1. aaa
+1. Set **Username** to an appropriate name as well as set **Full Name** to that name.
+
+2. Set **Email** to `invalid@invalid.invalid`.
+
+3. Set a safe **Password** and confirm it.
+
+4. Copy the `APP_SETUP_SECRET` from the `.env`:
+    ```sh
+    cat ~/bookorbit/.env
+    ```
+
+5. Now back in the WebUI paste it under **Setup token**.
+
+6. Now create an "Ebooks" library and an "Audiobooks" library with `/books/ebooks` and `/books/audiobooks` respectively using the following instructions:
+    1. On the **Dashboard** look for **Libraries** in the left sidebar and hit the plus.
+    2. Name your library to "Ebooks" or "Audiobooks" depending on the one you are making.
+    3. Now **Browse server folders** and select `/books/ebooks` for the "Ebooks" library and `/book/audiobooks" for the "Audiobooks" folder and **Continue**.
+    4. For scan mode select **Folder as Book** and **Continue**.
+    5. For source precedence set the following order:
+        - **Embedded metadata**
+        - **OPF files**
+        And keep the format priority and **Continue**.
+    6. Now set the percentages:
+        - Set **Reading Start** to `0.25%`.
+        - Set **Mark as Finished** to `98%`
+        And **Continue**.
+    7. Enable **Watch Folders** and set the **Auto-scan Schedule** to **Custom** and input: `0 */2 * * *` which is every 2 hours. **Continue**!
+    8. Enable **Rename files after metadata changes** and **Write metadata to files** and **Continue**!
+
+7. AAA
 
 ## Debugging
 
