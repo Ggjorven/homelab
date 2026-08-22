@@ -476,7 +476,36 @@ Now that the container is running we'll start configuring via the WebUI on port 
     7. Enable **Watch Folders** and set the **Auto-scan Schedule** to **Custom** and input: `0 */2 * * *` which is every 2 hours. **Continue**!
     8. Enable **Rename files after metadata changes** and **Write metadata to files** and **Continue**!
 
-7. AAA
+7. Now go to the **Settings** in the top right.
+
+8. Go to the **Metadata** tab and go to the **Books** tab. Here enable:
+    - **Enable auto-fetch**
+    - **Trigger on import**
+
+    And **Save**!
+
+9. Now go to the **Authors** tab under **Metadata**. Here enable:
+    - **Enable auto author enrichment**
+    - **Trigger on import**
+
+10. For the **Eligibility conditions** enable:
+    - **Never enriched**
+    - **Missing bio**
+    - **Missing photo**
+
+    And **Save**!
+
+11. (optional) Now go to the **Providers** tab under **Metadata**.
+
+12. (optional) Create a **Hardcover** account ([from here](https://hardcover.app/)).
+
+13. (optional) In **Hardcover** under **Settings** go to **Hardcover API**.
+
+14. (optional) Click **New API Key** and **Name** it "BookOrbit" and set the **Expiration** to **Never**. Set **Permissions** to **All** and **Create Key**. Now **Copy** the key.
+
+15. (optional) Paste the API key into the **Hardcover** field back in the **BookOrbit** WebUI, hit **Test** and enable **Hardcover** as a provider. Scroll up and **Save Changes**.
+
+16. To create more users go to the **Admin** tab and hit **Create user**.
 
 ## Debugging
 
