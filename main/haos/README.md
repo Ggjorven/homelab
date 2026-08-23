@@ -41,33 +41,67 @@
 
 15. Go to the **Hardware** tab of the **VM** and double click on the **Hard Disk**. Make sure **Advanced Options** are enabled in the bottom right.
 
-16. Disable **SSD emulation**, enable **IO Thread** and set **Cache** to **Write Back**. **Ok**!
+16. Disable **SSD emulation** and set **Cache** to **Write Back**. **Ok**!
 
-17. Also set the **BIOS** to **SeaBIOS**.
+17. Click on the **Serial Port** and hit **Remove**.
 
-18. Click on the **Serial Port** and hit **Remove**.
+18. We also need it to be able to access our LAN, so hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
 
-19. We also need it to be able to access our LAN, so hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
+19. Now we can finally start the **VM**, go to the **Console** tab and hit **Start Now**.
 
-20. Now we can finally start the **VM**, go to the **Console** tab and hit **Start Now**.
+20. Once everything has started you should see something like:
+    ```
+    Welcome to the Home Assistant command line interface.
 
-21. TODO
+    Hone Assistant Supervisor is running!
+    System information:
+        IPv4 addresses for enp6s19: 192.168.0.79/22
+        IPv6 addresses for enp6s19: fe80::a099:1284:53a4:6423/64 
+        IPv4 addresses for enp6s18: (No address)
+        
+        OS Version: Home Assistant OS 18.2
+        Home Assistant Core: 2026.8.3
 
+        Home Assistant URL: http://homeassistant.local:8123
+        Observer URL: http://homeassistant.local:4357
+        
+    System is ready! Use browser or app to configure.
+    ```
 
+21. You can access **Home Assistant** on `http://homeassistant.local:8123` while it is still upgrading to the latest version. If you can't reach it it probably already upgraded and is now on port `80`, so you can access it on `http://homeassistant.local:80`.
 
+22. But we don't want HTTP and having to use the local domain, we want it to use [`priv-net`](./../priv-net/README.md), so it has HTTPS and we have full control over the domain. So we'll need to give **Home Assistant** an IP and a gateway for our `114` VLAN. Start by taking note of the `enpXsXX` with no address in **Home Assistant** **Console**. It should look something like:
+    ```
+    System information:
+        IPv4 addresses for enp6s19: 192.168.xxx.xxx/xx
+        IPv6 addresses for enp6s19: xxxx::xxxx:xxxx:xxxx:xxxx/64 
+        IPv4 addresses for enp6s18: (No address)
+    ```
+    So in this case it is `enp6s18`.
 
+23. Now in the **Console** run this command:
+    ```sh
+    network update enpXsXX --ipv4-address 172.20.114.10/24 --ipv4-gateway 172.20.114.1
+    ```
+    Where you replace `enpXsXX` with the actual `enpXsXX` you found.
 
+24. To see it worked run:
+    ```sh
+    exit
+    ```
+    After the information comes back up you should see:
+    ```
+    System information:
+        IPv4 addresses for enp6s19: 192.168.xxx.xxx/xx
+        IPv6 addresses for enp6s19: xxxx::xxxx:xxxx:xxxx:xxxx/64 
+        IPv4 addresses for enp6s18: 172.20.114.10/24
+        IPv6 addresses for enp6s18: xxxx::xxxx:xxxx:xxxx:xxxx/64 
+    ```
+    It worked!
 
+25. Now you we can start configuring via the WebUI, go to `https://home.local.mydomain.com` where `mydomain.com` is your actual domain. This requires [`priv-net`](./../priv-net/README.md) to be up and running.
 
-2. Now go to the `Console` of the **Home Assistant VM**. We need to install `qemu-guest-agent` to give proxmox control over the VM. This is done with these commands:
-  ```
-  apt install qemu-guest-agent
-  systemctl enable qemu-guest-agent
-  ```
-
-4. Now we can start setting up **Home Assistant**. First create your account. The webpage can be found at the **Proxmox VM**'s IP address on port `8123`.
-
-5. If you have any smart devices already they should show up in the final to auto show.
+26. // TODO: Configure instructions
 
 ## Configuring
 
