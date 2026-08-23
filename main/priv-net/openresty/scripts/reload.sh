@@ -1,10 +1,12 @@
-#!/bin/sh
+	#!/bin/sh
 set -e
 
-echo "[reload] Regenerating nginx templates in '${CONTAINER}'..."
+CONTAINER_NAME=openresty
+
+echo "[reload] Regenerating nginx templates in '${CONTAINER_NAME}'..."
 
 # Same logic as in the custom docker-entrypoint.sh
-docker exec "${CONTAINER}" sh -c '
+docker exec "${CONTAINER_NAME}" sh -c '
   set -e
   for t in /etc/nginx/templates/*.template; do
     o="/etc/nginx/conf.d/$(basename "$t" .template)"
@@ -13,6 +15,6 @@ docker exec "${CONTAINER}" sh -c '
   done
 '
 
-echo "[reload] Sending SIGHUP to '${CONTAINER}'..."
-docker kill --signal=SIGHUP "${CONTAINER}"
+echo "[reload] Sending SIGHUP to '${CONTAINER_NAME}'..."
+docker kill --signal=SIGHUP "${CONTAINER_NAME}"
 echo "[reload] Done."
