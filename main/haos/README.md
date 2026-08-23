@@ -84,7 +84,9 @@
 
 28. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.113.0/24` and **Save** and **Save and restart**!
 
-29. Now we can get to the configuring!
+29. Now refresh until it comes back up and it will show a **Confirmation** window and hit **Confirm**!
+
+30. Now we can get to the configuring!
 
 ## Configuring
 
