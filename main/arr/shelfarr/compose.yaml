@@ -23,7 +23,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: curl -s http://localhost:5056/up
+      test: sh -c "curl -s www.google.com && curl -s http://localhost:5056 && curl -s http://localhost:5056/up" # curl google.com replaces ping and nslookup for internet connectivity test
       interval: 30s
       timeout: 10s
       retries: 3
