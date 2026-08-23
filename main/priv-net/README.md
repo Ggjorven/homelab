@@ -135,6 +135,7 @@ This folder contains the installation instructions and configuration files used 
     cd templates
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/jellyfin.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/seerr.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/haos.conf.template"
     ```
 
 38. Get the `up` and `down` scripts:
@@ -202,6 +203,7 @@ This folder contains the installation instructions and configuration files used 
 49. Create records for all of these:
     - `jellyfin.local` *.mydomain.com*
     - `seerr.local` *.mydomain.com*
+    - `haos.local` *.mydomain.com*
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
