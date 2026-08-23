@@ -70,38 +70,21 @@
 
 21. You can access **Home Assistant** on `http://homeassistant.local:8123` while it is still upgrading to the latest version. If you can't reach it it probably already upgraded and is now on port `80`, so you can access it on `http://homeassistant.local:80`.
 
-22. But we don't want HTTP and having to use the local domain, we want it to use [`priv-net`](./../priv-net/README.md), so it has HTTPS and we have full control over the domain. So we'll need to give **Home Assistant** an IP and a gateway for our `114` VLAN. Start by taking note of the `enpXsXX` with no address in **Home Assistant** **Console**. It should look something like:
-    ```
-    System information:
-        IPv4 addresses for enp6s19: 192.168.xxx.xxx/xx
-        IPv6 addresses for enp6s19: xxxx::xxxx:xxxx:xxxx:xxxx/64 
-        IPv4 addresses for enp6s18: (No address)
-    ```
-    So in this case it is `enp6s18`.
+22. First we'll create our Admin account. Set your **Full Name** and a **Username** will be generated. Give it a strong **Password** and confirm it.
 
-23. Now in the **Console** run this command:
-    ```sh
-    network update enpXsXX --ipv4-address 172.20.114.10/24 --ipv4-gateway 172.20.114.1
-    ```
-    Where you replace `enpXsXX` with the actual `enpXsXX` you found.
+23. Now finally in the WebUI go to **Settings** -> **System** -> **Network**.
 
-24. To see it worked run:
-    ```sh
-    exit
-    ```
-    After the information comes back up you should see:
-    ```
-    System information:
-        IPv4 addresses for enp6s19: 192.168.xxx.xxx/xx
-        IPv6 addresses for enp6s19: xxxx::xxxx:xxxx:xxxx:xxxx/64 
-        IPv4 addresses for enp6s18: 172.20.114.10/24
-        IPv6 addresses for enp6s18: xxxx::xxxx:xxxx:xxxx:xxxx/64 
-    ```
-    It worked!
+24. Go to **Configure network interfaces** and look for an interface without an **IPv4** address (probably the second one).
 
-25. Now you we can start configuring via the WebUI, go to `https://home.local.mydomain.com` where `mydomain.com` is your actual domain. This requires [`priv-net`](./../priv-net/README.md) to be up and running.
+25. Make the **IPv4** **Static** and set the **IP Address** to `172.20.114.10/24`.
 
-26. // TODO: Configure instructions
+26. Set the **Gateway address** to `172.20.114.1` and **Save**!
+
+27. Scroll down to **HTTP Server** and open **Reverse Proxy**.
+
+28. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.112.0/24` and **Save**!
+
+29. Now we can get to the configuring!
 
 ## Configuring
 
