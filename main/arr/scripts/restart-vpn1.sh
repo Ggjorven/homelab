@@ -12,3 +12,4 @@ restart_if_running byparr
 restart_if_running jackett
 restart_if_running prowlarr
 restart_if_running qbittorrent
+restart_if_running shelfarr
