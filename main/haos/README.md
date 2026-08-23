@@ -82,7 +82,7 @@
 
 27. Scroll down to **HTTP Server** and open **Reverse Proxy**.
 
-28. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.112.0/24` and **Save**!
+28. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.112.0/24` and **Save** and **Save and restart**!
 
 29. Now we can get to the configuring!
 
