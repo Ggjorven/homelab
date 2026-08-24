@@ -86,9 +86,11 @@
 
 29. Now refresh until it comes back up and it will show a **Confirmation** window and hit **Confirm**!
 
-30. (optional) A final thing is to set the **Home Assistant URL** to `https://haos.local.mydomain.com` where `mydomain.com` is your actual domain. This is necessarry for connections to [`priv-net`](./../priv-net/README.md) to function properly.
+30. To make sure the discovery uses the local LAN **Network Adapter** scroll down to **Network Adapter** and disable **Autoconfigure** and enable both adapters and **Save**!
 
-31. Now we can get to the configuring!
+31. (optional) A final thing is to set the **Home Assistant URL** to `https://haos.local.mydomain.com` where `mydomain.com` is your actual domain. This is necessarry for connections to [`priv-net`](./../priv-net/README.md) to function properly.
+
+32. Now we can get to the configuring!
 
 ## Configuring
 
