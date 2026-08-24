@@ -209,6 +209,7 @@ This folder contains the installation instructions and configuration files used 
 49. Create records for all of these:
     - `jellyfin.local` *.mydomain.com*
     - `seerr.local` *.mydomain.com*
+    - `immich.local` *.mydomain.com*
     - `haos.local` *.mydomain.com*
     
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
