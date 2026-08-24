@@ -93,12 +93,17 @@
 ## Configuring
 
 You can find the WebUI of **Home Assistant** on port `80` under the mDNS name `homeassistant.local` or go to `https://haos.local.mydomain.com` if you have [`priv-net`](./../priv-net/README.md) set up, where `mydomain.com` is your actual domain.  
+
+1. // TODO: 
+
+### Addons
+
 To add more functionality to **Home Assistant** we can use **Home Assistant**'s addons. The addons can be found in the addon store.  
 This is located under **Settings** -> **Add-ons** -> **Add-on Store**.
 
-### ESP Home
+#### ESP Home
 
-// TODO: ...
+1. // TODO: ...
 
 ## Debugging
 
