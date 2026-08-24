@@ -136,8 +136,8 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 40. Create the `immich` stack:
     ```sh
     BRANCH=main
-    mkdir -p ~/jellyfin
-    cd ~/jellyfin
+    mkdir -p ~/immich
+    cd ~/immich
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/immich/.env"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/immich/compose.yaml"
     ```
