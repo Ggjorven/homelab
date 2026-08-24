@@ -86,7 +86,9 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 32. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
 
-33. Create a `media` group and user in the LXC using:
+33. Now install the NVIDIA Container runtime using [these instructions](./../../tutorials/docker/NVIDIA-RUNTIME.md).
+
+34. Create a `media` group and user in the LXC using:
     ```sh
     groupadd -g 1000 media
     useradd -u 1000 -g 1000 -m -s /bin/bash media
@@ -94,28 +96,28 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     usermod -aG sudo media
     ```
 
-34. Set a (safe) password for the `media` user:
+35. Set a (safe) password for the `media` user:
     ```sh
     passwd media
     ```
 
-35. Now login as the `media` user:
+36. Now login as the `media` user:
     ```sh
     su media
     ```
 
-36. Now we're going to install all of the files. Start by navigating to the `home` directory:
+37. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-37. Get the global .env:
+38. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/.env"
     ```
 
-38. Create the `networking` stack:
+39. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -124,7 +126,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/networking/compose.yaml"
     ```
 
-39. Create the `monitoring` stack:
+40. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -133,7 +135,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/monitoring/compose.yaml"
     ```
 
-40. Create the `jellyfin` stack:
+41. Create the `jellyfin` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/jellyfin
@@ -142,7 +144,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/jellyfin/compose.yaml"
     ```
 
-41. Create the `seerr` stack:
+42. Create the `seerr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/seerr
@@ -151,7 +153,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/seerr/compose.yaml"
     ```
 
-42. Create the `navidrome` stack:
+43. Create the `navidrome` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/navidrome
@@ -160,7 +162,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/navidrome/compose.yaml"
     ```
 
-43. Create the `droppedneedle` stack:
+44. Create the `droppedneedle` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/droppedneedle
@@ -169,7 +171,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/droppedneedle/compose.yaml"
     ```
 
-44. Create the `bookorbit` stack:
+45. Create the `bookorbit` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/bookorbit
@@ -178,7 +180,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/bookorbit/compose.yaml"
     ```
 
-45. Get the `up` and `down` scripts:
+46. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -213,7 +215,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-bookorbit.sh
     ```
 
-46. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+47. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -229,14 +231,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media/services/compose-shutdown.service"
     ```
 
-47. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+48. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-48. Now start the `networking` and `monitoring` stacks:
+49. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh

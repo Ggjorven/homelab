@@ -86,7 +86,9 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 32. Install the same NVIDIA drivers on the **LXC** as on the **Proxmox Node** with [this tutorial](./../../tutorials/proxmox/NVIDIA-DRIVERS-LXC.md).
 
-33. Create a `photos` group and user in the LXC using:
+33. Now install the NVIDIA Container runtime using [these instructions](./../../tutorials/docker/NVIDIA-RUNTIME.md).
+
+34. Create a `photos` group and user in the LXC using:
     ```sh
     groupadd -g 1000 photos
     useradd -u 1000 -g 1000 -m -s /bin/bash photos
@@ -94,28 +96,28 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     usermod -aG sudo photos
     ```
 
-34. Set a (safe) password for the `photos` user:
+35. Set a (safe) password for the `photos` user:
     ```sh
     passwd photos
     ```
 
-35. Now login as the `photos` user:
+36. Now login as the `photos` user:
     ```sh
     su photos
     ```
 
-36. Now we're going to install all of the files. Start by navigating to the `home` directory:
+37. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-37. Get the global .env:
+38. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/.env"
     ```
 
-38. Create the `networking` stack:
+39. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -124,7 +126,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/networking/compose.yaml"
     ```
 
-39. Create the `monitoring` stack:
+40. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -133,7 +135,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/monitoring/compose.yaml"
     ```
 
-40. Create the `immich` stack:
+41. Create the `immich` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/immich
@@ -142,7 +144,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/immich/compose.yaml"
     ```
 
-41. Get the `up` and `down` scripts:
+42. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -161,7 +163,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-immich.sh
     ```
 
-42. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+43. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -177,14 +179,14 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/photos/services/compose-shutdown.service"
     ```
 
-43. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+44. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-44. Now start the `networking` and `monitoring` stacks:
+45. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
