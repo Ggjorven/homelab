@@ -1,0 +1,29 @@
+networks:
+  photos-network:
+    name: photos-network
+    external: true
+
+services:
+  # TODO: autoheal
+
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:alpine
+    # user: ${PUID}:${PGID} # Idk yet
+    environment:
+      - AGENT_CLUSTER_ADDR=tasks.portainer-agent
+      # - AGENT_PORT=9001
+      # - LOG_LEVEL=debug
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "0.0.0.0:9001:9001"
+    networks:
+      photos-network:
+        ipv4_address: 172.24.0.10
+    # TODO: Healthcheck
+    restart: unless-stopped
+
+  # TODO: Promtail for Loki
