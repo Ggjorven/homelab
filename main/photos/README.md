@@ -65,7 +65,7 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
 
-26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `2`. 
+26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `4`. 
 
 27. We also want to give the **LXC** access to our `photos` dataset from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
 
