@@ -204,7 +204,8 @@ First we'll start by configuring via the `.env` file.
     cd ~/immich
     nano .env
     ```
-    TODO
+    Change `PHOTOS_FOLDER` to your actual fotos directory, I use `/mnt/photos`.  
+    Also change `DATABASE_PASSWORD` to a secure password.
 
 2. You can now start the container:
     ```sh
@@ -213,7 +214,9 @@ First we'll start by configuring via the `.env` file.
 
 Now that the container is running we'll start configuring via the WebUI on port `2283`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-1. TODO
+1. // TODO: Setup
+
+2. // TODO: External url https://immich.local.mydomain.com
 
 ## Debugging
 
