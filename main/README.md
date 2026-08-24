@@ -10,7 +10,7 @@ This folder contains the installation instructions and configuration files used 
 | [100](./truenas/README.md) | VM | 4 | 16384 | 48 | [truenas](./truenas/README.md) | TrueNAS | 6x2TB RAIDZ2 with 500GB L2ARC and 16GB RAM | HBA | - | X | 100 \| 172.20.100.10/24 |
 | [101](./media/README.md) | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, DroppedNeedle, BookOrbit | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
 | 102 | LXC | 2 | 1024 | 10 | media-mgmt | tinyMediaManager, metadata-remote | Media management services | - | - | X | 102 \| 172.20.102.10/24 |
-| 103 | LXC | 4 | 4096 | 32 | photos | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
+| [103](./photos/README.md) | LXC | 4 | 4096 | 32 | [photos](./photos/README.md) | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
 | 104 | LXC | 2 | 2048 | 32 | cloud | NextCloud, Paperless-ngx | Personal Cloud | - | - | Yes, through proxy | 104 \| 172.20.104.10/24 |
 | [105](./arr/README.md) | LXC | 4 | 8192 | 32 | [arr](./arr/README.md) | Gluetun (x2), FlareSolverr, QBitTorrent, Slskd, Jackett, Prowlarr, Radarr, Sonarr, Lidarr, Bazarr, MeTube, Shelfarr | Content download stack | - | GPU | X | 105 \| 172.20.105.10/24 |
 | 106 | LXC | 2 | 1024 | 10 | post-arr | Unmanic, ffmpeg-normalizer, Subsyncarr | Post processing on downloaded content| - | GPU | X | 106 \| 172.20.106.10/24 |
