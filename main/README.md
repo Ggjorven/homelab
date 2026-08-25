@@ -13,7 +13,7 @@ This folder contains the installation instructions and configuration files used 
 | [103](./photos/README.md) | LXC | 4 | 4096 | 32 | [photos](./photos/README.md) | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
 | 104 | LXC | 2 | 2048 | 32 | cloud | NextCloud, Paperless-ngx | Personal Cloud | - | - | Yes, through proxy | 104 \| 172.20.104.10/24 |
 | [105](./arr/README.md) | LXC | 4 | 8192 | 32 | [arr](./arr/README.md) | Gluetun (x2), FlareSolverr, QBitTorrent, Slskd, Jackett, Prowlarr, Radarr, Sonarr, Lidarr, Bazarr, MeTube, Shelfarr | Content download stack | - | GPU | X | 105 \| 172.20.105.10/24 |
-| 106 | LXC | 2 | 1024 | 10 | post-arr | Unmanic, ffmpeg-normalizer, Subsyncarr | Post processing on downloaded content| - | GPU | X | 106 \| 172.20.106.10/24 |
+| [106](./post-arr/README.md) | LXC | 2 | 1024 | 10 | [post-arr](./post-arr/README.md) | Unmanic, ffmpeg-normalizer, Subsyncarr | Post processing on downloaded content | - | GPU | X | 106 \| 172.20.106.10/24 |
 | 107 | LXC | 2 | 1024 | 48 | git | Gitea | Git server | - | - | Yes, through proxy | 107 \| 172.20.107.10/24 |
 | 108 | LXC | 1 | 512 | 10 | vault | Vaultwarden | Password manager | - | - | Yes, through proxy | 108 \| 172.20.108.10/24 |
 | 109 | LXC | 2 | 2048 | 10 | dashboard | Grafana, Gotify | Dashboard/fronted of monitoring | - | - | Yes, through proxy| 100 \| 172.20.109.10/24 |
@@ -238,7 +238,9 @@ This folder contains the installation instructions and configuration files used 
 34. Once back we can start creating our **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
+    - [`photos`](./photos/README.md)
     - [`arr`](./arr/README.md)
+    - [`post-arr`](./post-arr/README.md)
     - [`priv-net`](./priv-net/README.md)
     - [`misc`](./misc/README.md)
 

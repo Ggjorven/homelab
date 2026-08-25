@@ -1,0 +1,51 @@
+networks:
+  post-arr-network:
+    name: post-arr-network
+    external: true
+
+services:
+  autoheal:
+    image: tmknight88/docker-autoheal:latest
+    container_name: autoheal
+    # user: ${PUID}:${PGID} # This requires root, because it needs access to the docker socket
+    environment:
+      - TZ=${TZ}
+      - AUTOHEAL_CONNECTION_TYPE=socket
+      - AUTOHEAL_MONITOR_ALL=true
+      - AUTOHEAL_INTERVAL=15
+      - AUTOHEAL_LOG_ALL=true
+      - AUTOHEAL_LOG_PERSIST=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./logs:/opt/docker-autoheal
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: none
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "docker-autoheal"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: always
+
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:alpine
+    # user: ${PUID}:${PGID} # Idk yet
+    environment:
+      - AGENT_CLUSTER_ADDR=tasks.portainer-agent
+      # - AGENT_PORT=9001
+      # - LOG_LEVEL=debug
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "0.0.0.0:9001:9001"
+    networks:
+      post-arr-network:
+        ipv4_address: 172.24.0.10
+    # TODO: Healthcheck
+    restart: unless-stopped
+
+  # TODO: Promtail for Loki
