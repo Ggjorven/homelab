@@ -1164,23 +1164,28 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - Common Fixes
     - Fix Uppercase
 
+10. Since we'll be doing post-processing later I want to preserve the original file. Scroll down to **Custom Post-Processing** and enable it. Set the **Command** to:
+    ```sh
+    bash -c 'mkdir -p "$directory/Original Subtitles" && cp "$subtitles" "$directory/Original Subtitles/${episode_name}.${subtitles_language_code2_dot}.srt"'
+    ```
+
     And **Save**!
 
-10. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under **Settings** -> **Sonarr**. Enable it.
+11. Now we're gonna start adding our media management tools like **Sonarr** and **Radarr**. We're gonna start with **Sonarr** under **Settings** -> **Sonarr**. Enable it.
 
-11. Set the **Address** to `172.24.1.14`.
+12. Set the **Address** to `172.24.1.14`.
 
-12. Now open another tab and go to **Sonarr**'s WebUI on port `8989`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
+13. Now open another tab and go to **Sonarr**'s WebUI on port `8989`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
 
-13. Now under **Options** set **Minimum Score For Episodes** to `90`. And **Save**!
+14. Now under **Options** set **Minimum Score For Episodes** to `90`. And **Save**!
 
-14. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
+15. Now let's do the same for **Radarr**. Go to `Settings` -> `Radarr`. Enable it.
 
-15. Set the **Address** to `172.24.1.13`.
+16. Set the **Address** to `172.24.1.13`.
 
-16. Now open another tab and go to **Radarr**'s WebUI on port `7878`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
+17. Now open another tab and go to **Radarr**'s WebUI on port `7878`, this requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md). Go to **Settings** -> **General** and copy your **API Key**. Now paste it back in the Bazarr field called **API Key** and hit **Test**.
 
-17. Now under **Options** set **Minimum Score For Movies** to `80`. And **Save**!
+18. Now under **Options** set **Minimum Score For Movies** to `80`. And **Save**!
 
 ### MeTube
 
