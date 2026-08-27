@@ -116,7 +116,7 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 38. Get the global .env:
     ```sh
     BRANCH=main
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/.env"
     ```
 
 39. Create the `networking` stack:
@@ -124,8 +124,8 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     BRANCH=main
     mkdir -p ~/networking
     cd ~/networking
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/networking/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/networking/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/networking/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/networking/compose.yaml"
     ```
 
 40. Create the `monitoring` stack:
@@ -133,8 +133,8 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     BRANCH=main
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/monitoring/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/monitoring/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/compose.yaml"
     ```
 
 41. Create the `unmanic` stack:
@@ -142,8 +142,8 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     BRANCH=main
     mkdir -p ~/monitoring
     cd ~/monitoring
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/monitoring/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/monitoring/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/compose.yaml"
     ```
 
 42. Get the `up` and `down` scripts:
@@ -151,17 +151,17 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/up-networking.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-networking.sh"
     sudo chmod +x up-networking.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/up-monitoring.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/up-unmanic.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-unmanic.sh"
     sudo chmod +x up-unmanic.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/down-networking.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/down-monitoring.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/down-unmanic.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-unmanic.sh"
     sudo chmod +x down-unmanic.sh
     ```
 
@@ -170,15 +170,15 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     BRANCH=main
     sudo mkdir -p /lxc/scripts
     cd /lxc/scripts
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/compose-boot.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/compose-boot.sh"
     sudo chmod +x compose-boot.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/compose-shutdown.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/compose-shutdown.sh"
     sudo chmod +x compose-shutdown.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/scripts/compose-restart.sh"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/compose-restart.sh"
     sudo chmod +x compose-restart.sh
     cd /etc/systemd/system
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/services/compose-boot.service"
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/postarr/services/compose-shutdown.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/services/compose-boot.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/services/compose-shutdown.service"
     ```
 
 44. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
