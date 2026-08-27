@@ -5,7 +5,7 @@ This folder contains the installation instructions and configuration files used 
 
 ## Prerequisites
 
-Before we can create our `media` **Proxmox LXC**. We must have finished these steps:
+Before we can create our `post-arr` **Proxmox LXC**. We must have finished these steps:
 
 - [`truenas`](../truenas/README.md)
 - [`Node NVIDIA Driver`](../../tutorials/proxmox/NVIDIA-DRIVERS-NODE.md)
@@ -21,9 +21,9 @@ Before we can create our `media` **Proxmox LXC**. We must have finished these st
 
 3. Choose `Advanced Install`. 
 
-4. Choose **Unprivileged**, set a safe root password, set the container ID to `106` (matches with the VLAN) and set the hostname to `media` (or something else).
+4. Choose **Unprivileged**, set a safe root password, set the container ID to `106` (matches with the VLAN) and set the hostname to `post-arr` (or something else).
 
-5. For the `media` LXC I have given it a disk of **10GB**, **2vCPU**s and **1024MiB** of RAM.
+5. For the `post-arr` LXC I have given it a disk of **10GB**, **2vCPU**s and **1024MiB** of RAM.
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.106.10/24` and the gateway to `172.20.106.1`. For IPv6 select `none`.
 
