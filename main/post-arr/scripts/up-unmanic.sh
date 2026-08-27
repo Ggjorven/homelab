@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STACK_USER="postarr"
-STACK_NAME="networking"
+STACK_NAME="unmanic"
 
 STACK_DIR="/home/$STACK_USER/$STACK_NAME"
 COMPOSE_FILE="$STACK_DIR/compose.yaml"
@@ -17,4 +17,4 @@ if [[ ! -f "$COMPOSE_FILE" ]]; then
 fi
 
 cd "$STACK_DIR"
-docker compose --all-resources --env-file ../.env --env-file .env up -d
+docker compose --env-file ../.env --env-file .env up -d

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STACK_USER="media"
+STACK_USER="postarr"
 STACK_NAME="monitoring"
 
 STACK_DIR="/home/$STACK_USER/$STACK_NAME"
