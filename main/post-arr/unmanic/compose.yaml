@@ -1,0 +1,38 @@
+networks:
+  post-arr-network:
+    name: post-arr-network
+    external: true
+
+services:
+  unmanic:
+    image: josh5/unmanic:latest
+    container_name: unmanic
+    # user: ${PUID}:${PGID} # unmanic handles this via environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./config:/config
+      - ${MOVIES_FOLDER}:/library/movies
+      - ${SERIES_FOLDER}:/library/series
+      - ${ENCODE_CACHE_FOLDER:-/tmp/unmanic}:/tmp/unmanic
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      post-arr-network:
+        ipv4_address: 172.24.1.10
+    ports:
+      - "0.0.0.0:8888:8888"
+    runtime: nvidia
+    gpus: all
+    healthcheck:
+      test: curl -s http://localhost:8888/unmanic/api/v2/settings/read
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # TODO: Prometheus exporter
