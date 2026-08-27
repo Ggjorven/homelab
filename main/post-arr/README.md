@@ -140,10 +140,10 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 41. Create the `unmanic` stack:
     ```sh
     BRANCH=main
-    mkdir -p ~/monitoring
-    cd ~/monitoring
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/compose.yaml"
+    mkdir -p ~/unmanic
+    cd ~/unmanic
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/unmanic/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/unmanic/compose.yaml"
     ```
 
 42. Get the `up` and `down` scripts:
