@@ -47,9 +47,11 @@
 
 18. We also need it to be able to access our LAN, so hit **Add** and select **Network Device**. Select `vmbr0` and disable the built-in **firewall**. **Add**!
 
-19. Now we can finally start the **VM**, go to the **Console** tab and hit **Start Now**.
+19. We also want the **VM** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `15`.
 
-20. Once everything has started you should see something like:
+20. Now we can finally start the **VM**, go to the **Console** tab and hit **Start Now**.
+
+21. Once everything has started you should see something like:
     ```
     Welcome to the Home Assistant command line interface.
 
@@ -68,29 +70,29 @@
     System is ready! Use browser or app to configure.
     ```
 
-21. You can access **Home Assistant** on `http://homeassistant.local:8123` while it is still upgrading to the latest version. If you can't reach it it probably already upgraded and is now on port `80`, so you can access it on `http://homeassistant.local:80`.
+22. You can access **Home Assistant** on `http://homeassistant.local:8123` while it is still upgrading to the latest version. If you can't reach it it probably already upgraded and is now on port `80`, so you can access it on `http://homeassistant.local:80`.
 
-22. First we'll create our Admin account. Set your **Full Name** and a **Username** will be generated. Give it a strong **Password** and confirm it.
+23. First we'll create our Admin account. Set your **Full Name** and a **Username** will be generated. Give it a strong **Password** and confirm it.
 
-23. Now finally in the WebUI go to **Settings** -> **System** -> **Network**.
+24. Now finally in the WebUI go to **Settings** -> **System** -> **Network**.
 
-24. Go to **Configure network interfaces** and look for an interface without an **IPv4** address (probably the second one).
+25. Go to **Configure network interfaces** and look for an interface without an **IPv4** address (probably the second one).
 
-25. Make the **IPv4** **Static** and set the **IP Address** to `172.20.114.10/24`.
+26. Make the **IPv4** **Static** and set the **IP Address** to `172.20.114.10/24`.
 
-26. Set the **Gateway address** to `172.20.114.1` and **Save**!
+27. Set the **Gateway address** to `172.20.114.1` and **Save**!
 
-27. Scroll down to **HTTP Server** and open **Reverse Proxy**.
+28. Scroll down to **HTTP Server** and open **Reverse Proxy**.
 
-28. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.113.0/24` and **Save** and **Save and restart**!
+29. Enable **Trust X-Forwarded-For** and set the **Trusted Proxies** to `172.20.113.0/24` and **Save** and **Save and restart**!
 
-29. Now refresh until it comes back up and it will show a **Confirmation** window and hit **Confirm**!
+30. Now refresh until it comes back up and it will show a **Confirmation** window and hit **Confirm**!
 
-30. To make sure the discovery uses the local LAN **Network Adapter** scroll down to **Network Adapter** and disable **Autoconfigure** and enable both adapters and **Save**!
+31. To make sure the discovery uses the local LAN **Network Adapter** scroll down to **Network Adapter** and disable **Autoconfigure** and enable both adapters and **Save**!
 
-31. (optional) A final thing is to set the **Home Assistant URL** to `https://haos.local.mydomain.com` where `mydomain.com` is your actual domain. This is necessarry for connections to [`priv-net`](./../priv-net/README.md) to function properly.
+32. (optional) A final thing is to set the **Home Assistant URL** to `https://haos.local.mydomain.com` where `mydomain.com` is your actual domain. This is necessarry for connections to [`priv-net`](./../priv-net/README.md) to function properly.
 
-32. Now we can get to the configuring!
+33. Now we can get to the configuring!
 
 ## Configuring
 
