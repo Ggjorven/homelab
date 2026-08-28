@@ -199,7 +199,32 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 
 ### Unmanic
 
-// TODO: ...
+First we'll start by configuring via the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    cd ~/unmanic
+    nano .env
+    ```
+    Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
+    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/media/films
+    mkdir -p /mnt/media/series
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-unmanic.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8888`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. Click through the release notes and the **Free** vs **Supporter** benefits.
+
+2. 
 
 ## Debugging
 
