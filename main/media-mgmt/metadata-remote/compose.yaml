@@ -1,0 +1,28 @@
+networks:
+  media-mgmt-network:
+    name: media-mgmt-network
+    external: true
+
+services:
+  metadata-remote:
+    container_name: metadata-remote
+    image: ghcr.io/wow-signal-dev/metadata-remote:latest
+    # user: ${PUID}:${PGID} # metadata-remote handles this with PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${MUSIC_FOLDER}:/music
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "0.0.0.0:8338:8338"
+    networks:
+      media-mgmt-network:
+        ipv4_address: 172.24.1.10
+    healthcheck:
+      test: ["CMD", "wget", "--q0-", "http://localhost:8338/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
