@@ -196,7 +196,25 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
 
 ### metadata-remote
 
-// TODO: ...
+We can fully configure `metadata-remote` by editing the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    nano ~/metadata-remote/.env
+    ```
+    Change `MUSIC_FOLDER` to your music folder, I use `/mnt/media/music`.
+
+2. Make sure the folders actually exist:
+    ```sh
+    mkdir -p /mnt/media/music
+    ```
+
+3. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-metadata-remote.sh
+    ```
+
+Now that the container is running you can access the WebUI on port `8338`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).  
 
 ## Debugging
 
