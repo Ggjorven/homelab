@@ -134,16 +134,7 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/monitoring/compose.yaml"
     ```
 
-41. Create the `tinyMediaManager` stack:
-    ```sh
-    BRANCH=main
-    mkdir -p ~/tinyMediaManager
-    cd ~/tinyMediaManager
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/tinyMediaManager/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/tinyMediaManager/compose.yaml"
-    ```
-
-42. Create the `metadata-remote` stack:
+41. Create the `metadata-remote` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/metadata-remote
@@ -152,7 +143,7 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/metadata-remote/compose.yaml"
     ```
 
-43. Get the `up` and `down` scripts:
+42. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -161,21 +152,17 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
     sudo chmod +x up-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/up-jellyfin.sh"
-    sudo chmod +x up-tinyMediaManager.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/up-metadata-remote.sh"
     sudo chmod +x up-metadata-remote.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/down-tinyMediaManager.sh"
-    sudo chmod +x down-tinyMediaManager.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/scripts/down-metadata-remote.sh"
     sudo chmod +x down-metadata-remote.sh
     ```
 
-44. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+43. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -191,14 +178,14 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/media-mgmt/services/compose-shutdown.service"
     ```
 
-45. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+44. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-46. Now start the `networking` and `monitoring` stacks:
+45. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -207,7 +194,9 @@ Before we can create our `media-mgmt` **Proxmox LXC**. We must have finished the
 
 ## Configuration
 
-### tinyMediaManager
+### metadata-remote
+
+// TODO: ...
 
 ## Debugging
 
