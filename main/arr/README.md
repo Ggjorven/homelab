@@ -651,6 +651,8 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 9. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
 
+10. (optional) To make [QBitTorrent](#QBitTorrent) accessible via reverse proxy go to **WebUI** and scroll down to **Enable reverse proxy support** and add `172.20.113.10` to the **Trusted proxies list**.
+
 ### Slskd
 
 We can fully configure `slskd` by editing the `.env` file.
