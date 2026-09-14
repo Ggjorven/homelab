@@ -207,36 +207,37 @@ This folder contains the installation instructions and configuration files used 
 48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
 49. Create records for all of these:
-    - [main](./../README.md) **Machine**:
-      - `proxmox.local` *.mydomain.com*
-    - [truenas](./../truenas/README.md) **VM**:
-      - `truenas.local` *.mydomain.com*
-      - `filebrowser.local` *.mydomain.com*
-      - `scrutiny.local` *.mydomain.com*
-    - [media](./../media/README.md) **LXC**:
-      - `jellyfin.local` *.mydomain.com*
-      - `seerr.local` *.mydomain.com*
-      - `navidrome.local` *.mydomain.com*
-      - `bookorbit.local` *.mydomain.com*
-    - [media-mgmt](./../media-mgmt/README.md) **LXC**:
-      - `metadata-remote.local` *.mydomain.com*
-    - [arr](./../arr/README.md) **LXC**:
-      - `qbittorrent.local` *.mydomain.com*
-      - `slskd.local` *.mydomain.com*
-      - `jackett.local` *.mydomain.com*
-      - `prowlarr.local` *.mydomain.com*
-      - `radarr.local` *.mydomain.com*
-      - `sonarr.local` *.mydomain.com*
-      - `lidarr.local` *.mydomain.com*
-      - `bazarr.local` *.mydomain.com*
-      - `metube.local` *.mydomain.com*
-      - `shelfarr.local` *.mydomain.com*
-    - [post-arr](./../post-arr/README.md) **LXC**:
-      - `unmanic.local` *.mydomain.com*
-    - [haos](./../haos/README.md) **VM**:
-      - `haos.local` *.mydomain.com*
-    - [misc](./../haos/README.md) **LXC**:
-      - `memos.local` *.mydomain.com*
+    - [main](./../README.md):
+      - `proxmox.local`
+    - [truenas](./../truenas/README.md):
+      - `truenas.local`
+      - `filebrowser.local`
+      - `scrutiny.local`
+    - [media](./../media/README.md):
+      - `jellyfin.local`
+      - `seerr.local`
+      - `navidrome.local`
+      - `bookorbit.local`
+    - [media-mgmt](./../media-mgmt/README.md):
+      - `metadata-remote.local`
+    - [arr](./../arr/README.md):
+      - `qbittorrent.local`
+      - `slskd.local`
+      - `jackett.local`
+      - `prowlarr.local`
+      - `radarr.local`
+      - `sonarr.local`
+      - `lidarr.local`
+      - `bazarr.local`
+      - `metube.local`
+      - `shelfarr.local`
+    - [post-arr](./../post-arr/README.md):
+      - `unmanic.local`
+    - [haos](./../haos/README.md):
+      - `haos.local`
+    - [misc](./../haos/README.md):
+      - `memos.local`
+
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
 50. Now start the `networking` and `monitoring` stacks:
