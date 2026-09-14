@@ -207,11 +207,30 @@ This folder contains the installation instructions and configuration files used 
 48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
 49. Create records for all of these:
-    - `jellyfin.local` *.mydomain.com*
-    - `seerr.local` *.mydomain.com*
-    - `immich.local` *.mydomain.com*
-    - `haos.local` *.mydomain.com*
-    
+    - [media](./../media/README.md) **LXC**:
+      - `jellyfin.local` *.mydomain.com*
+      - `seerr.local` *.mydomain.com*
+      - `navidrome.local` *.mydomain.com*
+      - `bookorbit.local` *.mydomain.com*
+    - [media-mgmt](./../media-mgmt/README.md) **LXC**:
+      - `metadata-remote.local` *.mydomain.com*
+    - [arr](./../arr/README.md) **LXC**:
+      - `qbittorrent.local` *.mydomain.com*
+      - `slskd.local` *.mydomain.com*
+      - `jackett.local` *.mydomain.com*
+      - `prowlarr.local` *.mydomain.com*
+      - `radarr.local` *.mydomain.com*
+      - `sonarr.local` *.mydomain.com*
+      - `lidarr.local` *.mydomain.com*
+      - `bazarr.local` *.mydomain.com*
+      - `metube.local` *.mydomain.com*
+      - `shelfarr.local` *.mydomain.com*
+    - [post-arr](./../post-arr/README.md) **LXC**:
+      - `unmanic.local` *.mydomain.com*
+    - [haos](./../haos/README.md) **VM**:
+      - `haos.local` *.mydomain.com*
+    - [misc](./../haos/README.md) **LXC**:
+      - `memos.local` *.mydomain.com*
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
 50. Now start the `networking` and `monitoring` stacks:
@@ -253,8 +272,7 @@ Now start **OpenResty** by running:
 sudo /lxc/scripts/up-openresty.sh
 ```
 
-You should now be able to access **Jellyfin** by going to `https://jellyfin.local.mydomain.com`.  
-You should now be able to access **Seerr** by going to `https://seerr.local.mydomain.com`.
+You should now be able to access **Jellyfin**, **Seerr**, etc.. by going to `https://jellyfin.local.mydomain.com` or `https://seerr.local.mydomain.com` respectively.
 
 ## Debugging
 
