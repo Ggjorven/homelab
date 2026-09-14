@@ -52,11 +52,11 @@ This folder contains the installation instructions and configuration files used 
 
 22. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
 
-23. For debugging I also like to **Add** another **Network Device**. 
+23. Now to **Add** another **Network Device**. 
 
-24. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**.
+24. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**, unlike all other **LXC**'s, for [priv-net](./README.md) it is mandatory.
 
-25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
+25. Set **IPv4** to **Static** and set an IP then set **IPv6** to **Static** and leave it empty. **Add**!
 
 26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `14`. 
 
