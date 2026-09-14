@@ -207,6 +207,8 @@ This folder contains the installation instructions and configuration files used 
 48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
 49. Create records for all of these:
+    - [main](./../README.md) **Machine**:
+      - `proxmox.local` *.mydomain.com*
     - [truenas](./../truenas/README.md) **VM**:
       - `truenas.local` *.mydomain.com*
       - `filebrowser.local` *.mydomain.com*
