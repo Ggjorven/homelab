@@ -390,7 +390,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - **Auto-Approve** (for auto approving requests)
     And scroll to the bottom and **Save**!
 
-20. Go to **Settings** -> **Network** and enable **Enable Proxy Support** and **Save**!
+20. (optional) Go to **Settings** -> **Network** and enable **Enable Proxy Support** and **Save**! This allows the use of a reverse proxy as done in [priv-net](./../priv-net/README.md).
 
 21. Now go to **Settings** -> **General** and scroll down to **Blocklist Content with Tags**.
 
