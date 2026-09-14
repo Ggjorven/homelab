@@ -383,9 +383,11 @@ To be able to easily track the state of our drives and see S.M.A.R.T. data we'll
 
 4. Scroll down to **Network Configuration** and under **InfluxDB Port** -> **Port Bind Mode** set the mode to **Expose port for inter-container communication**.
 
-5. Now scroll down to the bottom and hit **Install**.
+5. Also set the **WebUI Port**'s **Port Number** to `8001`.
 
-6. To navigate to the **WebUI** of **Scrutiny** go to **Apps** and select the just created **Scrutiny** app and under **Application Info** click the **WebUI** button.
+6. Now scroll down to the bottom and hit **Install**.
+
+7. To navigate to the **WebUI** of **Scrutiny** go to **Apps** and select the just created **Scrutiny** app and under **Application Info** click the **WebUI** button.
 
 ### Filebrowser Quantum
 
@@ -435,17 +437,19 @@ To be able to traverse your files and edit them from a browser we'll be setting 
 
 10. Scroll down to **User and Group Configuration** and set the **Group ID** to `2001` (the `filebrowser` group).
 
-11. Scroll further down to **Storage Configuration** and **Add** **Additional Storage**.
+11. Scroll further down to **Network Configuration** and set the **WebUI Port**'s **Port Number** to `8002`.
 
-12. Set the **Type** to **Host Path**.
+12. Scroll even further down to **Storage Configuration** and **Add** **Additional Storage**.
 
-13. Set the the **Mount Path** to `/tank` or anything you like.
+13. Set the **Type** to **Host Path**.
 
-14. Set the **Host Path** to `/mnt/tank` or the actual pool path if you changed the name.
+14. Set the the **Mount Path** to `/tank` or anything you like.
 
-15. Scroll down and **Install**.
+15. Set the **Host Path** to `/mnt/tank` or the actual pool path if you changed the name.
 
-16. To navigate to the **WebUI** of **Filebrowser Quantum** go to **Apps** and select the just created **Filebrowser Quantum** app and under **Application Info** click the **WebUI** button.
+16. Scroll down and **Install**.
+
+17. To navigate to the **WebUI** of **Filebrowser Quantum** go to **Apps** and select the just created **Filebrowser Quantum** app and under **Application Info** click the **WebUI** button.
 
 ## Debugging
 
