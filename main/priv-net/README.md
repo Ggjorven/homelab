@@ -207,6 +207,10 @@ This folder contains the installation instructions and configuration files used 
 48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
 49. Create records for all of these:
+    - [truenas](./../truenas/README.md) **VM**:
+      - `truenas.local` *.mydomain.com*
+      - `filebrowser.local` *.mydomain.com*
+      - `scrutiny.local` *.mydomain.com*
     - [media](./../media/README.md) **LXC**:
       - `jellyfin.local` *.mydomain.com*
       - `seerr.local` *.mydomain.com*
