@@ -39,7 +39,7 @@ services:
       - "0.0.0.0:5056:5056" # Shelfarr web interface
     healthcheck:
       test: sh -c "ping -c1 1.1.1.1 && nslookup www.google.com && [ -s /tmp/gluetun/ip ]" # [ -s /tmp/gluetun/ip ] checks that the file is not empty this is required for the publicip API to function, issues related: #1243, #1855 and #2848 under https://github.com/qdm12/gluetun/issues"
-      interval: 30s
+      interval: 10s
       timeout: 10s
       retries: 5
       start_period: 10s
