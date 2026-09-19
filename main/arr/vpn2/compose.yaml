@@ -40,4 +40,4 @@ services:
       start_period: 10s
     devices:
       - /dev/net/tun:/dev/net/tun
-    restart: unless-stopped
+    restart: always

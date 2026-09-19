@@ -21,7 +21,7 @@ services:
       timeout: 30s
       retries: 3
       start_period: 10s
-    restart: unless-stopped
+    restart: always
 
   byparr:
     image: ghcr.io/thephaseless/byparr:latest
@@ -40,7 +40,7 @@ services:
       timeout: 30s
       retries: 3
       start_period: 15s
-    restart: unless-stopped
+    restart: always
 
   flaresolverr-aggregate:
     image: ghcr.io/ggjorven/flaresolverr-aggregate:latest
@@ -66,4 +66,4 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
-    restart: unless-stopped
+    restart: always

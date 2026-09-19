@@ -31,4 +31,4 @@ services:
       retries: 3
       start_period: 5s
     entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for template processing logic like nginx
-    restart: unless-stopped
+    restart: always

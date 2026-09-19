@@ -27,4 +27,4 @@ services:
       retries: 3
       start_period: 5s
     entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for auto-renewing certificates
-    restart: unless-stopped
+    restart: always

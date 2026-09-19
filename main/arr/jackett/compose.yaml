@@ -22,4 +22,4 @@ services:
       timeout: 10s
       retries: 5
       start_period: 15s
-    restart: unless-stopped
+    restart: always

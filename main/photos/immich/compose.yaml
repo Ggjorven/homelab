@@ -39,7 +39,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
-    restart: unless-stopped
+    restart: always
 
   immich-machine-learning:
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION?required}
@@ -63,7 +63,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    restart: unless-stopped
+    restart: always
 
   immich-redis:
     image: docker.io/valkey/valkey:9@sha256:930b41430fb727f533c5982fe509b6f04233e26d0f7354e04de4b0d5c706e44e
@@ -82,7 +82,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    restart: unless-stopped
+    restart: always
 
   immich-database:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
@@ -107,6 +107,6 @@ services:
       retries: 5
       start_period: 15s
     shm_size: 128mb
-    restart: unless-stopped
+    restart: always
 
   # TODO: Prometheus exporter
