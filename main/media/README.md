@@ -308,6 +308,12 @@ To change **Jellyfin**'s settings go to the hamburger menu in the top left and g
 
 2. Scroll to the bottom and hit **Save**.
 
+##### Networking
+
+1. (optional) To allow our future [priv-net](./../priv-net/README.md) reverse proxy proper IP forwarding go to **Networking**.
+
+2. (optional) Now scroll down to **Known proxies** and set the address to `172.20.13.10` and scroll down to **Save**!
+
 #### Plugins
 
 **Jellyfin** has an awesome plugin system with plenty of awesome plugins, [examples](https://github.com/awesome-jellyfin/awesome-jellyfin). In my **Jellyfin** deployment I run a lot of plugins listed below:
