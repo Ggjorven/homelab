@@ -137,80 +137,25 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 39. Go back to the **Console** and select **Ok** and **Reboot System**.
 
-40. After you are back in select the option for the **Linux Shell** (`8`).
+40. After you are back in select the option to **Configure Network Interfaces** (`1`).
 
-41. We'll be setting up networking over `vmbr1`, go back to the **Hardware** tab of the **VM**.
+41. Under **state.aliases** look for the LAN IP it's currently on, something like `192.168.xxx.xxx`.
 
-42. Look for the **Network Device** set to **bridge** `vmbr1` probably net0. Take note of the MAC-address shown after `virtio=`, it should look something like `XX:XX:XX:XX:XX:XX`.
+42. Open the WebUI under that IP address in a browser.
 
-43. Now go back to the **Console** and execute:
-    ```sh
-    ip link show
-    ```
+43. Log in with username `truenas_admin` and the password you set in the installation.
 
-44. Now look through the links and find the link with:
-    ```
-    link/ether XX:XX:XX:XX:XX:XX .....
-    ```
-    Where `XX:XX:XX:XX:XX:XX` is the same as the MAC-address you took note of.
+44. Go to **Storage** and hit **Create Pool**.
 
-45. Under that same link look for `altname` like so:
-    ```
-    altname enp0s18
-    ```
-    Take note of this name.
+45. Name it `tank` (or something else). **Next**!
 
-46. Now we need to set up our IP address and gateway, since our `vmbr1` doesn't have a DHCP server. Open `/etc/network/interfaces`:
-    ```sh
-    nano /etc/network/interfaces
-    ```
+46. For my drives I set a **Layout** of **RAIDZ2**. It should auto-fill with the proper disks, if not set them manually. **Next**!
 
-47. Write:
-    ```
-    auto enp0s18
-    inet enp0s18 inet static
-        address 172.20.100.10/24
-        gateway 172.20.100.1
-    ```
-    Above the:
-    ```
-    source /etc/network/interfaces.d/*
-    ```
-    Line.  
-    These correspond with the VLAN ID specified in [this table](./../README.md#Deployments) and the VLAN we have subsequently created on `vmbr1` on the **Proxmox Host**.
+47. Hit **Next** until you reach **Cache**, if you have an SSD (attached to your HBA) set it as your **Cache** drive for extra performance.
 
-48. Now reboot:
-    ```sh
-    reboot now
-    ```
+48. Then hit **Next** until you reach the **Review** and **Create Pool**.
 
-49. After reboot enter the linux shell again (option `8`).
-
-50. Check your IP address attached to `vmbr0`, so you can access the WebUI:
-    ```sh
-    ip a
-    ```
-    Look for a line like:
-    ```
-    inet 192.168.XXX.XXX
-    ```
-    Maybe under option `3` or like `ens19`.
-
-51. Open the WebUI under that IP address in a browser.
-
-52. Log in with username `truenas_admin` and the password you set in the installation.
-
-53. Go to **Storage** and hit **Create Pool**.
-
-54. Name it `tank` (or something else). **Next**!
-
-55. For my drives I set a **Layout** of **RAIDZ2**. It should auto-fill with the proper disks, if not set them manually. **Next**!
-
-56. Hit **Next** until you reach **Cache**, if you have an SSD (attached to your HBA) set it as your **Cache** drive for extra performance.
-
-57. Then hit **Next** until you reach the **Review** and **Create Pool**.
-
-58. Now go to **Datasets** and create these datasets (use the **Generic** preset):
+49. Now go to **Datasets** and create these datasets (use the **Generic** preset):
     ```
     tank
     ├── cloud (storage for NextCloud and Paperless-ngx)
@@ -222,9 +167,9 @@ Before we can install **TrueNAS**. We must have finished these steps:
         └── family_member_name (personal private storage for a family member, replace with actual name)
     ```
 
-59. We only want dedicated users to be able to access these folders, so we'll now be setting up groups and credentials. Go to **Credentials** -> **Groups**.
+50. We only want dedicated users to be able to access these folders, so we'll now be setting up groups and credentials. Go to **Credentials** -> **Groups**.
 
-60. Now create these groups (follow the table and leave the rest as defaults):
+51. Now create these groups (follow the table and leave the rest as defaults):
     | GID | Name | SMB Group |
     | --- | --- | --- |
     | 1001 | media | No |
@@ -234,9 +179,9 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | 3001 | my_name | Yes |
     | 3002 | family_member_name | Yes |
 
-61. Now we'll create the corresponding users, go to **Credentials** -> **Users**.
+52. Now we'll create the corresponding users, go to **Credentials** -> **Users**.
 
-62. Now create these users, when setting the **Group** disable **Create New Primary Group** and set the group as defined in the table (follow the table and leave the rest as defaults):
+53. Now create these users, when setting the **Group** disable **Create New Primary Group** and set the group as defined in the table (follow the table and leave the rest as defaults):
     | Name | SMB Access | Disable password | (Primary) Group | UID |
     | --- | --- | --- | --- | --- |
     | media | No | Yes | media | 1001 |
@@ -246,11 +191,11 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | my_name | Yes | No | my_name | 3001 |
     | family_member_name | Yes | No | family_member_name | 3002 |
 
-63. Go back to **Datasets** and select `cloud` and hit **Edit** on **Permissions**.
+54. Go back to **Datasets** and select `cloud` and hit **Edit** on **Permissions**.
 
-64. Click **Set ACL** and select **Create a custom ACL**.
+55. Click **Set ACL** and select **Create a custom ACL**.
 
-65. Set the **Access Control List** to this list:
+56. Set the **Access Control List** to this list:
     | Who | Read | Write | Execute (Traverse) | Default (Inherit) |
     | --- | --- | --- | --- | --- |
     | User Obj | Yes | Yes | Yes | No |
@@ -262,9 +207,9 @@ Before we can install **TrueNAS**. We must have finished these steps:
     | Mask | Yes | Yes | Yes | Yes |
     | Other | No | No | No | Yes |
 
-66. At the bottom select **Save As Preset** and name it something like `POSIX_CUSTOM_OWNER_GROUP`. Now we can re-use it.
+57. At the bottom select **Save As Preset** and name it something like `POSIX_CUSTOM_OWNER_GROUP`. Now we can re-use it.
 
-67. Now for these datasets:
+58. Now for these datasets:
     - `cloud`
     - `downloads`
     - `media`
@@ -274,21 +219,21 @@ Before we can install **TrueNAS**. We must have finished these steps:
     2. Set the **Owner** and **Owner Group** to the user/group with the same name as the dataset and enable the **Apply owner (group)** checkmarks below the selection.  
     3. (Optional) If you already have files in the directories also set the **Apply Permissions Recursively**. Now you can **Save**.
 
-68. For the dataset `users` click **Edit** under **Details**.
+59. For the dataset `users` click **Edit** under **Details**.
 
-69. Enable **Advanced Options**, scroll to the bottom and set **ACL Type** to **SMB/NFSv4**. **Save**.
+60. Enable **Advanced Options**, scroll to the bottom and set **ACL Type** to **SMB/NFSv4**. **Save**.
 
-70. Now **Edit** the **Permissions** for the `users` dataset and **Set ACL**.
+61. Now **Edit** the **Permissions** for the `users` dataset and **Set ACL**.
 
-71. For each family_member (including you) add a rule with a **Group** set to that user's group. Set the **ACL Type** to **Allow** and permission to **Traverse**, also enable **Inherit** under **Flags**. **Save Access Control List**.
+62. For each family_member (including you) add a rule with a **Group** set to that user's group. Set the **ACL Type** to **Allow** and permission to **Traverse**, also enable **Inherit** under **Flags**. **Save Access Control List**.
 
-72. Now for each dataset under `users` **Edit** the **Permissions** and **Set ACL**. Set the **Owner** and **Owner Group** to the user/group with the same name as the dataset and enable the **Apply owner (group)** checkmarks below the selection.
+63. Now for each dataset under `users` **Edit** the **Permissions** and **Set ACL**. Set the **Owner** and **Owner Group** to the user/group with the same name as the dataset and enable the **Apply owner (group)** checkmarks below the selection.
 
-73. (optional) If you already have files in the directories also set **Apply Directories Recursively** and **Save Access Control List**.
+64. (optional) If you already have files in the directories also set **Apply Directories Recursively** and **Save Access Control List**.
 
-74. Now we'll enable **Network Services**. Go to **System** -> **Services** and flick the switch **Start Automatically** to **On** for both **SMB** and **NFS**.
+65. Now we'll enable **Network Services**. Go to **System** -> **Services** and flick the switch **Start Automatically** to **On** for both **SMB** and **NFS**.
 
-75. Now go back to **Datasets** and follow the steps below for each listed dataset:
+66. Now go back to **Datasets** and follow the steps below for each listed dataset:
     - `cloud`
     - `downloads`
     - `media`
@@ -301,7 +246,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     5. Under **Hosts** add 1 host with IP: `172.20.100.1` (the proxmox host)
     5. **Save**!
 
-76. Now follow the steps for these **Datasets**:
+67. Now follow the steps for these **Datasets**:
     - `my_name`
     - `family_member_name`
 
@@ -310,15 +255,27 @@ Before we can install **TrueNAS**. We must have finished these steps:
     3. Enable **Access Based Share Enumeration**.
     4. **Save**!
 
-77. (optional) For our reverse proxy from [priv-net](./../priv-net/README.md) to work, we need to make sure that all traffic from our VLANs gets a response from `vmbr1` (**TrueNAS**' VLAN). Go to **System** -> **Network**.
+68. Now we'll set up networking via `vmbr1`, go to **System** -> **Network**.
 
-78. (optional) Under **Static Routes** click **Add**.
+69. Then under interfaces look for the interface with IPv4 address like `192.168.xxx.xxx` or `172.20.xxx.xxx` and click the three dots and **Edit** on that interface.
 
-79. (optional) Set the **Destination** to `172.20.0.0/16`, the **Gateway** to `172.20.100.1` and set the **Description** to `VLAN traffic`. **Save**!
+70. Under **DHCP** select set **Get IP Adress Automatically from DHCP** if you have set the static IP on your router, else set **Define Static IP Addresses** and set a static IP here.
 
-80. Most of the steps are now complete. Now we'll setup auto-mounting to the **Proxmox Host**. Go to the **Proxmox** WebUI and go to the **Node**'s **Shell**.
+71. The edit the interface which doesn't have an IPv4 address yet. This one is for `vmbr1` traffic so under **DHCP** enable **Define Static IP Addresses**.
 
-81. We have these internal shares: `cloud`, `downloads`, `media` and `photos`. First create all the mountpoints:
+72. Then under **Static IP Addresses** click **Add**. Set the IP address to `172.20.100.10` and set the subnet to `/24`. **Save**!
+
+73. Now it will ask you to **Test Changes**, click it and wait.
+
+74. (optional) For our reverse proxy from [priv-net](./../priv-net/README.md) to work, we need to make sure that all traffic from our VLANs gets a response from `vmbr1` (**TrueNAS**' VLAN). Go to **System** -> **Network**.
+
+75. (optional) Under **Static Routes** click **Add**.
+
+76. (optional) Set the **Destination** to `172.20.0.0/16`, the **Gateway** to `172.20.100.1` and set the **Description** to `VLAN traffic`. **Save**!
+
+77. Most of the steps are now complete. Now we'll setup auto-mounting to the **Proxmox Host**. Go to the **Proxmox** WebUI and go to the **Node**'s **Shell**.
+
+78. We have these internal shares: `cloud`, `downloads`, `media` and `photos`. First create all the mountpoints:
     ```sh
     mkdir -p /mnt/cloud
     mkdir -p /mnt/downloads
@@ -326,7 +283,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     mkdir -p /mnt/photos
     ```
 
-82. I have created multiple auto-mount scripts, download them:
+79. I have created multiple auto-mount scripts, download them:
     ```sh
     BRANCH=main
     mkdir -p /node/scripts
@@ -341,7 +298,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     ```
     Note: If you have a different path than `/mnt/tank/xxx`, you must edit the `SHARE_PATH` variable in the script.
 
-83. Download the `systemctl` services:
+80. Download the `systemctl` services:
     ```sh
     cd /etc/systemd/system
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-cloud.service"
@@ -350,7 +307,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-photos.service"
     ```
 
-84. Enable the services:
+81. Enable the services:
     ```sh
     systemctl daemon-reload
     systemctl enable mount-cloud
@@ -359,7 +316,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     systemctl enable mount-photos
     ```
 
-85. (optional) Start the services right now:
+82. (optional) Start the services right now:
     ```sh
     systemctl start mount-cloud
     systemctl start mount-downloads
@@ -367,11 +324,11 @@ Before we can install **TrueNAS**. We must have finished these steps:
     systemctl start mount-photos
     ```
 
-86. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
+83. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
-87. (optional) In the **Proxmox** WebUI for the **VM** set **Protection** to **Yes** under the **Options** tab and set **Start/Shutdown order** to `1` and **Startup Delay** to `135`.
+84. (optional) In the **Proxmox** WebUI for the **VM** set **Protection** to **Yes** under the **Options** tab and set **Start/Shutdown order** to `1` and **Startup Delay** to `135`.
 
-88. (optional) You can now follow optional [configuration steps](#Configuration) like.
+85. (optional) You can now follow optional [configuration steps](#Configuration) like.
     - [Scrutiny](#Scrutiny)
     - [Filebrowser Quantum](#Filebrowser-Quantum)
 
