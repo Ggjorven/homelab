@@ -35,12 +35,30 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -fsSL https://google.com/generate_204 && (curl --max-time 90 -fsSL http://127.0.0.1:8193/docs || curl -- max-time 90 -fsSL http://127.0.0.1:8193/health)" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
+      test: sh -c "curl -fsSL https://google.com/generate_204 && (curl --max-time 90 -fsSL http://127.0.0.1:8193/docs || curl --max-time 90 -fsSL http://127.0.0.1:8193/health)" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
       interval: 30s
       timeout: 180s
       retries: 3
       start_period: 15s
     restart: always
+
+  trawl:
+    image: ghcr.io/germondai/trawl:latest
+    container_name: trawl
+    # user: ${PUID}:${PGID} # Idk yet
+    environment:
+      - LOG_LEVEL=info
+      - PORT=8194
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: container:vpn1
+    healthcheck:
+      test: sh -c "curl -fsSL https://google.com/generate_204 && curl -fsSL http://127.0.0.1:8194/health" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
+      interval: 30s
+      timeout: 90s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
 
   flaresolverr-aggregate:
     image: ghcr.io/ggjorven/flaresolverr-aggregate:latest
@@ -52,6 +70,7 @@ services:
       - LOG_LEVEL=info
       - FLARESOLVERR_URL=http://172.24.1.10:8192/v1
       - BYPARR_URL=http://172.24.1.10:8193/v1
+      - TRAWL_URL=http://172.24.1.10:8194/v1
     networks:
       arr-network:
         ipv4_address: 172.24.1.12
@@ -60,6 +79,7 @@ services:
     depends_on:
       - flaresolverr
       - byparr
+      - trawl
     healthcheck:
       test: curl -fsSL http://localhost:8191/health
       interval: 30s
