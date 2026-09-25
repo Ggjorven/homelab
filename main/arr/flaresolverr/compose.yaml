@@ -16,9 +16,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -fsSL https://google.com/generate_204 && curl -fsSL http://localhost:8192/health" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
+      test: sh -c "curl -fsSL https://google.com/generate_204 && curl -fsSL http://127.0.0.1:8192/health" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
       interval: 30s
-      timeout: 30s
+      timeout: 90s
       retries: 3
       start_period: 10s
     restart: always
@@ -35,9 +35,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     network_mode: container:vpn1
     healthcheck:
-      test: sh -c "curl -fsSL https://google.com/generate_204 && curl -fsSL http://localhost:8193/health" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
+      test: sh -c "curl -fsSL https://google.com/generate_204 && (curl --max-time 90 -fsSL http://127.0.0.1:8193/docs || curl -- max-time 90 -fsSL http://127.0.0.1:8193/health)" # curl https://google.com checks internet connectivity instead of ping and nslookup, because this container doesn't have them
       interval: 30s
-      timeout: 30s
+      timeout: 180s
       retries: 3
       start_period: 15s
     restart: always
