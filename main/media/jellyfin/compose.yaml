@@ -27,7 +27,7 @@ services:
     runtime: nvidia
     gpus: all
     healthcheck:
-      test: curl -s http://localhost:8096/health
+      test: curl -fsSL http://localhost:8096/health
       interval: 30s
       timeout: 10s
       retries: 3

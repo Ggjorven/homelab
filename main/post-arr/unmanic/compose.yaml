@@ -28,7 +28,7 @@ services:
     runtime: nvidia
     gpus: all
     healthcheck:
-      test: curl -s http://localhost:8888/unmanic/api/v2/settings/read
+      test: curl -fsSL http://localhost:8888/unmanic/api/v2/settings/read
       interval: 30s
       timeout: 10s
       retries: 3
