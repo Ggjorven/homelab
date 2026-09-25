@@ -267,15 +267,13 @@ Before we can install **TrueNAS**. We must have finished these steps:
 
 73. Now it will ask you to **Test Changes**, click it and wait.
 
-74. (optional) For our reverse proxy from [priv-net](./../priv-net/README.md) to work, we need to make sure that all traffic from our VLANs gets a response from `vmbr1` (**TrueNAS**' VLAN). Go to **System** -> **Network**.
+74. (optional) For our reverse proxy from [priv-net](./../priv-net/README.md) to work, we need to make sure that all traffic from our VLANs gets a response from `vmbr1` (**TrueNAS**' VLAN), so under **Static Routes** click **Add**.
 
-75. (optional) Under **Static Routes** click **Add**.
+75. (optional) Set the **Destination** to `172.20.0.0/16`, the **Gateway** to `172.20.100.1` and set the **Description** to `VLAN traffic`. **Save**!
 
-76. (optional) Set the **Destination** to `172.20.0.0/16`, the **Gateway** to `172.20.100.1` and set the **Description** to `VLAN traffic`. **Save**!
+76. Most of the steps are now complete. Now we'll setup auto-mounting to the **Proxmox Host**. Go to the **Proxmox** WebUI and go to the **Node**'s **Shell**.
 
-77. Most of the steps are now complete. Now we'll setup auto-mounting to the **Proxmox Host**. Go to the **Proxmox** WebUI and go to the **Node**'s **Shell**.
-
-78. We have these internal shares: `cloud`, `downloads`, `media` and `photos`. First create all the mountpoints:
+77. We have these internal shares: `cloud`, `downloads`, `media` and `photos`. First create all the mountpoints:
     ```sh
     mkdir -p /mnt/cloud
     mkdir -p /mnt/downloads
@@ -283,7 +281,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     mkdir -p /mnt/photos
     ```
 
-79. I have created multiple auto-mount scripts, download them:
+78. I have created multiple auto-mount scripts, download them:
     ```sh
     BRANCH=main
     mkdir -p /node/scripts
@@ -298,7 +296,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     ```
     Note: If you have a different path than `/mnt/tank/xxx`, you must edit the `SHARE_PATH` variable in the script.
 
-80. Download the `systemctl` services:
+79. Download the `systemctl` services:
     ```sh
     cd /etc/systemd/system
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-cloud.service"
@@ -307,7 +305,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/truenas/services/mount-photos.service"
     ```
 
-81. Enable the services:
+80. Enable the services:
     ```sh
     systemctl daemon-reload
     systemctl enable mount-cloud
@@ -316,7 +314,7 @@ Before we can install **TrueNAS**. We must have finished these steps:
     systemctl enable mount-photos
     ```
 
-82. (optional) Start the services right now:
+81. (optional) Start the services right now:
     ```sh
     systemctl start mount-cloud
     systemctl start mount-downloads
@@ -324,11 +322,11 @@ Before we can install **TrueNAS**. We must have finished these steps:
     systemctl start mount-photos
     ```
 
-83. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
+82. (optional) [Optimize your drives for NAS usage](./../../tutorials/truenas/OPTIMIZING-DRIVES.md)
 
-84. (optional) In the **Proxmox** WebUI for the **VM** set **Protection** to **Yes** under the **Options** tab and set **Start/Shutdown order** to `1` and **Startup Delay** to `135`.
+83. (optional) In the **Proxmox** WebUI for the **VM** set **Protection** to **Yes** under the **Options** tab and set **Start/Shutdown order** to `1` and **Startup Delay** to `135`.
 
-85. (optional) You can now follow optional [configuration steps](#Configuration) like.
+84. (optional) You can now follow optional [configuration steps](#Configuration) like.
     - [Scrutiny](#Scrutiny)
     - [Filebrowser Quantum](#Filebrowser-Quantum)
 
