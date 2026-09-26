@@ -23,7 +23,7 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `106` (matches with the VLAN) and set the hostname to `post-arr` (or something else).
 
-5. For the `post-arr` LXC I have given it a disk of **10GB**, **2vCPU**s and **1024MiB** of RAM.
+5. For the `post-arr` LXC I have given it a disk of **100GB**, **2vCPU**s and **1024MiB** of RAM.
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.106.10/24` and the gateway to `172.20.106.1`. For IPv6 select `none`.
 
@@ -137,13 +137,13 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/monitoring/compose.yaml"
     ```
 
-41. Create the `unmanic` stack:
+41. Create the `tdarr` stack:
     ```sh
     BRANCH=main
-    mkdir -p ~/unmanic
-    cd ~/unmanic
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/unmanic/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/unmanic/compose.yaml"
+    mkdir -p ~/tdarr
+    cd ~/tdarr
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/tdarr/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/tdarr/compose.yaml"
     ```
 
 42. Get the `up` and `down` scripts:
@@ -155,14 +155,14 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
     sudo chmod +x up-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-unmanic.sh"
-    sudo chmod +x up-unmanic.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/up-tdarr.sh"
+    sudo chmod +x up-tdarr.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-unmanic.sh"
-    sudo chmod +x down-unmanic.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/post-arr/scripts/down-tdarr.sh"
+    sudo chmod +x down-tdarr.sh
     ```
 
 43. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
@@ -197,13 +197,13 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 
 ## Configuration
 
-### Unmanic
+### Tdarr
 
 First we'll start by configuring via the `.env` file.
 
 1. Open the `.env`:
     ```sh
-    cd ~/unmanic
+    cd ~/tdarr
     nano .env
     ```
     Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
@@ -217,14 +217,14 @@ First we'll start by configuring via the `.env` file.
 
 3. You can now start the container:
     ```sh
-    sudo /lxc/scripts/up-unmanic.sh
+    sudo /lxc/scripts/up-tdarr.sh
     ```
 
-Now that the container is running we'll start configuring via the WebUI on port `8888`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+Now that the container is running we'll start configuring via the WebUI on port `8265`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
-1. Click through the release notes and the **Free** vs **Supporter** benefits.
+1. First start by closing the changelog and close the basic walkthrough.
 
-2. 
+2. We'll start by adding our libraries. TODO
 
 ## Debugging
 

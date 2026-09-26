@@ -1,0 +1,57 @@
+networks:
+  post-arr-network:
+    name: post-arr-network
+    external: true
+
+services:
+  tdarr:
+    image: ghcr.io/haveagitgat/tdarr:latest
+    container_name: tdarr
+    # user: ${PUID}:${PGID} # tdarr handles this via environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - serverIP=0.0.0.0
+      - webUIPort=8265
+      - serverPort=8266
+      - inContainer=true
+      - ffmpegVersion=7
+      - transcodegpuWorkers=${GPU_WORKERS:-1}
+      - transcodecpuWorkers=${CPU_WORKERS:-1}
+      - healthcheckgpuWorkers=1
+      - healthcheckcpuWorkers=1
+      - internalNode=true
+      - nodeID=tdarr-main
+      - nodeType=mapped
+      - priority=-1
+      - startPaused=false
+      - pollInterval=2000
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./config/server:/app/server
+      - ./config/configs:/app/configs
+      - ./logs:/app/logs
+      - ${MOVIES_FOLDER}:/library/movies
+      - ${SERIES_FOLDER}:/library/series
+      - ${ENCODE_CACHE_FOLDER:-/tmp/tdarr}:/temp
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      post-arr-network:
+        ipv4_address: 172.24.1.10
+    ports:
+      - "0.0.0.0:8265:8265" # WebUI port
+      - "127.0.0.1:8266:8266" # Server port
+      - "127.0.0.1:8267:8267" # Internal node port
+    runtime: nvidia
+    gpus: all
+    healthcheck:
+      test: curl -fsSL http://localhost:8266/unmanic/api/v2/settings/read
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: always
+
+  # TODO: Prometheus exporter

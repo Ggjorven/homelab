@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STACK_USER="postarr"
-STACK_NAME="unmanic"
+STACK_NAME="tdarr"
 
 STACK_DIR="/home/$STACK_USER/$STACK_NAME"
 COMPOSE_FILE="$STACK_DIR/compose.yaml"
