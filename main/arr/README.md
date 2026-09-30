@@ -649,9 +649,13 @@ Now that the container is running we'll start configuring via the WebUI on port 
     - Set `Maximum active uploads` to something higher, I use `10`.
     - Set `Maximum active torrents` to the max downloads + max uploads, in my case `50`.
 
-9. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
+9. (optional) To speed up our torrents we want to announce our presence to as many torrent tracker as possible. Still under **Settings** -> **BitTorrent** scroll down to **Automatically append these trackers to new downloads** and enable it.
 
-10. (optional) To make [QBitTorrent](#QBitTorrent) accessible via reverse proxy go to **WebUI** and scroll down to **Enable reverse proxy support** and add `172.20.113.10` to the **Trusted proxies list**.
+10. (optional) Then go to [this repository](https://github.com/ngosang/trackerslist/tree/master) and select a tracker list (I like [tracker_all.txt](https://github.com/ngosang/trackerslist/blob/master/trackers_all.txt)). Copy it's contents/copy raw file and paste it into the text box in the **QBitTorrent** WebUI and **Save**!
+
+11. (optional) If you really value every ounce of privacy you can also go to **Settings** and then **BitTorrent** and enable `anonymous mode`. Read [this](https://github.com/qbittorrent/qBittorrent/wiki/Anonymous-Mode) for more information.
+
+12. (optional) To make [QBitTorrent](#QBitTorrent) accessible via reverse proxy go to **WebUI** and scroll down to **Enable reverse proxy support** and add `172.20.113.10` to the **Trusted proxies list**.
 
 ### Slskd
 
