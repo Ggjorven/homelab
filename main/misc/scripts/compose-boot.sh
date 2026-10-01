@@ -3,3 +3,4 @@
 "$(dirname "$0")/up-networking.sh"
 "$(dirname "$0")/up-monitoring.sh"
 "$(dirname "$0")/up-memos.sh"
+"$(dirname "$0")/up-leantime.sh"

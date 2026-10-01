@@ -1,0 +1,59 @@
+networks:
+  misc-network:
+    name: misc-network
+    external: true
+
+services:
+  leantime:
+    image: leantime/leantime:3.4.12
+    container_name: leantime
+    # user: ${PUID}:${PGID} # Idk yet
+    volumes:
+      - ./config/public:/var/www/html/public/userfiles
+      - ./config/user:/var/www/html/userfiles
+      - ./config/plugins:/var/www/html/app/Plugins
+      - ./logs:/var/www/html/storage/logs
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      misc-network:
+        ipv4_address: 172.24.1.11
+    ports:
+      - "0.0.0.0:8080:8080"
+    healthcheck:
+      test: curl -fsSL http://localhost:8080
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      leantime-db:
+        condition: service_healthy
+    restart: always
+
+  leantime-db:
+    image: mysql:8.4
+    container_name: leantime-db
+    # user: ${PUID}:${PGID} # Idk yet
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      misc-network:
+        ipv4_address: 172.24.1.12
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: --character-set-server=UTF8MB4 --collation-server=UTF8MB4_unicode_ci
+    restart: always
+
+  leantime-db-helper:
+    image: mysql:8.4
+    container_name: leantime-db-helper
+    user: root
+    volumes:
+      - ./database:/var/lib/mysql
+    network_mode: none
+    command: chown -R mysql:mysql /var/lib/mysql
+    profiles: [ "helper" ]
+    restart: no
