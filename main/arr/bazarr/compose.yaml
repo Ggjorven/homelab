@@ -42,6 +42,7 @@ services:
   #   volumes:
   #     - ./bulk-config/config.json:/config/config.json:ro
   #     - ./bulk-data:/data
+  #     - /etc/localtime:/etc/localtime:ro
   #   networks:
   #     arr-network:
   #       ipv4_address: 172.24.1.100
