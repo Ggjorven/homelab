@@ -29,3 +29,21 @@ services:
       retries: 3
       start_period: 15s
     restart: always
+
+  # NOTE: A tool to help perform bulk actions on your library if you change your settings later.
+  # Before starting create the /bulk-config directory and place a config.json in that directory, example:
+  # https://github.com/mateoradman/bazarr-bulk/blob/main/examples/config.json
+  # And finally set the command to the bulk action you wish to perform
+  # bazarr-bulk:
+  #   image: ghcr.io/mateoradman/bazarr-bulk:latest
+  #   container_name: bazarr-bulk
+  #   environment:
+  #     - BB_DATA_DIR=/bulk-data
+  #   volumes:
+  #     - ./bulk-config/config.json:/config/config.json:ro
+  #     - ./bulk-data:/data
+  #   networks:
+  #     arr-network:
+  #       ipv4_address: 172.24.1.100
+  #   command: ["--config", "/config/config.json", "tv-shows", "sync"] # NOTE: Set your action here, see https://github.com/mateoradman/bazarr-bulk
+  #   restart: no
