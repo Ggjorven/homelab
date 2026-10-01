@@ -12,7 +12,7 @@ services:
       - LEAN_PORT=8080
       - LEAN_APP_URL= # https://leantime.local.${BASE_DOMAIN}, Idk yet
       - LEAN_APP_DIR= # /config/app, Idk yet
-      - LEAN_LANGUAGE=en-GB 
+      - LEAN_LANGUAGE=en-GB
     volumes:
       - ./config/public:/var/www/html/public/userfiles
       - ./config/user:/var/www/html/userfiles

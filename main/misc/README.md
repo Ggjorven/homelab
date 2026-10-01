@@ -120,7 +120,16 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/memos/compose.yaml"
     ```
 
-37. Get the `up` and `down` scripts:
+37. Create the `leantime` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/leantime
+    cd ~/leantime
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/leantime/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/leantime/compose.yaml"
+    ```
+
+38. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -131,15 +140,19 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-monitoring.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/up-memos.sh"
     sudo chmod +x up-memos.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/up-leantime.sh"
+    sudo chmod +x up-leantime.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-memos.sh"
     sudo chmod +x down-memos.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-leantime.sh"
+    sudo chmod +x down-leantime.sh
     ```
 
-38. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -155,14 +168,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/services/compose-shutdown.service"
     ```
 
-39. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+40. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-40. Now start the `networking` and `monitoring` stacks:
+41. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -180,6 +193,25 @@ sudo /lxc/scripts/up-memos.sh
 ```
 
 Now that the container is running we'll start configuring via the WebUI on port `5230`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+
+1. TODO
+
+### Leantime
+
+First we'll start by configuring via the `.env` file.
+
+1. Open the `.env`:
+    ```sh
+    nano ~/leantime/.env
+    ```
+    TODO: ...
+
+X. You can now start the container:
+    ```sh
+    sudo /lxc/scripts/up-leantime.sh
+    ```
+
+Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 1. TODO
 
