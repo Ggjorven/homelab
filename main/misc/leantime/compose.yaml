@@ -7,12 +7,12 @@ services:
   leantime:
     image: leantime/leantime:3.4.12
     container_name: leantime
-    # user: ${PUID}:${PGID} # Idk yet
+    # user: ${PUID}:${PGID} # Leantime runs as 1000:1000 internally already
     environment:
       - LEAN_DEFAULT_TIMEZONE=${TZ}
       - LEAN_PORT=8080
-      - LEAN_APP_URL= # https://leantime.local.${BASE_DOMAIN}, Idk yet
-      - LEAN_APP_DIR= # /config/app, Idk yet
+      - LEAN_APP_URL=${BASE_DOMAIN:+https://leantime.local.${BASE_DOMAIN}}
+      - LEAN_APP_DIR=
       - LEAN_DEBUG=0
       - LEAN_LANGUAGE=en-GB
       - LEAN_DB_HOST=172.24.1.12
@@ -59,7 +59,6 @@ services:
     container_name: leantime-db
     # user: ${PUID}:${PGID} # It starts as root to fix data ownership and drops down to mysql:mysql
     environment:
-      # TODO: More?
       - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
       - MYSQL_DATABASE=leantime
       - MYSQL_USER=lean

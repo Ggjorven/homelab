@@ -204,9 +204,20 @@ First we'll start by configuring via the `.env` file.
     ```sh
     nano ~/leantime/.env
     ```
-    TODO: ...
+    Set secure passwords in the `DATABASE_ROOT_PASSWORD` and `DATABASE_USER_PASSWORD` variables.  
+    Also [generate a JWT secret](https://randomkeygen.com/jwt-secret) to set as the `SESSION_SALT`.  
+    (optional) Set `BASE_DOMAIN` to your domain if you're using a reverse proxy (ex. `example.com`).
 
-X. You can now start the container:
+2. Create the config and log directories:
+    ```sh
+    mkdir -p ~/leantime/config
+    mkdir -p ~/leantime/config/public
+    mkdir -p ~/leantime/config/user
+    mkdir -p ~/leantime/config/plugins
+    mkdir -p ~/leantime/logs
+    ```
+
+3. You can now start the container:
     ```sh
     sudo /lxc/scripts/up-leantime.sh
     ```
