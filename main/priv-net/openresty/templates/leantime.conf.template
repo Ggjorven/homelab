@@ -1,5 +1,5 @@
 upstream leantime {
-    server 172.20.113.10:8080;
+    server 172.20.116.10:8080;
     keepalive 16;
 }
 
