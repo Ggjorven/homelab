@@ -207,12 +207,14 @@ First we'll start by configuring via the `.env` file.
     nano .env
     ```
     Set `MOVIES_FOLDER` to the actual movies directory, I use `/mnt/media/films`.  
-    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.
+    Do the same for `SERIES_FOLDER`, I use `/mnt/media/series`.  
+    Now set the `ENCODE_CACHE_FOLDER` to a folder on your disk (not **RAM**!), I use `/var/tdarr-cache`.
 
 2. Make sure the folders actually exist:
     ```sh
     mkdir -p /mnt/media/films
     mkdir -p /mnt/media/series
+    sudo mkdir -p /var/tdarr-cache
     ```
 
 3. You can now start the container:
@@ -224,7 +226,9 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 1. First start by closing the changelog and close the basic walkthrough.
 
-2. We'll start by adding our libraries. TODO
+2. Add flows. TODO
+
+3. We'll start by adding our libraries. TODO
 
 ## Debugging
 

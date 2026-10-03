@@ -35,7 +35,7 @@ services:
       - ./logs:/app/logs
       - ${MOVIES_FOLDER}:/library/movies
       - ${SERIES_FOLDER}:/library/series
-      - ${ENCODE_CACHE_FOLDER:-/tmp/tdarr}:/temp
+      - ${ENCODE_CACHE_FOLDER}:/temp
       - /etc/localtime:/etc/localtime:ro
     networks:
       post-arr-network:
@@ -47,11 +47,11 @@ services:
     runtime: nvidia
     gpus: all
     healthcheck:
-      test: curl -fsSL http://localhost:8266/unmanic/api/v2/settings/read
+      test: curl -fsSL http://localhost:8265/api/v2/status
       interval: 30s
-      timeout: 10s
+      timeout: 45s
       retries: 3
-      start_period: 15s
+      start_period: 120s
     restart: always
 
   # TODO: Prometheus exporter
