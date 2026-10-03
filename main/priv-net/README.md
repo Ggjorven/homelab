@@ -255,6 +255,7 @@ This folder contains the installation instructions and configuration files used 
       - `haos.local`
     - [misc](./../haos/README.md):
       - `memos.local`
+      - `leantime.local`
 
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 

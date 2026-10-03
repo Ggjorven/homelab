@@ -9,10 +9,29 @@ services:
     container_name: leantime
     # user: ${PUID}:${PGID} # Idk yet
     environment:
+      - LEAN_DEFAULT_TIMEZONE=${TZ}
       - LEAN_PORT=8080
       - LEAN_APP_URL= # https://leantime.local.${BASE_DOMAIN}, Idk yet
       - LEAN_APP_DIR= # /config/app, Idk yet
+      - LEAN_DEBUG=0
       - LEAN_LANGUAGE=en-GB
+      - LEAN_DB_HOST=172.24.1.12
+      - LEAN_DB_USER=lean
+      - LEAN_DB_PASSWORD=${DATABASE_USER_PASSWORD}
+      - LEAN_DB_DATABASE=leantime
+      - LEAN_DB_PORT=3306
+      - LEAN_SESSION_PASSWORD=${SESSION_SALT}
+      - LEAN_SESSION_EXPIRATION=28800
+      - LEAN_SESSION_SECURE=false
+      - LEAN_SITENAME=Leantime
+      - LEAN_LANGUAGE=en-GB
+      - LEAN_LOG_PATH=
+      - LEAN_DISABLE_LOGIN_FORM=false
+      - LEAN_USER_FILE_PATH=userfiles/
+      - LEAN_DB_BACKUP_PATH=backupdb/
+      - LEAN_RATELIMIT_GENERAL=1000
+      - LEAN_RATELIMIT_API=10
+      - LEAN_RATELIMIT_AUTH=20
     volumes:
       - ./config/public:/var/www/html/public/userfiles
       - ./config/user:/var/www/html/userfiles
@@ -39,8 +58,15 @@ services:
     image: mysql:8.4
     container_name: leantime-db
     # user: ${PUID}:${PGID} # It starts as root to fix data ownership and drops down to mysql:mysql
+    environment:
+      # TODO: More?
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      - MYSQL_DATABASE=leantime
+      - MYSQL_USER=lean
+      - MYSQL_PASSWORD=${DATABASE_USER_PASSWORD}
     volumes:
       - ./database:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
     networks:
       misc-network:
         ipv4_address: 172.24.1.12
