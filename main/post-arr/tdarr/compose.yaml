@@ -4,9 +4,9 @@ networks:
     external: true
 
 services:
-  tdarr:
+  tdarr-server:
     image: ghcr.io/haveagitgat/tdarr:latest
-    container_name: tdarr
+    container_name: tdarr-server
     # user: ${PUID}:${PGID} # tdarr handles this via environment PUID, PGID
     environment:
       - PUID=${PUID}
@@ -15,20 +15,7 @@ services:
       - serverIP=0.0.0.0
       - webUIPort=8265
       - serverPort=8266
-      - inContainer=true
-      - ffmpegVersion=7
-      - transcodegpuWorkers=${GPU_WORKERS:-1}
-      - transcodecpuWorkers=${CPU_WORKERS:-1}
-      - healthcheckgpuWorkers=1
-      - healthcheckcpuWorkers=1
-      - internalNode=true
-      - nodeID=tdarr-main
-      - nodeType=mapped
-      - priority=-1
-      - startPaused=false
-      - pollInterval=2000
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
+      - internalNode=false
     volumes:
       - ./config/server:/app/server
       - ./config/configs:/app/configs
@@ -43,15 +30,60 @@ services:
     ports:
       - "0.0.0.0:8265:8265" # WebUI port
       - "127.0.0.1:8266:8266" # Server port
-      - "127.0.0.1:8267:8267" # Internal node port
-    runtime: nvidia
-    gpus: all
     healthcheck:
       test: curl -fsSL http://localhost:8265/api/v2/status
       interval: 30s
       timeout: 45s
       retries: 3
       start_period: 120s
+    restart: always
+
+  tdarr-node:
+    image: ghcr.io/haveagitgat/tdarr_node:latest
+    container_name: tdarr-node
+    # user: ${PUID}:${PGID} # tdarr handles this via environment PUID, PGID
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - serverIP=172.24.1.10
+      - serverPort=8266
+      - inContainer=true
+      - ffmpegVersion=7
+      - nodeName=local-main
+      - nodeType=mapped
+      - priority=0
+      - startPaused=false
+      - pollInterval=2000
+      - transcodegpuWorkers=${GPU_WORKERS:-1}
+      - transcodecpuWorkers=${CPU_WORKERS:-1}
+      - healthcheckgpuWorkers=1
+      - healthcheckcpuWorkers=1
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./config/node:/app/configs
+      - ./logs-node:/app/logs
+      - ${MOVIES_FOLDER}:/library/movies
+      - ${SERIES_FOLDER}:/library/series
+      - ${ENCODE_CACHE_FOLDER}:/temp
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      post-arr-network:
+        ipv4_address: 172.24.1.11
+    ports:
+      - "127.0.0.1:8267:8267" # Node port
+    healthcheck:
+      test: pgrep -f Tdarr_Node && pgrep -f Tdarr_Node_Rust && curl -fsSL http://172.24.1.10:8265/api/v2/status
+      interval: 30s
+      timeout: 45s
+      retries: 3
+      start_period: 120s
+    depends_on:
+      tdarr-server:
+        condition: service_healthy
+    runtime: nvidia
+    gpus: all
     restart: always
 
   # TODO: Prometheus exporter
