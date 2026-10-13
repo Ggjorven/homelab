@@ -130,10 +130,18 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     sudo chmod +x up-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/up-monitoring.sh"
     sudo chmod +x up-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/up-searxng.sh"
+    sudo chmod +x up-searxng.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/up-odysseus.sh"
+    sudo chmod +x up-odysseus.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/down-monitoring.sh"
     sudo chmod +x down-monitoring.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/down-searxng.sh"
+    sudo chmod +x down-searxng.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/scripts/down-odysseus.sh"
+    sudo chmod +x down-searxng.sh
     ```
 
 39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
@@ -174,7 +182,7 @@ First we'll start by configuring via the `.env` file.
 
 // TODO: ...
 
-Now that the container is running we'll start configuring via the WebUI on port `TODO`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
+Now that the container is running we'll start configuring via the WebUI on port `8888`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 // TODO: ...
 

@@ -2,3 +2,5 @@
 
 "$(dirname "$0")/up-networking.sh"
 "$(dirname "$0")/up-monitoring.sh"
+"$(dirname "$0")/up-searxng.sh"
+"$(dirname "$0")/up-odysseus.sh"
