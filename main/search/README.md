@@ -121,7 +121,28 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/monitoring/compose.yaml"
     ```
 
-38. Get the `up` and `down` scripts:
+38. Create the `searxng` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/searxng
+    cd ~/searxng
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/compose.yaml"
+    mkdir -p config
+    cd config/
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/settings.yml"
+    ```
+
+39. Create the `odysseus` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/odysseus
+    cd ~/odysseus
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/odysseus/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/odysseus/compose.yaml"
+    ```
+
+40. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -144,7 +165,7 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     sudo chmod +x down-searxng.sh
     ```
 
-39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+41. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -160,14 +181,14 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/services/compose-shutdown.service"
     ```
 
-40. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+42. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-41. Now start the `networking` and `monitoring` stacks:
+43. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
