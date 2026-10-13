@@ -1,0 +1,33 @@
+upstream odysseus {
+    server 172.20.115.10:7011;
+    keepalive 16;
+}
+
+server {
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    http2       on;
+    server_name odysseus.${LOCAL_DOMAIN};
+
+    ssl_certificate     /etc/letsencrypt/live/${LOCAL_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${LOCAL_DOMAIN}/privkey.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options    "nosniff"                             always;
+    add_header X-Frame-Options           "SAMEORIGIN"                          always;
+    add_header Referrer-Policy           "strict-origin-when-cross-origin"     always;
+
+    client_max_body_size 10G;
+
+	proxy_buffering off;
+	proxy_cache off;
+	chunked_transfer_encoding on;
+
+	proxy_connect_timeout 600s;
+	proxy_send_timeout    1800s;
+	proxy_read_timeout    1800s;
+
+    location / {
+        proxy_pass http://odysseus;
+    }
+}

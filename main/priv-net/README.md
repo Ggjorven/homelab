@@ -155,6 +155,8 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/tdarr.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/haos.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/memos.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/searxng.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/odysseus.conf.template"
     cd ~/openresty
     mkdir -p scripts
     cd scripts
@@ -253,7 +255,10 @@ This folder contains the installation instructions and configuration files used 
       - `tdarr.local`
     - [haos](./../haos/README.md):
       - `haos.local`
-    - [misc](./../haos/README.md):
+    - [search](./../search/README.md):
+      - `searxng.local`
+      - `odysseus.local`
+    - [misc](./../misc/README.md):
       - `memos.local`
       - `leantime.local`
 
