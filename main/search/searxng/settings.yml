@@ -11,5 +11,5 @@ server:
   method: "GET"
   limiter: false
 
-redis:
-  url: redis://172.24.1.11:6379/0
+valkey:
+  url: valkey://172.24.1.11:6379/0
