@@ -22,7 +22,7 @@ This folder contains the installation instructions and configuration files used 
 | 112 | LXC | 2 | 1024 | 10 | pub-net | OpenResty, Authelia, Crowdsec, Fail2ban | Public reverse proxy with authentication DMZ | - | - | Yes, port 80 and 443 | 112 \| 172.20.112.10/24 |
 | [113](./priv-net/README.md) | LXC | 1 | 512 | 10 | [priv-net](./priv-net/README.md) | Certbot, OpenResty, DDNS | Private reverse proxy and some network utilities | - | - | X | 113 \| 172.20.113.10/24 |
 | [114](./haos/README.md) | VM | 2 | 2048 | 32 | [haos](./haos/README.md) | Home Assistant | Smarthome system | - | - | X | 114 \| 172.20.114.10/24 |
-| 115 | LXC | 2 | 2048 | 20 | search | SearchXNG, Hermes + CliProxyAPI | Search engine + AI | - | GPU | X | 115 \| 172.20.115.10/24 |
+| [115](./search/README.md) | LXC | 4 | 8192 | 32 | [search](./search/README.md) | SearchXNG, Odysseus, Hermes + CliProxyAPI | Search engine + AI | - | GPU | X | 115 \| 172.20.115.10/24 |
 | [116](./misc/README.md) | LXC | 2 | 2048 | 32 | [misc](./misc/README.md) | Memos + Mealie + Nametag + Leantime + ... | Miscellaneous tools | - | - | X | 116 \| 172.20.116.10/24 |
 
 ## Steps
