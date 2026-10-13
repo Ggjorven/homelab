@@ -14,13 +14,16 @@ services:
       search-network:
         ipv4_address: 172.24.1.10
     ports:
-      - "0.0.0.0:8888:8080"
+      - "0.0.0.0:8888:8888"
     healthcheck:
       test: wget -qO- http://localhost:8080/healthz
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 15s
+    depends_on:
+      searxng-valkey:
+        condition: service_healthy
     restart: always
 
   searxng-valkey:

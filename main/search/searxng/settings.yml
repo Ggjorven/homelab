@@ -1,5 +1,15 @@
 use_default_settings: true
 
 server:
-  secret_key: "#S3cr3tK3y!"
+  bind_address: "0.0.0.0"
+  port: 8888
+
+  secret_key: "!S3cr3tK3y@Th4t#1s$V3ry%L0ng^But&Pl34s3*R3pl4e(W1th)Y0ur_0wn+"
   image_proxy: true
+
+  base_url: "http://localhost:8888/"
+  method: "fair"
+  limiter: false
+
+redis:
+  url: redis://172.24.1.11:6379/0
