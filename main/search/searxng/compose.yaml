@@ -13,6 +13,7 @@ services:
     volumes:
       - ./config:/etc/searxng
       - ./data:/var/cache/searxng
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
     networks:
       search-network:
         ipv4_address: 172.24.1.10
@@ -27,6 +28,7 @@ services:
     depends_on:
       searxng-valkey:
         condition: service_healthy
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"] # Custom entrypoint for environment variable substitution
     restart: always
 
   searxng-valkey:

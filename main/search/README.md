@@ -128,6 +128,8 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     cd ~/searxng
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/.env"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/compose.yaml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/docker-entrypoint.sh"
+    chmod +x docker-entrypoint.sh
     mkdir -p config
     cd config/
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/settings.yml"
