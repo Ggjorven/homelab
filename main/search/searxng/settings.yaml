@@ -1,0 +1,5 @@
+use_default_settings: true
+
+server:
+  secret_key: "#S3cr3tK3y!"
+  image_proxy: true
