@@ -23,7 +23,7 @@ Before we can create our `post-arr` **Proxmox LXC**. We must have finished these
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `106` (matches with the VLAN) and set the hostname to `post-arr` (or something else).
 
-5. For the `post-arr` LXC I have given it a disk of **100GB**, **2vCPU**s and **1024MiB** of RAM.
+5. For the `post-arr` LXC I have given it a disk of **100GB**, **6vCPU**s and **8192MiB** of RAM.
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.106.10/24` and the gateway to `172.20.106.1`. For IPv6 select `none`.
 
