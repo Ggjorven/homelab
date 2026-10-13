@@ -8,7 +8,7 @@ server:
   image_proxy: true
 
   base_url: "https://searxng.local.${BASE_DOMAIN}/"
-  method: "fair"
+  method: "GET"
   limiter: false
 
 redis:

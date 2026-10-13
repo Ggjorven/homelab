@@ -8,7 +8,7 @@ services:
     image: docker.io/searxng/searxng:latest
     container_name: searxng-core
     environment:
-      - SEARXNG_ENVSUBST_FILTER=$$BASE_DOMAIN
+      - SEARXNG_ENV_REGEX_FILTER=^BASE_DOMAIN$
       - BASE_DOMAIN=${BASE_DOMAIN}
     volumes:
       - ./config:/etc/searxng
