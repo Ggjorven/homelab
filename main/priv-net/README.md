@@ -119,6 +119,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/.env"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/compose.yaml"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/certbot/docker-entrypoint.sh"
+    chmod +x docker-entrypoint.sh
     ```
 
 37. Create the `openresty` stack:
@@ -164,7 +165,16 @@ This folder contains the installation instructions and configuration files used 
     chmod +x reload.sh
     ```
 
-38. Get the `up` and `down` scripts:
+38. (optional) Create the `tailscale` stack:
+    ```sh
+    BRANCH=main
+    mkdir -p ~/tailscale
+    cd ~/tailscale
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/tailscale/.env"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/tailscale/compose.yaml"
+    ```
+
+39. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -177,6 +187,8 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-certbot.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-openresty.sh"
     sudo chmod +x up-openresty.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/up-tailscale.sh"
+    sudo chmod +x up-tailscale.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-monitoring.sh"
@@ -185,9 +197,11 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-openresty.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-certbot.sh"
     sudo chmod +x down-certbot.sh
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/scripts/down-tailscale.sh"
+    sudo chmod +x down-tailscale.sh
     ```
 
-39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+40. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -203,30 +217,30 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/services/compose-shutdown.service"
     ```
 
-40. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+41. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-41. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+42. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
 
-42. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
+43. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
 
-43. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
+44. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
 
-44. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
+45. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
 
-45. Click **Create Token**, select **Edit Zone DNS**.
+46. Click **Create Token**, select **Edit Zone DNS**.
 
-46. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
+47. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
 
-47. Copy the API token to a temporary safe location since we are going to need it multiple times.
+48. Copy the API token to a temporary safe location since we are going to need it multiple times.
 
-48. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
+49. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
-49. Create records for all of these:
+50. Create records for all of these:
     - [main](./../README.md):
       - `proxmox.local`
     - [truenas](./../truenas/README.md):
@@ -264,7 +278,7 @@ This folder contains the installation instructions and configuration files used 
 
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
-50. Now start the `networking` and `monitoring` stacks:
+51. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -304,6 +318,10 @@ sudo /lxc/scripts/up-openresty.sh
 ```
 
 You should now be able to access **Jellyfin**, **Seerr**, etc.. by going to `https://jellyfin.local.mydomain.com` or `https://seerr.local.mydomain.com` respectively.
+
+### (optional) Tailscale
+
+// TODO: ...
 
 ## Debugging
 

@@ -1,0 +1,36 @@
+networks:
+  priv-net-network:
+    name: priv-net-network
+    external: true
+
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_MODULE
+    environment:
+      - TS_HOSTNAME=tailscale
+      - TS_AUTHKEY=${AUTH_KEY}
+      - TS_EXTRA_ARGS=--advertise-exit-node
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_AUTH_ONCE=false
+      - TS_ACCEPT_DNS=false
+      - TS_ROUTES=${LAN_SUBNET}
+      - TS_ENABLE_HEALTH_CHECK=true
+    volumes:
+      - ./data:/var/lib
+      - ./config:/config
+      - /dev/net/tun:/dev/net/tun:ro
+    network_mode: host
+    healthcheck:
+      test: wget -qO- http://127.0.0.1:9002/healthz
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: always

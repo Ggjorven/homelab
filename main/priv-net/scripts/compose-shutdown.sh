@@ -1,5 +1,6 @@
 #!/bin/bash
 
+"$(dirname "$0")/down-tailscale.sh"
 "$(dirname "$0")/down-openresty.sh"
 "$(dirname "$0")/down-certbot.sh"
 "$(dirname "$0")/down-monitoring.sh"
