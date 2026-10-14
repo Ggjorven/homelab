@@ -2,7 +2,7 @@ use_default_settings: true
 
 server:
   bind_address: "0.0.0.0"
-  port: 8888
+  port: 8080
 
   secret_key: "!S3cr3tK3y@Th4t#1s$V3ry%L0ng^But&Pl34s3*R3pl4e(W1th)Y0ur_0wn+"
   image_proxy: true

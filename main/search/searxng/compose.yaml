@@ -18,7 +18,7 @@ services:
       search-network:
         ipv4_address: 172.24.1.10
     ports:
-      - "0.0.0.0:8888:8888"
+      - "0.0.0.0:8888:8080"
     healthcheck:
       test: wget -qO- http://localhost:8080/healthz
       interval: 30s
