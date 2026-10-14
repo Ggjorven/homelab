@@ -343,7 +343,7 @@ This folder contains the installation instructions and configuration files used 
 
 ### VPN1
 
-We can configure `vpn1` by editing the `.env` file and other files.
+We can configure **VPN1** by editing the `.env` file and other files.
 
 1. Edit the `.env` file:
     ```sh
@@ -463,7 +463,7 @@ We can configure `vpn1` by editing the `.env` file and other files.
 
 ### VPN2
 
-We can configure `vpn2` by editing the `.env` file and other files.
+We can configure **VPN2** by editing the `.env` file and other files.
 
 1. Edit the `.env` file:
     ```sh
@@ -659,7 +659,7 @@ Now that the container is running we'll start configuring via the WebUI on port 
 
 ### Slskd
 
-We can fully configure `slskd` by editing the `.env` file.
+We can fully configure **Slskd** by editing the `.env` file.
 
 1. [Slskd](#Slskd) is connected to [VPN2](#VPN2), we'll need to grab the API key from that and put it in `.env`. See the contents of the auth config:
     ```sh
