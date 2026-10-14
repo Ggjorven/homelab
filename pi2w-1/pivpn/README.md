@@ -28,7 +28,7 @@ PiVPN is a VPN service that allows you to connect to your home network from anyw
 
 7. When the installer asks for which provider to use select **Wireguard** and hit enter to continue.
 
-8. Next it will ask what port to be on, the default is `51820`, I recommend [generating a random port](https://it-tools.tech/random-port-generator) and using that, then **Confirm**.
+8. Next it will ask what port to be on, the default is `51820`, I recommend [generating a random port](https://it-tools.tech/random-port-generator) and using that, then **Confirm**q.
 
 9. If you have set up [`pi-hole`](./../pihole/README.md) on this device it should now detect it and ask to use that as the DNS server, say **Yes**, else set it to **Cloudflare**.
 
@@ -55,6 +55,54 @@ PiVPN is a VPN service that allows you to connect to your home network from anyw
 
 15. Connecting to the **PiVPN** server differs on every platform. [Here](https://docs.pivpn.io/wireguard/#windowsmac) you can find more information. For this example I will use an **Android Phone**.
     // TODO: ...
+
+16. (optional) If you are using the VPN from a **DNS Entry** like `vpn.example.com` you must ensure that the domain keeps pointing to your actual public IP by using ddns. I will be showing it for **Cloudflare**.
+
+17. (optional) Create a directory for our DDNS script:
+    ```sh
+    sudo mkdir -p /pi2w/scripts
+    ```
+
+18. (optional) Now download my DDNS script:
+    ```sh
+    BRANCH=main
+    cd /pi2w/scripts
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/pi2w-1/pivpn/scripts/cloudflare-ddns.sh"
+    sudo chmod +x cloudflare-ddns.sh
+    ```
+
+19. (optional) Before you can run it you must create an API key for the script to use to update your cloudflare DNS record. Go to [https://dash.cloudflare.com/](https://dash.cloudflare.com/).
+
+20. (optional) Now in the top-right select **Profile**.
+
+21. (optional) Then navigate to **API Tokens** and hit **Create Token**.
+
+22. (optional) Use the **Edit zone DNS** template.
+
+23. (optional) It is highly recommened to change the **Token name** to something more memorable like `pi2w-1 cloudflare-ddns`.
+
+24. (optional) Then under **Zone Resources** after **Specific Zone** select the domain you are using. Scroll down and hit **Continue to summary** and then **Create Token**.
+
+25. (optional) Copy your token and back in the SSH session open the script:
+    ```sh
+    sudo nano /pi2w/scripts/cloudflare-ddns.sh
+    ```
+    Replace the `DOMAINS` with your domain, (ex. `vpn.example.com`).  
+    Also replace the value under `API_KEY` with the just copied key.
+
+26. (optional) Now make a system timer to run the DDNS update periodically:
+    ```sh
+    BRANCH=main
+    cd /etc/systemd/system
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/pi2w-1/pivpn/services/cloudflare-ddns.service"
+    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/pi2w-1/pivpn/services/cloudflare-ddns.timer"
+    ```
+
+27. (optional) Enable the timer:
+    ```sh
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now cloudflare-ddns.timer
+    ```
 
 ## Contributing
 
