@@ -26,13 +26,18 @@ Pi-hole is a custom DNS server and used as a network wide adblocker in my case, 
 
 6. For **Query Anonymization** select **Anonymous mode**.
 
-7. Go to the **Pi Zero 2 W**'s ip-address in a web browser and login. 
+7. After the install has finished you'll see a screen with your IP and a password. Remember this IP and either remember this password or set it manually:
+    ```sh
+    sudo pihole setpassword
+    ```
 
-8. Now navigate to the **Lists** section and individually add each address in [block_lists](block_lists.txt) with **Add blocklist**.
+8. Go to the **Pi Zero 2 W**'s ip-address in a web browser and login with either the generated password or the password you just set. 
 
-9. To actually enable the lists go to **Tools** -> **Update Gravity** and hit **Update**.
+9. Now navigate to the **Lists** section and individually add each address in [block_lists](block_lists.txt) with **Add blocklist**.
 
-10. Now start enjoying your ad-free browsing experience by setting your **Pi Zero 2 W**'s ip-address as a DNS server in your router.
+10. To actually enable the lists go to **Tools** -> **Update Gravity** and hit **Update**.
+
+11. Now start enjoying your ad-free browsing experience by setting your **Pi Zero 2 W**'s ip-address as a DNS server in your router.
 
 ## Extra notes
 
