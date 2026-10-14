@@ -321,7 +321,48 @@ You should now be able to access **Jellyfin**, **Seerr**, etc.. by going to `htt
 
 ### (optional) Tailscale
 
-// TODO: ...
+We can fully configure **Tailscale** by editing the `.env` file.
+
+1. We'll be configuring **Tailscale** to be an exit node that can access our LAN, so first go to [the tailscale console](https://console.tailscale.com/admin/machines) and login with your account and hit **Add device**, as the type select **Linux Server**.
+
+2. Under **1.** enable **Use as exit node**, now under **2.** set **Auth key expiration** to `1` day. Hit **Generate intall script**.
+
+3. You'll now see a command like:
+    ```sh
+    curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up --auth-key=tskey-auth-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ```
+    Copy the key set after the flag `--auth-key=`, example:
+    ```sh
+    tskey-auth-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ```
+
+4. With that key copied on the the `.env` file:
+    ```sh
+    nano ~/tailscale/.env
+    ```
+    Replace `AUTH_KEY` with your copied key.  
+    Now temporarily save the file.
+
+5. We'll also want to figure out what subnet your LAN is on. (This requires having `vmbr0` still attached)
+    ```sh
+    ip route show
+    ```
+    Look for the `192.168.xxx.xxx/xx` on the same line as `vmbr0` or `eth1`, most likely the last line. Take note of the `192.168.xxx.xxx/xx`.
+
+6. Now re-open the `.env` file:
+    ```sh
+    nano ~/tailscale/.env
+    ```
+    And replace `LAN_SUBNET` with the subnet you just took note of.
+
+7. Now start **Tailscale** by running:
+    ```sh
+    sudo /lxc/scripts/up-tailscale.sh
+    ```
+
+8. Now go back to the [dashboard](https://console.tailscale.com/admin/machines) and look for the `tailscale` machine, hit the three dots select **Edit route settings** and enable the subnet listed under **Subnet routes**.
+
+Now that the container is running you can access your LAN via the `tailscale` exit node.
 
 ## Debugging
 
