@@ -360,7 +360,7 @@ We can fully configure **Tailscale** by editing the `.env` file.
     sudo /lxc/scripts/up-tailscale.sh
     ```
 
-8. Now go back to the [dashboard](https://console.tailscale.com/admin/machines) and look for the `tailscale` machine, hit the three dots select **Edit route settings** and enable the subnet listed under **Subnet routes**.
+8. Now go back to the [dashboard](https://console.tailscale.com/admin/machines) and look for the `tailscale` machine, hit the three dots select **Edit route settings** and enable the subnet listed under **Subnet routes**, also enable **Use as exit node**.
 
 Now that the container is running you can access your LAN via the `tailscale` exit node.
 
