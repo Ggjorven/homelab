@@ -129,16 +129,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/leantime/compose.yaml"
     ```
 
-38. (optional) Create the `tailscale` stack:
-    ```sh
-    BRANCH=main
-    mkdir -p ~/tailscale
-    cd ~/tailscale
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/tailscale/.env"
-    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/tailscale/compose.yaml"
-    ```
-
-39. Get the `up` and `down` scripts:
+38. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -151,8 +142,6 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x up-memos.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/up-leantime.sh"
     sudo chmod +x up-leantime.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/up-tailscale.sh"
-    sudo chmod +x up-tailscale.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-networking.sh"
     sudo chmod +x down-networking.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-monitoring.sh"
@@ -161,11 +150,9 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-memos.sh
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-leantime.sh"
     sudo chmod +x down-leantime.sh
-    sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/scripts/down-tailscale.sh"
-    sudo chmod +x down-tailscale.sh
     ```
 
-40. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+39. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -181,14 +168,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/misc/services/compose-shutdown.service"
     ```
 
-41. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+40. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-42. Now start the `networking` and `monitoring` stacks:
+41. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
@@ -238,10 +225,6 @@ First we'll start by configuring via the `.env` file.
 Now that the container is running we'll start configuring via the WebUI on port `8080`. This requires either having `vmbr0` still attached or having set up [`priv-net`](./../priv-net/README.md).
 
 1. TODO
-
-### (optional) Tailscale
-
-// TODO: ...
 
 ## Debugging
 

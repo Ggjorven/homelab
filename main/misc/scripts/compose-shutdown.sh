@@ -1,6 +1,5 @@
 #!/bin/bash
 
-"$(dirname "$0")/down-tailscale.sh"
 "$(dirname "$0")/down-leantime.sh"
 "$(dirname "$0")/down-memos.sh"
 "$(dirname "$0")/down-monitoring.sh"
