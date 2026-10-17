@@ -235,13 +235,18 @@ This folder contains the installation instructions and configuration files used 
 
 33. Reboot your **Proxmox Node** to get all VLANs properly initialized.
 
-34. Once back we can start creating our **VM**'s and **LXC**'s:
+34. // TODO: dnsmasq on VLANs
+
+35. Once back we can start creating our **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
     - [`photos`](./photos/README.md)
+    - [`cloud`](./cloud/README.md)
     - [`arr`](./arr/README.md)
     - [`post-arr`](./post-arr/README.md)
     - [`priv-net`](./priv-net/README.md)
+    - [`haos`](./haos/README.md)
+    - [`search`](./search/README.md)
     - [`misc`](./misc/README.md)
 
     // TODO: All LXCs
