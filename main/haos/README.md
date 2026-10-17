@@ -80,7 +80,7 @@
 
 26. Make the **IPv4** **Static** and set the **IP Address** to `172.20.114.10/24`.
 
-27. Set the **Gateway address** to `172.20.114.1` and **Save**!
+27. Set both the **Gateway address** and **DNS Server** to `172.20.114.1` and **Save**!
 
 28. Scroll down to **HTTP Server** and open **Reverse Proxy**.
 
