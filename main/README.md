@@ -11,7 +11,7 @@ This folder contains the installation instructions and configuration files used 
 | [101](./media/README.md) | LXC | 4 | 4096 | 32 | [media](./media/README.md) | Jellyfin, Navidrome, Seerr, DroppedNeedle, BookOrbit | Media services | - | GPU | Yes, through proxy | 101 \| 172.20.101.10/24 |
 | [102](./media-mgmt/README.md) | LXC | 2 | 1024 | 10 | [media-mgmt](./media-mgmt/README.md) | metadata-remote | Media management services | - | - | X | 102 \| 172.20.102.10/24 |
 | [103](./photos/README.md) | LXC | 4 | 4096 | 32 | [photos](./photos/README.md) | Immich | Photo library management | - | GPU | X | 103 \| 172.20.103.10/24 |
-| 104 | LXC | 2 | 2048 | 32 | cloud | NextCloud, Paperless-ngx | Personal Cloud | - | - | Yes, through proxy | 104 \| 172.20.104.10/24 |
+| [104](./cloud/README.md) | LXC | 4 | 8192 | 32 | [cloud](./cloud/README.md) | NextCloud, Paperless-ngx | Personal Cloud | - | - | Yes, through proxy | 104 \| 172.20.104.10/24 |
 | [105](./arr/README.md) | LXC | 4 | 8192 | 32 | [arr](./arr/README.md) | Gluetun (x2), FlareSolverr, QBitTorrent, Slskd, Jackett, Prowlarr, Radarr, Sonarr, Lidarr, Bazarr, MeTube, Shelfarr | Content download stack | - | GPU | X | 105 \| 172.20.105.10/24 |
 | [106](./post-arr/README.md) | LXC | 6 | 8192 | 100 | [post-arr](./post-arr/README.md) | Tdarr, ffmpeg-normalizer, Subsyncarr | Post processing on downloaded content | - | GPU | X | 106 \| 172.20.106.10/24 |
 | 107 | LXC | 2 | 1024 | 48 | git | Gitea | Git server | - | - | Yes, through proxy | 107 \| 172.20.107.10/24 |
