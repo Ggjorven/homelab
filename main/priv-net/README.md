@@ -12,7 +12,7 @@ This folder contains the installation instructions and configuration files used 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 
-3. Choose `Advanced Install`. 
+3. First you'll be prompted for the OS, choose `debian` (the default) or just wait, then in the script choose `Advanced Install`.
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `113` (matches with the VLAN) and set the hostname to `priv-net` (or something else).
 
@@ -20,51 +20,66 @@ This folder contains the installation instructions and configuration files used 
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.113.10/24` and the gateway to `172.20.113.1`. For IPv6 select `none`.
 
-7. Leave **MTU Size** blank, same for **DNS search domain**, **DNS server IP** and **MAC-address**.
+7. Leave **MTU Size** blank, same for **DNS search domain**.
 
-8. Set the **VLAN tag** to `113` to get the proper firewall rules.
+8. For the **DNS server IP** set it to `172.20.113.1` (which is the gateway), this will forward it to the host's DNS servers.
 
-9. You can keep the **Tags** as default or set it to something custom like: `docker;proxy`.
+9. Leave the **MAC-address** blank.
 
-10. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
+10. Set the **VLAN tag** to `113` to get the proper firewall rules.
 
-11. Leave **FUSE support** disabled, enable **TUN/TAP** support.
+11. You can keep the **Tags** as default or set it to something custom like: `docker;proxy`.
 
-12. **Enable nesting**, but disable **GPU passthrough**.
+12. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
 
-13. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
+13. Leave **FUSE support** disabled, enable **TUN/TAP** support.
 
-14. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
+14. **Enable nesting**, but disable **GPU passthrough**.
 
-15. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
+15. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
 
-16. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
+16. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
 
-17. (Optional) If you want verbose output during installation enable it. (I like it)
+17. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
 
-18. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
+18. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
 
-19. When it asks you to install **Portainer** select **N**. Same for the **Portainer Agent**.
+19. (Optional) If you want verbose output during installation enable it. (I like it)
 
-20. Also don't expose the **Docker TCP Socket**, so **N**.
+20. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
 
-21. Now that the container is installed go to the **LXC** in the WebUI and go to **Network**.
+21. When it asks you to install **Portainer** select **N**. Same for the **Portainer Agent**.
 
-22. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
+22. Also don't expose the **Docker TCP Socket**, so **N**.
 
-23. Now to **Add** another **Network Device**. 
+23. Now that the container is installed go to the **LXC** in the WebUI and go to **Network**.
 
-24. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**, unlike all other **LXC**'s, for [priv-net](./README.md) it is mandatory.
+24. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
 
-25. Set **IPv4** to **Static** and set an IP then set **IPv6** to **Static** and leave it empty. **Add**!
+25. Now to **Add** another **Network Device**.
 
-26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `14`. 
+26. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**, unlike all other **LXC**'s, for [priv-net](./README.md) it is mandatory.
 
-27. Reboot the **LXC** to apply the changes.
+27. Set **IPv4** to **Static** and set an IP then set **IPv6** to **Static** and leave it empty. **Add**!
 
-28. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+28. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `14`.
 
-29. Create a `privnet` group and user in the LXC using:
+29. Reboot the **LXC** to apply the changes.
+
+30. We'll want to SSH into the **LXC**, but we need the ip address for that, go to the **Network** tab and look for the IP address under `net1`/`eth1`/`vmbr0` (ex. `192.168.xxx.xxx`).
+
+31. Now on your local machine open a terminal.
+
+32. SSH into that machine via the `root` user.
+    ```sh
+    ssh root@<ip-address>
+    ```
+    Where `<ip-address>` is the IPv4 address of the **LXC**.
+
+33. You may get an authenticity warning, type `yes` to continue. Then login with the `root` password you set during the installation.
+
+
+34. Create a `privnet` group and user in the LXC using:
     ```sh
     groupadd -g 1000 privnet
     useradd -u 1000 -g 1000 -m -s /bin/bash privnet
@@ -72,28 +87,28 @@ This folder contains the installation instructions and configuration files used 
     usermod -aG sudo privnet
     ```
 
-30. Set a (safe) password for the `privnet` user:
+35. Set a (safe) password for the `privnet` user:
     ```sh
     passwd privnet
     ```
 
-31. Now login as the `privnet` user:
+36. Now login as the `privnet` user:
     ```sh
     su privnet
     ```
 
-32. Now we're going to install all of the files. Start by navigating to the `home` directory:
+37. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-33. Get the global .env:
+38. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/.env"
     ```
 
-34. Create the `networking` stack:
+39. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -102,7 +117,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/networking/compose.yaml"
     ```
 
-35. Create the `monitoring` stack:
+40. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -111,7 +126,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/monitoring/compose.yaml"
     ```
 
-36. Create the `certbot` stack:
+41. Create the `certbot` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/certbot
@@ -122,7 +137,7 @@ This folder contains the installation instructions and configuration files used 
     chmod +x docker-entrypoint.sh
     ```
 
-37. Create the `openresty` stack:
+42. Create the `openresty` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/openresty
@@ -167,7 +182,7 @@ This folder contains the installation instructions and configuration files used 
     chmod +x reload.sh
     ```
 
-38. (optional) Create the `tailscale` stack:
+43. (optional) Create the `tailscale` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/tailscale
@@ -176,7 +191,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/tailscale/compose.yaml"
     ```
 
-39. Get the `up` and `down` scripts:
+44. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -203,7 +218,7 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-tailscale.sh
     ```
 
-40. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+45. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -219,30 +234,30 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/services/compose-shutdown.service"
     ```
 
-41. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+46. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-42. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+47. Before we can continue you must create an account at [cloudflare.com](https://dash.cloudflare.com/sign-up).
 
-43. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
+48. Go to **Domains**, and add your domain name. Make sure `Import DNS records automatically` is enabled.
 
-44. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
+49. Go to where you bought your domain and change the **DNS Records** to the DNS Records cloudflare provides you with.
 
-45. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
+50. To make our `priv-net` be able to change DNS records and create SSL records we need to create an API Key. Go to **Profile** -> **API Tokens**.
 
-46. Click **Create Token**, select **Edit Zone DNS**.
+51. Click **Create Token**, select **Edit Zone DNS**.
 
-47. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
+52. Under **Zone Resources** click `Select...` and select your domain. Scroll to the bottom and **Continue** and **Create**.
 
-48. Copy the API token to a temporary safe location since we are going to need it multiple times.
+53. Copy the API token to a temporary safe location since we are going to need it multiple times.
 
-49. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
+54. Go back to your domain on the dashboard and go to **DNS** -> **Records**.
 
-50. Create records for all of these:
+55. Create records for all of these:
     - [main](./../README.md):
       - `proxmox.local`
     - [truenas](./../truenas/README.md):
@@ -284,7 +299,7 @@ This folder contains the installation instructions and configuration files used 
 
     For the IP address set the value of `ip a` of network interface `vmbr0`/`eth1`.
 
-51. Now start the `networking` and `monitoring` stacks:
+56. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
