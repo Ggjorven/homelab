@@ -143,6 +143,8 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/navidrome.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/bookorbit.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/metadata-remote.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/immich.conf.template"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/nextcloud.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/qbittorrent.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/slskd.conf.template"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/priv-net/openresty/templates/jackett.conf.template"
@@ -254,6 +256,10 @@ This folder contains the installation instructions and configuration files used 
       - `bookorbit.local`
     - [media-mgmt](./../media-mgmt/README.md):
       - `metadata-remote.local`
+    - [photos](./../photos/README.md):
+      - `immich.local`
+    - [cloud](./../cloud/README.md):
+      - `nextcloud.local`
     - [arr](./../arr/README.md):
       - `qbittorrent.local`
       - `slskd.local`
