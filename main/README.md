@@ -235,21 +235,62 @@ This folder contains the installation instructions and configuration files used 
 
 33. Reboot your **Proxmox Node** to get all VLANs properly initialized.
 
-34. // TODO: dnsmasq on VLANs
+34. Before we start creating containers we need to make sure that our containers can properly send DNS requests. To set up a DNS proxy install `dnsmasq` on the **Proxmox Node**.
+    ```sh
+    apt update
+    apt install dnsmasq
+    ```
 
-35. Once back we can start creating our **VM**'s and **LXC**'s:
+35. Now create the config file:
+    ```sh
+    nano /etc/dnsmasq.d/vlan-dns.conf
+    ```
+    And paste:
+    ```conf
+    # DNS forwarding only
+    port=53
+    no-hosts
+
+    # Listen on all VLAN gateway interfaces
+    interface=vmbr1.*
+    bind-dynamic
+
+    resolv-file=/etc/resolv.conf
+
+    cache-size=10000
+
+    domain-needed
+    ```
+
+36. Test the configuration:
+    ```sh
+    dnsmasq --test
+    ```
+    It should say `dnsmasq: syntax check OK.`.
+
+37. Enable `dnsmasq`:
+    ```sh
+    systemctl enable --now dnsmasq
+    ```
+
+38. Make sure it is listening:
+    ```sh
+    ss -tulnp | grep ':53'
+    ```
+    You should see a long list of listeners on `vmbr1`.
+
+39. Now your DNS should be working and you can start creating **VM**'s and **LXC**'s:
     - [`truenas`](./truenas/README.md)
     - [`media`](./media/README.md)
     - [`photos`](./photos/README.md)
     - [`cloud`](./cloud/README.md)
     - [`arr`](./arr/README.md)
     - [`post-arr`](./post-arr/README.md)
+    - // TODO: More docker stacks
     - [`priv-net`](./priv-net/README.md)
     - [`haos`](./haos/README.md)
     - [`search`](./search/README.md)
     - [`misc`](./misc/README.md)
-
-    // TODO: All LXCs
 
 ## Debugging
 
