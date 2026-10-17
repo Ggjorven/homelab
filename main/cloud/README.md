@@ -38,7 +38,7 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
 
 12. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
 
-13. Leave **FUSE support** disabled, same for **TUN/TAP** support.
+13. Leave **FUSE support** disabled, enable **TUN/TAP** support.
 
 14. **Enable nesting**, but disable **GPU passthrough**.
 
