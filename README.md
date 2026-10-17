@@ -20,9 +20,9 @@ My homelab consists of three primary machines:
 
 There is also a `tutorials` directory containing reusable infrastructure documentation.
 
-### Image overview
+### Architecture overview
 
-// TODO: ...
+// TODO: Mermaid flowchart
 
 ### main 
 
@@ -34,10 +34,17 @@ It runs **Proxmox VE** as the hypervisor and hosts:
     - TrueNAS
 - Docker-based application stacks
     - media
-    - // TODO: More
+    - media-mgt
+    - photos
+    - cloud
+    - arr
+    - post-arr
+    - // TODO: More docker stacks
+    - priv-net
+    - search
+    - misc
 - Home automation
     - Home assistant 
-    - ESP Home
 
 ### pi2w-1
 
@@ -80,6 +87,15 @@ To quickly navigate this repository I have this list of services below:
     - [`truenas`](main/truenas/README.md)
     - Docker based application stacks:
         - [`media`](main/media/README.md)
+        - [`media-mgt`](main/media-mgt/README.md)
+        - [`photos`](main/photos/README.md)
+        - [`cloud`](main/cloud/README.md)
+        - [`arr`](main/arr/README.md)
+        - [`post-arr`](main/post-arr/README.md)
+        - // TODO: More docker stacks
+        - [`priv-net`](main/priv-net/README.md)
+        - [`search`](main/search/README.md)
+        - [`misc`](main/misc/README.md)
     - [`haos`](main/haos/README.md)
 
 ---
