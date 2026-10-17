@@ -85,9 +85,19 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
 
 32. Now reboot the **LXC**.
 
-33. Go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+33. We'll want to SSH into the **LXC**, but we need the ip address for that, go to the **Network** tab and look for the IP address under `net1`/`eth1`/`vmbr0` (ex. `192.168.xxx.xxx`).
 
-34. Create a `cloud` group and user in the LXC using:
+34. Now on your local machine open a terminal.
+
+35. SSH into that machine via the `root` user.
+    ```sh
+    ssh root@<ip-address>
+    ```
+    Where `<ip-address>` is the IPv4 address of the **LXC**.
+
+36. You may get an authenticity warning, type `yes` to continue. Then login with the `root` password you set during the installation.
+
+37. Create a `cloud` group and user in the **LXC** using:
     ```sh
     groupadd -g 1000 cloud
     useradd -u 1000 -g 1000 -m -s /bin/bash cloud
@@ -95,28 +105,28 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     usermod -aG sudo cloud
     ```
 
-35. Set a (safe) password for the `cloud` user:
+38. Set a (safe) password for the `cloud` user:
     ```sh
     passwd cloud
     ```
 
-36. Now login as the `cloud` user:
+39. Now login as the `cloud` user:
     ```sh
     su cloud
     ```
 
-37. Now we're going to install all of the files. Start by navigating to the `home` directory:
+40. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-38. Get the global .env:
+41. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/cloud/.env"
     ```
 
-39. Create the `networking` stack:
+42. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -125,7 +135,7 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/cloud/networking/compose.yaml"
     ```
 
-40. Create the `monitoring` stack:
+43. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -134,7 +144,7 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/cloud/monitoring/compose.yaml"
     ```
 
-41. Get the `up` and `down` scripts:
+44. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -149,7 +159,7 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     sudo chmod +x down-monitoring.sh
     ```
 
-42. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+45. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -165,14 +175,14 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/cloud/services/compose-shutdown.service"
     ```
 
-43. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+46. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-44. Now start the `networking` and `monitoring` stacks:
+47. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
