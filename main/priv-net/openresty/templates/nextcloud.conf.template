@@ -1,0 +1,34 @@
+upstream nextcloud {
+    server 172.20.104.10:8080;
+    keepalive 16;
+}
+
+server {
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    http2       on;
+    server_name nextcloud.${LOCAL_DOMAIN};
+
+    ssl_certificate     /etc/letsencrypt/live/${LOCAL_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${LOCAL_DOMAIN}/privkey.pem;
+
+	add_header X-Robots-Tag "noindex, nofollow" always;
+	proxy_set_header X-Forwarded-Host $host;
+
+    client_max_body_size    10G;
+    proxy_buffering         off;
+    proxy_request_buffering off;
+    proxy_read_timeout      600s;
+
+    location / {
+        proxy_pass http://nextcloud;
+    }
+
+    # CalDAV/CardDAV redirects
+    location = /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+    }
+    location = /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+    }
+}
