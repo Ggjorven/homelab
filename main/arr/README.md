@@ -12,7 +12,7 @@ This folder contains the installation instructions and configuration files used 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 
-3. Choose `Advanced Install`. 
+3. First you'll be prompted for the OS, choose `debian` (the default) or just wait, then in the script choose `Advanced Install`.
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `105` (matches with the VLAN) and set the hostname to `arr` (or something else).
 
@@ -20,65 +20,81 @@ This folder contains the installation instructions and configuration files used 
 
 6. For the (primary) **Network Bridge** select `vmbr1` and set a static IP (since we don't have a DHCP server). Set the IP to `172.20.105.10/24` and the gateway to `172.20.105.1`. For IPv6 select `none`.
 
-7. Leave **MTU Size** blank, same for **DNS search domain**, **DNS server IP** and **MAC-address**.
+7. Leave **MTU Size** blank, same for **DNS search domain**.
 
-8. Set the **VLAN tag** to `105` to get the proper firewall rules.
+8. For the **DNS server IP** set it to `172.20.105.1` (which is the gateway), this will forward it to the host's DNS servers.
 
-9. You can keep the **Tags** as default or set it to something custom like: `docker`.
+9. Leave the **MAC-address** blank.
 
-10. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
+10. Set the **VLAN tag** to `105` to get the proper firewall rules.
 
-11. Leave **FUSE support** disabled, enable **TUN/TAP** support.
+11. You can keep the **Tags** as default or set it to something custom like: `docker`.
 
-12. **Enable nesting**, but disable **GPU passthrough**.
+12. Provision the SSH for root by using the `found` option (or provide your own). Use space to select the key. And enable `root` SSH access.
 
-13. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
+13. Leave **FUSE support** disabled, enable **TUN/TAP** support.
 
-14. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
+14. **Enable nesting**, but disable **GPU passthrough**.
 
-15. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
+15. Leave **APT-cacher** disabled and don't set a **HTTP/HTTPS proxy**.
 
-16. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
+16. Set your **Timezone** to your timezone, mine is `Europe/Amsterdam`.
 
-17. (Optional) If you want verbose output during installation enable it. (I like it)
+17. (Optional) Personally I like to have **Container protection** enabled to avoid accidental deletion.
 
-18. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
+18. Set **Allow device node creation** to No and leave **Filesystem mounts** empty. Same for the **Post-install hook**.
 
-19. When it asks you to install **Portainer** select **N**. Same for the **Portainer Agent**.
+19. (Optional) If you want verbose output during installation enable it. (I like it)
 
-20. Also don't expose the **Docker TCP Socket**, so **N**.
+20. Confirm the settings and wait... (If you're asked to update the defaults just hit Cancel)
 
-21. Now that the container is installed go to the **LXC** in the WebUI and go to **Network**.
+21. When it asks you to install **Portainer** select **N**. Same for the **Portainer Agent**.
 
-22. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
+22. Also don't expose the **Docker TCP Socket**, so **N**.
 
-23. For debugging I also like to **Add** another **Network Device**. 
+23. Now that the container is installed go to the **LXC** in the WebUI and go to **Network**.
 
-24. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**.
+24. Double click on `net0`/`eth0`/`vmbr1` and disable the **Firewall**, since we'll be setting up our own firewall rules.
 
-25. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
+25. For debugging I also like to **Add** another **Network Device**.
 
-26. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `6`. 
+26. Set the **Name** to `eth1`. Set the **Bridge** to `vmbr0` and disable the **Firewall**.
 
-27. We also want to give the **LXC** access to our `media` and `downloads` datasets from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
+27. Set **IPv4** to **DHCP** (since it's only for debugging) and set **IPv6** to **Static** and leave it empty. **Add**!
 
-28. Edit the **LXC**'s config file:
+28. We also want the **LXC** to boot properly on startup, go to **Options** tab and set **Start/Shutdown order** to `6`.
+
+29. We also want to give the **LXC** access to our `media` and `downloads` datasets from [truenas](./../truenas/README.md), so open the **Proxmox Node**'s **Shell**.
+
+30. Edit the **LXC**'s config file:
     ```sh
     nano /etc/pve/lxc/105.conf
     ```
     Where `105` is the container ID (CTID) or LXC ID.
 
-29. Pass through the `/mnt/media` mountpoint by pasting:
+31. Pass through the `/mnt/media` mountpoint by pasting:
     ```
     mp0: /mnt/media,mp=/mnt/media
     mp1: /mnt/downloads,mp=/mnt/downloads
     ```
 
-30. Reboot the **LXC** to apply the changes.
+32. Reboot the **LXC** to apply the changes.
 
-31. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+33. We'll want to SSH into the **LXC**, but we need the ip address for that, go to the **Network** tab and look for the IP address under `net1`/`eth1`/`vmbr0` (ex. `192.168.xxx.xxx`).
 
-32. Create the `arr` group and user in the LXC using:
+34. Now on your local machine open a terminal.
+
+35. SSH into that machine via the `root` user.
+    ```sh
+    ssh root@<ip-address>
+    ```
+    Where `<ip-address>` is the IPv4 address of the **LXC**.
+
+36. You may get an authenticity warning, type `yes` to continue. Then login with the `root` password you set during the installation.
+
+37. Now go to **LXC**'s **Shell** and login with `root` and the password you set in the installation.
+
+38. Create the `arr` group and user in the LXC using:
     ```sh
     groupadd -g 1000 arr
     useradd -u 1000 -g 1000 -m -s /bin/bash arr
@@ -86,28 +102,28 @@ This folder contains the installation instructions and configuration files used 
     usermod -aG sudo arr
     ```
 
-33. Set a (safe) password for the `arr` user:
+39. Set a (safe) password for the `arr` user:
     ```sh
     passwd arr
     ```
 
-34. Now login as the `arr` user:
+40. Now login as the `arr` user:
     ```sh
     su arr
     ```
 
-35. Now we're going to install all of the files. Start by navigating to the `home` directory:
+41. Now we're going to install all of the files. Start by navigating to the `home` directory:
     ```sh
     cd ~/
     ```
 
-36. Get the global .env:
+42. Get the global .env:
     ```sh
     BRANCH=main
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/.env"
     ```
 
-37. Create the `networking` stack:
+43. Create the `networking` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/networking
@@ -116,7 +132,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/networking/compose.yaml"
     ```
 
-38. Create the `monitoring` stack:
+44. Create the `monitoring` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/monitoring
@@ -125,7 +141,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/monitoring/compose.yaml"
     ```
 
-39. Create the `vpn1` stack:
+45. Create the `vpn1` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/vpn1
@@ -134,7 +150,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn1/compose.yaml"
     ```
 
-40. Create the `vpn2` stack:
+46. Create the `vpn2` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/vpn2
@@ -143,7 +159,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/vpn2/compose.yaml"
     ```
 
-41. Create the `flaresolverr` stack:
+47. Create the `flaresolverr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/flaresolverr
@@ -152,7 +168,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/flaresolverr/compose.yaml"
     ```
 
-42. Create the `qbittorrent` stack:
+48. Create the `qbittorrent` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/qbittorrent
@@ -161,7 +177,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/qbittorrent/compose.yaml"
     ```
 
-43. Create the `slskd` stack:
+49. Create the `slskd` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/slskd
@@ -170,7 +186,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/slskd/compose.yaml"
     ```
 
-44. Create the `jackett` stack:
+50. Create the `jackett` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/jackett
@@ -179,7 +195,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/jackett/compose.yaml"
     ```
 
-45. Create the `prowlarr` stack:
+51. Create the `prowlarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/prowlarr
@@ -188,7 +204,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/prowlarr/compose.yaml"
     ```
 
-46. Create the `radarr` stack:
+52. Create the `radarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/radarr
@@ -197,7 +213,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/radarr/compose.yaml"
     ```
 
-47. Create the `sonarr` stack:
+53. Create the `sonarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/sonarr
@@ -206,7 +222,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/sonarr/compose.yaml"
     ```
 
-48. Create the `lidarr` stack:
+54. Create the `lidarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/lidarr
@@ -215,7 +231,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/lidarr/compose.yaml"
     ```
 
-49. Create the `bazarr` stack:
+55. Create the `bazarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/bazarr
@@ -224,7 +240,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/bazarr/compose.yaml"
     ```
 
-50. Create the `metube` stack:
+56. Create the `metube` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/metube
@@ -233,7 +249,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/metube/compose.yaml"
     ```
 
-51. Create the `shelfarr` stack:
+57. Create the `shelfarr` stack:
     ```sh
     BRANCH=main
     mkdir -p ~/shelfarr
@@ -242,7 +258,7 @@ This folder contains the installation instructions and configuration files used 
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/shelfarr/compose.yaml"
     ```
 
-52. Get the `up` and `down` scripts:
+58. Get the `up` and `down` scripts:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -309,7 +325,7 @@ This folder contains the installation instructions and configuration files used 
     sudo chmod +x down-shelfarr.sh
     ```
 
-53. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
+59. Also get the `compose-boot`, `compose-shutdown` and `compose-restart` scripts and services:
     ```sh
     BRANCH=main
     sudo mkdir -p /lxc/scripts
@@ -325,14 +341,14 @@ This folder contains the installation instructions and configuration files used 
     sudo wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/arr/services/compose-shutdown.service"
     ```
 
-54. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
+60. Enable the `systemctl` for `compose-boot` and `compose-shutdown`:
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl enable compose-boot
     sudo systemctl enable compose-shutdown
     ```
 
-55. Now start the `networking` and `monitoring` stacks:
+61. Now start the `networking` and `monitoring` stacks:
     ```sh
     sudo /lxc/scripts/up-networking.sh
     sudo /lxc/scripts/up-monitoring.sh
