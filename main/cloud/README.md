@@ -18,7 +18,7 @@ Before we can create our `cloud` **Proxmox LXC**. We must have finished these st
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/docker.sh)"
     ```
 
-3. Choose `Advanced Install`.
+3. First you'll be prompted for the OS, choose `debian` (the default) or just wait, then in the script choose `Advanced Install`.
 
 4. Choose **Unprivileged**, set a safe root password, set the container ID to `104` (matches with the VLAN) and set the hostname to `cloud` (or something else).
 
