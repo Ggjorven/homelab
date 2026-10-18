@@ -1,15 +1,138 @@
+# Most settings are set via environment variables
+# The variables set in this file are not possible to be set via .env
+# Most are explicit defaults from: https://github.com/searxng/searxng/blob/master/searx/settings.yml
 use_default_settings: true
 
+general:
+  instance_name: "SearXNG"
+  enable_metrics: true
+  open_metrics: ""
+
+brand:
+  docs_url: https://docs.searxng.org/
+  public_instances: https://searx.space
+  wiki_url: https://github.com/searxng/searxng/wiki
+  issue_url: https://github.com/searxng/searxng/issues
+  # custom:
+  #   # Custom entries in the footer: [title]: [link]
+  #   links:
+  #     Uptime: https://uptime.searxng.org/history/darmarit-org
+  #     About: https://searxng.org
+  pwa_colors:
+    theme_color_light: "#3050ff"
+    background_color_light: "#ffffff"
+    theme_color_dark: "#5588ff"
+    background_color_dark: "#222428"
+    theme_color_black: "#3050ff"
+    background_color_black: "#000000"
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  autocomplete_min: 0
+  favicon_resolver: "kagi"
+  default_lang: "en-GB"
+
 server:
-  bind_address: "0.0.0.0"
-  port: 8080
+  limiter: true
+  http_protocol_version: "1.1"
+  default_http_headers:
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Robots-Tag: noindex, nofollow
+    Referrer-Policy: no-referrer
 
-  secret_key: "!S3cr3tK3y@Th4t#1s$V3ry%L0ng^But&Pl34s3*R3pl4e(W1th)Y0ur_0wn+"
-  image_proxy: true
+ui:
+  # Custom static and template paths for custom themes
+  static_path: ""
+  templates_path: ""
 
-  base_url: "https://searxng.local.${BASE_DOMAIN}/"
-  method: "GET"
-  limiter: false
+  query_in_title: false
 
-valkey:
-  url: valkey://172.24.1.11:6379/0
+  default_theme: simple
+  center_alignment: false
+
+  default_locale: ""
+
+  results_on_new_tab: false
+
+  theme_args:
+    simple_style: auto
+
+  search_on_category_select: true
+  hotkeys: default
+  url_formatting: pretty
+
+outgoing:
+  request_timeout: 3.0
+  useragent_suffix: ""
+  pool_connections: 100
+  enable_http2: true
+
+plugins:
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: false
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+  searx.plugins.time_zone.SXNGPlugin:
+    active: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: false
+  searx.plugins.tor_check.SXNGPlugin:
+    active: false
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+
+# Allows you to replace certain urls with your custom instances
+# hostnames:
+#   replace:
+#     '(.*\.)?youtube\.com$': 'yt.example.com'
+#     '(.*\.)?youtu\.be$': 'yt.example.com'
+#     '(.*\.)?reddit\.com$': 'teddit.example.com'
+#     '(.*\.)?redd\.it$': 'teddit.example.com'
+#     '(www\.)?twitter\.com$': 'nitter.example.com'
+#   remove:
+#     - '(.*\.)?facebook.com$'
+#   low_priority:
+#     - '(.*\.)?google(\..*)?$'
+#   high_priority:
+#     - '(.*\.)?wikipedia.org$'
+
+categories_as_tabs:
+  general:
+  images:
+  # stock images:
+  videos:
+  news:
+  map:
+  music:
+  it:
+  science:
+  files:
+  social media:
+
+doi_resolvers:
+  oadoi.org: "https://oadoi.org/"
+  doi.org: "https://doi.org/"
+  sci-hub.se: "https://sci-hub.se/"
+  sci-hub.st: "https://sci-hub.st/"
+  sci-hub.ru: "https://sci-hub.ru/"
+
+default_doi_resolver: "oadoi.org"
+
+engines:
+  - name: ahmia
+    disabled: true
+
+  - name: torch
+    disabled: true

@@ -143,10 +143,11 @@ Before we can create our `search` **Proxmox LXC**. We must have finished these s
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/.env"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/compose.yaml"
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/docker-entrypoint.sh"
-    chmod +x docker-entrypoint.sh
     mkdir -p config
     cd config/
     wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/settings.yml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/limiter.toml"
+    wget "https://raw.githubusercontent.com/Ggjorven/homelab/refs/heads/$BRANCH/main/search/searxng/favicons.toml"
     ```
 
 44. Create the `odysseus` stack:
