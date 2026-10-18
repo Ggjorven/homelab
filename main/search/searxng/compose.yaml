@@ -14,6 +14,7 @@ services:
       - ./config:/etc/searxng
       - ./data:/var/cache/searxng
       - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
       search-network:
         ipv4_address: 172.24.1.10
@@ -36,6 +37,7 @@ services:
     container_name: searxng-valkey
     volumes:
       - ./valkey:/data
+      - /etc/localtime:/etc/localtime:ro
     networks:
       search-network:
         ipv4_address: 172.24.1.11
